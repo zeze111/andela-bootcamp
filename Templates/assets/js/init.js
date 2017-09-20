@@ -15,3 +15,7 @@ $(document).ready(function () {
     height: 300
   });
 });
+
+$(document).ready(function () {
+  Materialize.updateTextFields();
+});

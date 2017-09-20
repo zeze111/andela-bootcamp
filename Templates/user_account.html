@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body class="amber lighten-5">
   <nav class="light-pink lighten-6" role="navigation">
     <div class="nav-wrapper"> <a id="logo" href="#" class="left brand-logo">More-Recipes</a>
       <ul class="right hide-on-med-and-down">
@@ -41,12 +41,12 @@
     </div>
     <div class="row">
       <div class="col s3 offset-s2">
-        <a class="btn waves-effect waves-light grey"> Edit profile
+        <a class="btn waves-effect waves-light grey"> Edit Picture
             <i class="material-icons left">mode_edit</i></a>
       </div>
     </div>
     <br>
-    <div class="container">
+    <div class="container z-depth-1 white">
       <div class="row">
         <div class="col s12">
           <ul class="tabs">
@@ -58,20 +58,63 @@
         </div>
 
         <div class="row ">
-          <div id="details">
-            details
-          </div>
+          <div class="col s12">
+            <br> <br>
+            <div id="details" class="col s10 offest-s2">
+              <form class="col s6 offset-s2">
+                <div class="input-field ">
+                  <label for="fname"> Name: </label>
+                  <input value="Name" type="text" id="name" class="validate"> </input>
+                </div>
+                <div class="input-field ">
+                  <label for="email"> Email: </label>
+                  <input value="Email" type="email" id="email" class="validate"> </input>
+                </div>
+                <div class="input-field ">
+                  <label for="bio"> Bio: </label>
+                  <input value="About Me" type="text" id="bio" class="validate"> </input>
+                </div>
+                <div class="input-field ">
+                  <label for="stat"> Status: </label>
+                  <input value="Employed / Student" type="text" id="stat" class="validate"> </input>
+                </div>
+                <div class="right-align">
+                  <button class="btn grey" type="button"> Update </button>
+                </div>
+              </form>
+            </div>
 
-          <div id="chpwd">
-            change password
-          </div>
+            <div id="chpwd" class="col s10 offest-s2">
+              <form class="col s6 offset-s2">
+                <div class="input-field ">
+                  <label for="olpwd"> Old Password: </label>
+                  <input type="email" id="olpwd" class="validate"> </input>
+                </div>
+                <div class="input-field ">
+                  <label for="npwd"> New Password: </label>
+                  <input type="password" id="npwd" class="validate"> </input>
+                </div>
+                <div class="right-align">
+                  <button class="btn grey" type="button"> Sign In </button>
+                </div>
+              </form>
+            </div>
 
-          <div id="recipe">
-            recipes
-          </div>
+            <div id="recipe" class="col s10 offest-s2">
+              <div class="col s6 offset-s2">
+                <a class="btn waves-effect waves-light grey"> Add Recipe
+                    <i class="material-icons left">add</i></a>
+              </div>
+              <div class="col s12 offest-s4">
+                <br>
+                <div class="divider"></div>
+              </div>
+              <div id="myrecipe" class="col s10 offset-s1"></div>
+            </div>
 
-          <div id="fave">
-            favourites
+            <div id="fave" class="col s10 offest-s2">
+              <div id="myfave" class="col s11 offset-s1"> You currently have no Favourites </div>
+            </div>
           </div>
         </div>
       </div>
