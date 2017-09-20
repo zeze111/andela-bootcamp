@@ -13,7 +13,135 @@
 	font-size: inherit;
 }
 
-.table-wrapper {
-  overflow-x: scroll;
-  
+.rating-stars input {
+  margin-top: 1rem;
+  display:none;
+}
+.rating-stars #star-1:checked ~ 
+section [for='star-1'] svg, .rating-stars #star-2:checked ~ 
+section [for='star-1'] svg, .rating-stars #star-2:checked ~ 
+section [for='star-2'] svg, .rating-stars #star-3:checked ~ 
+section [for='star-1'] svg, .rating-stars #star-3:checked ~ 
+section [for='star-2'] svg, .rating-stars #star-3:checked ~ 
+section [for='star-3'] svg, .rating-stars #star-4:checked ~ 
+section [for='star-1'] svg, .rating-stars #star-4:checked ~ 
+section [for='star-2'] svg, .rating-stars #star-4:checked ~ 
+section [for='star-3'] svg, .rating-stars #star-4:checked ~ 
+section [for='star-4'] svg, .rating-stars #star-5:checked ~ 
+section [for='star-1'] svg, .rating-stars #star-5:checked ~ 
+section [for='star-2'] svg, .rating-stars #star-5:checked ~ 
+section [for='star-3'] svg, .rating-stars #star-5:checked ~ 
+section [for='star-4'] svg, .rating-stars #star-5:checked ~ section [for='star-5'] svg {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+.rating-stars #star-1:checked ~ section [for='star-1'] svg path, .rating-stars #star-2:checked ~ 
+section [for='star-1'] svg path, .rating-stars #star-2:checked ~ 
+section [for='star-2'] svg path, .rating-stars #star-3:checked ~ 
+section [for='star-1'] svg path, .rating-stars #star-3:checked ~ 
+section [for='star-2'] svg path, .rating-stars #star-3:checked ~ 
+section [for='star-3'] svg path, .rating-stars #star-4:checked ~
+section [for='star-1'] svg path, .rating-stars #star-4:checked ~ 
+section [for='star-2'] svg path, .rating-stars #star-4:checked ~ 
+section [for='star-3'] svg path, .rating-stars #star-4:checked ~ 
+section [for='star-4'] svg path, .rating-stars #star-5:checked ~ 
+section [for='star-1'] svg path, .rating-stars #star-5:checked ~ 
+section [for='star-2'] svg path, .rating-stars #star-5:checked ~ 
+section [for='star-3'] svg path, .rating-stars #star-5:checked ~ 
+section [for='star-4'] svg path, .rating-stars #star-5:checked ~ section [for='star-5'] svg path {
+    fill: #fffc0a;
+    stroke: #000000;
+}
+.rating-stars section {
+  width: 200px;
+  text-align: right;
+  position: absolute;
+   top: 50%;
+  /**left: 50%; **/
+  -webkit-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+}
+.rating-stars section label {
+  display: inline-block;
+  width: 12%;
+  text-align: right;
+  cursor: pointer;
+}
+.rating-stars section label svg {
+  width: 100%;
+  height: auto;
+  fill: #f5f5f5;
+  stroke: #444;
+  -moz-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+  -moz-transition: -webkit-transform 200ms ease-in-out;
+  -o-transition: -webkit-transform 200ms ease-in-out;
+  -ms-transition: -webkit-transform 200ms ease-in-out;
+  -webkit-transition: -webkit-transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out;
+}
+.rating-stars section label svg path {
+  -moz-transition: fill 200ms ease-in-out, stroke 100ms ease-in-out;
+  -o-transition: fill 200ms ease-in-out, stroke 100ms ease-in-out;
+  -ms-transition: fill 200ms ease-in-out, stroke 100ms ease-in-out;
+  -webkit-transition: fill 200ms ease-in-out, stroke 100ms ease-in-out;
+  transition: fill 200ms ease-in-out, stroke 100ms ease-in-out;
+}
+.rating-stars section label[for="star-null"] {
+  display: block;
+  margin: 0 auto;
+  color: #999;
+}
+.rating-stars,.start-value{
+    display: inline-block;
+    width: 100%;
+    height: 22px;
+    position: relative;
+    text-align: right;
+    margin-top: 12px;
+}
+.start-value{
+  margin-top: -8px;
+}
+.start-value .item,.start-value .wotes{
+    display: none;
+}
+/* rating starts css start*/
+.reviews-stats{
+  color: rgb(141, 141, 141);
+    height: 21px;
+    text-align: center;
+    white-space: nowrap;
+    word-break: break-word;
+    border: 0px none rgb(141, 141, 141);
+    font: normal normal 300 12px/18px Roboto, Arial, sans-serif;
+    outline: rgb(141, 141, 141) none 0px;
+}
+.reviewers-small{
+    background-position: 50% 50%;
+    color: rgb(141, 141, 141);
+    display: inline-block;
+    height: 16px;
+    position: relative;
+    text-align: center;
+    top: 3px;
+    white-space: nowrap;
+    width: 16px;
+    word-break: break-word;
+    background: rgba(0, 0, 0, 0) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAaUlEQVQ4y2P4//8/AyWYYXAZAAPl5eUCQLwBiP9DMYgtQIoBC5A0w/ACUgw4gMWAA3Q1IACLAQFEGwA1xACIG6DYACRGqgEOyJgoA6C2bsDifOToNMBnwAc8mmH4Az4D/hODB3FeIAcDAOCAkSuzHR61AAAAAElFTkSuQmCC) no-repeat scroll 50% 50% / auto padding-box border-box;
+    border: 0px none rgb(141, 141, 141);
+    font: normal normal 300 12px/18px Roboto, Arial, sans-serif;
+}
+.reviews-num{
+  color: rgb(141, 141, 141);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  word-break: break-word;
+  border: 0px none rgb(141, 141, 141);
+  font: normal normal 300 12px/18px Roboto, Arial, sans-serif;
+  outline: rgb(141, 141, 141) none 0px;
 }
