@@ -12,3 +12,8 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+.table-wrapper {
+  overflow-x: scroll;
+  
+}
