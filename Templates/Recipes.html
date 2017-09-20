@@ -15,7 +15,7 @@
 
 <body class="amber lighten-5">
   <nav class="light-pink lighten-6" role="navigation">
-    <div class="nav-wrapper container"> <a id="logo" href="#" class="left brand-logo">More-Recipes</a>
+    <div class="nav-wrapper"> <a id="logo" href="#" class="left brand-logo">More-Recipes</a>
       <ul class="right hide-on-med-and-down">
         <li><a class="btn-floating btn-medium waves-effect waves-light grey">
             <i class="material-icons">add</i></a></li>
@@ -36,14 +36,15 @@
     </div>
     <div class="col s8" style="margin-left:30px;">
       <div class="hreview-aggregate">
-        <div class="row" style="margin-bottom:0px; margin-top:100px">
-          <div class="col s5 pull-s1">
-            <h5 id="title" style="margin-left:45px;"> Baked Alaska </h5>
+        <div class="row" style="margin-bottom:0px; margin-top:100px;">
+          <div class="col s12 pull-s1">
+            <h5 id="title" style="margin-left:45px; margin-bottom:0px; margin-top:0px;"> Baked Alaska </h5>
           </div>
-        </div>
-        <div class="row" style="margin-bottom:0px;">
+          <div class="col s12 pull-s1">
+            <p style="margin-left:45px; margin-top:0px;"> Posted by <a href="#"> Username </a> </p>
+          </div>
           <div class="col s5 pull-s1">
-            <a href="#" style="margin-left:90px"> Reviews </a>
+            <a href="#" style="margin-left:90px; margin-bottom:0px;"> Reviews </a>
           </div>
         </div>
         <div class="row" style=" margin-top:0px">
@@ -96,22 +97,56 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col s6 offset-s1">
+        <p style="font-size:16px; margin-top:0px;"> Like this Recipe? Add to your favourites
+          <a class="btn-floating btn-medium waves-effect waves-light yellow">
+             <i class="material-icons">star_border</i></a>
+        </p>
+      </div>
+    </div>
   </div>
+
+
   <div class="container">
     <h5 class="left-align"> Recipe </h5>
     <div id="Ing" class="col s6 ">
-      <p> Ingredients </p>
+      <p style="font-size:18px"> Ingredients </p>
       <p id="ingred"> Ingredients info </p>
     </div>
     <div id="Ins" class="col s6">
-      <p> Instructions </p>
+      <p style="font-size:18px"> Instructions </p>
       <p id="instruct"> Instruction info </p>
     </div>
   </div> <br>
   <div class="container">
     <br> <br>
     <h5 id="rev" class="blue-text"> Reviews </h5>
+    <div class="row">
+      <div class="col s8">
+        <ul class="collection">
+          <li class="collection-item avatar">
+            <img src="assets/images/profilepic.png" alt="" class="circle">
+            <span class="title"> <a href="#"> Title </a></span>
+            <p> User comment </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
     <p> Add a comment to review this recipe </p>
+    <div class="row">
+      <form class="col s6">
+        <div class="input-field ">
+          <label for="cmt"> Review: <i class="material-icons left">mode_edit</i></label>
+          <input placeholder="Comment" type="text" id="cmt" class="validate"> </input>
+        </div>
+        <div class="right-align">
+          <button class="btn grey" type="button"> Review </button>
+        </div>
+      </form>
+    </div>
   </div>
 
 
