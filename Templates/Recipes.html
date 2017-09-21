@@ -13,9 +13,13 @@
 
 </head>
 
-<body class="amber lighten-5">
-  <nav class="light-pink lighten-6" role="navigation">
+<body class="lime lighten-5">
+  <nav class="teal lighten-2" role="navigation">
     <div class="nav-wrapper"> <a id="logo" href="#" class="left brand-logo">More-Recipes</a>
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a class="btn-floating btn-medium waves-effect waves-light grey">
             <i class="material-icons">add</i></a></li>
@@ -110,12 +114,16 @@
 
   <div class="container">
     <h5 class="left-align"> Recipe </h5>
+    <div id="time" class="col s6 ">
+      <p style="font-size:18px; margin-bottom:0px;"> Prep Time: </p>
+      <p id="preptime" style="margin-top:0px;"> Time </p>
+    </div>
     <div id="Ing" class="col s6 ">
-      <p style="font-size:18px"> Ingredients </p>
+      <p style="font-size:18px"> Ingredients: </p>
       <p id="ingred"> Ingredients info </p>
     </div>
     <div id="Ins" class="col s6">
-      <p style="font-size:18px"> Instructions </p>
+      <p style="font-size:18px"> Instructions: </p>
       <p id="instruct"> Instruction info </p>
     </div>
   </div> <br>
@@ -140,7 +148,7 @@
       <form class="col s6">
         <div class="input-field ">
           <label for="cmt"> Review: <i class="material-icons left">mode_edit</i></label>
-          <input placeholder="Comment" type="text" id="cmt" class="validate"> </input>
+          <textarea id="cmt" class="materialize-textarea " placeholder="Comment"></textarea>
         </div>
         <div class="right-align">
           <button class="btn grey" type="button"> Review </button>
@@ -150,7 +158,7 @@
   </div>
 
 
-  <footer class="page-footer light-pink">
+  <footer class="page-footer teal lighten-2">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -177,7 +185,7 @@
     </div>
     <div class="footer-copyright">
       <div class="container">
-        Made by <a class="pink-text text-lighten-3">Osaze Edo-Osagie</a>
+        Made by <a class="teal-text text-lighten-3">Osaze Edo-Osagie</a>
       </div>
     </div>
   </footer>
