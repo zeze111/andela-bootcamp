@@ -13,7 +13,7 @@
 
   <style>
     body {
-      background: url("assets/images/bgd1.jpg");
+      background: url("assets/images/bgd3.jpg");
       background-repeat: no-repeat;
       background-position: 90px 7%;
       background-size: 1200px 400px;
@@ -22,28 +22,35 @@
 </head>
 
 <body class="lime lighten-5">
+  <ul id="userdrop" class="dropdown-content">
+    <li><a href="#!">Profile</a></li>
+    <li><a href="#!">Sign Out</a></li>
+  </ul>
   <nav class="teal lighten-2" role="navigation">
-    <div class="nav-wrapper"> <a id="logo" href="#" class="left brand-logo">More-Recipes</a>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
+    <div class="nav-wrapper">
+      <a id="logo" href="#" class="left brand-logo">More-Recipes</a>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a class="btn-floating btn-medium waves-effect waves-light grey">
             <i class="material-icons">add</i></a></li>
         <li><a class="btn-floating btn-medium waves-effect waves-light grey">
                 <i class="material-icons">star_border</i></a></li>
-        <li><a href="#">Username</a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="userdrop">Username<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Add</a></li>
+        <li><a href="#">Favourites</a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="userdrop">Username<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </div>
   </nav>
 
   <div class="container" style="width:100%; margin: 0 auto;">
-    <h5 class="center-align grey-text text-lighten-3" style="margin-top:70px; margin-bottom:50px;"> ADD A NEW RECIPE </h5>
+    <h5 class="center-align grey-text text-lighten-4" style="margin-top:70px; margin-bottom:50px;"> ADD A NEW RECIPE </h5>
     <div class="row">
       <div class="col s8 offset-s2">
         <div class="card z-depth-2">
-          <span class="card-title col s3 offset-s5" style="margin-top:20px; margin-bottom:10px;"> RECIPE </span>
+          <span class="card-title col s3 offset-s5 teal-text" style="margin-top:20px; margin-bottom:10px;"> RECIPE </span>
           <div class="row">
             <div class="card-image col s4 offset-s4">
               <img src="assets//images/noimg.png" alt="" style="height:230px; width:230px">
