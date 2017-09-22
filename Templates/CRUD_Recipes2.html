@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="lime lighten-4">
+<body class="lime lighten-5">
   <ul id="userdrop" class="dropdown-content">
     <li><a href="#!">Profile</a></li>
     <li><a href="#!">Sign Out</a></li>
@@ -37,111 +37,80 @@
     </div>
   </nav>
 
-  <div class="row" style="margin-top:50px;">
-    <div class="col s2 offset-s1">
-      <div class="card" style="width:230px; height:230px;">
-        <div class="card-image">
-          <img src="assets/images/card.jpeg" class="responsive-img">
+  <div class="container z-depth-4">
+    <div class="row" style="margin-top:50px;">
+      <div class="col s2 offset-s1">
+        <div class="card" style="width:230px; height:230px;">
+          <div class="card-image">
+            <img src="assets/images/card.jpeg" class="materialboxed responsive-img">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col s8" style="margin-left:30px;">
-      <div class="hreview-aggregate">
-        <div class="row" style="margin-bottom:0px; margin-top:100px;">
-          <div class="col s12 pull-s1">
-            <h5 id="title" style="margin-left:45px; margin-bottom:0px; margin-top:0px;"> Baked Alaska </h5>
-          </div>
-          <div class="col s12 pull-s1">
-            <p style="margin-left:45px; margin-top:0px;"> Posted by <a id="uname" href="#"> Username </a> </p>
-          </div>
-          <div class="col s5 pull-s1">
-            <a href="#" style="margin-left:90px; margin-bottom:0px;"> Reviews </a>
-          </div>
-        </div>
-        <div class="row" style=" margin-top:0px">
-          <div class="col s12">
-            <meta itemprop="worstRating" content="1">
-            <meta itemprop="bestRating" content="5">
-            <meta itemprop="reviewCount" content="1">
-            <div class="row">
-              <div class="rating-stars col s12">
-                <input type="radio" name="stars" id="star-null">
-                <input type="radio" name="stars" id="star-1" saving="1" data-start="1" checked="">
-                <input type="radio" name="stars" id="star-2" saving="2" data-start="2" checked="">
-                <input type="radio" name="stars" id="star-3" saving="3" data-start="3" checked="">
-                <input type="radio" name="stars" id="star-4" saving="4" data-start="4" checked="">
-                <input type="radio" name="stars" id="star-5" saving="5" checked="">
-                <section>
-                  <label for="star-1">
-                  <svg width="20" height="20" viewBox="0 0 51 48">
-                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                  </svg>
-                </label>
-                  <label for="star-2">
-                 <svg width="20" height="20" viewBox="0 0 51 48">
-                   <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                  </svg>
-                </label>
-                  <label for="star-3">
-                  <svg width="20" height="20" viewBox="0 0 51 48">
-                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                  </svg>
-                </label>
-                  <label for="star-4">
-                  <svg width="20" height="20" viewBox="0 0 51 48">
-                    <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                  </svg>
-                </label>
-                  <label for="star-5">
-                 <svg width="20" height="20" viewBox="0 0 51 48">
-                  <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"></path>
-                 </svg>
-                </label>
-                </section>
-              </div>
-              <div class="reviews-stats col s8 pull-s4" style="margin-left:35px">
-                <span class="reviewers-small"></span>
-                <span class="reviews-num"> 1  </span> total
-              </div>
+      <div class="col s8" style="margin-left:30px;">
+        <div class="hreview-aggregate">
+          <div class="row" style="margin-bottom:0px; margin-top:70px">
+            <div class="col s12 push-s1">
+              <h5 id="title" style="margin-bottom:0px; margin-top:0px;"> Baked Alaska </h5>
+            </div>
+            <div class="col s12 push-s1">
+              <p style=" margin-top:0px;"> Posted by <a id="uname" href="#"> Username </a> </p>
+            </div>
+            <div class="col s12 push-s1">
+              <p id="desc" style=" margin-top:0px;">Recipe description </p>
+            </div>
+            <div class="col s10 push-s1">
+              <p style=" margin-bottom:0px;"> Like this Recipe? Add to your favourites
+                <a class="btn-floating btn-small waves-effect waves-light yellow">
+                       <i class="material-icons">star_border</i></a>
+              </p>
+            </div>
+            <div class="col s5 push-s1">
+              <a href="#rev" style="margin-top:0px;" class="section scrollspy"> Reviews </a>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col s6 offset-s1">
-        <p style="font-size:16px; margin-top:0px;"> Like this Recipe? Add to your favourites
-          <a class="btn-floating btn-medium waves-effect waves-light yellow">
-             <i class="material-icons">star_border</i></a>
-        </p>
+
+      <div class="row">
+        <div class="col s2 pull-s2">
+          <a class="btn-floating waves-effect waves-light blue">
+                  <i class="material-icons">thumb_up</i></a>
+          <p id="likes" class="col s1 push-s5">3</p>
+        </div>
+        <div class="col s2 pull-s2">
+          <a class="btn-floating waves-effect waves-light blue">
+                    <i class="material-icons">thumb_down</i></a>
+          <p id="likes" class="col s1 push-s5">1</p>
+        </div>
       </div>
     </div>
+
+
+    <div class="container">
+      <h5 class="left-align" style="margin-left:50px"> Recipe </h5>
+      <div id="time" class="col s6 ">
+        <p style="font-size:18px; margin-bottom:0px;"> Prep Time: </p>
+        <p id="preptime" style="margin-top:0px;"> Time </p>
+      </div>
+      <div id="Ing" class="col s6 ">
+        <p style="font-size:18px; margin-left:50px"> Ingredients </p>
+        <p id="ingred"> Ingredients info </p>
+      </div>
+      <div id="Ins" class="col s6">
+        <p style="font-size:18px; margin-left:50px"> Instructions </p>
+        <p id="instruct"> Instruction info </p>
+      </div>
+      <div class="row">
+        <div class="col s3 offset-s4">
+          <a class="btn-floating btn-medium waves-effect waves-light blue">
+              <i class="material-icons">mode_edit</i></a>
+          <a class="btn-floating btn-medium waves-effect waves-light blue">
+                  <i class="material-icons">delete</i></a>
+        </div>
+      </div>
+    </div> <br>
   </div>
 
-
-  <div class="container">
-    <h5 class="left-align" style="margin-left:50px"> Recipe </h5>
-    <div id="time" class="col s6 ">
-      <p style="font-size:18px; margin-bottom:0px;"> Prep Time: </p>
-      <p id="preptime" style="margin-top:0px;"> Time </p>
-    </div>
-    <div id="Ing" class="col s6 ">
-      <p style="font-size:18px; margin-left:50px"> Ingredients </p>
-      <p id="ingred"> Ingredients info </p>
-    </div>
-    <div id="Ins" class="col s6">
-      <p style="font-size:18px; margin-left:50px"> Instructions </p>
-      <p id="instruct"> Instruction info </p>
-    </div>
-    <div class="row">
-      <div class="col s3 offset-s4">
-        <a class="btn-floating btn-medium waves-effect waves-light blue">
-              <i class="material-icons">mode_edit</i></a>
-        <a class="btn-floating btn-medium waves-effect waves-light blue">
-                  <i class="material-icons">delete</i></a>
-      </div>
-    </div>
-  </div> <br>
   <div class="container">
     <br> <br>
     <h5 id="rev" class="blue-text"> Reviews </h5>
