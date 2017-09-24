@@ -16,17 +16,20 @@
 
 <body class="lime lighten-5">
   <nav class="teal lighten-2" role="navigation">
-    <div class="nav-wrapper"> <a id="logo" href="#" class="left brand-logo">More-Recipes</a>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
+    <div class="nav-wrapper">
+      <a id="logo" href="homepage.html" class="left brand-logo">More-Recipes</a>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a class="btn-floating btn-medium waves-effect waves-light grey">
             <i class="material-icons">add</i></a></li>
         <li><a class="btn-floating btn-medium waves-effect waves-light grey">
                 <i class="material-icons">star_border</i></a></li>
-        <li><a href="#">Sign In</a></li>
+        <li><a href="signin.html">Sign In</a></li>
+      </ul>
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Add</a></li>
+        <li><a href="#">Favourites</a></li>
+        <li><a href="signin.html">Sign In</a></li>
       </ul>
     </div>
   </nav>
@@ -59,7 +62,7 @@
               </p>
             </div>
             <div class="col s5 push-s1">
-              <a href="#rev" style="margin-top:0px;" class="section scrollspy"> Reviews </a>
+              <a href="#rev" style="margin-top:0px;" class="scrollspy"> Reviews </a>
             </div>
           </div>
         </div>
@@ -67,14 +70,12 @@
 
       <div class="row">
         <div class="col s2 pull-s2">
-          <a class="btn-floating waves-effect waves-light blue">
-                <i class="material-icons">thumb_up</i></a>
-          <p id="likes" class="col s1 push-s5">3</p>
+          <a> <i class="material-icons">thumb_up</i></a>
+          <p id="likes" class="col s2 push-s3">3</p>
         </div>
         <div class="col s2 pull-s2">
-          <a class="btn-floating waves-effect waves-light blue">
-                  <i class="material-icons">thumb_down</i></a>
-          <p id="likes" class="col s1 push-s5">1</p>
+          <a> <i class="material-icons">thumb_down</i></a>
+          <p id="likes" class="col s1 push-s3">1</p>
         </div>
       </div>
     </div>
