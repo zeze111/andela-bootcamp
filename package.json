@@ -1,0 +1,32 @@
+{
+  "name": "andela-bootcamp27",
+  "version": "1.0.0",
+  "description": "More-Recipes Project",
+  "main": "index.js",
+  "dependencies": {
+    "sequelize": "^4.11.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "http-server": "^0.10.0"
+  },
+  "scripts": {
+    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeze111/andela-bootcamp27.git"
+  },
+  "keywords": [
+    "recipe"
+  ],
+  "author": "Osaze Edo-Osagie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeze111/andela-bootcamp27/issues"
+  },
+  "homepage": "https://github.com/zeze111/andela-bootcamp27#readme"
+}
