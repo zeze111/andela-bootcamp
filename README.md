@@ -1,6 +1,6 @@
 # andela-bootcamp
 More Recipe Project:
-Click this link https://github.com/zeze111/andela-bootcamp27/templates to access the website.
+Click this link https://zeze111.github.io/andela-bootcamp27/Templates/ to access the website.
 - Home page- you can view Recipes with the most views, recently added recipes, and all recipe. Template- click on the first baked alaska to get a view of the Recipe page. Click on the sign in link to go to the Sign in page, click on All Recipes link t go to all-recipes page
 - Sign In page- you can create a new user or sign in as an existing user. Template- click on More-Recipe logo o go back to the home page
 - Recipe page - you can view the details of a recipe, see how many votes they have, favourite the recipe and review the recipe as a registered user. Template - click username to go to User-Recipe page.
