@@ -18,18 +18,20 @@
     "sequelize": "^4.11.1"
   },
   "devDependencies": {
-    "babel-loader": "^7.1.2",
-    "eslint": "^4.7.2",
-    "eslint-config-airbnb-base": "^12.0.0",
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "chai": "^4.1.0",
     "chai-http": "^3.0.0",
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-import": "^2.7.0",
-    "nodemon": "^1.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
     "mocha": "^3.4.2",
-    "eslint-plugin-jsx-a11y": "^6.0.2"
+    "nodemon": "^1.11.0",
+    "path": "^0.12.7"
   },
   "scripts": {
+    "start:dev": "nodemon ./server/routes/index.js --watch server/ -- exec babel-node --presets es2015,stage-2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
