@@ -1,7 +1,8 @@
-import express from 'express';
-import http from 'http';
-import logger from 'morgan';
-import bodyParser from 'body-parser';
+
+
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 
 const app = express();
 require('dotenv').config();
@@ -17,11 +18,12 @@ app.get('*', (req, res) =>
 app.get('/', (req, res) =>
   res.status(202).send({ message: 'Some info here', }));
 
-const port = parseInt(process.env.PORT, 10) || 8000;
+const http = require('http');
 
+const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
 
 const server = http.createServer(app);
 server.listen(port);
 
-export default app;
+module.exports = app;
