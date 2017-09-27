@@ -6,6 +6,7 @@
   "dependencies": {
     "eslint": "^4.7.2",
     "express": "^4.15.5",
+    "body-parser": "*",
     "sequelize": "^4.11.1"
   },
   "devDependencies": {},
