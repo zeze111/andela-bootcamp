@@ -73,7 +73,7 @@ class Values {
     }
     response.status(404).json({
       status: 'Not Found', message: 'Recipe not found'
-    })
+    }) 
       .catch(function (err) {
         return next(err);
       });
