@@ -4,12 +4,31 @@
   "description": "More-recipes project",
   "main": "index.js",
   "dependencies": {
-    "eslint": "^4.7.2",
-    "express": "^4.15.5",
+    "bcrypt": "^1.0.3",
     "body-parser": "*",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.5",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "jsonwebtoken": "^7.4.1",
     "sequelize": "^4.11.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-loader": "^7.1.2",
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "babel-core": "^6.26.0",
+    "chai": "^4.1.0",
+    "chai-http": "^3.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "nodemon": "^1.11.0",
+    "mocha": "^3.4.2",
+    "eslint-plugin-jsx-a11y": "^6.0.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
