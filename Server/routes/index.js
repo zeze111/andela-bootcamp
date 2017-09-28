@@ -21,6 +21,8 @@ app.use(bodyParser.json({ type: 'application/json', }))
 app.get('/something', (req, res) =>
   res.status(202).send({ message: 'Hi you got here', }));
 
+app.get('/api/recipes/reviews', Values.getReviews);
+
 app.get('/api/recipes', Values.getAllRecipes);
 app.get('/api/recipes?sort=upvotes&order=des', Values.getPopularRecipes);
 app.put('/api/recipes/:recipeId', Values.updateRecipe);
