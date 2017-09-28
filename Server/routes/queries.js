@@ -41,7 +41,7 @@ class Values {
     if (!request.body.title) {
       response.status(404).json({
         status: 'Not Found', message: 'title missing'
-      })
+      });
     }
     request.body.upvotes = 0;
     global.recipes.push(request.body);
@@ -60,7 +60,7 @@ class Values {
         global.recipes[i].details = request.body.details;
         response.status(200).json({
           status: 'Success', message: 'updated Recipe'
-        })
+        });
       }
     }
     response.status(404).json({
@@ -74,7 +74,7 @@ class Values {
   static reviewRecipe(request, response) {
     for (let i = 0; i < global.recipes.length; i++) {
       if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
-        let rev = { id: global.recipes[i].id, title: global.recipes[i].title, review: request.body.review }
+        let rev = { id: global.recipes[i].id, title: global.recipes[i].title, review: request.body.review };
         global.reviews.push(rev);
         response.status(201).json({
           status: 'Submitted', message: 'Review has been added'

@@ -13,13 +13,13 @@ const app = express();
 
 require('dotenv').config();
 
-app.use(logger('dev'));
+app.use(logger('dev')); 
 app.use(bodyParser.urlencoded({ extended: false, }));
 
-app.use(bodyParser.json({ type: 'application/json', }))
+app.use(bodyParser.json({ type: 'application/json', }));
 
 app.get('/something', (req, res) =>
-  res.status(202).send({ message: 'Hi you got here', }));
+	res.status(202).send({ message: 'Hi you got here', }));
 
 app.get('/api/recipes/reviews', Values.getReviews);
 
