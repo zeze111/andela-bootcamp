@@ -13,7 +13,7 @@ deploy:
 
 before_script:
   - npm install -g codeclimate-test-reporter
-
+ 
 env:
   - NODE_ENV=test
 
