@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./server/routes/index.js --babel-watch server/ --exec babel-node",
-    "test": "mocha ./server/tests/apitests.js"
+    "test": "mocha ./server/tests/apitests.js --watch server/ --exec babel-node"
   },
   "repository": {
     "type": "git",

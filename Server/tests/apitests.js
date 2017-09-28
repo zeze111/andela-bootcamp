@@ -1,5 +1,8 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
+//const chai = require('chai');
+//const chaiHttp = require('chai-http');
+
+import chai from 'chai';
+import chaiHttp from 'chai-http';
 
 chai.use(chaiHttp);
 const app = require('../routes/index.js');

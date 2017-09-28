@@ -1,14 +1,14 @@
-const http = require('http');
-const express = require('express');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const Values = require('./queries');
+//const http = require('http');
+//const express = require('express');
+//const logger = require('morgan');
+//const bodyParser = require('body-parser');
+//const Values = require('./queries');
 
-//import http from 'http';
-//import express from 'express';
-//import logger from 'morgan';
-//import bodyParser from 'body-parser';
-//import Values from './queries';
+import http from 'http';
+import express from 'express';
+import logger from 'morgan';
+import bodyParser from 'body-parser';
+import Values from './queries';
 
 const app = express();
 
@@ -24,11 +24,11 @@ app.get('/', (req, res) =>
 
 
 app.get('/api/v1/recipes', Values.getAllRecipes);
-app.get('/api/v1/recipes?sort=upvotes&order=des', Values.getPopularRecipes);
 app.put('/api/v1/recipes/:recipeId', Values.updateRecipe);
 app.post('/api/v1/recipes', Values.submitRecipe);
 app.post('/api/v1/recipes/:recipeId/reviews', Values.reviewRecipe);
 app.delete('/api/v1/recipes/:recipeId', Values.deleteRecipe);
+app.get('/api/v2/recipes?sort=upvotes&order=des', Values.getPopularRecipes);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);

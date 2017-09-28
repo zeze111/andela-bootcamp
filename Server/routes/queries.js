@@ -14,7 +14,7 @@ class Values {
     response.status(200).json({
       status: 'Success', message: response.json({ Recipes: global.recipes })
     })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).json(error));
   }
 
 
@@ -22,9 +22,9 @@ class Values {
     for (i = 0; i < global.recipe.length; i++) {
       if (global.recipes[i].upvotes > 10) {
         response.status(200).json({
-          status: 'Success', message: response.json({ Reviews: global.reviews[i] })
+          status: 'Success', message: response.json({ Recipessss: global.recipes[i] })
         })
-          .catch(error => res.status(404).send(error));
+          .catch(error => res.status(404).json(error));
       }
     }
   }
@@ -40,7 +40,7 @@ class Values {
     response.status(201).json({
       status: 'Success', message: 'Submitted Recipe'
     })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).json(error));
   }
 
   static updateRecipe(request, response) {
@@ -56,7 +56,7 @@ class Values {
     response.status(404).json({
       status: 'Unsuccesful', message: 'Recipe Not Found'
     })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).json(error));
   }
 
   static reviewRecipe(request, response) {
@@ -72,7 +72,7 @@ class Values {
     response.status(404).json({
       status: 'Not Found', message: 'Recipe not found'
     })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).json(error));
   }
 
   static deleteRecipe(request, response) {
@@ -87,9 +87,9 @@ class Values {
     response.status(404).json({
       status: 'Unsuccessful', message: 'Recipe Not Found'
     })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).json(error));
   }
 }
 
-//export default Values; 
-module.exports = Values;
+export default Values; 
+//module.exports = Values;
