@@ -1,0 +1,27 @@
+language: node_js
+sudo: false
+addons:
+  code_climate:
+    repo_token: 9e9a8782a28047259e7f1c8df7b2bb0545040fe84958586f96f82335bf88c289
+
+node_js:
+  - '0.10'
+  - '0.12'
+  - '4'
+  - '5'
+
+services:
+  - postgresql
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "ea7eedab-016f-4fb6-a744-377186590205"
+
+cache:
+  directories:
+    - node_modules
+
+after_script:
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < ./coverage/lcov.info
