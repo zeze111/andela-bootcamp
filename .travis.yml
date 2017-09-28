@@ -27,7 +27,7 @@ jobs:
       deploy:
   provider: heroku
   api_key:
-    secure: "YOUR ENCRYPTED API KEY"
+    secure: "ea7eedab-016f-4fb6-a744-377186590205"
 
 
 before_script:
