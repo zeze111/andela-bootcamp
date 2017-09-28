@@ -17,8 +17,6 @@ before_script:
 env:
   - NODE_ENV=test
 
-after_success:
-  - npm run coverage
 
       
 
