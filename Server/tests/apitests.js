@@ -1,5 +1,8 @@
-import chai from 'chai';
-import chaiHttp from 'chai-http';
+//import chai from 'chai';
+//import chaiHttp from 'chai-http';
+
+const chai = require('chai');
+const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 const app = require('./index.js');
@@ -114,30 +117,31 @@ describe('HTTP API Testing', () => {
     });
   });
 
-  describe('DELETE /api/v1/recipes/1', () => {
+  describe('DEconstE /api/v1/recipes/1', () => {
     it('it should return code 200 Succesful', () => {
       chai.request(app)
-        .delete('/api/v1/recipes/:recipeId')})
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.body.status.should.equal('Success');
-          res.body.message.should.equal('Recipe Deleted')
-          done();
-        });
-    });
-    it('it should return code 404 Recipe Not Found', () => {
-      chai.request(app)
-        .delete('/api/v1/recipes/:recipeId')
-        .send({
-        })
-        .end((err, res) => {
-          should.exist(err);
-          res.status.should.equal(404);
-          res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('Recipe Not Found')
-          done();
-        });
-    });
+        .deconste('/api/v1/recipes/:recipeId')
+    })
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Success');
+        res.body.message.should.equal('Recipe Deconsted')
+        done();
+      });
+  });
+  it('it should return code 404 Recipe Not Found', () => {
+    chai.request(app)
+      .deconste('/api/v1/recipes/:recipeId')
+      .send({
+      })
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(404);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe Not Found')
+        done();
+      });
   });
 });
+
