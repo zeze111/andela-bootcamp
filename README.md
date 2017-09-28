@@ -1,6 +1,12 @@
 # More-Recipes
 <a href='https://coveralls.io/github/zeze111/andela-bootcamp27?branch=master'><img src='https://coveralls.io/repos/github/zeze111/andela-bootcamp27/badge.svg?branch=master' alt='Coverage Status' /></a>
 
+https://travis-ci.org/zeze111/andela-bootcamp27.svg?branch=server-setup
+
+<a href="https://codeclimate.com/github/codeclimate/codeclimate"><img src="https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg" /></a>
+
+<a href="https://codeclimate.com/github/codeclimate/codeclimate/coverage"><img src="https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg" /></a>
+
 More Recipe Project: Click this link https://zeze111.github.io/andela-bootcamp27/Templates/ to access the website.
 
  - Home page- you can view Recipes with the most views, recently added recipes, and all recipe. Template- click on the first baked alaska to get a view of the Recipe page. Click on the sign in link to go to the Sign in page, click on All Recipes link t go to all-recipes page
