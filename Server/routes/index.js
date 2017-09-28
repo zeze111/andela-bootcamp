@@ -1,19 +1,20 @@
-//const http = require('http');
-//const express = require('express');
-//const logger = require('morgan');
-//const bodyParser = require('body-parser');
+const http = require('http');
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const Values = require('./queries');
 
-import http from 'http';
-import express from 'express';
-import logger from 'morgan';
-import bodyParser from 'body-parser';
-import Values from './queries';
- 
+//import http from 'http';
+//import express from 'express';
+//import logger from 'morgan';
+//import bodyParser from 'body-parser';
+//import Values from './queries';
+
 const app = express();
 
 require('dotenv').config();
 
-app.use(logger('dev')); 
+app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false, }));
 
 app.use(bodyParser.json({ type: 'application/json', }));
