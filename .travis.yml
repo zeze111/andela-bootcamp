@@ -1,10 +1,11 @@
 language: node_js
+sudo: false
+addons:
+  code_climate:
+    repo_token: 9e9a8782a28047259e7f1c8df7b2bb0545040fe84958586f96f82335bf88c289
 
 node_js:
-  - '0.10'
-  - '0.12'
-  - '4'
-  - '5'
+  - node
 
 services:
   - postgresql
@@ -14,19 +15,13 @@ deploy:
   api_key:
     secure: "ea7eedab-016f-4fb6-a744-377186590205"
 
-env:
-  - global:
-    - CC_TEST_REPORTER_ID=9e9a8782a28047259e7f1c8df7b2bb0545040fe84958586f96f82335bf88c289
+cache:
+  directories:
+    - node_modules
 
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
- 
-
-
-after_success:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+after_script:
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < ./coverage/lcov.info
       
 
   
