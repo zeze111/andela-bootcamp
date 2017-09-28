@@ -1,7 +1,7 @@
 # More-Recipes
 <a href='https://coveralls.io/github/zeze111/andela-bootcamp27?branch=master'><img src='https://coveralls.io/repos/github/zeze111/andela-bootcamp27/badge.svg?branch=master' alt='Coverage Status' /></a>
 
-https://travis-ci.org/zeze111/andela-bootcamp27.svg?branch=master
+[![Build Status](https://travis-ci.org/zeze111/andela-bootcamp27.svg?branch=master)](https://travis-ci.org/zeze111/andela-bootcamp27)
 
 <a href="https://codeclimate.com/github/codeclimate/codeclimate"><img src="https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg" /></a>
 
