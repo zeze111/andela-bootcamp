@@ -13,4 +13,3 @@ More Recipe Project: Click this link https://zeze111.github.io/andela-bootcamp27
 
 
 
-Coverage Status https://coveralls.io/repos/github/zeze111/andela-bootcamp27/badge.svg?branch=master
