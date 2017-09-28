@@ -4,11 +4,11 @@
 //const bodyParser = require('body-parser');
 //const Values = require('./queries');
 
-import http from 'http';
-import express from 'express';
-import logger from 'morgan';
-import bodyParser from 'body-parser';
-import Values from './queries';
+import {http} from 'http';
+import {express} from 'express';
+import {logger} from 'morgan';
+import {bodyParser} from 'body-parser';
+import {Values} from './queries';
 
 const app = express();
 
