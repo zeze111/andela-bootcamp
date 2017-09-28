@@ -19,33 +19,29 @@ class Values {
       });
   }
 
-  static getReviews(request, response) {
-    response.status(200).json({
-      status: 'Success', message: response.json({ Reviews: global.reviews })
-    })
-      .catch(function (err) {
-        return next(err);
-      });
-  }
 
   static getPopularRecipes(request, response) {
-    response.status(200).json({
-      status: 'Success', message: request.query.sort(global.recipes.upvotes)
-    })
-      .catch(function (err) {
-        return next(err);
-      });
+    for (i = 0; i < global.recipe.length; i++) {
+      if (global.recipes[i].upvotes > 10) {
+        response.status(200).json({
+          status: 'Success', message: response.json({ Reviews: global.reviews[i] })
+        })
+          .catch(function (err) {
+            return next(err);
+          });
+      }
+    }
   }
 
   static submitRecipe(request, response) {
     if (!request.body.title) {
-      response.status(404).json({
-        status: 'Not Found', message: 'title missing'
+      response.status(400).json({
+        status: 'Unsuccessful', message: 'Missing data input'
       });
     }
     request.body.upvotes = 0;
     global.recipes.push(request.body);
-    response.status(200).json({
+    response.status(201).json({
       status: 'Success', message: 'Submitted Recipe'
     })
       .catch(function (err) {
@@ -59,12 +55,12 @@ class Values {
         global.recipes[i].title = request.body.title;
         global.recipes[i].details = request.body.details;
         response.status(200).json({
-          status: 'Success', message: 'updated Recipe'
+          status: 'Success', message: 'Updated Recipe'
         });
       }
     }
     response.status(404).json({
-      status: 'Not Found', message: 'Recipe not found'
+      status: 'Unsuccesful', message: 'Recipe Not Found'
     })
       .catch(function (err) {
         return next(err);
@@ -77,7 +73,7 @@ class Values {
         let rev = { id: global.recipes[i].id, title: global.recipes[i].title, review: request.body.review };
         global.reviews.push(rev);
         response.status(201).json({
-          status: 'Submitted', message: 'Review has been added'
+          status: 'Submitted', message: response.json({ Reviews: global.reviews })
         });
       }
     }
@@ -94,12 +90,12 @@ class Values {
       if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
         global.recipes.splice(i, 1);
         response.status(200).json({
-          status: 'Success', message: 'Recipe has been deleted'
+          status: 'Success', message: 'Recipe Deleted'
         });
       }
     }
     response.status(404).json({
-      status: 'Not Found', message: 'Recipe not found'
+      status: 'Unsuccessful', message: 'Recipe Not Found'
     })
       .catch(function (err) {
         return next(err);

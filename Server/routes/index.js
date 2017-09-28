@@ -8,7 +8,7 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import Values from './queries';
-
+ 
 const app = express();
 
 require('dotenv').config();
@@ -18,17 +18,16 @@ app.use(bodyParser.urlencoded({ extended: false, }));
 
 app.use(bodyParser.json({ type: 'application/json', }));
 
-app.get('/something', (req, res) =>
-	res.status(202).send({ message: 'Hi you got here', }));
+app.get('/', (req, res) =>
+	res.status(202).send({ message: 'Please enter: ', }));
 
-app.get('/api/recipes/reviews', Values.getReviews);
 
-app.get('/api/recipes', Values.getAllRecipes);
-app.get('/api/recipes?sort=upvotes&order=des', Values.getPopularRecipes);
-app.put('/api/recipes/:recipeId', Values.updateRecipe);
-app.post('/api/recipes', Values.submitRecipe);
-app.post('/api/recipes/:recipeId/reviews', Values.reviewRecipe);
-app.delete('/api/recipes/:recipeId', Values.deleteRecipe);
+app.get('/api/v1/recipes', Values.getAllRecipes);
+app.get('/api/v1/recipes?sort=upvotes&order=des', Values.getPopularRecipes);
+app.put('/api/v1/recipes/:recipeId', Values.updateRecipe);
+app.post('/api/v1/recipes', Values.submitRecipe);
+app.post('/api/v1/recipes/:recipeId/reviews', Values.reviewRecipe);
+app.delete('/api/v1/recipes/:recipeId', Values.deleteRecipe);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
