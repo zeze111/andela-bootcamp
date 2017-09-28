@@ -1,0 +1,16 @@
+sudo: false
+dist: trusty
+
+language: node_js
+
+cache:
+  directories:
+    - node_modules
+
+
+before_script:
+  - npm install sequelize@$(echo $SEQUELIZE)
+  - npm run build
+
+script:
+  - npm run test
