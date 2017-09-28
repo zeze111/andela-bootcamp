@@ -14,7 +14,8 @@ deploy:
 before_script:
   - npm install -g codeclimate-test-reporter
 
-
+env:
+  - NODE_ENV=test
 
 after_success:
   - npm run coverage
