@@ -6,13 +6,10 @@ import chaiHttp from 'chai-http';
 
 chai.use(chaiHttp);
 const app = require('../routes/index.js');
-const assert = chai.assert;
 const should = chai.should;
-const expect = chai.expect;
 const request = require('supertest');
 
 describe('HTTP API Testing', () => {
-
   describe('GET /api/v1/recipes', () => {
     it('it should return code 200 and recipe list', () => {
       chai.request(app)

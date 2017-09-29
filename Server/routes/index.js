@@ -22,7 +22,7 @@ app.put('/api/v1/recipes/:recipeId', Values.updateRecipe);
 app.post('/api/v1/recipes', Values.submitRecipe);
 app.post('/api/v1/recipes/:recipeId/reviews', Values.reviewRecipe);
 app.delete('/api/v1/recipes/:recipeId', Values.deleteRecipe);
-app.get('/api/v2/recipes?sort=upvotes&order=des', Values.getPopularRecipes);
+app.get('/api/v2/recipes?sort=upvotes&order=des', Values.getAllRecipes);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);

@@ -13,21 +13,15 @@ class Values {
 
 
   static getAllRecipes(request, response) {
-    response.status(200).json({
-      status: 'Success', message: response.json({ Recipes: global.recipes })
-    })
-      .catch(error => res.status(404).json(error));
-  }
-
-
-  static getPopularRecipes(request, response) {
-    for (i = 0; i < global.recipe.length; i++) {
-      if (global.recipes[i].upvotes > 10) {
-        global.recipes.request.query.sort((x, y) =>{
-          return x.upvotes - y.upvotes;
-        });
+    if (request.query.sort) {
+      for (i = 0; i < global.recipe.length; i++) {
+        if (global.recipes[i].upvotes > 10) {
+          response.status(200).json({
+            status: 'Success', message: response.json({ Recipessss: global.recipes[i] })
+          });
+        }
         response.status(200).json({
-          status: 'Success', message: response.json({ Recipessss: global.recipes})
+          status: 'Success', message: response.json({ Recipes: global.recipes })
         })
           .catch(error => res.status(404).json(error));
       }

@@ -137,7 +137,7 @@ app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json({ type: 'application/json' }));
 
 app.get('/', function (req, res) {
-  return res.status(202).send({ message: 'Please enter: ' });
+  return res.status(202).send({ message: 'Please enter:  /api/v1/recipes, /api/v1/recipes/:recipeId, /api/v1/recipes, /api/v1/recipes/:recipeId/reviews, /api/v1/recipes/:recipeId, /api/v2/recipes?sort=upvotes&order=des' });
 });
 
 app.get('/api/v1/recipes', Values.getAllRecipes);
