@@ -39,8 +39,8 @@
     "testify": "^0.3.0"
   },
   "scripts": {
-    "start:dev": "nodemon ./server/routes/index.js --babel-watch server/ --exec babel-node",
-    "test": "mocha ./server/tests/apitests.js --watch server/ --exec babel-node",
+    "start:dev": "nodemon ./server/routes/index.js --watch server/ --exec babel-node",
+    "test": "mocha ./server/tests/apitests.js --babel-watch server/ --exec babel-node",
     "start": "node ./transpiled.js"
   },
   "repository": {

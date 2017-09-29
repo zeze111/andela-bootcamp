@@ -1,16 +1,10 @@
-//const http = require('http');
-//const express = require('express');
-//const logger = require('morgan');
-//const bodyParser = require('body-parser');
-//const Values = require('./queries');
+import  http  from 'http';
+import  express  from 'express';
+import  logger  from 'morgan';
+import bodyParser  from 'body-parser';
+import  Values  from './queries';
 
-import {http} from 'http';
-import {express} from 'express';
-import {logger} from 'morgan';
-import {bodyParser} from 'body-parser';
-import {Values} from './queries';
-
-const app = express();
+const app = express(); 
 
 require('dotenv').config();
 
@@ -20,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false, }));
 app.use(bodyParser.json({ type: 'application/json', }));
 
 app.get('/', (req, res) =>
-	res.status(202).send({ message: 'Please enter: ', }));
+	res.status(202).send({ message: 'Please enter: /api/v1/recipes, /api/v1/recipes/:recipeId, /api/v1/recipes, /api/v1/recipes/:recipeId/reviews, /api/v1/recipes/:recipeId, /api/v2/recipes?sort=upvotes&order=des', }));
 
 
 app.get('/api/v1/recipes', Values.getAllRecipes);

@@ -127,14 +127,6 @@ var Values = function () {
   return Values;
 }();
 
-//module.exports = Values;
-
-//const http = require('http');
-//const express = require('express');
-//const logger = require('morgan');
-//const bodyParser = require('body-parser');
-//const Values = require('./queries');
-
 var app = (0, _express2.default)();
 
 require('dotenv').config();

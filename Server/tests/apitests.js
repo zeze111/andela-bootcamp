@@ -25,7 +25,7 @@ describe('HTTP API Testing', () => {
         });
     });
   });
-  describe('GET /api/v1/recipes?sort=upvotes&order=des', () => {
+  describe('GET /api/v2/recipes?sort=upvotes&order=des', () => {
     it('it should return code 200 and popular recipe list', () => {
       chai.request(app)
         .get('/api/v1/recipes?sort=upvotes&order=des')

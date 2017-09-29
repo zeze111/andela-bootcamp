@@ -7,7 +7,7 @@ global.recipes = [
 
 global.reviews = [];
 
-export default Values;
+
 
 class Values {
 
@@ -23,8 +23,11 @@ class Values {
   static getPopularRecipes(request, response) {
     for (i = 0; i < global.recipe.length; i++) {
       if (global.recipes[i].upvotes > 10) {
+        global.recipes.request.query.sort((x, y) =>{
+          return x.upvotes - y.upvotes;
+        });
         response.status(200).json({
-          status: 'Success', message: request.query.sort({ Recipessss: global.recipes[i] })
+          status: 'Success', message: response.json({ Recipessss: global.recipes})
         })
           .catch(error => res.status(404).json(error));
       }
@@ -93,5 +96,5 @@ class Values {
   }
 }
 
- 
-//module.exports = Values;
+export default Values;
+
