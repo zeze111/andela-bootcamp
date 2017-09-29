@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">55.56% </span>
+        <span class="strong">77.78% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>20/36</span>
+        <span class='fraction'>28/36</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64.29% </span>
+        <span class="strong">92.86% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>9/14</span>
+        <span class='fraction'>13/14</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">55.56% </span>
+        <span class="strong">77.78% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>20/36</span>
+        <span class='fraction'>28/36</span>
       </div>
     </div>
   </div>
@@ -157,11 +157,11 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,14 +172,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -187,7 +187,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -202,11 +202,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,7 +219,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -246,19 +246,19 @@ global.reviews = [];
 &nbsp;
 &nbsp;
 &nbsp;
-class Values {
+class queries {
 &nbsp;
 &nbsp;
   static getAllRecipes(request, response) {
     let popularRecipes = [];
     if (request.query.sort) {
-      for (i = 0; i &lt; global.recipe.length; i++) {
-<span class="cstat-no" title="statement not covered" >        if (global.recipes[i].upvotes &gt; 10) {</span>
-<span class="cstat-no" title="statement not covered" >          popularRecipes.push(global.recipes[i]);</span>
+      for (let i = 0; i &lt; global.recipes.length; i++) {
+        if (global.recipes[i].upvotes &gt; 10) {
+          popularRecipes.push(global.recipes[i]);
         }
       }
-<span class="cstat-no" title="statement not covered" >      response.status(200).json({</span>
-        status: 'Success', message: response.json({ Recipessss: popularRecipes })
+      response.status(200).json({
+        status: 'Success', message: response.json({ Recipes: popularRecipes.sort() })
       });
     }
     response.status(200).json({
@@ -298,11 +298,11 @@ class Values {
   }
 &nbsp;
   static reviewRecipe(request, response) {
-<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; global.recipes.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >      if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {</span>
-        let rev = <span class="cstat-no" title="statement not covered" >{ id: global.recipes[i].id, title: global.recipes[i].title, review: request.body.review };</span>
-<span class="cstat-no" title="statement not covered" >        global.reviews.push(rev);</span>
-<span class="cstat-no" title="statement not covered" >        response.status(201).json({</span>
+    for (let i = 0; i &lt; global.recipes.length; i++) {
+      if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
+        let rev = { id: global.recipes[i].id, title: global.recipes[i].title, review: request.body.review };
+        global.reviews.push(rev);
+        response.status(201).json({
           status: 'Submitted', message: response.json({ Reviews: global.reviews })
         });
       }
@@ -329,7 +329,7 @@ class Values {
   }
 }
 &nbsp;
-export default Values;
+export default queries;
 &nbsp;
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -337,7 +337,7 @@ export default Values;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Sep 29 2017 11:36:00 GMT+0100 (GMT Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Sep 29 2017 13:10:06 GMT+0100 (GMT Daylight Time)
 </div>
 </div>
 <script src="..\prettify.js"></script>

@@ -2,12 +2,12 @@ import http from 'http';
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import Values from './queries';
+import Values from './Values';
 
-const app= express();
+const app = express();
 
 require('dotenv').config();
-
+//routes
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false, }));
 
