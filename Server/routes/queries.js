@@ -20,7 +20,7 @@ class Values {
           popularRecipes.push(global.recipes[i]);
         }
       }
-      response.status(200).json({
+      return response.status(200).json({
         status: 'Success', message: { Recipes: popularRecipes.sort() }
       });
     }
@@ -32,13 +32,13 @@ class Values {
 
   static submitRecipe(request, response) {
     if (!request.body.title || !request.body.details) {
-      response.status(400).json({
+      return response.status(400).json({
         status: 'Unsuccessful', message: 'Missing data input'
       });
     }
     request.body.upvotes = 0;
     global.recipes.push(request.body);
-    response.status(201).json({
+     return response.status(201).json({
       status: 'Success', message: 'Submitted Recipe'
     })
 
@@ -49,12 +49,12 @@ class Values {
       if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
         global.recipes[i].title = request.body.title;
         global.recipes[i].details = request.body.details;
-        response.status(200).json({
+        return response.status(200).json({
           status: 'Success', message: 'Updated Recipe'
         });
       }
     }
-    response.status(404).json({
+    return response.status(404).json({
       status: 'Unsuccesful', message: 'Recipe Not Found'
     })
 
@@ -65,7 +65,7 @@ class Values {
       if (global.recipes[i].id === parseInt(request.params.recipeId, 10)) {
         let rev = { id: global.recipes[i].id, title: global.recipes[i].title, review: request.body.review };
         global.reviews.push(rev);
-        response.status(201).json({
+        return response.status(201).json({
           status: 'Submitted', message: { Reviews: global.reviews }
         });
       }
