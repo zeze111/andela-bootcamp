@@ -13,23 +13,25 @@ class Values {
 
 
   static getAllRecipes(request, response) {
+    let popularRecipes = [];
     if (request.query.sort) {
-      for (i = 0; i < global.recipe.length; i++) {
+      for (let i = 0; i < global.recipes.length; i++) {
         if (global.recipes[i].upvotes > 10) {
-          response.status(200).json({
-            status: 'Success', message: response.json({ Recipessss: global.recipes[i] })
-          });
+          popularRecipes.push(global.recipes[i]);
         }
-        response.status(200).json({
-          status: 'Success', message: response.json({ Recipes: global.recipes })
-        })
-          .catch(error => res.status(404).json(error));
       }
+      response.status(200).json({
+        status: 'Success', message: response.json({ Recipes: popularRecipes.sort() })
+      });
     }
+    response.status(200).json({
+      status: 'Success', message: response.json({ Recipes: global.recipes })
+    })
+      .catch(error => res.status(404).json(error));
   }
 
   static submitRecipe(request, response) {
-    if (!request.body.title) {
+    if (!request.body.title || !request.body.details) {
       response.status(400).json({
         status: 'Unsuccessful', message: 'Missing data input'
       });

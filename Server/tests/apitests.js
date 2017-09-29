@@ -69,7 +69,7 @@ describe('HTTP API Testing', () =>{
   describe('POST /api/v1/recipes/2/reviews', () =>{
     it('it should return code 201 Succesful', () =>{
       chai.request(app)
-        .post('/api/v1/recipes/:recipeId/reviews')
+        .post('/api/v1/recipes/2/reviews')
         .send({
           review: 'Love love love this recipe, use it all the time'
         })
@@ -77,6 +77,7 @@ describe('HTTP API Testing', () =>{
           should.not.exist(err);
           res.status.should.equal(201);
           res.body.status.should.equal('Success');
+          res.body.should.be.a('array');
           done();
         });
     });
@@ -85,7 +86,7 @@ describe('HTTP API Testing', () =>{
   describe('PUT /api/v1/recipes/5', () =>{
     it('it should return code 201 Succesful', () =>{
       chai.request(app)
-        .put('/api/v1/recipes/:recipeId')
+        .put('/api/v1/recipes/5')
         .send({
           details: 'Cut and squeez juice, using juicer, serve chilled'
         })
