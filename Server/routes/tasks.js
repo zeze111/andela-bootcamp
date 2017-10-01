@@ -1,4 +1,3 @@
-
 global.recipes = [
   { id: 1, title: 'Chicken Speingrolls', details: 'wash chicken, roll in dough and fry', upvotes: 20 },
   { id: 2, title: 'Jollof Rice', details: 'wash rice, boil tomatoes with spice, mix together', upvotes: 10 },
@@ -93,4 +92,3 @@ class Task {
 }
 
 export default Task;
-

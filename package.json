@@ -23,9 +23,10 @@
     "sequelize": "^4.11.1"
   },
   "devDependencies": {
-    "chai": "^4.1.0",
     "babel-loader": "^7.1.2",
+    "chai": "^4.1.0",
     "chai-http": "^3.0.0",
+    "consign": "^0.1.6",
     "cross-env": "^5.0.5",
     "es-feature-tests": "^0.3.0",
     "eslint": "^4.7.2",
@@ -40,7 +41,7 @@
     "testify": "^0.3.0"
   },
   "scripts": {
-    "start:dev": "nodemon ./server/routes/index.js --watch server/ --exec babel-node",
+    "start:dev": "nodemon ./server/index.js --watch server/ --exec babel-node",
     "test": "nyc --reporter=html --reporter=text mocha ./server/tests/apitests.js --compilers js:babel-register",
     "start": "babel-node ./server/routes/index.js"
   },
