@@ -13,9 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false, }));
 app.use(bodyParser.json({ type: 'application/json', }));
 
 consign()
-	.include('./db.js')
+	.include('./Server/db.js')
 	.then('./Server/routes')
-	.then('./libs/boot,js')
+	.then('./Server/libs/boot.js')
 	.into(app);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
