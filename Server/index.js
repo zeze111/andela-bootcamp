@@ -15,11 +15,10 @@ app.use(bodyParser.json({ type: 'application/json', }));
 consign()
 	.include('./db.js')
 	.then('./Server/routes')
+	.then('./libs/boot,js')
 	.into(app);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
 
-app.listen(port);
-
-module.exports = app;
+export default app;
