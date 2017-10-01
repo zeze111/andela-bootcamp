@@ -9,7 +9,7 @@ global.reviews = [];
 
 
 
-class Values {
+class Task {
 
 
   static getAllRecipes(request, response) {
@@ -38,7 +38,7 @@ class Values {
     }
     request.body.upvotes = 0;
     global.recipes.push(request.body);
-     return response.status(201).json({
+    return response.status(201).json({
       status: 'Success', message: 'Submitted Recipe'
     })
 
@@ -92,5 +92,5 @@ class Values {
   }
 }
 
-export default Values;
+export default Task;
 

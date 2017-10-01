@@ -1,8 +1,7 @@
-import http from 'http';
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import Values from './routes/Values';
+import Task from './routes/controller';
 
 const app = express();
 
@@ -17,17 +16,16 @@ app.get('/', (req, res) =>
 	res.status(202).send({ message: 'Please enter HTTP Request', }));
 
 
-app.get('/api/v1/recipes', Values.getAllRecipes);
-app.put('/api/v1/recipes/:recipeId', Values.updateRecipe);
-app.post('/api/v1/recipes', Values.submitRecipe);
-app.post('/api/v1/recipes/:recipeId/reviews', Values.reviewRecipe);
-app.delete('/api/v1/recipes/:recipeId', Values.deleteRecipe);
-app.get('/api/v2/recipes?sort=upvotes&order=des', Values.getAllRecipes);
+app.get('/api/v1/recipes', Task.getAllRecipes);
+app.put('/api/v1/recipes/:recipeId', Task.updateRecipe);
+app.post('/api/v1/recipes', Task.submitRecipe);
+app.post('/api/v1/recipes/:recipeId/reviews', Task.reviewRecipe);
+app.delete('/api/v1/recipes/:recipeId', Task.deleteRecipe);
+app.get('/api/v2/recipes?sort=upvotes&order=des', Task.getAllRecipes);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
 
-const server = http.createServer(app);
-server.listen(port);
+app.listen(port);
 
 module.exports = app;
