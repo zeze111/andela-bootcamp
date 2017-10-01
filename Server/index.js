@@ -2,7 +2,7 @@ import http from 'http';
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import Values from './Values';
+import Values from './routes/Values';
 
 const app = express();
 
