@@ -34,6 +34,22 @@ module.exports = {
           key: 'id',
         },
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Recipes',
+          key: 'userId',
+        },
+      },
+      users: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

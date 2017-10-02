@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
     });
     Recipes.hasOne(models.AboutRecipe, {
-      foreignKey: 'recipeId'
+      foreignKey: 'recipeId',
+      otherKey: 'userId',
     });
   };
 

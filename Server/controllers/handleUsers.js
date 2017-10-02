@@ -38,8 +38,7 @@ exports.userSignIn = (req, res) => {
     })
       .then((userCreated) => {
         res.status(201).json({
-          status: 'Success',
-          message: 'You are now signed in'
+          status: 'Success', message: 'You are now signed in'
         });
       }) //if unsuccessful
       .catch(error => res.status(400).send(error));

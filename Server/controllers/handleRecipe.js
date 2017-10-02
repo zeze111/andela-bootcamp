@@ -1,6 +1,7 @@
 import {
   Recipes,
-  Users
+  Users,
+  AboutRecipe,
  } from '../models'
 
  /** Creates new Recipe and stores in the Recipes table */
@@ -32,7 +33,7 @@ exports.newRecipe = (req, res) => {
       .catch(error => res.status(400).send(error));
   } else {
     response.status(400).json({
-      status: 'Unsuccessful', message: 'Missing data input'
+      status: 'Unsuccessful', message: 'Missing Data Input'
     });
   }
-}
+};
