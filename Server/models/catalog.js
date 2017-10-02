@@ -1,15 +1,19 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var catalog = sequelize.define('catalog', {
-    upvotes: DataTypes.NUMBER,
-    downvotes: DataTypes.NUMBER,
-    favorite: DataTypes.BOOLEAN
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
+  const Catalog = sequelize.define('Catalog', {
+    upvotes: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    downvotes:{
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    favorite: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     }
   });
+      
   return catalog;
 };
