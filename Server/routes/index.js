@@ -1,8 +1,8 @@
-import Task from './tasks';
+import handleRecipe from './handleRecipe';
 
 export default app => {
   app.get('/', (req, res) =>
-    res.status(202).send({ message: 'Please enter HTTP Request', }));
+    res.status(202).send({ message: 'Welcome to More-Recipes, Please enter HTTP Request', }));
   app.get('/api/v1/recipes', Task.getAllRecipes);
   app.put('/api/v1/recipes/:recipeId', Task.updateRecipe);
   app.post('/api/v1/recipes', Task.submitRecipe);
