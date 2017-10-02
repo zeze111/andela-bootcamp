@@ -20,10 +20,12 @@ module.exports = (sequelize, DataTypes) => {
 });
 
 Users.associate = (models) => {
-  Users.hasMany(models.recipes, {
+  Users.hasMany(models.Recipes, {
     foreignKey: 'userId',
-    
-  })
-}
+  });
+  Users.hasMany(models.Reviews, {
+    foreignKey: 'userId',
+  });
+};
   return Users;
 };
