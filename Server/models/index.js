@@ -1,20 +1,22 @@
 'use strict';
 
-const fs        = require('fs');
-const path      = require('path');
+const fs = require('fs');
+const path = require('path');
 const Sequelize = require('sequelize');
-const basename  = path.basename(__filename);
-const env       = process.env.NODE_ENV || 'development';
-const config    = require(`${__dirname} + /..\config\config.json`)[env];
-const db        = {};
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(`${__dirname} + /..\config\config.json`)[env];
+const db = {};
 
-let sequelize
-// From the environment, extract the key with the name provided in the config as use_env_variable
-  // and use that to establish a connection to our database.
+let sequelize;
+// From the environment, extract the key with the name provided
+// in the config as use_env_variable
+// and use that to establish a connection to our database.
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize =
+    new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
