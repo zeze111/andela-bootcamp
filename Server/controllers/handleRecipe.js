@@ -1,4 +1,9 @@
-import Recipes from './models/recipes.js'
+import {
+  Recipes,
+  Users
+ } from '../models'
+
+ /** Creates new Recipe and stores in the Recipes table */
 
 exports.newRecipe = (req, res) => {
   const recName = req.body.name;
@@ -8,7 +13,7 @@ exports.newRecipe = (req, res) => {
   const recIngredients = req.body.ingredients;
   const recInstructions = req.body.instructions;
   if (recName && recTime && recType && recIngredients && recInstructions) {
-    Recipes.create({ //if recipe was created
+    Recipes.create({ //if parameters were sent
       name: recName,
       description: recDescription,
       prepTime: recTime,
