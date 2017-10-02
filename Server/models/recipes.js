@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     type: {
       type: DataTypes.STRING,
-      allowNull:false,
+      allowNull: false,
     },
     ingredients: {
       type: DataTypes.STRING,
@@ -36,6 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'recipeId'
     });
   };
-  
+
   return Recipes;
 };
