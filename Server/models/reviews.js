@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   Reviews.associates = (models) => {
     Reviews.belongsTo(models.Users, {
       foreignKey: 'userId',
-      onDelete: CASCADE,
+      onDelete: 'CASCADE',
     });
     Reviews.belongsTo(models.AboutRecipe, {
       foreignKey: 'aboutrecipeId',

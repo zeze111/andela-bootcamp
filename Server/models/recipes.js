@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   Recipes.associates = (models) => {
     Recipes.belongsTo(models.Users, {
       foreignKey: 'userId',
-      onDelete: CASCADE,
+      onDelete: 'CASCADE',
     });
     Recipes.hasOne(models.AboutRecipe, {
       foreignKey: 'recipeId'
