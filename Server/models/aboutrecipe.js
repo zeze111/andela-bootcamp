@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
 
   AboutRecipe.associates = (models) => {
     AboutRecipe.belongsTo(models.Recipes, {
-      foreignKey: 'recipeId'
+      foreignKey: 'recipeId',
+      onDelete: CASCADE,
     });
     AboutRecipe.hasMany(models.Reviews, {
       foreignKey: 'aboutrecipeId',
