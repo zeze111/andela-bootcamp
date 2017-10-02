@@ -60,16 +60,21 @@ exports.faveRecipes = (req, res) => {
       users: userid,
       favorite: true,
     },
-  }).then((allRecipes) => {
+    include: [{
+      model: Recipes,
+      attributes: ['name', 'description'],
+    }],
+  }).then((faveRecipes) => {
     if (faveRecipes.length === 0) {
       res.status(200).json({
-        status: 'Successful', message: 'Currently No Recipes'
+        status: 'Successful', message: 'You Currently Have No Favorite Recipes'
       });
     } else {
       res.status(200).json({
-        status: 'Successful', data: allRecipes
+        status: 'Successful', data: faveRecipes
       });
     }
   })
   .catch(error => res.status(400).send(error));
 };
+
