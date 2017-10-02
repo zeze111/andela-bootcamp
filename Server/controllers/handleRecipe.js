@@ -2,9 +2,9 @@ import {
   Recipes,
   Users,
   AboutRecipe,
- } from '../models'
+} from '../models'
 
- /** Creates new Recipe and stores in the Recipes table */
+/** Creates new Recipe and stores in the Recipes table */
 
 exports.newRecipe = (req, res) => {
   const recName = req.body.name;
@@ -50,7 +50,7 @@ exports.allRecipes = (req, res) => {
       });
     }
   })
-  .catch(error => res.status(400).send(error));
+    .catch(error => res.status(400).send(error));
 };
 
 exports.faveRecipes = (req, res) => {
@@ -75,6 +75,26 @@ exports.faveRecipes = (req, res) => {
       });
     }
   })
-  .catch(error => res.status(400).send(error));
+    .catch(error => res.status(400).send(error));
 };
 
+exports.deleteRecipe = (req, res) => {
+  const recipeid = parseInt(req.param.userId, 10);
+  Recipes.findById({
+    recipeid
+  }).then((recipe) => {
+    if (!recipe) {
+      res.status(404).json({
+        status: 'Unsuccessful', message: 'Recipe Not Found'
+      });
+    } else {
+      Recipes.destroy()
+        .then((deletedRecipe) => {
+          res.status(200).json({
+            status: 'Successful', data: faveRecipes
+          });
+        })
+    };
+  })
+    .catch(error => res.status(400).send(error));
+};
