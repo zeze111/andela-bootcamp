@@ -37,3 +37,39 @@ exports.newRecipe = (req, res) => {
     });
   }
 };
+
+exports.allRecipes = (req, res) => {
+  Recipes.all({}).then((allRecipes) => {
+    if (allRecipes.length === 0) {
+      res.status(200).json({
+        status: 'Successful', message: 'Currently No Recipes'
+      });
+    } else {
+      res.status(200).json({
+        status: 'Successful', data: allRecipes
+      });
+    }
+  })
+  .catch(error => res.status(400).send(error));
+};
+
+exports.faveRecipes = (req, res) => {
+  const userid = parseInt(req.param.userId, 10);
+  AboutRecipe.all({
+    where: {
+      users: userid,
+      favorite: true,
+    },
+  }).then((allRecipes) => {
+    if (faveRecipes.length === 0) {
+      res.status(200).json({
+        status: 'Successful', message: 'Currently No Recipes'
+      });
+    } else {
+      res.status(200).json({
+        status: 'Successful', data: allRecipes
+      });
+    }
+  })
+  .catch(error => res.status(400).send(error));
+};

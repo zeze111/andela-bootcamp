@@ -22,9 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       otherkey: 'userId',
       onDelete: 'CASCADE',
     });
-    AboutRecipe.belongsTo(models.Users, {
+    AboutRecipe.belongsToMany(models.Users, {
+      through: 'UserFavorites',
       foreignKey: 'userId',
       as: 'users',
+      otherKey: 'aboutrecipeId',
     });
     AboutRecipe.hasMany(models.Reviews, {
       foreignKey: 'aboutrecipeId',
