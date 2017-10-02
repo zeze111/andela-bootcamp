@@ -9,16 +9,15 @@ require('dotenv').config();
 //routes 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false, }));
-
 app.use(bodyParser.json({ type: 'application/json', }));
 
 consign()
-	.include('./Server/db.js')
-	.then('./Server/routes')
-	.then('./Server/libs/boot.js')
-	.into(app);
+.include('./Server/routes')
+.into(app);
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
+
+app.listen(port);
 
 export default app;

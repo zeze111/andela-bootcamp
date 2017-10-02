@@ -43,7 +43,7 @@
   "scripts": {
     "start:dev": "nodemon ./server/index.js --watch server/ --exec babel-node",
     "test": "nyc --reporter=html --reporter=text mocha ./server/tests/apitests.js --compilers js:babel-register",
-    "start": "babel-node ./server/routes/index.js"
+    "start": "babel-node ./server/index.js"
   },
   "repository": {
     "type": "git",
