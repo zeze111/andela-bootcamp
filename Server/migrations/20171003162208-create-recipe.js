@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       description: {
         type: Sequelize.STRING
@@ -21,10 +21,18 @@ module.exports = {
         type: Sequelize.STRING
       },
       ingredients: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(1234)
       },
       instructions: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(1234)
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
@@ -33,7 +41,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

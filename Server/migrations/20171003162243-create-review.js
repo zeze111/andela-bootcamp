@@ -8,8 +8,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      comments: {
-        type: Sequelize.STRING
+      comment: {
+        type: Sequelize.STRING(1234)
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+      },
+      recipeId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Recipes',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
@@ -18,7 +34,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
