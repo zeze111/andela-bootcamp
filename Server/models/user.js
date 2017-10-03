@@ -20,17 +20,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Users.associate = (models) => {
-    Users.hasMany(models.Recipe, {
+  User.associate = (models) => {
+    User.hasMany(models.Recipe, {
       foreignKey: 'userId',
     });
-    Users.belongsToMany(models.AboutRecipe, {
-      through: 'UserFavorites',
+    User.belongsToMany(models.AboutRecipe, {
+      through: 'UserFavorite',
       foreignKey: 'userId',
       as: 'users',
       otherKey: 'aboutrecipeId',
     });
-    Users.hasMany(models.Review, {
+    User.hasMany(models.Review, {
       foreignKey: 'userId',
     });
   };

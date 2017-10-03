@@ -3,19 +3,18 @@
 module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('Review', {
     comment: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1234),
       allowNull: false,
     }
   });
 
-  Reviews.associates = (models) => {
-    Reviews.belongsTo(models.User, {
+  Review.associates = (models) => {
+    Review.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
-    Reviews.belongsTo(models.AboutRecipe, {
-      foreignKey: 'aboutrecipeId',
-      otherKey: 'recipeId',
+    Review.belongsTo(models.Recipe, {
+      foreignKey: 'recipeId',
     });
   };
   return Review;

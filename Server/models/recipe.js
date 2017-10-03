@@ -19,23 +19,27 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     ingredients: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1234),
       allowNull: false,
     },
     instructions: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1234),
       allowNull: false,
     }
   });
 
-  Recipes.associates = (models) => {
-    Recipes.belongsTo(models.User, {
+  Recipe.associates = (models) => {
+    Recipe.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
-    Recipes.hasOne(models.AboutRecipe, {
+    Recipe.hasOne(models.AboutRecipe, {
       foreignKey: 'recipeId',
       otherKey: 'userId',
+    });
+    Recipe.hasMany(models.Review, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
     });
   };
 
