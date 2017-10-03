@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define('Users', {
+  const User = sequelize.define('User', {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Users.associate = (models) => {
-    Users.hasMany(models.Recipes, {
+    Users.hasMany(models.Recipe, {
       foreignKey: 'userId',
     });
     Users.belongsToMany(models.AboutRecipe, {
@@ -30,9 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       as: 'users',
       otherKey: 'aboutrecipeId',
     });
-    Users.hasMany(models.Reviews, {
+    Users.hasMany(models.Review, {
       foreignKey: 'userId',
     });
   };
-  return Users;
+  return User;
 };

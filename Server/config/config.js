@@ -1,4 +1,8 @@
-{
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const config = {
   "development": {
     "username": "osaze",
     "password": "osaze94",
@@ -16,3 +20,5 @@
     "dialect": "postgres"
   }
 }
+
+export default config[process.env.NODE_ENV || 'development'];

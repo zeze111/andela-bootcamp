@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Reviews = sequelize.define('Reviews', {
+  const Review = sequelize.define('Review', {
     comment: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Reviews.associates = (models) => {
-    Reviews.belongsTo(models.Users, {
+    Reviews.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
@@ -18,5 +18,5 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: 'recipeId',
     });
   };
-  return Reviews;
+  return Review;
 };

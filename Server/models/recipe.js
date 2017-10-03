@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Recipes = sequelize.define('Recipes', {
+  const Recipe = sequelize.define('Recipe', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Recipes.associates = (models) => {
-    Recipes.belongsTo(models.Users, {
+    Recipes.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
@@ -39,5 +39,5 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  return Recipes;
+  return Recipe;
 };
