@@ -7,12 +7,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   
-  Recipe.associates = (models) => {
+  Favorite.associates = (models) => {
     Recipe.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
-    Recipe.belongsTo(models.Recipe, {
+    Favorite.belongsTo(models.Recipe, {
       foreignKey: 'recipeId',
       onDelete: 'CASCADE',
     });

@@ -1,4 +1,3 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {
@@ -23,17 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Recipe, {
       foreignKey: 'userId',
     });
-    User.hasMany(models.Ratings, {
+    User.hasMany(models.Rating, {
       foreignKey: 'userId',
     });
-    User.hasMany(models.Favorites, {
+    User.hasMany(models.Favorite, {
       foreignKey: 'userId',
-    });
-    User.belongsToMany(models.AboutRecipe, {
-      through: 'UserFavorite',
-      foreignKey: 'userId',
-      as: 'users',
-      otherKey: 'aboutrecipeId',
     });
     User.hasMany(models.Review, {
       foreignKey: 'userId',
