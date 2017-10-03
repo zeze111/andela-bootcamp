@@ -33,11 +33,15 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
-    Recipe.hasOne(models.AboutRecipe, {
-      foreignKey: 'recipeId',
-      otherKey: 'userId',
-    });
     Recipe.hasMany(models.Review, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
+    });
+    Recipe.hasMany(models.Rating, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
+    });
+    Recipe.hasMany(models.Favorite, {
       foreignKey: 'recipeId',
       onDelete: 'CASCADE',
     });

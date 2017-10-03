@@ -1,12 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Rating = sequelize.define('Rating', {
-    rate: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+  const Favorite = sequelize.define('Favorite', {
+    recipe: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   });
-
+  
   Recipe.associates = (models) => {
     Recipe.belongsTo(models.User, {
       foreignKey: 'userId',
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'recipeId',
       onDelete: 'CASCADE',
     });
-  };
+  }
 
-  return Rating;
-}
+  return Favorite;
+};
