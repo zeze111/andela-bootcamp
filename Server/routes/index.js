@@ -9,4 +9,3 @@ export default app => {
   app.post('/api/v1/recipes/:recipeId/reviews', Task.reviewRecipe);
   app.delete('/api/v1/recipes/:recipeId', Task.deleteRecipe);
   app.get('/api/v2/recipes?sort=upvotes&order=des', Task.getAllRecipes);
-}
