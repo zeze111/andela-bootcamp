@@ -1,21 +1,33 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.createTable('AboutRecipe', {
+    return queryInterface.createTable('Ratings', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      upvotes: {
+      rate: {
         type: Sequelize.INTEGER
       },
-      downvotes: {
-        type: Sequelize.INTEGER
+      userId: {
+        type: Sequelize.INTEGER,
+        unique: true,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
-      favorite: {
-        type: Sequelize.BOOLEAN
+      recipeId: {
+        type: Sequelize.INTEGER,
+        unique: true,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Recipes',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
@@ -24,19 +36,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      recipeId: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Recipes',
-          key: 'id',
-        },
-      },
+      }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('AboutRecipe');
+    return queryInterface.dropTable('Ratings');
   }
 };
