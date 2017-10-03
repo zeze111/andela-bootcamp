@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Recipes = sequelize.define('Recipes', {
+  const Recipe = sequelize.define('Recipe', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -19,24 +19,33 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     ingredients: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1234),
       allowNull: false,
     },
     instructions: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1234),
       allowNull: false,
     }
   });
 
-  Recipes.associates = (models) => {
-    Recipes.belongsTo(models.Users, {
+  Recipe.associates = (models) => {
+    Recipe.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
-    Recipes.hasOne(models.AboutRecipe, {
-      foreignKey: 'recipeId'
+    Recipe.hasMany(models.Review, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
+    });
+    Recipe.hasMany(models.Rating, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
+    });
+    Recipe.hasMany(models.Favorite, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
     });
   };
 
-  return Recipes;
+  return Recipe;
 };
