@@ -27,6 +27,7 @@ module.exports = {
         references: {
           model: 'Recipes',
           key: 'id',
+          as: 'ratings',
         },
       },
       createdAt: {

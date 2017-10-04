@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Rating.belongsTo(models.Recipe, {
       foreignKey: 'recipeId',
+      as: 'ratings',
       onDelete: 'CASCADE',
     });
   };
