@@ -97,7 +97,7 @@ class HandleRecipe {
       .catch(error => res.status(400).send(error));
   };
 
-  static popularRecipes = (req, res) => {
+  /**static popularRecipes = (req, res) => {
     if (request.query.sort) {
       Recipe.findAll({
         attributes: ['name', 'description'[sequelize.fn('COUNT', sequelize.col('rate')), 'votes']],
@@ -125,7 +125,7 @@ class HandleRecipe {
     }
     models.sequelize.query("SELECT `Recipes`.`name`, COUNT (`Ratings`.`rate`) AS `votes` FROM `Recipes` INNER JOIN `Ratings` ON `Recipes`.`id` = `Ratings`.`recipeId` GROUP BY `Recipes`.`name` ORDER BY `votes` LIMIT 20",
     { type: models.sequelize.QueryTypes.SELECT })
-  }
+  } */
 
   static updateRecipe = (req, res) => {
     const recipeid = parseInt(req.params.recipeId, 10);
@@ -155,7 +155,7 @@ class HandleRecipe {
   }
 
   static deleteRecipe = (req, res) => {
-    const recipeid = parseInt(req.params.userId, 10);
+    const recipeid = parseInt(req.params.recipeId, 10);
     Recipe.findById(recipeid)
       .then((recipe) => {
         if (!recipe) {
@@ -175,7 +175,7 @@ class HandleRecipe {
   };
 
   static reviewRecipe = (req, res) => {
-    const recipeid = parseInt(req.param.userId, 10);
+    const recipeid = parseInt(req.param.recipeId, 10);
     Recipe.findById(recipeid)
       .then((recipe) => {
         if (!recipe) {
