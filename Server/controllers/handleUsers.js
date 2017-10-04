@@ -1,9 +1,9 @@
 import models from '../models';
-import Validator from 'validatorjs';
+import Validator from 'validator.js';
 
 const User = models.User;
 
-const userRules = {
+/**const userRules = {
   firstName: 'required|between:2,35',
   surname: 'required|between:2,50',
   email: 'required|email'
@@ -11,13 +11,13 @@ const userRules = {
 
 const signInRules = {
   email: 'required|email'
-};
+};*/
 
 class HandleUser {
 
   static newUser = (req, res) => {
-    const validator = new Validator(req.body, userRules);
-    if (validator.passes()) {
+    //const validator = new Validator(req.body, userRules);
+    //if (validator.passes()) {
       const userFName = req.body.firstName;
       const userSurname = req.body.surname;
       const userEmail = req.body.email.toLowerCase();
@@ -53,17 +53,13 @@ class HandleUser {
           status: 'Unsuccessful', message: 'Missing data input'
         });
       }
-    } else {
-      res.status(400).json({
-        status: 'Unsuccessful', message: 'Wrong input format'
-      });
-    }
+    //} 
   }
 
   static userSignIn = (req, res) => {
     const userEmail = req.body.email;
     const userPassword = req.body.password;
-    const validator = new Validator(req.body, signInRules);
+    //const validator = new Validator(req.body, signInRules);
     if (validator.passes()) {
       if (userEmail && userPassword) {
         User.findOne({
@@ -86,11 +82,11 @@ class HandleUser {
           status: 'Unsuccessful', message: 'Missing data input'
         });
       }
-    } else {
+    } /** else {
       res.status(400).json({
         status: 'Unsuccessful', message: 'Wrong input format'
       });
-    }
+    } */
   }
 }
 

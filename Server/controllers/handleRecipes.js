@@ -1,5 +1,5 @@
 import models from '../models';
-import Validator from 'validatorjs';
+//import Validator from 'validator.js';
 
 const User = models.User;
 const Recipe = models.Recipe;
@@ -7,9 +7,9 @@ const Favorite = models.Favorite;
 const Review = models.Review;
 const Rating = models.Rating;
 
-const reviewRules = {
+/**const reviewRules = {
   comment: 'required|min:50',
-}
+}*/
 
 class HandleRecipe {
 
@@ -151,9 +151,9 @@ class HandleRecipe {
   }
 
   static reviewRecipe = (req, res) => {
-    const validator = new Validator(req.body, reviewRules);
+    //const validator = new Validator(req.body, reviewRules);
     const recipeid = parseInt(req.param.recipeId, 10);
-    if (validator.passes()) {
+    //if (validator.passes()) {
       Recipe.findById(recipeid)
         .then((recipe) => {
           if (!recipe) {
@@ -171,12 +171,8 @@ class HandleRecipe {
           }
         })
         .catch(error => res.status(400).send(error));
-    } else {
-      res.status(400).json({
-        status: 'Unsuccessful', message: 'Wrong input format'
-      });
-    }
-  }
+    } 
+ // }
 
 }
 
