@@ -40,7 +40,9 @@
     "pg": "^7.3.0",
     "sequelize-cli": "^3.0.0",
     "supertest": "^3.0.0",
-    "testify": "^0.3.0"
+    "testify": "^0.3.0",
+    "validator": "^9.0.0",
+    "validator.js": "^2.0.3"
   },
   "scripts": {
     "start:dev": "nodemon ./server/index.js --watch server/ --exec babel-node",
