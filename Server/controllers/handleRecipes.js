@@ -97,35 +97,6 @@ class HandleRecipe {
       .catch(error => res.status(400).send(error));
   };
 
-  /**static popularRecipes = (req, res) => {
-    if (request.query.sort) {
-      Recipe.findAll({
-        attributes: ['name', 'description'[sequelize.fn('COUNT', sequelize.col('rate')), 'votes']],
-        include: [{
-          model: Rating,
-          where: {
-            id: Recipe.id,
-            rate: 1
-          }
-        }],
-        order: ['votes', 'DESC']
-      })
-        .then((popularRecipes) => {
-          if (popularRecipes.length === 0) {
-            res.status(200).json({
-              status: 'Successful', message: 'There are no Popular Recipes'
-            });
-          } else {
-            res.status(200).json({
-              status: 'Successful', data: popularRecipes
-            });
-          }
-        })
-        .catch(error => res.status(400).send(error));
-    }
-    models.sequelize.query("SELECT `Recipes`.`name`, COUNT (`Ratings`.`rate`) AS `votes` FROM `Recipes` INNER JOIN `Ratings` ON `Recipes`.`id` = `Ratings`.`recipeId` GROUP BY `Recipes`.`name` ORDER BY `votes` LIMIT 20",
-    { type: models.sequelize.QueryTypes.SELECT })
-  } */
 
   static updateRecipe = (req, res) => {
     const recipeid = parseInt(req.params.recipeId, 10);
@@ -172,7 +143,7 @@ class HandleRecipe {
         };
       })
       .catch(error => res.status(400).send(error));
-  };
+  }
 
   static reviewRecipe = (req, res) => {
     const recipeid = parseInt(req.param.recipeId, 10);
@@ -197,4 +168,4 @@ class HandleRecipe {
 
 }
 
-export default HandleRecipe
+export default HandleRecipe;
