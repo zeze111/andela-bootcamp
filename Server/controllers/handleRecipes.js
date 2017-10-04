@@ -43,7 +43,7 @@ class HandleRecipe {
 
   static allRecipes = (req, res) => {
     if (req.query.sort) {
-      models.sequelize.query("SELECT `Recipes`.`name`, COUNT (`Ratings`.`rate`) AS `votes` FROM `Recipes` INNER JOIN `Ratings` ON `Recipes`.`id` = `Ratings`.`recipeId` GROUP BY `Recipes`.`name` ORDER BY `votes` LIMIT 20",
+      models.sequelize.query(`SELECT "Recipes"."name", COUNT ("Ratings"."rate") AS "votes" FROM "Recipes" INNER JOIN "Ratings" ON "Recipes"."id" = "Ratings"."recipeId" WHERE "Ratings"."rate" = 1 GROUP BY "Recipes"."name" ORDER BY "votes" LIMIT 20`,
       { type: models.sequelize.QueryTypes.SELECT })
         .then((popularRecipes) => {
           if (popularRecipes.length === 0) {
