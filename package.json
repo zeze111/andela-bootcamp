@@ -47,7 +47,7 @@
   "scripts": {
     "start:dev": "nodemon ./server/index.js --watch server/ --exec babel-node",
     "test": "nyc --reporter=html --reporter=text mocha ./server/tests/apitests.js --compilers js:babel-register",
-    "start": "sequelize db:migrate && babel-node ./server/index.js"
+    "start": "babel-node ./server/index.js"
   },
   "repository": {
     "type": "git",
