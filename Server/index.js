@@ -1,7 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import HandleUser from './controllers/handleUsers';
+import handleUser from './controllers/handleUsers';
 import HandleRecipe from './controllers/handleRecipes';
 import confirmAuth from './middleware/index'
 
@@ -16,8 +16,8 @@ app.use(bodyParser.json({ type: 'application/json', }));
 app.get('/', (req, res) =>
 res.status(202).send({ message: 'Please enter HTTP Request', }));
 
-app.post('/api/v1/users/signup', HandleUser.newUser);
-app.post('/api/v1/users/signin', HandleUser.userSignIn);
+app.post('/api/v1/users/signup', handleUser.newUser);
+app.post('/api/v1/users/signin', handleUser.userSignIn);
 app.post('/api/v1/recipes', confirmAuth.authenticate, HandleRecipe.newRecipe);
 app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, HandleRecipe.reviewRecipe);
 

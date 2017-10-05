@@ -32,12 +32,13 @@ class HandleRecipe {
         type: recType,
         ingredients: recIngredients,
         instructions: recInstructions,
+        userId: req.decoded.id,
       })
         .then((recipeCreated) => {
           res.status(201).json({
             status: 'Success',
             data: {
-              RecipeName: `${recipeCreated.name}`,
+              recipeName: `${recipeCreated.name}`,
             },
           });
         }) //if unsuccessful
@@ -96,7 +97,7 @@ class HandleRecipe {
         userId: reqid,
       },
       include: [{
-        model: Recipes,
+        model: 'Recipes',
         attributes: ['name', 'description'],
       }],
     }).then((faveRecipes) => {

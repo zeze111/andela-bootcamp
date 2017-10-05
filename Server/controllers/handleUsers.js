@@ -3,6 +3,8 @@ import Validator from 'validatorjs';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+require('dotenv').config();
+
 const User = models.User;
 
 const userRules = {
@@ -11,9 +13,9 @@ const userRules = {
   email: 'required|email'
 };
 
-class HandleUser {
+const handleUser = {
 
-  static newUser = (req, res) => {
+  newUser(req, res){
     const validator = new Validator(req.body, userRules);
     if (validator.passes()) {
       const userFName = req.body.firstName;
@@ -53,12 +55,14 @@ class HandleUser {
       }
     } else {
       res.status(400).json({
-        status: 'Unsuccessful', message: 'Invalid data input'
+        status: 'Unsuccessful',
+        message: 'Invalid data input',
+        errors: validator.errors.all()
       });
     }
-  }
+  },
 
-  static userSignIn = (req, res) => {
+  userSignIn(req, res){
     const userEmail = req.body.email;
     const userPassword = req.body.password;
     if (userEmail && userPassword) {
@@ -67,21 +71,26 @@ class HandleUser {
       })
         .then((user) => {
           if (user) {
-            console.log(user.dataValues, '>>>>>>>>>>')
-            if (bcrypt.compareSync(userPassword, user.dataValues.password)) {
+            if (user.comparePassword(req.body.password, user)) {
               const payload = { id: user.id };
-              const token = jwt.signIn(payload, process.env.SECRET_KEY,
-                { expireIn: 60 * 60 * 48 })
-              res.status(200).json({
+
+              const token = jwt.sign(payload, process.env.SECRET_KEY,
+                { expiresIn: 60 * 60 * 48 });
+
+              return res.status(200).json({
                 status: 'Success',
                 message: 'You are now signed in',
-                token: token
+                token
               });
             } else {
               res.status(401).json({
                 status: 'Unsuccessful', message: 'Sign in failed, Wrong password'
               });
             }
+          } else {
+            res.status(401).json({
+              status: 'Unsuccessful', message: 'User not found'
+            });
           }
         }) //if unsuccessful
         .catch(error => res.status(400).send(error));
@@ -93,4 +102,4 @@ class HandleUser {
   }
 }
 
-export default HandleUser;
+export default handleUser;
