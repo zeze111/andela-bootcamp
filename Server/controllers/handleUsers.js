@@ -1,7 +1,6 @@
-import models from '../models';
 import Validator from 'validatorjs';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import models from '../models';
 
 require('dotenv').config();
 
@@ -10,12 +9,12 @@ const User = models.User;
 const userRules = {
   firstName: 'required|between:2,35',
   surname: 'required|between:2,50',
-  email: 'required|email'
+  email: 'required|email',
 };
 
 const handleUser = {
 
-  newUser(req, res){
+  newUser(req, res) {
     const validator = new Validator(req.body, userRules);
     if (validator.passes()) {
       const userFName = req.body.firstName;
@@ -24,7 +23,7 @@ const handleUser = {
       const userPassword = req.body.password;
       if (userFName && userSurname && userEmail && userPassword) {
         User.findOne({
-          where: { email: userEmail }
+          where: { email: userEmail },
         })
           .then((user) => {
             if (!user) {
@@ -39,67 +38,68 @@ const handleUser = {
                   data: {
                     userName: `${userCreated.firstName} ${userCreated.surname}`,
                   },
-                })
+                });
               });
             } else {
               res.status(400).json({
-                status: 'Unsuccessful', message: 'Email already exist'
+                status: 'Unsuccessful', message: 'Email already exist',
               });
             }
-          }) //if unsuccessful
+          }) // if unsuccessful
           .catch(error => res.status(400).send(error));
       } else {
         res.status(400).json({
-          status: 'Unsuccessful', message: 'Missing data input'
+          status: 'Unsuccessful', message: 'Missing data input',
         });
       }
     } else {
       res.status(400).json({
         status: 'Unsuccessful',
         message: 'Invalid data input',
-        errors: validator.errors.all()
+        errors: validator.errors.all(),
       });
     }
   },
 
-  userSignIn(req, res){
+  userSignIn(req, res) {
     const userEmail = req.body.email;
     const userPassword = req.body.password;
     if (userEmail && userPassword) {
       User.findOne({
-        where: { email: userEmail }
+        where: { email: userEmail },
       })
         .then((user) => {
           if (user) {
             if (user.comparePassword(req.body.password, user)) {
               const payload = { id: user.id };
-
-              const token = jwt.sign(payload, process.env.SECRET_KEY,
-                { expiresIn: 60 * 60 * 48 });
-
+              const token = jwt.sign(
+                payload, process.env.SECRET_KEY,
+                { expiresIn: 60 * 60 * 48 },
+              );
               return res.status(200).json({
                 status: 'Success',
                 message: 'You are now signed in',
-                token
-              });
-            } else {
-              res.status(401).json({
-                status: 'Unsuccessful', message: 'Sign in failed, Wrong password'
+                token,
               });
             }
-          } else {
             res.status(401).json({
-              status: 'Unsuccessful', message: 'User not found'
+              status: 'Unsuccessful',
+              message: 'Sign in failed, Wrong password',
+            });
+          } else {
+            return res.status(401).json({
+              status: 'Unsuccessful',
+              message: 'User not found',
             });
           }
-        }) //if unsuccessful
+        }) // if unsuccessful
         .catch(error => res.status(400).send(error));
     } else {
       res.status(400).json({
-        status: 'Unsuccessful', message: 'Missing data input'
+        status: 'Unsuccessful', message: 'Missing data input',
       });
     }
-  }
-}
+  },
+};
 
 export default handleUser;
