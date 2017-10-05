@@ -19,8 +19,12 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.5",
     "jsonwebtoken": "^7.4.3",
+    "jwt-simple": "^0.4.1",
     "morgan": "^1.9.0",
-    "sequelize": "^4.11.1"
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
+    "sequelize": "^4.11.1",
+    "validatorjs": "^3.13.5"
   },
   "devDependencies": {
     "babel-loader": "^7.1.2",
@@ -40,9 +44,7 @@
     "pg": "^7.3.0",
     "sequelize-cli": "^3.0.0",
     "supertest": "^3.0.0",
-    "testify": "^0.3.0",
-    "validator": "^9.0.0",
-    "validator.js": "^2.0.3"
+    "testify": "^0.3.0"
   },
   "scripts": {
     "start:dev": "nodemon ./server/index.js --watch server/ --exec babel-node",
