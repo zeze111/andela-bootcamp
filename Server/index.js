@@ -24,6 +24,7 @@ app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, handleRe
 
 app.get('/api/v1/recipes', handleCrudRecipe.allRecipes);
 app.get('/api/v1/users/:userId/recipes', confirmAuth.authenticate, handleRecipe.faveRecipes);
+app.get('/api/v1/recipes/:recipeId/', confirmAuth.authenticate, handleRecipe.getRecipe);
 // app.get('api/v1/recipes?sort=upvotes&order=des', handleCrudRecipe.allRecipes);
 
 app.delete('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.deleteRecipe);

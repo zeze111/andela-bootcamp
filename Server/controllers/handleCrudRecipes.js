@@ -58,8 +58,8 @@ const handleCrudRecipe = {
   */
   allRecipes(req, res) {
     // returns a list of popular recipes req has a '?' in it's header paramater
-    if (req.query.sort) { 
-      const sqlQuery = 'SELECT "Recipes"."name", COUNT ("Ratings"."vote") FROM "Recipes" INNER JOIN "Ratings" ON "Recipes"."id" = "Ratings"."recipeId" AND "Ratings"."vote" = 1 GROUP BY "Recipes"."name" ORDER BY "vote" LIMIT 20';
+    if (req.query.sort) {
+      const sqlQuery = 'SELECT "Recipes"."name", COUNT ("Ratings"."vote") FROM "Recipes" INNER JOIN "Ratings" ON "Recipes"."id" = "Ratings"."recipeId" AND "Ratings"."vote" = 1 GROUP BY "Recipes"."name", "Ratings"."vote" ORDER BY "Ratings"."vote" desc LIMIT 20';
       models.sequelize.query(
         sqlQuery,
         { type: models.sequelize.QueryTypes.SELECT },

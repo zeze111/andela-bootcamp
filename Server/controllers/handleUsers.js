@@ -10,8 +10,8 @@ const userRules = {
   firstName: 'required|between:2,35',
   surname: 'required|between:2,50',
   email: 'required|email',
-  password: 'required|min:6',
-  passwordConfirmation: 'required|min:6',
+  password: 'required|confirmed',
+  password_confirmation: 'required',
 };
 
 const handleUser = {
@@ -34,7 +34,7 @@ const handleUser = {
               surname: req.body.surname,
               email: req.body.email.toLowerCase(),
               password: req.body.password,
-              confirmPassword: req.body.confirmPassword,
+              password_confirmation: req.body.passwordConfirmation,
             }).then((userCreated) => {
               res.status(201).json({
                 status: 'Success',

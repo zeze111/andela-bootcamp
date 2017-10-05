@@ -30,7 +30,6 @@ const handleRecipe = {
       }],
     }).then((faveRecipes) => {
       if (faveRecipes.length === 0) {
-        console.log(reqid);
         res.status(200).json({
           status: 'Successful', message: 'You Currently Have No Favorite Recipes',
         });

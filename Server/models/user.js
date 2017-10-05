@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    confirmPassword: {
+    password_confirmation: {
       type:DataTypes.STRING,
       allowNull: false
     }
