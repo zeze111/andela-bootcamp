@@ -14,7 +14,7 @@ const recipeRules = {
   instructions: 'required|min:10',
 };
 
-const handleCrudRecipes = {
+const handleCrudRecipe = {
 
   /** Creates new Recipe and stores in the Recipes table
   * @param {Object} req - Request object
@@ -150,4 +150,4 @@ const handleCrudRecipes = {
   },
 };
 
-export default handleCrudRecipes;
+export default handleCrudRecipe;
