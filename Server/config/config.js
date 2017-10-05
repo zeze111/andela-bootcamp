@@ -10,7 +10,7 @@ module.exports = {
     host: '127.0.0.1',
     port: '5433',
     dialect: 'postgres',
-    logging: true
+
   },
   test: {
     username: process.env.DB_USER,
@@ -18,9 +18,10 @@ module.exports = {
     database: 'recipes_test',
     host: '127.0.0.1',
     port: '5433',
-    dialect: 'postgres'
-  }
+    dialect: 'postgres',
+  },
+  production: {
+    use_env_variable: 'HEROKU_POSTGRESQL_COPPER_URL',
+  },
 };
-
-//module.exports = config[process.env.NODE_ENV || 'development'];
 
