@@ -1,23 +1,21 @@
 import models from '../models';
-import Validator from 'validator.js';
+import Validator from 'validatorjs';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const User = models.User;
 
-/**const userRules = {
+const userRules = {
   firstName: 'required|between:2,35',
   surname: 'required|between:2,50',
   email: 'required|email'
 };
 
-const signInRules = {
-  email: 'required|email'
-};*/
-
 class HandleUser {
 
   static newUser = (req, res) => {
-    //const validator = new Validator(req.body, userRules);
-    //if (validator.passes()) {
+    const validator = new Validator(req.body, userRules);
+    if (validator.passes()) {
       const userFName = req.body.firstName;
       const userSurname = req.body.surname;
       const userEmail = req.body.email.toLowerCase();
@@ -53,40 +51,45 @@ class HandleUser {
           status: 'Unsuccessful', message: 'Missing data input'
         });
       }
-    //} 
+    } else {
+      res.status(400).json({
+        status: 'Unsuccessful', message: 'Invalid data input'
+      });
+    }
   }
 
   static userSignIn = (req, res) => {
     const userEmail = req.body.email;
     const userPassword = req.body.password;
-    //const validator = new Validator(req.body, signInRules);
-    if (validator.passes()) {
-      if (userEmail && userPassword) {
-        User.findOne({
-          where: { email: userEmail }
-        })
-          .then((user) => {
-            if (user.password !== req.body.password) {
-              response.status(400).json({
-                status: 'Unsuccessful', message: 'Authentification failed, Wrong password'
+    if (userEmail && userPassword) {
+      User.findOne({
+        where: { email: userEmail }
+      })
+        .then((user) => {
+          if (user) {
+            console.log(user.dataValues, '>>>>>>>>>>')
+            if (bcrypt.compareSync(userPassword, user.dataValues.password)) {
+              const payload = { id: user.id };
+              const token = jwt.signIn(payload, process.env.SECRET_KEY,
+                { expireIn: 60 * 60 * 48 })
+              res.status(200).json({
+                status: 'Success',
+                message: 'You are now signed in',
+                token: token
               });
             } else {
-              res.status(201).json({
-                status: 'Success', message: 'You are now signed in'
+              res.status(401).json({
+                status: 'Unsuccessful', message: 'Sign in failed, Wrong password'
               });
             }
-          }) //if unsuccessful
-          .catch(error => res.status(400).send(error));
-      } else {
-        response.status(400).json({
-          status: 'Unsuccessful', message: 'Missing data input'
-        });
-      }
-    } /** else {
+          }
+        }) //if unsuccessful
+        .catch(error => res.status(400).send(error));
+    } else {
       res.status(400).json({
-        status: 'Unsuccessful', message: 'Wrong input format'
+        status: 'Unsuccessful', message: 'Missing data input'
       });
-    } */
+    }
   }
 }
 
