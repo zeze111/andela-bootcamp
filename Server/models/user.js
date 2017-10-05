@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     confirmPassword: {
       type:DataTypes.STRING,
-      allowNull: False
+      allowNull: false
     }
   });
 
