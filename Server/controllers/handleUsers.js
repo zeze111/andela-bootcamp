@@ -11,7 +11,7 @@ const userRules = {
   surname: 'required|between:2,50',
   email: 'required|email',
   password: 'required|min:6',
-  password_confirmation: 'required|min:6',
+  passwordConfirmation: 'required|min:6',
 };
 
 const handleUser = {
