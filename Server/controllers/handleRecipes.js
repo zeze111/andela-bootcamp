@@ -22,7 +22,6 @@ class HandleRecipe {
     const recIngredients = req.body.ingredients;
     const recInstructions = req.body.instructions;
     if (recName && recTime && recType && recIngredients && recInstructions) {
-      req.body.user_id = req.user.id;
       Recipe.create({ //if parameters were sent
         name: recName,
         description: recDescription,
@@ -84,7 +83,6 @@ class HandleRecipe {
     Favorite.findAll({
       where: {
         userId: reqid,
-        user_id: req.user.id,
       },
       include: [{
         model: Recipes,
@@ -107,7 +105,6 @@ class HandleRecipe {
 
   static updateRecipe = (req, res) => {
     const recipeid = parseInt(req.params.recipeId, 10);
-    req.body.user_id = req.user.id;
     Recipe.findById(recipeid)
       .then((recipe) => {
         if (!recipe) {
@@ -115,7 +112,6 @@ class HandleRecipe {
             status: 'Unsuccessful', message: 'Recipe Not Found'
           });
         } else {
-          req.body.user_id = req.user.id;
           recipe.update({
             name: req.body.name || recipe.name,
             description: req.body.description || recipe.description,
@@ -136,7 +132,6 @@ class HandleRecipe {
 
   static deleteRecipe = (req, res) => {
     const recipeid = parseInt(req.params.recipeId, 10);
-    req.body.user_id = req.user.id;
     Recipe.findById(recipeid)
       .then((recipe) => {
         if (!recipe) {
@@ -159,7 +154,6 @@ class HandleRecipe {
     //const validator = new Validator(req.body, reviewRules);
     const recipeid = parseInt(req.param.recipeId, 10);
     //if (validator.passes()) {
-      req.body.user_id = req.user.id;
       Recipe.findById(recipeid)
         .then((recipe) => {
           if (!recipe) {

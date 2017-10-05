@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-    }, {
+    },
+  }, {
       hooks: {
         beforeCreate: user => {
           const salt = bcrypt.genSaltSync();
