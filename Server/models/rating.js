@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Rating = sequelize.define('Rating', {
-    rate: {
+    vote: {
       type: DataTypes.INTEGER,
       allowNull: false,
     }
@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     Rating.belongsTo(models.Recipe, {
       foreignKey: 'recipeId',
-      as: 'ratings',
       onDelete: 'CASCADE',
     });
   };

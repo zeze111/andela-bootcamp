@@ -4,6 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     comment: {
       type: DataTypes.STRING(1234),
       allowNull: false,
+    },
+    recipeId: {
+      type: DataTypes.INTEGER
+    },
+    userId: {
+      type: DataTypes.INTEGER
     }
   });
 
@@ -14,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Review.belongsTo(models.Recipe, {
       foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
     });
   };
   return Review;

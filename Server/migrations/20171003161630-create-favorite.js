@@ -8,9 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      recipe: {
-        type: Sequelize.STRING
-      },
       userId: {
         type: Sequelize.INTEGER,
         unique: true,
@@ -40,6 +37,8 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Favorites');
+    return queryInterface.dropTable('Favorites', {
+      force:true, cascade:true
+    });
   }
 };

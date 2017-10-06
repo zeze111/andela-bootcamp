@@ -21,6 +21,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      password_confirmation: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -32,6 +35,8 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('Users', {
+      force:true, cascade:true
+    });
   }
 };
