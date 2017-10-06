@@ -1,9 +1,64 @@
-# andela-bootcamp
-More Recipe Project:
-- Home page- you can view Recipes with the most views, recently added recipes, and all recipe. Template- click on the first baked alaska to get a view of the Recipe page. Click on the sign in link to go to the Sign in page, click on All Recipes link t go to all-recipes page
-- Sign In page- you can create a new user or sign in as an existing user. Template- click on More-Recipe logo o go back to the home page
-- Recipe page - you can view the details of a recipe, see how many votes they have, favourite the recipe and review the recipe as a registered user. Template - click username to go to User-Recipe page.
-- User-Recipe page- you can see the details of the user who posted the recipe, and all other recipes that user has posted. Template- click on + icon to go to Create-Recipe page, click on star icon to go to Favorites section, click on username to either go to user profile or sign out (not implemented yet), click on More-Recipe logo o go back to the home page
-- Create-Recipe page - you can submit a recipe by inputing the rquired details. Template- click on star icon to go to Favorites section, click on username to either go to user profile or sign out (not implemented yet), click on More-Recipe logo o go back to the home page
-- Favorites section- you can view all the recipes that have been favorited by user. Template- click on + icon to go to Create-Recipe page, click on username to either go to user profile or sign out (not implemented yet), click on More-Recipe logo to go back to the home page
-- User-Account page, you can view and update the details of a user, change user password, submit a new recipe and view a list of all submitted recipes, view a list of your Favoorited recipes. Template- click on + icon to go to Create-Recipe page, click on More-Recipe logo to go back to the home page
+# More-Recipes
+  [![Build Status](https://travis-ci.org/zeze111/andela-bootcamp27.svg?branch=master)](https://travis-ci.org/zeze111/andela-bootcamp27)  <a href="https://codeclimate.com/github/codeclimate/codeclimate"><img src="https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg" /></a> <a href="https://codeclimate.com/github/codeclimate/codeclimate/coverage"><img src="https://codeclimate.com/github/codeclimate/codeclimate/badges/coverage.svg" /></a>
+
+More Recipe Project: Click this link https://zeze111.github.io/andela-bootcamp27/Templates/ to access the website. More Recipes is a website applications that allow users submit and share their cooking recipes.
+
+## Website Features
+#### User Authentication
+Users are authenticated and validated using JSONWebTokens
+
+#### Website Functionality
+* Create a new account with the app (Sign Up)
+* Login with credentials
+* View account profile
+* Update User details
+* Change password
+* View a list of user's submitted recipes
+* View a list of user's favorite recipes
+* Submit recipe
+* Update ssubmitted recipes
+* Delete recipe from list
+* View a list of all recipes in the application
+* View a list of the most popular recipes
+* Up-vote or down-vot a recipe
+* Favorite a recipe
+* Review a recipe
+
+## Technologies
+Written following JavaScript ES6 Syntax and nodejs on the backend, using:
+
+* Nodejs; a JavaScript runtime built on Chrome's V8 JavaScript engine.
+* Materialize; a flat-based framework for easy styling and designing of web pages.
+* Mocha; a feature-rich JavaScript test framework running on Node.js 
+* Chai; a BDD / TDD assertion library for node and the browser that can be paired with any javascript testing framework.
+* Eslint; provides a pluggable linting utility for JavaScript 
+* Hound CI; comments on style violations on GitHub pull requests.
+* Travis CI; a hosted continuous integration and delivery service for GitHub projects.
+* Express js; handles backend routing.
+* Coveralls; shows the parts of your code that are not covered by your test suites.
+* Sequelize; a promise-based ORM for Node.js and io.js. 
+* PostgreSQL; a powerful, open source object-relational database system.
+* Postman;  a powerful HTTP client for testing web services
+
+## Installation
+* Install Node js and Postgres on your machine
+* Clone the repository [git clone https://github.com/zeze111/andela-bootcamp27.git]
+* Navigate to directory [cd andela-bootcamp27]
+* Install all required dependencies with [npm install]
+* For easy accessibility, Install sequelize-cli globally for database migrations [npm install -g sequelize-cli]
+* Create a [.env] file in your root directory, following the syntax of the [.env] file 
+* Migrate your database using [sequelize db:migrate] on the command line
+* You can undo migrations by running [sequelize db:migrate:undo:all] on the command line
+* Run npm start to [start:dev] the application
+
+## Limitations of the application
+* User signed in expires after 48 hours of being signed in
+* User cannot create account, if email exists already
+* User cannot submit, favorite, update / delete a recipe if not signed in
+
+
+## Contributions
+* Fork the repository
+* Make your contributions
+* Make sure you test your work
+* Create Pull request.
