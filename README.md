@@ -45,7 +45,7 @@ Written following JavaScript ES6 Syntax and nodejs on the backend, using:
 * Clone the repository [git clone https://github.com/zeze111/andela-bootcamp27.git]
 * Navigate to directory [cd andela-bootcamp27]
 * Install all required dependencies with [npm install]
-* For easy accessibility, Install sequelize-cli globally for database migrations [npm install -g sequelize-cli]
+* For easy accessibility, Install sequelize-cli globally for database migrations [ npm install -g sequelize-cli ]
 * Create a [.env] file in your root directory, following the syntax of the [.env] file 
 * Migrate your database using [sequelize db:migrate] on the command line
 * You can undo migrations by running [sequelize db:migrate:undo:all] on the command line
