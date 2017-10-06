@@ -7,6 +7,9 @@ const Favorite = models.Favorite;
 const Review = models.Review;
 const Rating = models.Rating;
 
+const recipeRules = {
+  comment: 'required|min:10',
+};
 
 const handleRecipe = {
 
@@ -47,26 +50,33 @@ const handleRecipe = {
     Recipe.findById(recipeid)
       .then((recipe) => {
         if (recipe) {
-          console.log(recipe.id);
-          // const sqlQuery = `INSERT INTO "Reviews" ("id","comment","createdAt","updatedAt","userId", "recipeId") VALUES (${req.body.comment}, ${req.decoded.id}, ${recipe.id}`;
-          // models.sequelize.query(sqlQuery).spread((results, metadata) => {})
-          Review.create({
-            comment: req.body.comment,
-            recipeId: recipeid,
-            userId: req.decoded.id,
-          })
-            .then((review) => {
-              res.status(200).json({
-                status: 'Successful', data: review,
-              });
+          const validator = new Validator(req.body, recipeRules);
+          if (validator.passes()) {
+            Review.create({
+              comment: req.body.comment,
+              recipeId: recipeid,
+              userId: req.decoded.id,
             })
-            .catch(error => res.status(400).send(error));
+              .then((review) => {
+                res.status(200).json({
+                  status: 'Successful', data: review,
+                });
+              })
+              .catch(error => res.status(400).send(error));
+          } else {
+            res.status(400).json({
+              status: 'Unsuccessful',
+              message: 'Invalid data input',
+              errors: validator.errors.all(),
+            });
+          }
         } else {
           res.status(400).json({
             status: 'Unsuccessful', message: 'Recipe Not Found',
           });
         }
-      });
+      })
+      .catch(error => res.status(400).send(error));
   },
 
   /** Creates new Recipe and stores in the Recipes table

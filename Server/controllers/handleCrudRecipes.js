@@ -7,7 +7,7 @@ const Rating = models.Rating;
 
 const recipeRules = {
   name: 'required|between:2,90',
-  description: 'required|between:2,140',
+  description: 'between:2,140',
   prepTime: 'required|min:5',
   type: 'required',
   ingredients: 'required|min:15',
@@ -106,19 +106,29 @@ const handleCrudRecipe = {
             status: 'Unsuccessful', message: 'Recipe Not Found',
           });
         } else {
-          recipe.update({
-            name: req.body.name || recipe.name,
-            description: req.body.description || recipe.description,
-            prepTime: req.body.prepTime || recipe.prepTime,
-            type: req.body.type || recipe.type,
-            ingredients: req.body.ingredients || recipe.ingredients,
-            instructions: req.body.instructions || recipe.instructions,
-          })
-            .then((updatedRecipe) => {
-              res.status(200).json({
-                status: 'Successful', data: `${recipe.name} has been updated`,
-              });
+          const validator = new Validator(req.body, recipeRules);
+          if (validator.passes()) {
+            recipe.update({
+              name: req.body.name || recipe.name,
+              description: req.body.description || recipe.description,
+              prepTime: req.body.prepTime || recipe.prepTime,
+              type: req.body.type || recipe.type,
+              ingredients: req.body.ingredients || recipe.ingredients,
+              instructions: req.body.instructions || recipe.instructions,
+            })
+              .then((updatedRecipe) => {
+                res.status(200).json({
+                  status: 'Successful', data: `${recipe.name} has been updated`,
+                });
+              })
+              .catch(error => res.status(400).send(error));
+          } else {
+            res.status(400).json({
+              status: 'Unsuccessful',
+              message: 'Invalid data input',
+              errors: validator.errors.all(),
             });
+          }
         }
       })
       .catch(error => res.status(400).send(error));
@@ -143,11 +153,13 @@ const handleCrudRecipe = {
               res.status(200).json({
                 status: 'Successful', data: `${recipe.name} has been deleted`,
               });
-            });
+            })
+            .catch(error => res.status(400).send(error));
         }
       })
       .catch(error => res.status(400).send(error));
   },
+
 };
 
 export default handleCrudRecipe;
