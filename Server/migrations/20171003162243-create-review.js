@@ -13,6 +13,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
@@ -21,6 +22,7 @@ module.exports = {
       },
       recipeId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         onDelete: 'CASCADE',
         references: {
           model: 'Recipes',
@@ -38,6 +40,8 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Reviews');
+    return queryInterface.dropTable('Reviews', {
+      force:true, cascade:true
+    });
   }
 };

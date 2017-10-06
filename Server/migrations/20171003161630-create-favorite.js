@@ -37,6 +37,8 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Favorites');
+    return queryInterface.dropTable('Favorites', {
+      force:true, cascade:true
+    });
   }
 };

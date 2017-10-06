@@ -4,6 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     comment: {
       type: DataTypes.STRING(1234),
       allowNull: false,
+    },
+    recipeId: {
+      type: DataTypes.INTEGER
+    },
+    userId: {
+      type: DataTypes.INTEGER
     }
   });
 

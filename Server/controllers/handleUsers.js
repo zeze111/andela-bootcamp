@@ -34,7 +34,7 @@ const handleUser = {
               surname: req.body.surname,
               email: req.body.email.toLowerCase(),
               password: req.body.password,
-              password_confirmation: req.body.passwordConfirmation,
+              password_confirmation: req.body.password_confirmation,
             }).then((userCreated) => {
               res.status(201).json({
                 status: 'Success',
@@ -46,7 +46,8 @@ const handleUser = {
           } else {
             res.status(400).json({
               status: 'Unsuccessful', message: 'Email already exist',
-            });
+            })
+              .catch(error => res.status(400).send(error));
           }
         }) // if unsuccessful
         .catch(error => res.status(400).send(error));

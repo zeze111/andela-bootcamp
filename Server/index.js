@@ -20,11 +20,11 @@ app.get('/', (req, res) =>
 app.post('/api/v1/users/signup', handleUser.newUser);
 app.post('/api/v1/users/signin', handleUser.userSignIn);
 app.post('/api/v1/recipes', confirmAuth.authenticate, handleCrudRecipe.newRecipe);
-app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);
+app.post('/api/v1/recipes/:recipesId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);
 
 app.get('/api/v1/recipes', handleCrudRecipe.allRecipes);
 app.get('/api/v1/users/:userId/recipes', confirmAuth.authenticate, handleRecipe.faveRecipes);
-app.get('/api/v1/recipes/:recipeId/', confirmAuth.authenticate, handleRecipe.getRecipe);
+app.get('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleRecipe.getRecipe);
 // app.get('api/v1/recipes?sort=upvotes&order=des', handleCrudRecipe.allRecipes);
 
 app.delete('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.deleteRecipe);

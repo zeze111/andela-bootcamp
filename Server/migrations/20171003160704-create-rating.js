@@ -41,6 +41,8 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Ratings');
+    return queryInterface.dropTable('Ratings', {
+      force:true, cascade:true
+    });
   }
 };
