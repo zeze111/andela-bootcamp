@@ -2,7 +2,7 @@
   "name": "andela-bootcamp27",
   "version": "1.0.0",
   "description": "More-recipes project",
-  "main": "./Server/routes/index.js",
+  "main": "./server/routes/index.js",
   "directories": {
     "test": "tests"
   },
@@ -45,9 +45,9 @@
     "testify": "^0.3.0"
   },
   "scripts": {
-    "start:dev": "nodemon ./Server/index.js --watch Server/ --exec babel-node",
-    "test": "nyc --reporter=html --reporter=text mocha ./Server/tests/apitests.js --compilers js:babel-register",
-    "start": "babel-node ./Server/index.js"
+    "start:dev": "nodemon ./server/index.js --watch server/ --exec babel-node",
+    "test": "nyc --reporter=html --reporter=text mocha ./server/tests/apitests.js --compilers js:babel-register",
+    "start": "babel-node ./server/index.js"
   },
   "repository": {
     "type": "git",
