@@ -36,10 +36,16 @@ const handleUser = {
               password: req.body.password,
               password_confirmation: req.body.password_confirmation,
             }).then((userCreated) => {
-              res.status(201).json({
+              const payload = { id: userCreated.id };
+              const token = jwt.sign(
+                payload, process.env.SECRET_KEY,
+                { expiresIn: 60 * 60 * 48 },
+              );
+              return res.status(201).json({
                 status: 'Success',
                 data: {
                   userName: `${userCreated.firstName} ${userCreated.surname}`,
+                  token,
                 },
               });
             });
@@ -75,15 +81,9 @@ const handleUser = {
         .then((user) => {
           if (user) {
             if (user.comparePassword(req.body.password, user)) {
-              const payload = { id: user.id };
-              const token = jwt.sign(
-                payload, process.env.SECRET_KEY,
-                { expiresIn: 60 * 60 * 48 },
-              );
               return res.status(200).json({
                 status: 'Success',
                 message: 'You are now signed in',
-                token,
               });
             }
             res.status(401).json({
