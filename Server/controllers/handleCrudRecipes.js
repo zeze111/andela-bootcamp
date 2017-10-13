@@ -14,6 +14,15 @@ const recipeRules = {
   instructions: 'required|min:10',
 };
 
+const updateRecipeRules = {
+  name: 'between:2,90',
+  description: 'between:3,140',
+  prepTime: 'between:2,90',
+  type: 'between:4,90',
+  ingredients: 'between:5,1200',
+  instructions: 'between:10,1200',
+};
+
 const handleCrudRecipe = {
 
   /** Creates new Recipe and stores in the Recipes table
@@ -24,26 +33,42 @@ const handleCrudRecipe = {
   newRecipe(req, res) {
     const validator = new Validator(req.body, recipeRules);
     if (validator.passes()) {
-      Recipe.create({
-        name: req.body.name,
-        description: req.body.description,
-        prepTime: req.body.prepTime,
-        type: req.body.type,
-        ingredients: req.body.ingredients,
-        instructions: req.body.instructions,
-        userId: req.decoded.id,
+      Recipe.findOne({
+        where: { userId: req.decoded.id },
       })
-        .then((recipeCreated) => {
-          res.status(201).json({
-            status: 'Success',
-            data: {
-              recipeName: `${recipeCreated.name}`,
-            },
-          });
-        }) // if unsuccessful
+        .then((userRecipe) => {
+          if (userRecipe.name === req.body.name || userRecipe.ingredients === req.body.ingredients) {
+            res.status(400).json({
+              code: 400,
+              status: 'Unsuccessful',
+              message: 'Cant Create A Recipe Twice',
+            });
+          } else {
+            Recipe.create({
+              name: req.body.name,
+              description: req.body.description,
+              prepTime: req.body.prepTime,
+              type: req.body.type,
+              ingredients: req.body.ingredients,
+              instructions: req.body.instructions,
+              userId: req.decoded.id,
+            })
+              .then((recipeCreated) => {
+                res.status(201).json({
+                  code: 201,
+                  status: 'Success',
+                  data: {
+                    recipeName: `${recipeCreated.type}: ${recipeCreated.name} ${recipeCreated.description}`,
+                  },
+                });
+              }) // if unsuccessful
+              .catch(error => res.status(400).send(error));
+          }
+        })
         .catch(error => res.status(400).send(error));
     } else {
-      response.status(400).json({
+      res.status(400).json({
+        code: 400,
         status: 'Unsuccessful',
         message: 'Invalid data input',
         errors: validator.errors.all(),
@@ -67,11 +92,15 @@ const handleCrudRecipe = {
         .then((popularRecipes) => {
           if (popularRecipes.length === 0) {
             res.status(200).json({ // checks if list is empty
-              status: 'Successful', message: 'There are no Popular Recipes',
+              code: 200,
+              status: 'Successful',
+              message: 'There are no Popular Recipes',
             });
           } else {
             res.status(200).json({
-              status: 'Successful', data: popularRecipes,
+              code: 200,
+              status: 'Successful',
+              data: popularRecipes,
             });
           }
         })
@@ -80,11 +109,15 @@ const handleCrudRecipe = {
       Recipe.findAll({}).then((allRecipes) => {
         if (allRecipes.length === 0) { // checks if the table is empty
           res.status(200).json({
-            status: 'Successful', message: 'Currently No Recipes',
+            code: 200,
+            status: 'Successful',
+            message: 'Currently No Recipes',
           });
         } else {
           res.status(200).json({
-            status: 'Successful', data: allRecipes,
+            code: 200,
+            status: 'Successful',
+            data: allRecipes,
           });
         }
       })
@@ -103,10 +136,12 @@ const handleCrudRecipe = {
       .then((recipe) => {
         if (!recipe) {
           res.status(404).json({
-            status: 'Unsuccessful', message: 'Recipe Not Found',
+            code: 404,
+            status: 'Unsuccessful',
+            message: 'Recipe Not Found',
           });
-        } else {
-          const validator = new Validator(req.body, recipeRules);
+        } else if (req.body.name || req.body.description || req.body.prepTime || req.body.type || req.body.ingredients || req.body.instructions) {
+          const validator = new Validator(req.body, updateRecipeRules);
           if (validator.passes()) {
             recipe.update({
               name: req.body.name || recipe.name,
@@ -118,17 +153,26 @@ const handleCrudRecipe = {
             })
               .then((updatedRecipe) => {
                 res.status(200).json({
-                  status: 'Successful', data: `${recipe.name} has been updated`,
+                  code: 200,
+                  status: 'Successful',
+                  data: `${recipe.name} has been updated`,
                 });
               })
               .catch(error => res.status(400).send(error));
           } else {
             res.status(400).json({
+              code: 400,
               status: 'Unsuccessful',
               message: 'Invalid data input',
               errors: validator.errors.all(),
             });
           }
+        } else {
+          res.status(400).json({
+            code: 400,
+            status: 'Unsuccessful',
+            message: 'Must input data',
+          });
         }
       })
       .catch(error => res.status(400).send(error));
@@ -145,13 +189,17 @@ const handleCrudRecipe = {
       .then((recipe) => {
         if (!recipe) {
           res.status(404).json({
-            status: 'Unsuccessful', message: 'Recipe Not Found',
+            code: 404,
+            status: 'Unsuccessful',
+            message: 'Recipe Not Found',
           });
         } else {
           recipe.destroy()
             .then((deletedRecipe) => {
               res.status(200).json({
-                status: 'Successful', data: `${recipe.name} has been deleted`,
+                code: 200,
+                status: 'Successful',
+                data: `${recipe.name} has been deleted`,
               });
             })
             .catch(error => res.status(400).send(error));
