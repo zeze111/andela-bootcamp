@@ -20,24 +20,38 @@ const handleRecipe = {
   */
   faveRecipes(req, res) {
     const reqid = parseInt(req.params.userId, 10);
-    Favorite.findAll({
-      where: {
-        userId: reqid,
-      },
-      // attributes: ['Recipe.name', 'Recipe.description'],
-      // include: [Recipe],
-    }).then((faveRecipes) => {
-      if (faveRecipes.length === 0) {
-        res.status(200).json({
-          status: 'Successful', message: 'You Currently Have No Favorite Recipes',
-        });
-      } else {
-        res.status(200).json({
-          status: 'Successful', data: faveRecipes,
-        });
-      }
-    })
-      .catch(error => res.status(400).send(error));
+    if (reqid === req.decoded.id) {
+      Favorite.findAll({
+        where: {
+          userId: reqid,
+        },
+        /** include: [{
+          model: Recipe,
+          attributes: ['name', 'description'],
+        }], */
+      }).then((faveRecipes) => {
+        if (faveRecipes.length === 0) {
+          res.status(200).json({
+            code: 200,
+            status: 'Successful',
+            message: 'You Currently Have No Favorite Recipes',
+          });
+        } else {
+          res.status(200).json({
+            code: 200,
+            status: 'Successful',
+            data: faveRecipes,
+          });
+        }
+      })
+        .catch(error => res.status(400).send(error));
+    } else {
+      res.status(401).json({
+        code: 401,
+        status: 'Unsuccessful',
+        message: 'Unauthorized',
+      });
+    }
   },
 
   /** Creates new Recipe and stores in the Recipes table
@@ -59,12 +73,15 @@ const handleRecipe = {
             })
               .then((review) => {
                 res.status(200).json({
-                  status: 'Successful', data: review,
+                  code: 200,
+                  status: 'Successful',
+                  data: review,
                 });
               })
               .catch(error => res.status(400).send(error));
           } else {
             res.status(400).json({
+              code: 400,
               status: 'Unsuccessful',
               message: 'Invalid data input',
               errors: validator.errors.all(),
@@ -72,7 +89,9 @@ const handleRecipe = {
           }
         } else {
           res.status(400).json({
-            status: 'Unsuccessful', message: 'Recipe Not Found',
+            code: 400,
+            status: 'Unsuccessful',
+            message: 'Recipe Not Found',
           });
         }
       })
@@ -92,12 +111,15 @@ const handleRecipe = {
       .then((recipe) => {
         if (!recipe) {
           return res.status(401).json({
+            code: 401,
             status: 'Unsuccessful',
             message: 'Recipe not found',
           });
         }
         res.status(200).json({
-          status: 'Successful', data: recipe,
+          code: 200,
+          status: 'Successful',
+          data: recipe,
         });
       });
   },
