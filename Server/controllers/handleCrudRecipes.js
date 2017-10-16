@@ -140,7 +140,8 @@ const handleCrudRecipe = {
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
           });
-        } else if (req.body.name || req.body.description || req.body.prepTime || req.body.type || req.body.ingredients || req.body.instructions) {
+        } else if (req.body.name || req.body.description || req.body.prepTime
+          || req.body.type || req.body.ingredients || req.body.instructions) {
           const validator = new Validator(req.body, updateRecipeRules);
           if (validator.passes()) {
             recipe.update({
