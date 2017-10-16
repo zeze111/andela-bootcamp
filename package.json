@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./Server/index.js --watch Server/ --exec babel-node",
-    "test": "nyc --reporter=html --reporter=text mocha ./Server/tests/apitests.js --compilers js:babel-register",
+    "test": "nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
     "start": "babel-node ./Server/index.js"
   },
   "repository": {

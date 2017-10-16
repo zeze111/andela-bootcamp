@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 
 const should = chai.should;
 
-const app = require('../index.js');
+const app = require('../Server/index.js');
 
 let token1;
 
