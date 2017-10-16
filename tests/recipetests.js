@@ -1,26 +1,32 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
+import token1 from './usertests'
 
 chai.use(chaiHttp);
 
 const should = chai.should;
 
-const app = require('../index.js');
+const app = require('../Server');
 
 
-describe('HTTP API Testing', () => {
-  describe('GET /api/v1/recipes', () => {
-    it('it should return code 200 and recipe list', () => {
-      chai.request(app)
-        .get('/api/v1/recipes')
-        .end((err, res) => {
-          res.status.should.equal(200);
-          res.body.should.be.a('array');
-          res.body.status.should.equal('Success');
-          done();
-        });
-    });
+const invalidToken = jwt.sign({
+  userId: 1,
+  authString: 'b921f6ff61ef9e63e4e38dfcedcd79ebdc16am5hr4ls63op',
+}, {
+    expiresIn: '48h',
+  });
+
+describe('GET /api/v2/recipes?sort=upvotes&order=des', () => {
+  it('it should return code 201, username and token', () => {
+    chai.request(app)
+      .get('/api/v1/recipes')
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.should.be.a('array');
+        res.body.status.should.equal('Success');
+        done();
+      });
   });
   describe('GET /api/v2/recipes?sort=upvotes&order=des', () => {
     it('it should return code 200 and popular recipe list', () => {
@@ -34,6 +40,8 @@ describe('HTTP API Testing', () => {
         });
     });
   });
+
+})
 
   describe('POST /api/v1/recipes', () => {
     it('it should return code 201 Succesful', () => {
