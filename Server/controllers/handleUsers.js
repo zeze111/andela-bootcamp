@@ -105,6 +105,20 @@ const handleUser = {
       });
     }
   },
+
+  clearTable(req, res) { // at end of tests
+    if (process.env.NODE_ENV === 'test') { // if in test environment
+      User.truncate({
+        cascade: true,
+        restartIdentity: true,
+      }).then(() =>
+        res.status(204).send({}));
+    } else {
+      res.status(200).json({
+        message: 'Not allowed',
+      });
+    }
+  },
 };
 
 export default handleUser;

@@ -28,6 +28,7 @@ app.get('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleRecipe.getR
 // app.get('api/v1/recipes?sort=upvotes&order=des', handleCrudRecipe.allRecipes);
 
 app.delete('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.deleteRecipe);
+app.delete('/api/v1/users', handleUser.clearTable); // use in test env
 app.put('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.updateRecipe);
 
 
