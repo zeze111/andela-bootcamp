@@ -14,53 +14,59 @@
 </head>
 
 <body class="lime lighten-5">
-  <ul id="userdrop" class="dropdown-content">
-    <li><a href="user_account.html">Profile</a></li>
-    <li><a href="#!">Sign Out</a></li>
-  </ul>
-  <nav class="teal lighten-2" role="navigation">
-    <div class="nav-wrapper ">
-      <a id="logo" href="index.html" class="left brand-logo">More-Recipes</a>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons left">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="create_recipe.html" class="btn-floating btn-medium waves-effect waves-light grey">
+  <header>
+    <ul id="userdrop" class="dropdown-content">
+      <li><a href="user_account.html">Profile</a></li>
+      <li><a href="#!">Sign Out</a></li>
+    </ul>
+    <nav class="teal lighten-2" role="navigation">
+      <div class="nav-wrapper ">
+        <a id="logo" href="index.html" class="left brand-logo" style="margin-left:2em">More-Recipes</a>
+        <a href="#" data-activates="nav-mobile" class="button-collapse left"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="create_recipe.html" class="btn-floating btn-medium tooltipped waves-effect waves-light grey" data-position="bottom"
+              data-delay="50" data-tooltip="Add A Recipe">
             <i class="material-icons">add</i></a></li>
-        <li><a href="user_account.html#fave" class="btn-floating btn-medium waves-effect waves-light grey">
+          <li><a href="user_account.html#fave" class="btn-floating btn-medium tooltipped waves-effect waves-light grey" data-position="bottom"
+              data-delay="50" data-tooltip="Favorites">
                 <i class="material-icons">star_border</i></a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="userdrop">Username<i class="material-icons right">arrow_drop_down</i></a></li>
-      </ul>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="create_recipe.html">Add</a></li>
-        <li><a href="user_account.html#fave">Favourites</a></li>
-        <li><a href="user_account.html"></a>Username</li>
-      </ul>
-    </div>
-  </nav>
+          <li><a class="dropdown-button" href="#!" data-activates="userdrop">Username<i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="create_recipe.html">Add Recipe</a></li>
+          <li><a href="user_account.html#fave">Favourites</a></li>
+          <li><a href="user_account.html"></a>Username</li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-  <div class="container" style="width:100%; margin: 0 auto;">
-    <br> <br>
-    <div class="row">
-      <div class="col s3 offset-s6">
-        <img class="materialboxed responsive-img circle" width="150" src="assets/images/profilepic.png">
+  <main>
+    <div class="container" style="width:100%; margin: 0 auto;">
+      <br> <br>
+      <div class="row">
+        <div class="col s3 offset-s6">
+          <img class="materialboxed responsive-img circle" width="150" src="assets/images/profilepic.png">
+        </div>
+        <div class="col s3 pull-s1">
+          <br>
+          <p id="Name"> Name </p>
+          <p id="Bio"> Personal Bio </p>
+          <p id="status"> Status </p>
+        </div>
       </div>
-      <div class="col s3 pull-s1">
-        <br>
-        <p id="Name"> Name </p>
-        <p id="Bio"> Personal Bio </p>
-        <p id="status"> Status </p>
+      <div class="row">
+        <p class="left-align" style="font-size:20px; margin-top:40px; margin-left:30px;"> SUBMITTED RECIPES </p>
+        <div class="col s5 offset-s1">
+          <ul id="userlist" class="collection">
+            <li class="collection-item">
+              <a href="#"> Recipe Name </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <p class="left-align" style="font-size:20px; margin-top:40px; margin-left:30px;"> SUBMITTED RECIPES </p>
-      <div class="col s5 offset-s1">
-        <ul id="userlist" class="collection">
-          <li class="collection-item">
-            <a href="#"> Recipe Name </a>
-          </li>
-        </ul> <br> <br>
-      </div>
-    </div>
-  </div>
+  </main>
 
   <footer class="page-footer teal lighten-2">
     <div class="container">
