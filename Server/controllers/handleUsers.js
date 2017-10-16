@@ -106,7 +106,7 @@ const handleUser = {
     }
   },
 
-  clearTable(req, res) { // at end of tests
+  clearUsers(req, res) { // at end of tests
     if (process.env.NODE_ENV === 'test') { // if in test environment
       User.truncate({
         cascade: true,
