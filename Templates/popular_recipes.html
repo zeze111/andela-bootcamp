@@ -12,23 +12,24 @@
   <link href="assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 
   <style>
-    /** body {
-      background: url("assets/images/bgd.jpg");
-      background-size: cover;
-    } **/
+    /**
+    */
   </style>
 </head>
 
 <body class="lime lighten-5">
+  <header>
   <nav class="teal lighten-2" role="navigation">
     <div class="nav-wrapper ">
       <a id="logo" href="index.html" class="left brand-logo">More-Recipes</a>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons left">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#" class="btn-floating btn-medium waves-effect waves-light grey">
-            <i href="#" class="material-icons">add</i></a></li>
-        <li><a href="#" class="btn-floating btn-medium waves-effect waves-light grey">
-                <i class="material-icons">star_border</i></a></li>
+        <li><a href="#" class="btn-floating btn-medium tooltipped waves-effect waves-light grey" 
+          data-position="bottom" data-delay="50" data-tooltip="Add A Recipe">
+          <i class="material-icons">add</i></a></li>
+        <li><a href="#" class="btn-floating btn-medium tooltipped waves-effect waves-light grey"
+          data-position="bottom" data-delay="50" data-tooltip="Favorites">
+              <i class="material-icons">star_border</i></a></li>
         <li><a href="signin.html">Sign In</a></li>
       </ul>
       <ul id="nav-mobile" class="side-nav">
@@ -38,7 +39,9 @@
       </ul>
     </div>
   </nav>
+  </header>
 
+  <main>
   <div class="container" style="width:100%; margin: 0 auto;">
     <br> <br>
     <div class="row">
@@ -49,6 +52,7 @@
       </div>
     </div>
   </div>
+  </main>
 
   <footer class="page-footer teal lighten-2">
     <div class="container">
@@ -56,8 +60,6 @@
         <div class="col l6 s12">
           <h5 class="white-text">Company Bio</h5>
           <p class="grey-text text-lighten-4"> Information about the company, how it started, purpose and goal</p>
-
-
         </div>
         <div class="col l3 s12">
           <h5 class="white-text">About Us</h5>

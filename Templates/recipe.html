@@ -15,119 +15,124 @@
 </head>
 
 <body class="lime lighten-5">
-  <nav class="teal lighten-2" role="navigation">
-    <div class="nav-wrapper">
-      <a id="logo" href="index.html" class="left brand-logo">More-Recipes</a>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons left">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a class="btn-floating btn-medium waves-effect waves-light grey">
+  <header>
+    <nav class="teal lighten-2" role="navigation">
+      <div class="nav-wrapper">
+        <a id="logo" href="index.html" class="left brand-logo">More-Recipes</a>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons left">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#" class="btn-floating btn-medium tooltipped waves-effect waves-light grey" 
+            data-position="bottom" data-delay="50" data-tooltip="Add A Recipe">
             <i class="material-icons">add</i></a></li>
-        <li><a class="btn-floating btn-medium waves-effect waves-light grey">
+          <li><a href="#" class="btn-floating btn-medium tooltipped waves-effect waves-light grey"
+            data-position="bottom" data-delay="50" data-tooltip="Favorites">
                 <i class="material-icons">star_border</i></a></li>
-        <li><a href="signin.html">Sign In</a></li>
-      </ul>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Add</a></li>
-        <li><a href="#">Favourites</a></li>
-        <li><a href="signin.html">Sign In</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container z-depth-4">
-    <div class="row" style="margin-top:50px;">
-      <div class="col s2 offset-s1">
-        <div class="card" style="width:230px; height:230px;">
-          <div class="card-image">
-            <img src="assets/images/card.jpeg" class="materialboxed responsive-img">
-          </div>
-        </div>
-      </div>
-      <div class="col s8" style="margin-left:30px;">
-        <div class="hreview-aggregate">
-          <div class="row" style="margin-bottom:0px; margin-top:70px;">
-            <div class="col s12 push-s1">
-              <h5 id="title" style="margin-bottom:0px; margin-top:0px;"> Baked Alaska </h5>
-            </div>
-            <div class="col s12 push-s1">
-              <p style=" margin-top:0px;"> Posted by <a id="uname" href="user-recipe.html"> Username </a> </p>
-            </div>
-            <div class="col s12 push-s1">
-              <p id="desc" style=" margin-top:0px;">Recipe description </p>
-            </div>
-            <div class="col s10 push-s1">
-              <p style=" margin-bottom:0px;"> Like this Recipe? Add to your favourites
-                <a class="btn-floating btn-small waves-effect waves-light yellow">
-                     <i class="material-icons">star_border</i></a>
-              </p>
-            </div>
-            <div class="col s5 push-s1">
-              <a href="#rev" style="margin-top:0px;" class="scrollspy"> Reviews </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s2 pull-s2">
-          <a> <i class="material-icons">thumb_up</i></a>
-          <p id="likes" class="col s2 push-s3">3</p>
-        </div>
-        <div class="col s2 pull-s2">
-          <a> <i class="material-icons">thumb_down</i></a>
-          <p id="likes" class="col s1 push-s3">1</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <h5 class="left-align" style="margin-left:50px"> Recipe </h5>
-      <div id="time" class="col s6 ">
-        <p style="font-size:18px; margin-bottom:0px;"> Prep Time: </p>
-        <p id="preptime" style="margin-top:0px;"> Time </p>
-      </div>
-      <div id="Ing" class="col s6 ">
-        <p style="font-size:18px; margin-left:50px"> Ingredients: </p>
-        <p id="ingred"> Ingredients info </p>
-      </div>
-      <div id="Ins" class="col s6">
-        <p style="font-size:18px; margin-left:50px"> Instructions: </p>
-        <p id="instruct"> Instruction info </p>
-      </div>
-    </div> <br>
-  </div>
-
-
-  <div class="container">
-    <br> <br>
-    <h5 id="rev" class="blue-text"> Reviews </h5>
-    <div class="row">
-      <div class="col s8">
-        <ul class="collection">
-          <li class="collection-item avatar">
-            <img src="assets/images/profilepic.png" alt="" class="circle">
-            <span class="title"> <a href="#"> Title </a></span>
-            <p id="r-cmt"> User comment... </p>
-          </li>
+          <li><a href="signin.html">Sign In</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#">Add</a></li>
+          <li><a href="#">Favourites</a></li>
+          <li><a href="signin.html">Sign In</a></li>
         </ul>
       </div>
-    </div>
-  </div>
-  <div class="container">
-    <p> Add a comment to review this recipe </p>
-    <div class="row">
-      <form class="col s6">
-        <div class="input-field ">
-          <label for="cmt"> Review: <i class="material-icons left">mode_edit</i></label>
-          <textarea id="cmt" class="materialize-textarea " placeholder="Comment"></textarea>
-        </div>
-        <div class="right-align">
-          <button class="btn grey" type="button"> Review </button>
-        </div>
-      </form>
-    </div>
-  </div>
+    </nav>
+  </header>
 
+  <main>
+    <div class="container z-depth-4">
+      <div class="row" style="margin-top:50px;">
+        <div class="col s2 offset-s1">
+          <div class="card" style="width:230px; height:230px;">
+            <div class="card-image">
+              <img src="assets/images/card.jpeg" class="materialboxed responsive-img">
+            </div>
+          </div>
+        </div>
+        <div class="col s8" style="margin-left:30px;">
+          <div class="hreview-aggregate">
+            <div class="row" style="margin-bottom:0px; margin-top:70px;">
+              <div class="col s12 push-s1">
+                <h5 id="title" style="margin-bottom:0px; margin-top:0px;"> Baked Alaska </h5>
+              </div>
+              <div class="col s12 push-s1">
+                <p style=" margin-top:0px;"> Posted by <a id="uname" href="user-recipe.html"> Username </a> </p>
+              </div>
+              <div class="col s12 push-s1">
+                <p id="desc" style=" margin-top:0px;">Recipe description </p>
+              </div>
+              <div class="col s10 push-s1">
+                <p style=" margin-bottom:0px;"> Like this Recipe? Add to your favourites
+                  <a class="btn-floating btn-small waves-effect waves-light yellow">
+                     <i class="material-icons">star_border</i></a>
+                </p>
+              </div>
+              <div class="col s5 push-s1">
+                <a href="#rev" style="margin-top:0px;" class="scrollspy"> Reviews </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s2 pull-s2">
+            <a> <i class="material-icons">thumb_up</i></a>
+            <p id="likes" class="col s2 push-s3">3</p>
+          </div>
+          <div class="col s2 pull-s2">
+            <a> <i class="material-icons">thumb_down</i></a>
+            <p id="likes" class="col s1 push-s3">1</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <h5 class="left-align" style="margin-left:50px"> Recipe </h5>
+        <div id="time" class="col s6 ">
+          <p style="font-size:18px; margin-bottom:0px;"> Prep Time: </p>
+          <p id="preptime" style="margin-top:0px;"> Time </p>
+        </div>
+        <div id="Ing" class="col s6 ">
+          <p style="font-size:18px; margin-left:50px"> Ingredients: </p>
+          <p id="ingred"> Ingredients info </p>
+        </div>
+        <div id="Ins" class="col s6">
+          <p style="font-size:18px; margin-left:50px"> Instructions: </p>
+          <p id="instruct"> Instruction info </p>
+        </div>
+      </div> <br>
+    </div>
+
+
+    <div class="container">
+      <br> <br>
+      <h5 id="rev" class="blue-text"> Reviews </h5>
+      <div class="row">
+        <div class="col s8">
+          <ul class="collection">
+            <li class="collection-item avatar">
+              <img src="assets/images/profilepic.png" alt="" class="circle">
+              <span class="title"> <a href="#"> Title </a></span>
+              <p id="r-cmt"> User comment... </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <p> Add a comment to review this recipe </p>
+      <div class="row">
+        <form class="col s6">
+          <div class="input-field ">
+            <label for="cmt"> Review: <i class="material-icons left">mode_edit</i></label>
+            <textarea id="cmt" class="materialize-textarea " placeholder="Comment"></textarea>
+          </div>
+          <div class="right-align">
+            <button class="btn grey" type="button"> Review </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
 
 
   <footer class="page-footer teal lighten-2">

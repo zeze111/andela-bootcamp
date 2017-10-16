@@ -14,179 +14,184 @@
 </head>
 
 <body class="lime lighten-5">
-  <nav class="teal lighten-2" role="navigation">
-    <div class="nav-wrapper ">
-      <a id="logo" href="index.html" class="left brand-logo">More-Recipes</a>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons left">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#" class="btn-floating btn-medium waves-effect waves-light grey">
-            <i href="#" class="material-icons">add</i></a></li>
-        <li><a href="#" class="btn-floating btn-medium waves-effect waves-light grey">
-                <i class="material-icons">star_border</i></a></li>
-        <li><a href="signin.html">Sign In</a></li>
-      </ul>
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Add</a></li>
-        <li><a href="#">Favourites</a></li>
-        <li><a href="signin.html">Sign In</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container" style="width:100%; margin: 0 auto;">
-    <div class="row">
-      <div class="col s2">
-        <a href="#">
-          <h5 class="light teal-text" style="margin-top:30px"> ALL RECIPES </h5>
-        </a>
-      </div>
-      <form class="col s6 offset-s4">
-        <div class="row">
-          <div class="input-field col s6">
-            <label for="search"> </label>
-            <input placeholder="Searcch for Recipes" type="text" id="search" class="validate"> </input>
-          </div>
-          <div class="col s6">
-            <button class="btn grey" style="margin-top:30px" type="button">  <i class="material-icons">search</i> </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="row">
-    <nav class="teal" role="navigation">
-      <div class="nav-wrapper">
-        <ul id="filter" class="dropdown-content">
-          <li><a href="#!">Appetizer</a></li>
-          <li><a href="#!">Main</a></li>
-          <li><a href="#!">Dessert</a></li>
-          <li><a href="#!">Drinks</a></li>
-        </ul>
-        <ul class="hide-on-med-and-down">
-          <li><a>A</a></li>
-          <li><a>B</a></li>
-          <li><a>C</a></li>
-          <li><a>D</a></li>
-          <li><a>E</a></li>
-          <li><a>F</a></li>
-          <li><a>G</a></li>
-          <li><a>H</a></li>
-          <li><a>I</a></li>
-          <li><a>J</a></li>
-          <li><a>K</a></li>
-          <li><a>L</a></li>
-          <li><a>M</a></li>
-          <li><a>N</a></li>
-          <li><a>O</a></li>
-          <li><a>P</a></li>
-          <li><a>Q</a></li>
-          <li><a>R</a></li>
-          <li><a>S</a></li>
-          <li><a>T</a></li>
-          <li><a>U</a></li>
-          <li><a>V</a></li>
-          <li><a>W</a></li>
-          <li><a>X</a></li>
-          <li><a>Y</a></li>
-          <li><a>Z</a></li>
-        </ul>
+  <header>
+    <nav class="teal lighten-2" role="navigation">
+      <div class="nav-wrapper ">
+        <a id="logo" href="index.html" class="left brand-logo">More-Recipes</a>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons left">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a class="dropdown-button" href="#!" data-activates="filter">Filter By<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a href="#" class="btn-floating btn-medium tooltipped waves-effect waves-light grey" 
+            data-position="bottom" data-delay="50" data-tooltip="Add A Recipe">
+            <i class="material-icons">add</i></a></li>
+          <li><a href="#" class="btn-floating btn-medium tooltipped waves-effect waves-light grey"
+            data-position="bottom" data-delay="50" data-tooltip="Favorites">
+                <i class="material-icons">star_border</i></a></li>
+          <li><a href="signin.html">Sign In</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#">Add</a></li>
+          <li><a href="#">Favourites</a></li>
+          <li><a href="signin.html">Sign In</a></li>
         </ul>
       </div>
     </nav>
-  </div>
+  </header>
 
-  <div class="container" style="width:100%; margin: 0 auto;">
-    <br>
-
-    <div class="row">
-      <div class="categories-container">
-        <ul id="alllist" class="categories">
-          <li id="alist1">
-            <div class="col s2 offset-1">
-              <div class="card grey lighten-3">
-                <div class="card-image">
-                  <img src="assets/images/card.jpeg" class="responsive-img" style="height:130px">
-                  <span class="card-title"> <p style="font-size:22px" class="black-text"> Baked Alaska </p></span>
-                  <div class="card-action">
-                    <a href="#"> Recipe </a>
-                  </div>
-                </div>
-              </div>
+  <main>
+    <div class="container" style="width:100%; margin: 0 auto;">
+      <div class="row">
+        <div class="col s2">
+          <a href="#">
+            <h5 class="light teal-text" style="margin-top:30px"> ALL RECIPES </h5>
+          </a>
+        </div>
+        <form class="col s6 offset-s4">
+          <div class="row">
+            <div class="input-field col s6">
+              <label for="search"> </label>
+              <input placeholder="Searcch for Recipes" type="text" id="search" class="validate"> </input>
             </div>
-          </li>
-          <li id="alist2">
-            <div class="col s2 offset-1">
-              <div class="card grey lighten-3">
-                <div class="card-image">
-                  <img src="assets/images/nig2.jpg" class="responsive-img" style="height:130px">
-                  <span class="card-title"> <p style="font-size:22px" class="black-text"> Goat Peppersoup </p></span>
-                  <div class="card-action">
-                    <a href="#"> Recipe </a>
-                  </div>
-                </div>
-              </div>
+            <div class="col s6">
+              <button class="btn grey" style="margin-top:30px" type="button">  <i class="material-icons">search</i> </button>
             </div>
-          </li>
-          <li id="alist3">
-            <div class="col s2 offset-1">
-              <div class="card grey lighten-3">
-                <div class="card-image">
-                  <img src="assets/images/card2.jpg" class="responsive-img" style="height:130px">
-                  <span class="card-title"> <p style="font-size:22px" class="black-text"> Stir Fry Shrimp </p></span>
-                  <div class="card-action">
-                    <a href="#"> Recipe </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li id="alist4">
-            <div class="col s2 offset-1">
-              <div class="card grey lighten-3">
-                <div class="card-image">
-                  <img src="assets/images/nig1.jpg" class="responsive-img" style="height:130px">
-                  <span class="card-title"> <p style="font-size:22px" class="black-text">  Jollof Rice </p></span>
-                  <div class="card-action">
-                    <a href="#"> Recipe </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li id="alist5">
-            <div class="col s2 offset-1">
-              <div class="card grey lighten-3">
-                <div class="card-image">
-                  <img src="assets/images/card.jpeg" class="responsive-img" style="height:130px">
-                  <span class="card-title"> <p style="font-size:22px" class="black-text">  Baked Alaska </p></span>
-                  <div class="card-action">
-                    <a href="#"> Recipe </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li id="alist6">
-            <div class="col s2 offset-1">
-              <div class="card grey lighten-3">
-                <div class="card-image">
-                  <img src="assets/images/nig2.jpg" class="responsive-img" style="height:130px">
-                  <span class="card-title"> <p style="font-size:22px" class="black-text">  Goat Peppersoup </p></span>
-                  <div class="card-action">
-                    <a href="#"> Recipe </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
+          </div>
+        </form>
       </div>
     </div>
-  </div>
 
+    <div class="row">
+      <nav class="teal" role="navigation">
+        <div class="nav-wrapper">
+          <ul id="filter" class="dropdown-content">
+            <li><a href="#!">Appetizer</a></li>
+            <li><a href="#!">Main</a></li>
+            <li><a href="#!">Dessert</a></li>
+            <li><a href="#!">Drinks</a></li>
+          </ul>
+          <ul class="hide-on-med-and-down">
+            <li><a>A</a></li>
+            <li><a>B</a></li>
+            <li><a>C</a></li>
+            <li><a>D</a></li>
+            <li><a>E</a></li>
+            <li><a>F</a></li>
+            <li><a>G</a></li>
+            <li><a>H</a></li>
+            <li><a>I</a></li>
+            <li><a>J</a></li>
+            <li><a>K</a></li>
+            <li><a>L</a></li>
+            <li><a>M</a></li>
+            <li><a>N</a></li>
+            <li><a>O</a></li>
+            <li><a>P</a></li>
+            <li><a>Q</a></li>
+            <li><a>R</a></li>
+            <li><a>S</a></li>
+            <li><a>T</a></li>
+            <li><a>U</a></li>
+            <li><a>V</a></li>
+            <li><a>W</a></li>
+            <li><a>X</a></li>
+            <li><a>Y</a></li>
+            <li><a>Z</a></li>
+          </ul>
+          <ul class="right hide-on-med-and-down">
+            <li><a class="dropdown-button" href="#!" data-activates="filter">Filter By<i class="material-icons right">arrow_drop_down</i></a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container" style="width:100%; margin: 0 auto;">
+      <br>
+
+      <div class="row">
+        <div class="categories-container">
+          <ul id="alllist" class="categories">
+            <li id="alist1">
+              <div class="col s2 offset-1">
+                <div class="card grey lighten-3">
+                  <div class="card-image">
+                    <img src="assets/images/card.jpeg" class="responsive-img" style="height:130px">
+                    <span class="card-title"> <p style="font-size:22px" class="black-text"> Baked Alaska </p></span>
+                    <div class="card-action">
+                      <a href="#"> Recipe </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li id="alist2">
+              <div class="col s2 offset-1">
+                <div class="card grey lighten-3">
+                  <div class="card-image">
+                    <img src="assets/images/nig2.jpg" class="responsive-img" style="height:130px">
+                    <span class="card-title"> <p style="font-size:22px" class="black-text"> Goat Peppersoup </p></span>
+                    <div class="card-action">
+                      <a href="#"> Recipe </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li id="alist3">
+              <div class="col s2 offset-1">
+                <div class="card grey lighten-3">
+                  <div class="card-image">
+                    <img src="assets/images/card2.jpg" class="responsive-img" style="height:130px">
+                    <span class="card-title"> <p style="font-size:22px" class="black-text"> Stir Fry Shrimp </p></span>
+                    <div class="card-action">
+                      <a href="#"> Recipe </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li id="alist4">
+              <div class="col s2 offset-1">
+                <div class="card grey lighten-3">
+                  <div class="card-image">
+                    <img src="assets/images/nig1.jpg" class="responsive-img" style="height:130px">
+                    <span class="card-title"> <p style="font-size:22px" class="black-text">  Jollof Rice </p></span>
+                    <div class="card-action">
+                      <a href="#"> Recipe </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li id="alist5">
+              <div class="col s2 offset-1">
+                <div class="card grey lighten-3">
+                  <div class="card-image">
+                    <img src="assets/images/card.jpeg" class="responsive-img" style="height:130px">
+                    <span class="card-title"> <p style="font-size:22px" class="black-text">  Baked Alaska </p></span>
+                    <div class="card-action">
+                      <a href="#"> Recipe </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li id="alist6">
+              <div class="col s2 offset-1">
+                <div class="card grey lighten-3">
+                  <div class="card-image">
+                    <img src="assets/images/nig2.jpg" class="responsive-img" style="height:130px">
+                    <span class="card-title"> <p style="font-size:22px" class="black-text">  Goat Peppersoup </p></span>
+                    <div class="card-action">
+                      <a href="#"> Recipe </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <footer class="page-footer teal lighten-2">
     <div class="container">
@@ -194,8 +199,6 @@
         <div class="col l6 s12">
           <h5 class="white-text">Company Bio</h5>
           <p class="grey-text text-lighten-4"> Information about the company, how it started, purpose and goal</p>
-
-
         </div>
         <div class="col l3 s12">
           <h5 class="white-text">About Us</h5>
