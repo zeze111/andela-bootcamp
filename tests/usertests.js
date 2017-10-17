@@ -8,7 +8,7 @@ const should = chai.should;
 
 const app = require('../Server/index.js');
 
-let token1;
+let token;
 
 
 describe('User Sign Up and Sign In', () => {
@@ -30,7 +30,7 @@ describe('User Sign Up and Sign In', () => {
           should.not.exist(err);
           res.status.should.equal(201);
           res.body.status.should.equal('Success');
-          token1 = res.body.token;
+          token = res.body.token;
           done();
         });
     });
@@ -120,5 +120,6 @@ describe('User Sign Up and Sign In', () => {
       });
     });
   });
+});
 
-  export default token1;
+export default token;

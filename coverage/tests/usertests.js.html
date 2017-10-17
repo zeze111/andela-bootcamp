@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35.29% </span>
+        <span class="strong">11.32% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>18/51</span>
+        <span class='fraction'>6/53</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">44.44% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>8/18</span>
+        <span class='fraction'>0/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35.29% </span>
+        <span class="strong">11.32% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>18/51</span>
+        <span class='fraction'>6/53</span>
       </div>
     </div>
   </div>
@@ -166,7 +166,9 @@
 121
 122
 123
-124</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+124
+125
+126</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,13 +178,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,9 +205,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -217,12 +222,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -281,6 +284,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -299,13 +303,16 @@ const should = chai.should;
 &nbsp;
 const app = require('../Server/index.js');
 &nbsp;
-let token1;
+let <span class="cstat-no" title="statement not covered" >token;</span>
 &nbsp;
 &nbsp;
-describe('User Sign Up and Sign In', () =&gt; {
-  describe('POST /api/v1/users/signup', () =&gt; {
-    it('it should return code 201, user name and token', () =&gt; {
-      chai.request(app)
+<span class="cstat-no" title="statement not covered" >describe('User Sign Up and Sign In', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >  before(<span class="fstat-no" title="function not covered" >(</span>done) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    chai.request(app).delete('/api/users').end(done);</span>
+  });
+<span class="cstat-no" title="statement not covered" >  describe('POST /api/v1/users/signup', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >    it('it should return code 201, user name and token', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >      chai.request(app)</span>
         .post('/api/v1/users/signup')
         .send({
           firstName: 'user1',
@@ -318,14 +325,14 @@ describe('User Sign Up and Sign In', () =&gt; {
 <span class="cstat-no" title="statement not covered" >          should.not.exist(err);</span>
 <span class="cstat-no" title="statement not covered" >          res.status.should.equal(201);</span>
 <span class="cstat-no" title="statement not covered" >          res.body.status.should.equal('Success');</span>
-<span class="cstat-no" title="statement not covered" >          token1 = res.body.token;</span>
+<span class="cstat-no" title="statement not covered" >          token = res.body.token;</span>
 <span class="cstat-no" title="statement not covered" >          done();</span>
         });
     });
   });
-  describe('POST /api/v1/users/signin', () =&gt; {
-    it('it should return code 200', () =&gt; {
-      chai.request(app)
+<span class="cstat-no" title="statement not covered" >  describe('POST /api/v1/users/signin', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >    it('it should return code 200', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >      chai.request(app)</span>
         .post('/api/v1/users/signin')
         .send({
           email: 'user1@gmail.com',
@@ -340,85 +347,84 @@ describe('User Sign Up and Sign In', () =&gt; {
         });
     });
   });
-});
-&nbsp;
-describe('Error Handling for User Sign Up and Sign In', () =&gt; {
-  describe('POST /api/v1/users/signup', () =&gt; {
-    it('it should return code 400, invalid password error', () =&gt; {
-      chai.request(app)
-        .post('/api/v1/users/signup')
-        .send({
-          firstName: 'user1',
-          surname: 'user',
-          email: 'user1@gmail.com',
-          password: 'test',
-          password_confirmation: 'test',
-        })
-        .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >          res.status.should.equal(400);</span>
-<span class="cstat-no" title="statement not covered" >          res.body.status.should.equal('Unsuccessful');</span>
-<span class="cstat-no" title="statement not covered" >          res.body.message.should.equal('Invalid data input');</span>
-<span class="cstat-no" title="statement not covered" >          done();</span>
-        });
-<span class="cstat-no" title="statement not covered" >      it('it should return code 400, user already exists error', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >  describe('Error Handling for User Sign Up and Sign In', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >    describe('POST /api/v1/users/signup', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >      it('it should return code 400, invalid password error', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
 <span class="cstat-no" title="statement not covered" >        chai.request(app)</span>
           .post('/api/v1/users/signup')
           .send({
             firstName: 'user1',
             surname: 'user',
             email: 'user1@gmail.com',
-            password: 'testpassword',
-            password_confirmation: 'testpassword',
+            password: 'test',
+            password_confirmation: 'test',
           })
           .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
 <span class="cstat-no" title="statement not covered" >            res.status.should.equal(400);</span>
 <span class="cstat-no" title="statement not covered" >            res.body.status.should.equal('Unsuccessful');</span>
-<span class="cstat-no" title="statement not covered" >            res.body.message.should.equal('Email already exist');</span>
+<span class="cstat-no" title="statement not covered" >            res.body.message.should.equal('Invalid data input');</span>
 <span class="cstat-no" title="statement not covered" >            done();</span>
           });
-      });
-<span class="cstat-no" title="statement not covered" >      describe('POST /api/v1/users/signin', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
-<span class="cstat-no" title="statement not covered" >        it('it should return code 400, user not found error', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >        it('it should return code 400, user already exists error', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
 <span class="cstat-no" title="statement not covered" >          chai.request(app)</span>
-            .post('/api/v1/users/signin')
+            .post('/api/v1/users/signup')
             .send({
-              email: 'user2@gmail.com',
+              firstName: 'user1',
+              surname: 'user',
+              email: 'user1@gmail.com',
               password: 'testpassword',
+              password_confirmation: 'testpassword',
             })
             .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
 <span class="cstat-no" title="statement not covered" >              res.status.should.equal(400);</span>
 <span class="cstat-no" title="statement not covered" >              res.body.status.should.equal('Unsuccessful');</span>
-<span class="cstat-no" title="statement not covered" >              res.body.message.should.equal('User not found');</span>
+<span class="cstat-no" title="statement not covered" >              res.body.message.should.equal('Email already exist');</span>
 <span class="cstat-no" title="statement not covered" >              done();</span>
             });
         });
-<span class="cstat-no" title="statement not covered" >        it('it should return code 400, invalid password error', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
-<span class="cstat-no" title="statement not covered" >          chai.request(app)</span>
-            .post('/api/v1/users/signin')
-            .send({
-              email: 'user1@gmail.com',
-              password: 'testpass',
-            })
-            .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >              res.status.should.equal(400);</span>
-<span class="cstat-no" title="statement not covered" >              res.body.status.should.equal('Unsuccessful');</span>
-<span class="cstat-no" title="statement not covered" >              res.body.message.should.equal('Sign in failed, Wrong password');</span>
-<span class="cstat-no" title="statement not covered" >              done();</span>
-            });
+<span class="cstat-no" title="statement not covered" >        describe('POST /api/v1/users/signin', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >          it('it should return code 400, user not found error', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >            chai.request(app)</span>
+              .post('/api/v1/users/signin')
+              .send({
+                email: 'user2@gmail.com',
+                password: 'testpassword',
+              })
+              .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                res.status.should.equal(400);</span>
+<span class="cstat-no" title="statement not covered" >                res.body.status.should.equal('Unsuccessful');</span>
+<span class="cstat-no" title="statement not covered" >                res.body.message.should.equal('User not found');</span>
+<span class="cstat-no" title="statement not covered" >                done();</span>
+              });
+          });
+<span class="cstat-no" title="statement not covered" >          it('it should return code 400, invalid password error', <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >            chai.request(app)</span>
+              .post('/api/v1/users/signin')
+              .send({
+                email: 'user1@gmail.com',
+                password: 'testpass',
+              })
+              .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >                res.status.should.equal(400);</span>
+<span class="cstat-no" title="statement not covered" >                res.body.status.should.equal('Unsuccessful');</span>
+<span class="cstat-no" title="statement not covered" >                res.body.message.should.equal('Sign in failed, Wrong password');</span>
+<span class="cstat-no" title="statement not covered" >                done();</span>
+              });
+          });
         });
       });
     });
   });
 });
 &nbsp;
-export default token1;
+export default token;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Oct 16 2017 20:08:33 GMT+0100 (GMT Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 17 2017 11:26:22 GMT+0100 (GMT Daylight Time)
 </div>
 </div>
 <script src="..\prettify.js"></script>

@@ -41,7 +41,7 @@ const handleCrudRecipe = {
             res.status(400).json({
               code: 400,
               status: 'Unsuccessful',
-              message: 'Cant Create A Recipe Twice',
+              message: 'Cannot Create A Recipe Twice',
             });
           } else {
             Recipe.create({

@@ -47,7 +47,7 @@
   "scripts": {
     "start:dev": "nodemon ./Server/index.js --watch Server/ --exec babel-node",
     "migrate:test": "sequelize db:migrate --env test",
-    "test": "set NODE_ENV=test nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
+    "test": "set NODE_ENV=test && nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
     "start": "babel-node ./Server/index.js"
   },
   "repository": {
