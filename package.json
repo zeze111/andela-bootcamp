@@ -31,7 +31,7 @@
   "devDependencies": {
     "babel-loader": "^7.1.2",
     "consign": "^0.1.6",
-    "cross-env": "^5.0.5",
+    "cross-env": "^5.1.0",
     "es-feature-tests": "^0.3.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.2",
@@ -48,8 +48,10 @@
   "scripts": {
     "start:dev": "nodemon ./Server/index.js --watch Server/ --exec babel-node",
     "migrate:test": "sequelize db:migrate --env test",
-    "test": "set NODE_ENV=test && nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
-    "start": "babel-node ./Server/index.js"
+    "test": "cross-env NODE_ENV=test && nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
+    "start": "babel-node ./Server/index.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
   "repository": {
     "type": "git",

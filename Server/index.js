@@ -6,13 +6,17 @@ import handleRecipe from './controllers/handleRecipes';
 import handleCrudRecipe from './controllers/handleCrudRecipes';
 import confirmAuth from './middleware/index';
 
-const app = express();
-
 require('dotenv').config();
+
+const app = express();
+const jsonKey = process.env.SECRET_KEY;
+
 //
+app.set('JsonSecret', jsonKey);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
+
 
 app.get('/', (req, res) =>
   res.status(202).send({ message: 'Please enter HTTP Request' }));
@@ -28,7 +32,6 @@ app.get('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleRecipe.getR
 // app.get('api/v1/recipes?sort=upvotes&order=des', handleCrudRecipe.allRecipes);
 
 app.delete('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.deleteRecipe);
-app.delete('/api/v1/users', handleUser.clearUsers); // use in test env
 app.put('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.updateRecipe);
 
 

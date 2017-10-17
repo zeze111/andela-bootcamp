@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">15.69% </span>
+        <span class="strong">25.49% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>8/51</span>
+        <span class='fraction'>13/51</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">5.26% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/38</span>
+        <span class='fraction'>2/38</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">15% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/20</span>
+        <span class='fraction'>3/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">15.69% </span>
+        <span class="strong">25.49% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>8/51</span>
+        <span class='fraction'>13/51</span>
       </div>
     </div>
   </div>
@@ -290,24 +290,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -321,10 +311,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -496,7 +496,7 @@ const updateRecipeRules = {
   instructions: 'between:10,1200',
 };
 &nbsp;
-const handleCrudRecipe = <span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" >{</span></span></span></span>
+const handleCrudRecipe = <span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" >{</span></span></span>
 &nbsp;
   /** Creates new Recipe and stores in the Recipes table
   * @param {Object} req - Request object
@@ -504,17 +504,17 @@ const handleCrudRecipe = <span class="fstat-no" title="function not covered" ><s
   * @returns {Object} Response object
   */
   newRecipe(req, res) {
-    const validator = <span class="cstat-no" title="statement not covered" >new Validator(req.body, recipeRules);</span>
-<span class="cstat-no" title="statement not covered" >    if (validator.passes()) {</span>
-<span class="cstat-no" title="statement not covered" >      Recipe.findOne({</span>
+    const validator = new Validator(req.body, recipeRules);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (validator.passes()) {
+      Recipe.findOne({
         where: { userId: req.decoded.id },
       })
-        .then(<span class="fstat-no" title="function not covered" >(</span>userRecipe) =&gt; {
-<span class="cstat-no" title="statement not covered" >          if (userRecipe.name === req.body.name || userRecipe.ingredients === req.body.ingredients) {</span>
+        .then((userRecipe) =&gt; {
+          if (userRecipe.name === req.body.name || <span class="branch-1 cbranch-no" title="branch not covered" >userRecipe.ingredients === req.body.ingredients) {</span>
 <span class="cstat-no" title="statement not covered" >            res.status(400).json({</span>
               code: 400,
               status: 'Unsuccessful',
-              message: 'Cant Create A Recipe Twice',
+              message: 'Cannot Create A Recipe Twice',
             });
           } else {
 <span class="cstat-no" title="statement not covered" >            Recipe.create({</span>
@@ -538,7 +538,7 @@ const handleCrudRecipe = <span class="fstat-no" title="function not covered" ><s
               .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
           }
         })
-        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
+        .catch(error =&gt; res.status(400).send(error));
     } else {
 <span class="cstat-no" title="statement not covered" >      res.status(400).json({</span>
         code: 400,
@@ -691,7 +691,7 @@ export default handleCrudRecipe;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Oct 16 2017 20:08:33 GMT+0100 (GMT Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 17 2017 22:13:30 GMT+0100 (GMT Daylight Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

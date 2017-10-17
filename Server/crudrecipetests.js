@@ -1,14 +1,11 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
-import token from './usertests';
-
-chai.use(chaiHttp);
+import app from '../Server';
 
 const should = chai.should;
 
-const app = require('../Server');
-
+chai.use(chaiHttp);
 
 const invalidToken = jwt.sign({
   userId: 1,
@@ -16,6 +13,10 @@ const invalidToken = jwt.sign({
 }, {
   expiresIn: '48h',
 });
+
+const token = jwt.sign({
+  userId: 1,
+}, app.settings.JsonSecret);
 
 describe('CRUD operations on Recipes', () => {
   describe('POST /api/v1/recipes', () => {
@@ -41,6 +42,7 @@ describe('CRUD operations on Recipes', () => {
     it('it should return code 400 cannot create recipe twice', () => {
       chai.request(app)
         .post('/api/v1/recipes')
+        .set('x-access-token', token)
         .send({
           name: 'Amala and Ewedu',
           description: 'Yummy amala for everyday consumption',
@@ -60,6 +62,7 @@ describe('CRUD operations on Recipes', () => {
     it('it should return code 400 invalid data input', () => {
       chai.request(app)
         .post('/api/v1/recipes')
+        .set('x-access-token', token)
         .send({
           name: 'Amala and Ewedu',
           description: '',
@@ -129,6 +132,7 @@ describe('CRUD operations on Recipes', () => {
     it('it should return code 200 Succesful', () => {
       chai.request(app)
         .put('/api/v1/recipes/1')
+        .set('x-access-token', token)
         .send({
           type: 'main',
         })
@@ -142,6 +146,7 @@ describe('CRUD operations on Recipes', () => {
     it('it should return code 400 Recipe Not Found', () => {
       chai.request(app)
         .put('/api/v1/recipes/2')
+        .set('x-access-token', token)
         .send({
           type: 'main',
         })
@@ -156,6 +161,7 @@ describe('CRUD operations on Recipes', () => {
     it('it should return code 400 invalid data input', () => {
       chai.request(app)
         .put('/api/v1/recipes/1')
+        .set('x-access-token', token)
         .send({
           type: 'ma',
         })
@@ -173,6 +179,7 @@ describe('CRUD operations on Recipes', () => {
     it('it should return code 200 Succesful', () => {
       chai.request(app)
         .delete('/api/v1/recipes/1')
+        .set('x-access-token', token)
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(200);
@@ -183,6 +190,7 @@ describe('CRUD operations on Recipes', () => {
     it('it should return code 400 Recipe Not Found', () => {
       chai.request(app)
         .delete('/api/v1/recipes/2')
+        .set('x-access-token', token)
         .end((err, res) => {
           should.exist(err);
           res.status.should.equal(404);
