@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for server/index.js</title>
+    <title>Code coverage report for Server/index.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\prettify.css" />
     <link rel="stylesheet" href="..\base.css" />
@@ -16,32 +16,32 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\index.html">All files</a> / <a href="index.html">server</a> index.js
+      <a href="..\index.html">All files</a> / <a href="index.html">Server</a> index.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">15.38% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>12/12</span>
+        <span class='fraction'>4/26</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>0/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">16% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>12/12</span>
+        <span class='fraction'>4/25</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -67,52 +67,97 @@
 22
 23
 24
-25</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import consign from 'consign';
+import handleUser from './controllers/handleUsers';
+<span class="cstat-no" title="statement not covered" >import handleRecipe from './controllers/handleRecipes';</span>
+<span class="cstat-no" title="statement not covered" >import handleCrudRecipe from './controllers/handleCrudRecipes';</span>
+<span class="cstat-no" title="statement not covered" >import confirmAuth from './middleware/index';</span>
 &nbsp;
-const app = express();
+const app = <span class="cstat-no" title="statement not covered" >express();</span>
 &nbsp;
-require('dotenv').config();
-//routes 
-app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: false, }));
+<span class="cstat-no" title="statement not covered" >require('dotenv').config();</span>
+//
+<span class="cstat-no" title="statement not covered" >app.use(logger('dev'));</span>
+<span class="cstat-no" title="statement not covered" >app.use(bodyParser.urlencoded({ extended: false }));</span>
+<span class="cstat-no" title="statement not covered" >app.use(bodyParser.json({ type: 'application/json' }));</span>
 &nbsp;
-app.use(bodyParser.json({ type: 'application/json', }));
+<span class="cstat-no" title="statement not covered" >app.get('/', <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>req, res) =&gt;</span></span>
+  res.status(202).send({ message: 'Please enter HTTP Request' }));
 &nbsp;
-consign()
-	.include('./Server/db.js')
-	.then('./Server/routes')
-	.then('./Server/libs/boot.js')
-	.into(app);
+<span class="cstat-no" title="statement not covered" >app.post('/api/v1/users/signup', handleUser.newUser);</span>
+<span class="cstat-no" title="statement not covered" >app.post('/api/v1/users/signin', handleUser.userSignIn);</span>
+<span class="cstat-no" title="statement not covered" >app.post('/api/v1/recipes', confirmAuth.authenticate, handleCrudRecipe.newRecipe);</span>
+<span class="cstat-no" title="statement not covered" >app.post('/api/v1/recipes/:recipesId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);</span>
 &nbsp;
-const port = parseInt(process.env.PORT, 10) || 8000;
-app.set('port', port);
+<span class="cstat-no" title="statement not covered" >app.get('/api/v1/recipes', handleCrudRecipe.allRecipes);</span>
+<span class="cstat-no" title="statement not covered" >app.get('/api/v1/users/:userId/recipes', confirmAuth.authenticate, handleRecipe.faveRecipes);</span>
+<span class="cstat-no" title="statement not covered" >app.get('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleRecipe.getRecipe);</span>
+// app.get('api/v1/recipes?sort=upvotes&amp;order=des', handleCrudRecipe.allRecipes);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >app.delete('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.deleteRecipe);</span>
+<span class="cstat-no" title="statement not covered" >app.put('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.updateRecipe);</span>
+&nbsp;
+&nbsp;
+const port = <span class="cstat-no" title="statement not covered" >parseInt(process.env.PORT, 10) || 8000;</span>
+<span class="cstat-no" title="statement not covered" >app.set('port', port);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >app.listen(port);</span>
 &nbsp;
 export default app;
 &nbsp;</pre></td></tr>
@@ -121,7 +166,7 @@ export default app;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Oct 02 2017 00:47:02 GMT+0100 (GMT Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 17 2017 12:09:52 GMT+0100 (GMT Daylight Time)
 </div>
 </div>
 <script src="..\prettify.js"></script>
