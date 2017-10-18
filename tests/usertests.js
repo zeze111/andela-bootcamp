@@ -151,7 +151,7 @@ describe('CRUD operations on Recipes', () => {
             instructions: 'turn amala in pot, mix ewedu and stew',
           })
           .end((err, res) => {
-            console.log(res.body);
+            console.log(err);
             should.not.exist(err);
             res.status.should.equal(201);
             res.body.status.should.equal('Success');

@@ -31,6 +31,7 @@ const handleCrudRecipe = {
   * @returns {Object} Response object
   */
   newRecipe(req, res) {
+    console.log(req.body);
     const validator = new Validator(req.body, recipeRules);
     if (validator.passes()) {
       Recipe.findOne({
