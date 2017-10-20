@@ -23,12 +23,12 @@ const handleRecipe = {
     if (reqid === req.decoded.id) {
       Favorite.findAll({
         where: {
-          userId: reqid,
+          id: reqid,
         },
-        /** include: [{
+        include: [{
           model: Recipe,
           attributes: ['name', 'description'],
-        }], */
+        }],
       }).then((faveRecipes) => {
         if (faveRecipes.length === 0) {
           res.status(200).json({
@@ -44,12 +44,12 @@ const handleRecipe = {
           });
         }
       })
-        .catch(error => res.status(400).send(error));
+        .catch(error => res.status(400).send(error.toString()));
     } else {
       res.status(401).json({
         code: 401,
         status: 'Unsuccessful',
-        message: 'Unauthorized',
+        message: 'You are Unauthorized',
       });
     }
   },
@@ -60,7 +60,7 @@ const handleRecipe = {
   * @returns {Object} Response object
   */
   reviewRecipe(req, res) {
-    const recipeid = parseInt(req.params.recipesId, 10);
+    const recipeid = parseInt(req.params.recipeId, 10);
     Recipe.findById(recipeid)
       .then((recipe) => {
         if (recipe) {
@@ -88,8 +88,8 @@ const handleRecipe = {
             });
           }
         } else {
-          res.status(400).json({
-            code: 400,
+          res.status(404).json({
+            code: 404,
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
           });
@@ -110,10 +110,10 @@ const handleRecipe = {
     })
       .then((recipe) => {
         if (!recipe) {
-          return res.status(401).json({
-            code: 401,
+          return res.status(404).json({
+            code: 404,
             status: 'Unsuccessful',
-            message: 'Recipe not found',
+            message: 'Recipe Not Found',
           });
         }
         res.status(200).json({

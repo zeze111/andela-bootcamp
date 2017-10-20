@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Rating.associates = (models) => {
-    Recipe.belongsTo(models.User, {
+  Rating.associate = (models) => {
+    Rating.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
