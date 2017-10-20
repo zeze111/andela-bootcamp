@@ -17,7 +17,7 @@ const confirmAuth = {
     } else {
       return res.status(401).json({
         status: 'Unsuccessful',
-        message: 'No Token Found',
+        message: 'Unauthorised User',
       });
     }
   },

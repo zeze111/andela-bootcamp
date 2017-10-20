@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">93.06% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>67/72</span>
+        <span class='fraction'>54/54</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>26/26</span>
+        <span class='fraction'>19/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">93.06% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>67/72</span>
+        <span class='fraction'>54/54</span>
       </div>
     </div>
   </div>
@@ -174,59 +174,7 @@
 129
 130
 131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+132</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -352,58 +300,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -539,66 +435,14 @@ describe('User Sign Up and Sign In', () =&gt; {
   });
 });
 &nbsp;
-&nbsp;
-describe('CRUD operations on Recipes', () =&gt; {
-  describe('Recipes', () =&gt; {
-    db
-      .Recipe
-      .destroy({
-        cascade: true,
-        truncate: true,
-      });
-    describe('POST /api/v1/recipes', () =&gt; {
-      it('it should return code 201 Succesful', (done) =&gt; {
-        chai.request(app)
-          .post('/api/v1/recipes')
-          .set('x-token', token)
-          .send({
-            name: 'Amala and Ewedu',
-            description: 'Yummy amala for everyday consumption',
-            prepTime: '40 mins',
-            type: 'dessert',
-            ingredients: 'amala powder, ewedu leaf, stew',
-            instructions: 'turn amala in pot, mix ewedu and stew',
-          })
-          .end((err, res) =&gt; {
-            console.log(err);
-            should.not.exist(err);
-<span class="cstat-no" title="statement not covered" >            res.status.should.equal(201);</span>
-<span class="cstat-no" title="statement not covered" >            res.body.status.should.equal('Success');</span>
-<span class="cstat-no" title="statement not covered" >            done();</span>
-          });
-      });
-      it('it should return code 400 cannot create recipe twice', (done) =&gt; {
-        chai.request(app)
-          .post('/api/v1/recipes')
-          .set('x-token', token)
-          .send({
-            name: 'Amala and Ewedu',
-            description: 'Yummy amala for everyday consumption',
-            prepTime: '40 mins',
-            type: 'dessert',
-            ingredients: 'amala powder, ewedu leaf, stew',
-            instructions: 'turn amala in pot, mix ewedu and stew',
-          })
-          .end((err, res) =&gt; {
-            should.exist(err);
-            res.status.should.equal(400);
-            res.body.status.should.equal('Unsuccessful');
-<span class="cstat-no" title="statement not covered" >            res.body.message.should.equal('Cannot Create A Recipe Twice');</span>
-<span class="cstat-no" title="statement not covered" >            done();</span>
-          });
-      });
-    });
-  });
-});
+export default token;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Oct 18 2017 09:31:41 GMT+0100 (GMT Daylight Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 20 2017 14:01:58 GMT+0100 (GMT Daylight Time)
 </div>
 </div>
 <script src="..\prettify.js"></script>

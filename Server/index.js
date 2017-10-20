@@ -15,7 +15,7 @@ const jsonKey = process.env.SECRET_KEY;
 app.set('JsonSecret', jsonKey);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({ type: 'application/json' }));
+app.use(bodyParser.json({ }));
 
 
 app.get('/', (req, res) =>
@@ -24,7 +24,7 @@ app.get('/', (req, res) =>
 app.post('/api/v1/users/signup', handleUser.newUser);
 app.post('/api/v1/users/signin', handleUser.userSignIn);
 app.post('/api/v1/recipes', confirmAuth.authenticate, handleCrudRecipe.newRecipe);
-app.post('/api/v1/recipes/:recipesId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);
+app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);
 
 app.get('/api/v1/recipes', handleCrudRecipe.allRecipes);
 app.get('/api/v1/users/:userId/recipes', confirmAuth.authenticate, handleRecipe.faveRecipes);
