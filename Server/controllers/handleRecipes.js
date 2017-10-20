@@ -60,7 +60,7 @@ const handleRecipe = {
   * @returns {Object} Response object
   */
   reviewRecipe(req, res) {
-    const recipeid = parseInt(req.params.recipesId, 10);
+    const recipeid = parseInt(req.params.recipeId, 10);
     Recipe.findById(recipeid)
       .then((recipe) => {
         if (recipe) {

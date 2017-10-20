@@ -155,7 +155,6 @@ const handleCrudRecipe = {
   * @returns {Object} Response object
   */
   updateRecipe(req, res) {
-    console.log(req.body);
     const recipeid = parseInt(req.params.recipeId, 10);
     Recipe.findById(recipeid)
       .then((recipe) => {

@@ -315,7 +315,7 @@ describe('CRUD operations on Recipes', () => {
           done();
         });
     });
-    it('it should return code 400 Recipe Not Found', (done) => {
+    it('it should return code 404 Recipe Not Found', (done) => {
       chai.request(app)
         .put('/api/v1/recipes/2')
         .set('x-token', token)
@@ -417,7 +417,7 @@ describe('Operations on Recipes', () => {
     });
     it('it should return code 404 not found', (done) => {
       chai.request(app)
-        .post('/api/v1/recipes/4/reviews')
+        .post('/api/v1/recipes/7/reviews')
         .set('x-token', token)
         .send({
           comment: 'love this recipe',
@@ -441,7 +441,7 @@ describe('Operations on Recipes', () => {
           should.exist(err);
           res.status.should.equal(400);
           res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('invalid data input');
+          res.body.message.should.equal('Invalid data input');
           done();
         });
     });
@@ -450,8 +450,8 @@ describe('Operations on Recipes', () => {
   describe('GET /api/v1/users/:userId/recipes', () => {
     it('it should return code 200 and rempty list', (done) => {
       chai.request(app)
-        .get(`/api/v1/users/${recipeId2}/recipes`)
-        .set('x-token', token)        
+        .get(`/api/v1/users/${userId}/recipes`)
+        .set('x-token', token)
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(200);
@@ -462,7 +462,7 @@ describe('Operations on Recipes', () => {
     });
     it('it should return code 200 and recipe details', (done) => {
       chai.request(app)
-        .get(`/api/v1/users/${recipeId2}/recipes`)
+        .get(`/api/v1/users/${userId}/recipes`)
         .set('x-token', token)
         .end((err, res) => {
           should.not.exist(err);
@@ -476,7 +476,7 @@ describe('Operations on Recipes', () => {
         .get('/api/v1/users/3/recipes')
         .set('x-token', token)
         .end((err, res) => {
-          should.not.exist(err);
+          should.exist(err);
           res.status.should.equal(401);
           res.body.status.should.equal('Unsuccessful');
           res.body.message.should.equal('You are Unauthorized');
