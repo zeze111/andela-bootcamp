@@ -49,7 +49,7 @@ const handleRecipe = {
       res.status(401).json({
         code: 401,
         status: 'Unsuccessful',
-        message: 'Unauthorized',
+        message: 'You are Unauthorized',
       });
     }
   },
@@ -88,8 +88,8 @@ const handleRecipe = {
             });
           }
         } else {
-          res.status(400).json({
-            code: 400,
+          res.status(404).json({
+            code: 404,
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
           });

@@ -43,6 +43,7 @@ const handleUser = {
               );
               return res.status(201).json({
                 status: 'Success',
+                userId: userCreated.dataValues.id,
                 data: {
                   userName: `${userCreated.firstName} ${userCreated.surname}`,
                 },

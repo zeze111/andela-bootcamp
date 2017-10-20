@@ -11,6 +11,7 @@ chai.use(chaiHttp);
 let token;
 let recipeId;
 let recipeId2;
+let userId;
 
 describe('User Sign Up and Sign In', () => {
   describe('Users', () => {
@@ -34,6 +35,7 @@ describe('User Sign Up and Sign In', () => {
           .end((err, res) => {
             should.not.exist(err);
             token = res.body.token;
+            userId = res.body.userId;
             res.status.should.equal(201);
             res.body.status.should.equal('Success');
             done();
@@ -401,7 +403,11 @@ describe('Operations on Recipes', () => {
   describe('POST /api/v1/recipes/:recipeId/reviews', () => {
     it('it should return code 200 and recipe details', (done) => {
       chai.request(app)
-        .get(`/api/v1/recipes/${recipeId2}`)
+        .post(`/api/v1/recipes/${recipeId2}/reviews`)
+        .set('x-token', token)
+        .send({
+          comment: 'love this recipe',
+        })
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(200);
@@ -409,4 +415,73 @@ describe('Operations on Recipes', () => {
           done();
         });
     });
+    it('it should return code 404 not found', (done) => {
+      chai.request(app)
+        .post('/api/v1/recipes/4/reviews')
+        .set('x-token', token)
+        .send({
+          comment: 'love this recipe',
+        })
+        .end((err, res) => {
+          should.exist(err);
+          res.status.should.equal(404);
+          res.body.status.should.equal('Unsuccessful');
+          res.body.message.should.equal('Recipe Not Found');
+          done();
+        });
+    });
+    it('it should return code 400 invalid data', (done) => {
+      chai.request(app)
+        .post(`/api/v1/recipes/${recipeId2}/reviews`)
+        .set('x-token', token)
+        .send({
+          comment: 'love',
+        })
+        .end((err, res) => {
+          should.exist(err);
+          res.status.should.equal(400);
+          res.body.status.should.equal('Unsuccessful');
+          res.body.message.should.equal('invalid data input');
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/v1/users/:userId/recipes', () => {
+    it('it should return code 200 and rempty list', (done) => {
+      chai.request(app)
+        .get(`/api/v1/users/${recipeId2}/recipes`)
+        .set('x-token', token)        
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.body.status.should.equal('Successful');
+          res.body.message.should.equal('You Currently Have No Favorite Recipes');
+          done();
+        });
+    });
+    it('it should return code 200 and recipe details', (done) => {
+      chai.request(app)
+        .get(`/api/v1/users/${recipeId2}/recipes`)
+        .set('x-token', token)
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.body.status.should.equal('Successful');
+          done();
+        });
+    });
+    it('it should return code 401 unauthorized', (done) => {
+      chai.request(app)
+        .get('/api/v1/users/3/recipes')
+        .set('x-token', token)
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(401);
+          res.body.status.should.equal('Unsuccessful');
+          res.body.message.should.equal('You are Unauthorized');
+          done();
+        });
+    });
+  });
 });
