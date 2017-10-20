@@ -27,11 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Recipe.associates = (models) => {
-    Recipe.belongsTo(models.User, {
-      foreignKey: 'userId',
-      onDelete: 'CASCADE',
-    });
+  Recipe.associate = (models) => {
     Recipe.hasMany(models.Review, {
       foreignKey: 'recipeId',
       onDelete: 'CASCADE',
@@ -42,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     });
     Recipe.hasMany(models.Favorite, {
       foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
+    });
+    Recipe.belongsTo(models.User, {
+      foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
   };

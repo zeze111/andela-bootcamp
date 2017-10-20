@@ -20,9 +20,15 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
+<<<<<<< HEAD
         <span class="strong">15.38% </span>
         <span class="quiet">Statements</span>
         <span class='fraction'>4/26</span>
+=======
+        <span class="strong">96.43% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/28</span>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -37,7 +43,11 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">16% </span>
         <span class="quiet">Lines</span>
+<<<<<<< HEAD
         <span class='fraction'>4/25</span>
+=======
+        <span class='fraction'>27/27</span>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
       </div>
     </div>
   </div>
@@ -82,7 +92,18 @@
 37
 38
 39
+<<<<<<< HEAD
 40</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+=======
+40
+41
+42
+43
+44</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -92,24 +113,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+=======
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+=======
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -119,12 +166,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import handleUser from './controllers/handleUsers';
+<<<<<<< HEAD
 <span class="cstat-no" title="statement not covered" >import handleRecipe from './controllers/handleRecipes';</span>
 <span class="cstat-no" title="statement not covered" >import handleCrudRecipe from './controllers/handleCrudRecipes';</span>
 <span class="cstat-no" title="statement not covered" >import confirmAuth from './middleware/index';</span>
@@ -156,8 +206,44 @@ const app = <span class="cstat-no" title="statement not covered" >express();</sp
 &nbsp;
 const port = <span class="cstat-no" title="statement not covered" >parseInt(process.env.PORT, 10) || 8000;</span>
 <span class="cstat-no" title="statement not covered" >app.set('port', port);</span>
+=======
+import handleRecipe from './controllers/handleRecipes';
+import handleCrudRecipe from './controllers/handleCrudRecipes';
+import confirmAuth from './middleware/index';
+&nbsp;
+require('dotenv').config();
+&nbsp;
+const app = express();
+const jsonKey = process.env.SECRET_KEY;
+&nbsp;
+//
+app.set('JsonSecret', jsonKey);
+app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ }));
+&nbsp;
+&nbsp;
+app.get('/', <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>req, res) =&gt;</span>
+  res.status(202).send({ message: 'Please enter HTTP Request' }));
+&nbsp;
+app.post('/api/v1/users/signup', handleUser.newUser);
+app.post('/api/v1/users/signin', handleUser.userSignIn);
+app.post('/api/v1/recipes', confirmAuth.authenticate, handleCrudRecipe.newRecipe);
+app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);
+&nbsp;
+app.get('/api/v1/recipes', handleCrudRecipe.allRecipes);
+app.get('/api/v1/users/:userId/recipes', confirmAuth.authenticate, handleRecipe.faveRecipes);
+app.get('/api/v1/recipes/:recipeId', handleRecipe.getRecipe);
+// app.get('api/v1/recipes?sort=upvotes&amp;order=des', handleCrudRecipe.allRecipes);
+&nbsp;
+app.delete('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.deleteRecipe);
+app.put('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.updateRecipe);
+&nbsp;
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 &nbsp;
 <span class="cstat-no" title="statement not covered" >app.listen(port);</span>
+&nbsp;
+app.listen(port);
 &nbsp;
 export default app;
 &nbsp;</pre></td></tr>
@@ -166,7 +252,11 @@ export default app;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
+<<<<<<< HEAD
   generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 17 2017 12:09:52 GMT+0100 (GMT Daylight Time)
+=======
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 20 2017 18:38:35 GMT+0100 (GMT Daylight Time)
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 </div>
 </div>
 <script src="..\prettify.js"></script>

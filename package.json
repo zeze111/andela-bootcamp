@@ -2,7 +2,7 @@
   "name": "andela-bootcamp27",
   "version": "1.0.0",
   "description": "More-recipes project",
-  "main": "./Server/routes/index.js",
+  "main": "./Server/index.js",
   "directories": {
     "test": "tests"
   },
@@ -23,6 +23,7 @@
     "jsonwebtoken": "^7.4.3",
     "morgan": "^1.9.0",
     "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.11.1",
     "sequelize-cli": "^3.0.0",
     "validatorjs": "^3.13.5"
@@ -30,7 +31,7 @@
   "devDependencies": {
     "babel-loader": "^7.1.2",
     "consign": "^0.1.6",
-    "cross-env": "^5.0.5",
+    "cross-env": "^5.1.0",
     "es-feature-tests": "^0.3.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.2",
@@ -46,8 +47,12 @@
   },
   "scripts": {
     "start:dev": "nodemon ./Server/index.js --watch Server/ --exec babel-node",
-    "test": "nyc --reporter=html --reporter=text mocha ./Server/tests/apitests.js --compilers js:babel-register",
-    "start": "babel-node ./Server/index.js"
+    "migrate:test": "sequelize db:migrate --env test",
+    "unmigrate:test": "sequelize db:migrate:undo:all --env test",
+    "test": "cross-env NODE_ENV=test && nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
+    "start": "babel-node ./Server/index.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
   "repository": {
     "type": "git",

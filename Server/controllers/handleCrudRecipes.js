@@ -37,12 +37,35 @@ const handleCrudRecipe = {
         where: { userId: req.decoded.id },
       })
         .then((userRecipe) => {
-          if (userRecipe.name === req.body.name || userRecipe.ingredients === req.body.ingredients) {
-            res.status(400).json({
-              code: 400,
-              status: 'Unsuccessful',
-              message: 'Cant Create A Recipe Twice',
-            });
+          if (userRecipe) {
+            if (userRecipe.name === req.body.name || userRecipe.ingredients === req.body.ingredients) {
+              return res.status(400).json({
+                code: 400,
+                status: 'Unsuccessful',
+                message: 'Cannot Create A Recipe Twice',
+              });
+            }
+            Recipe.create({
+              name: req.body.name,
+              description: req.body.description,
+              prepTime: req.body.prepTime,
+              type: req.body.type,
+              ingredients: req.body.ingredients,
+              instructions: req.body.instructions,
+              userId: req.decoded.id,
+            })
+              .then((recipeCreated) => {
+                return res.status(201).json({
+                  code: 201,
+                  status: 'Success',
+                  recipeId: recipeCreated.dataValues.id,
+                  data: {
+                    recipeName: `${recipeCreated.type}: ${recipeCreated.name} ${recipeCreated.description}`,
+                  },
+                });
+              }) // if unsuccessful
+              .catch(error => res.status(400).send(error));
+
           } else {
             Recipe.create({
               name: req.body.name,
@@ -54,9 +77,10 @@ const handleCrudRecipe = {
               userId: req.decoded.id,
             })
               .then((recipeCreated) => {
-                res.status(201).json({
+                return res.status(201).json({
                   code: 201,
                   status: 'Success',
+                  recipeId: recipeCreated.dataValues.id,
                   data: {
                     recipeName: `${recipeCreated.type}: ${recipeCreated.name} ${recipeCreated.description}`,
                   },
@@ -67,7 +91,7 @@ const handleCrudRecipe = {
         })
         .catch(error => res.status(400).send(error));
     } else {
-      res.status(400).json({
+      return res.status(400).json({
         code: 400,
         status: 'Unsuccessful',
         message: 'Invalid data input',

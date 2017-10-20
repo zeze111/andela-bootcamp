@@ -20,6 +20,7 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
+<<<<<<< HEAD
         <span class="strong">47.62% </span>
         <span class="quiet">Statements</span>
         <span class='fraction'>10/21</span>
@@ -42,6 +43,30 @@
     </div>
   </div>
   <div class='status-line low'></div>
+=======
+        <span class="strong">95.24% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>20/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.73% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.24% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>20/21</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -112,13 +137,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+=======
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,6 +165,22 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+=======
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 const fs = require('fs');
@@ -142,8 +190,13 @@ const path = require('path');
 const Sequelize = require('sequelize');
 &nbsp;
 const basename = path.basename(__filename);
+<<<<<<< HEAD
 const env = process.env.NODE_ENV || <span class="branch-1 cbranch-no" title="branch not covered" >'development';</span>
 const config = require(`${__dirname}/../config/config`)[env] || 'development'
+=======
+const env = process.env.NODE_ENV || 'development';
+const config = require(`${__dirname}/../config/config`)[env] || <span class="branch-1 cbranch-no" title="branch not covered" >'development';</span>
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 const db = {};
 &nbsp;
 let sequelize;
@@ -157,6 +210,7 @@ let sequelize;
     new Sequelize(config.database, config.username, config.password, config);
 }
 &nbsp;
+<<<<<<< HEAD
 <span class="cstat-no" title="statement not covered" >fs</span>
   .readdirSync(__dirname)
   .filter(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >file =&gt;</span></span>
@@ -178,13 +232,40 @@ let sequelize;
 <span class="cstat-no" title="statement not covered" >db.Sequelize = Sequelize;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >module.exports = db;</span>
+=======
+fs
+  .readdirSync(__dirname)
+  .filter(file =&gt;
+    (file.indexOf('.') !== 0) &amp;&amp;
+    (file !== basename) &amp;&amp;
+    (file.slice(-3) === '.js'))
+  .forEach(file =&gt; {
+    const model = sequelize.import(path.join(__dirname, file));
+    db[model.name] = model;
+  });
+&nbsp;
+Object.keys(db).forEach(modelName =&gt; {
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+&nbsp;
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+&nbsp;
+module.exports = db;
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
+<<<<<<< HEAD
   generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 17 2017 12:09:52 GMT+0100 (GMT Daylight Time)
+=======
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 20 2017 18:38:35 GMT+0100 (GMT Daylight Time)
+>>>>>>> 244ee19f1b1b641988e17695f045cabf363c77b9
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

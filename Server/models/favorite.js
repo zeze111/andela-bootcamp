@@ -2,8 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   const Favorite = sequelize.define('Favorite', {});
   
-  Favorite.associates = (models) => {
-    Recipe.belongsTo(models.User, {
+  Favorite.associate = (models) => {
+    Favorite.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });

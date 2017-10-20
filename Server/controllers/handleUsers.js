@@ -43,22 +43,22 @@ const handleUser = {
               );
               return res.status(201).json({
                 status: 'Success',
+                userId: userCreated.dataValues.id,
                 data: {
                   userName: `${userCreated.firstName} ${userCreated.surname}`,
-                  token,
                 },
+                token,
               });
             });
           } else {
-            res.status(400).json({
+            return res.status(400).json({
               status: 'Unsuccessful', message: 'Email already exist',
-            })
-              .catch(error => res.status(400).send(error));
+            });
           }
         }) // if unsuccessful
         .catch(error => res.status(400).send(error));
     } else {
-      res.status(400).json({
+      return res.status(400).json({
         status: 'Unsuccessful',
         message: 'Invalid data input',
         errors: validator.errors.all(),
@@ -86,12 +86,13 @@ const handleUser = {
                 message: 'You are now signed in',
               });
             }
-            res.status(401).json({
+            return res.status(400).json({
               status: 'Unsuccessful',
               message: 'Sign in failed, Wrong password',
             });
-          } else {
-            return res.status(401).json({
+          }
+          if (!user) {
+            return res.status(400).json({
               status: 'Unsuccessful',
               message: 'User not found',
             });
@@ -99,7 +100,7 @@ const handleUser = {
         }) // if unsuccessful
         .catch(error => res.status(400).send(error));
     } else {
-      res.status(400).json({
+      return res.status(400).json({
         status: 'Unsuccessful',
         message: 'Missing data input',
       });

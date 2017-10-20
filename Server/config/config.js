@@ -14,7 +14,7 @@ module.exports = {
   test: {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: 'recipes_test',
+    database: 'recipes-test',
     host: '127.0.0.1',
     port: '5433',
     dialect: 'postgres',
