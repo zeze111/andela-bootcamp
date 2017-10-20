@@ -10,6 +10,7 @@ chai.use(chaiHttp);
 
 let token;
 let recipeId;
+let recipeId2;
 
 describe('User Sign Up and Sign In', () => {
   describe('Users', () => {
@@ -237,6 +238,7 @@ describe('CRUD operations on Recipes', () => {
             instructions: 'instructions',
           })
           .end((err, res) => {
+            recipeId2 = res.body.recipeId;
             should.not.exist(err);
             res.status.should.equal(201);
             res.body.status.should.equal('Success');
@@ -245,7 +247,7 @@ describe('CRUD operations on Recipes', () => {
       });
     });
   });
-  
+
 
   describe('GET /api/v1/recipes', () => {
     it('it should return code 200 Succesful and list of all recipes', (done) => {
@@ -372,5 +374,39 @@ describe('CRUD operations on Recipes', () => {
 
 
 describe('Operations on Recipes', () => {
-  describe('')
+  describe('GET /api/v1/recipes/:recipeId', () => {
+    it('it should return code 200 and recipe details', (done) => {
+      chai.request(app)
+        .get(`/api/v1/recipes/${recipeId2}`)
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.body.status.should.equal('Successful');
+          done();
+        });
+    });
+    it('it should return code 404 and recipe not found', (done) => {
+      chai.request(app)
+        .get('/api/v1/recipes/3')
+        .end((err, res) => {
+          should.exist(err);
+          res.status.should.equal(404);
+          res.body.status.should.equal('Unsuccessful');
+          res.body.message.should.equal('Recipe Not Found');
+          done();
+        });
+    });
+  });
+
+  describe('POST /api/v1/recipes/:recipeId/reviews', () => {
+    it('it should return code 200 and recipe details', (done) => {
+      chai.request(app)
+        .get(`/api/v1/recipes/${recipeId2}`)
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.body.status.should.equal('Successful');
+          done();
+        });
+    });
 });

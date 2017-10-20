@@ -48,6 +48,7 @@
   "scripts": {
     "start:dev": "nodemon ./Server/index.js --watch Server/ --exec babel-node",
     "migrate:test": "sequelize db:migrate --env test",
+    "unmigrate:test": "sequelize db:migrate:undo:all --env test",
     "test": "cross-env NODE_ENV=test && nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
     "start": "babel-node ./Server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
