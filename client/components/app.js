@@ -1,7 +1,15 @@
-import react from 'react';
+import react, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import NavigationBar from './NavigationBar';
 
-export default () => {
-  return (
-    
-  )
+class App extends React.component {
+  render() {
+    return (
+      <BrowserRouter>
+          <NavigationBar>
+            </NavigationBar>
+      </BrowserRouter>
+    );
+  }
 }
+ export default App;
