@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import { Link  } from 'react-router-dom';
 
-class footer extends Component {
+class Footer extends Component {
   render() {
     return (
       <footer className="page-footer teal lighten-2">
@@ -16,22 +16,22 @@ class footer extends Component {
             <div className="col l3 s12">
               <h5 className="white-text">About Us</h5>
               <ul>
-                <li><Link className="white-text" to="#!">Link 1</Link></li>
-                <li><Link className="white-text" to="#!">Link 2</Link></li>
+                <li><Link to="#" className="white-text" >Link 1</Link></li>
+                <li><Link to="#" className="white-text" >Link 2</Link></li>
               </ul>
             </div>
             <div className="col l3 s12">
               <h5 className="white-text">Privacy Settings</h5>
               <ul>
-                <li><Link className="white-text" to="#!">Link 1</Link></li>
-                <li><Link className="white-text" to="#!">Link 2</Link></li>
+                <li><Link to="#" className="white-text" >Link 1</Link></li>
+                <li><Link to="#" className="white-text" >Link 2</Link></li>
               </ul>
             </div>
           </div>
         </div>
         <div className="footer-copyright">
           <div className="container">
-            Made by <Link className="teal-text text-lighten-3">Osaze Edo-Osagie</Link>
+            Made by <Link to="#" className="teal-text text-lighten-3">Osaze Edo-Osagie</Link>
           </div>
         </div>
     </footer>
@@ -39,4 +39,4 @@ class footer extends Component {
   }
 }
 
-export default footer;
+export default Footer;
