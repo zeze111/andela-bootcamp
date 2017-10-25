@@ -1,4 +1,5 @@
 import React, { Component }  from 'react';
+import PropTypes from 'prop-types';
 
 class signinForm extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class signinForm extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     console.log(this.state);
+    this.props.userSigninRequest(this.state);
   }
 
   render() {
@@ -27,11 +29,13 @@ class signinForm extends React.Component {
         <form onSubmit={this.onSubmit} className="col s4 offset-s4">
         <div className="input-field ">
           <label htmlFor="email"> Email: </label>
-          <input type="email" id="email" name='email' className="validate" value={this.state.email} onChange={this.onChange}/>
+          <input type="email" id="email" name='email' className="validate" 
+          value={this.state.email} onChange={this.onChange}/>
         </div>
         <div className="input-field ">
           <label htmlFor="pwd"> Password: </label>
-          <input type="password" id="pwd" name='password' className="validate" value={this.state.password} onChange={this.onChange}/>
+          <input type="password" id="pwd" name='password' className="validate" 
+          value={this.state.password} onChange={this.onChange}/>
         </div>
         <div className="right-align">
           <input className="btn grey white-text" type="submit" value="Sign in"/>
@@ -41,4 +45,10 @@ class signinForm extends React.Component {
     );
   }
 }
- export default signinForm;
+
+signinForm.propTypes = {
+  userSigninRequest: PropTypes.func.isRequired
+}
+
+
+export default signinForm;

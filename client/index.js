@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import App from './components/app'
 
 const store = createStore(
+  (state = {}) => state,
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
