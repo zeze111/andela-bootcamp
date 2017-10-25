@@ -1,14 +1,21 @@
-import react, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import homepage from './homepage'
+import signupPage from './signup/signuppage'
 import NavigationBar from './NavigationBar';
 
-class App extends React.component {
+class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-          <NavigationBar>
-            </NavigationBar>
-      </BrowserRouter>
+      <Router>
+        <div id='wrap'>
+          <NavigationBar/>
+            <Switch>
+              <Route path='/' exact component={homepage} />
+              <Route path='/signup' component={signupPage} />
+            </Switch>
+          </div>
+    </Router>
     );
   }
 }

@@ -26,11 +26,17 @@
     "pg-hstore": "^2.3.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "sequelize": "^4.11.1",
     "sequelize-cli": "^3.0.0",
     "validatorjs": "^3.13.5",
     "webpack": "^3.8.1",
-    "webpack-dev-middleware": "^1.12.0"
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.20.0"
   },
   "devDependencies": {
     "babel-loader": "^7.1.2",
@@ -49,11 +55,10 @@
     "path": "^0.12.7",
     "react-hot-loader": "^3.1.1",
     "supertest": "^3.0.0",
-    "testify": "^0.3.0",
-    "webpack-hot-middleware": "^2.20.0"
+    "testify": "^0.3.0"
   },
   "scripts": {
-    "start:dev": "nodemon ./Server/index.js --watch Server/ --exec babel-node",
+    "start:dev": "nodemon ./Server/server.js --watch Server/ --exec babel-node",
     "migrate:test": "sequelize db:migrate --env test",
     "unmigrate:test": "sequelize db:migrate:undo:all --env test",
     "test": "cross-env NODE_ENV=test && nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",

@@ -2,17 +2,18 @@ import path from 'path';
 import webpack from 'webpack';
 
 export default {
-  devtools: 'eval-source-map',
+  devtool: 'eval-source-map',
   entry: [
-    'webpac-hot-middleware/client',
+    'webpack-hot-middleware/client',
     path.join(__dirname, '/client/index'),
   ],
   output: {
     path: '/',
+    filename: 'bundle.js',
     publicPath: '/',
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
@@ -21,11 +22,11 @@ export default {
       {
         test: /\.js$/,
         include: path.join(__dirname, 'client'),
-        loaders: ['react-hot', 'babel'],
+        loaders: ['react-hot-loader/webpack', 'babel-loader'],
       },
     ],
   },
   resolve: {
-    extensions: ['', '.js'],
+    extensions: ['.js'],
   },
 };
