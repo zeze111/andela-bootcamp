@@ -7,6 +7,8 @@ class signinForm extends React.Component {
     this.state = {
       email: '',
       password: '',
+      errors: {},
+      isLoading: false
     }
 
     this.onChange = this.onChange.bind(this);
@@ -18,15 +20,20 @@ class signinForm extends React.Component {
   }
 
   onSubmit(e) {
+    this.setState({ errors: {}, isLoading: true });
     e.preventDefault();
-    console.log(this.state);
-    this.props.userSigninRequest(this.state);
+    
+    this.props.userSigninRequest(this.state)
+    .then(() => { })
+    .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }) });
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="col s4 offset-s4">
+        <form onSubmit={this.onSubmit} className="col s4 offset-s4"> <br/>
         <div className="input-field ">
           <label htmlFor="email"> Email: </label>
           <input type="email" id="email" name='email' className="validate" 
@@ -37,9 +44,11 @@ class signinForm extends React.Component {
           <input type="password" id="pwd" name='password' className="validate" 
           value={this.state.password} onChange={this.onChange}/>
         </div>
-        <div className="right-align">
-          <input className="btn grey white-text" type="submit" value="Sign in"/>
-        </div>
+        <div>
+          <input className="btn grey white-text right-align" type="submit" value="Sign in"/>
+        </div> <br/>
+        {errors && <span className='help-block' style={{ fontSize: 16 + 'px' }}>
+            {errors.message}</span>} 
       </form>
     </div>
     );

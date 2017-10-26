@@ -45,6 +45,7 @@
   "devDependencies": {
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",
+    "classnames": "^2.2.5",
     "consign": "^0.1.6",
     "cross-env": "^5.1.0",
     "es-feature-tests": "^0.3.0",

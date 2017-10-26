@@ -1,18 +1,11 @@
 import Validator from 'validatorjs';
 import jwt from 'jsonwebtoken';
 import models from '../models';
+import userRules from '../shared/validations';
 
 require('dotenv').config();
 
 const User = models.User;
-
-const userRules = {
-  firstName: 'required|between:2,35',
-  surname: 'required|between:2,50',
-  email: 'required|email',
-  password: 'required|confirmed|min:6',
-  password_confirmation: 'required',
-};
 
 const handleUser = {
 
