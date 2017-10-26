@@ -6,6 +6,10 @@ import webpack from 'webpack';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack.config.dev';
+import handleUser from './controllers/handleUsers';
+import handleRecipe from './controllers/handleRecipes';
+import handleCrudRecipe from './controllers/handleCrudRecipes';
+import confirmAuth from './middleware/index';
 
 require('dotenv').config();
 
@@ -29,9 +33,9 @@ app.get('/', (req, res) => {
   res.status(202).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-/** app.post('/api/v1/users/signup', handleUser.newUser);
-app.post('/api/v1/users/signin', handleUser.userSignIn);
-app.post('/api/v1/recipes', confirmAuth.authenticate, handleCrudRecipe.newRecipe);
+app.post('/api/v1/users/signup', handleUser.newUser);
+// app.post('/api/v1/users/signin', handleUser.userSignIn);
+/** app.post('/api/v1/recipes', confirmAuth.authenticate, handleCrudRecipe.newRecipe);
 app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);
 
 app.get('/api/v1/recipes', handleCrudRecipe.allRecipes);
