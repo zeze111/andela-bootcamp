@@ -7,11 +7,12 @@ import SigninForm from './signinForm';
 import SignupForm from './signupForm';
 import { userSignupRequest } from '../../actions/signupActions';
 import { userSigninRequest } from '../../actions/signinActions';
+import { addFlashMessages } from '../../actions/flashMessages';
 
 
 class signupPage extends Component {
   render() {
-    const {userSignupRequest, userSigninRequest} = this.props;
+    const {userSignupRequest, userSigninRequest, addFlashMessages} = this.props;
     return (
       <div>
         <main>
@@ -23,7 +24,7 @@ class signupPage extends Component {
                 <div className="col s12">
                   <Tabs className='tab-demo z-depth-1'>
                     <Tab className="col s6" title="Create User" active>
-                      <SignupForm userSignupRequest={userSignupRequest} /></Tab>
+                      <SignupForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage}/></Tab>
                     <Tab className="col s6" title="Sign In">
                       <SigninForm userSigninRequest={userSigninRequest}/></Tab>
                   </Tabs>
@@ -40,8 +41,9 @@ class signupPage extends Component {
 signupPage.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   userSigninRequest: PropTypes.func.isRequired,
+  addFlashMessages: PropTypes.func.isRequired
 }
 
 
-export default connect(null, {userSignupRequest, userSigninRequest}) (signupPage);
+export default connect(null, {userSignupRequest, userSigninRequest, addFlashMessages}) (signupPage);
 

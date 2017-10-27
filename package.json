@@ -60,6 +60,7 @@
     "path": "^0.12.7",
     "react-hot-loader": "^3.1.1",
     "react-validatorjs-strategy": "^0.2.1",
+    "shortid": "^2.2.8",
     "supertest": "^3.0.0",
     "testify": "^0.3.0"
   },
