@@ -51,10 +51,11 @@ const handleUser = {
         }) // if unsuccessful
         .catch(error => res.status(400).send(error));
     } else {
+      const errors = validator.errors.all();
       return res.status(400).json({
         status: 'Unsuccessful',
         message: 'Invalid data input',
-        errors: validator.errors.all(),
+        errors,
       });
     }
   },
