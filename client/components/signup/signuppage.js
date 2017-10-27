@@ -24,7 +24,7 @@ class signupPage extends Component {
                 <div className="col s12">
                   <Tabs className='tab-demo z-depth-1'>
                     <Tab className="col s6" title="Create User" active>
-                      <SignupForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage}/></Tab>
+                      <SignupForm userSignupRequest={userSignupRequest} addFlashMessages={addFlashMessages}/></Tab>
                     <Tab className="col s6" title="Sign In">
                       <SigninForm userSigninRequest={userSigninRequest}/></Tab>
                   </Tabs>

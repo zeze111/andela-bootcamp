@@ -31,7 +31,7 @@ class signupForm extends React.Component {
     if (validator.fails()) {
       const errors = validator.errors.all()
       this.setState({ errors });
-    } 
+    }
 
     return validator.passes();
   }
@@ -46,11 +46,11 @@ class signupForm extends React.Component {
         .then(() => {
           this.props.addFlashMessages({
             type: 'success',
-            text: 'Your registration was successful. Welcome1'
-          })
-          this.setState({ redirect: true});
-         })
-        .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }) });
+            text: 'Your registration was successful. Welcome!'
+          });
+          this.setState({ redirect: true });
+        })
+        .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }); });
     }
   }
 
