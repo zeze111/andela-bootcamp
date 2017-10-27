@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import Validator from 'validatorjs';
 import userRules from '../../../Server/shared/validations';
 import TextFieldGroup from '../common/textFieldGroup';
@@ -27,12 +28,12 @@ class signupForm extends React.Component {
 
   isValid() {
     const validator = new Validator(this.state, userRules);
-    validator.passes();
-
     if (validator.fails()) {
       const errors = validator.errors.all()
       this.setState({ errors });
-    }
+    } 
+
+    return validator.passes();
   }
 
   onSubmit(e) {
@@ -42,13 +43,19 @@ class signupForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state)
-        .then(() => { })
+        .then(() => {
+          this.setState({ redirect: true});
+         })
         .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }) });
     }
   }
 
   render() {
     const { errors } = this.state;
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div>
