@@ -64,6 +64,8 @@ class signupForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmit} className="col s5 offset-s4"> <br />
+        {errors && <span className='help-block' style={{ fontSize: 13 + 'px' }}>
+          {errors.message}</span>}
           <TextFieldGroup
             label="First Name"
             value={this.state.firstName}
@@ -112,8 +114,6 @@ class signupForm extends React.Component {
           <div className="right-align">
             <input disabled={this.state.isLoading} className="btn grey white-text" type="submit" value="Create" />
           </div> <br />
-          {errors && <span className='help-block' style={{ fontSize: 13 + 'px' }}>
-            {errors.message}</span>}
         </form>
       </div>
     );
