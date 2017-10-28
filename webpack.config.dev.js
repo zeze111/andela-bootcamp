@@ -42,4 +42,8 @@ export default {
   resolve: {
     extensions: ['.js'],
   },
+  node: {
+    net: 'empty',
+    dns: 'empty',
+  },
 };
