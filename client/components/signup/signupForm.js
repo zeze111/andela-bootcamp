@@ -64,7 +64,7 @@ class signupForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmit} className="col s5 offset-s4"> <br />
-        {errors && <span className='help-block' style={{ fontSize: 13 + 'px' }}>
+        {errors && <span className='red-text' style={{ fontSize: 16 + 'px' }}>
           {errors.message}</span>}
           <TextFieldGroup
             label="First Name"

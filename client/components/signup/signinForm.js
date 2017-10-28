@@ -1,4 +1,5 @@
 import React, { Component }  from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/textFieldGroup';
 
@@ -25,12 +26,18 @@ class signinForm extends React.Component {
     e.preventDefault();
     
     this.props.userSigninRequest(this.state)
-    .then(() => { })
+    .then(() => { 
+      this.setState({ redirect: true });
+    })
     .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }) });
   }
 
   render() {
     const { errors } = this.state;
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div>
@@ -54,8 +61,8 @@ class signinForm extends React.Component {
         <div>
           <input disabled={this.state.isLoading} className="btn grey white-text right-align" type="submit" value="Sign in"/>
         </div> <br/>
-        {errors && <span className='help-block' style={{ fontSize: 16 + 'px' }}>
-            {errors.message}</span>} 
+        {errors && <span className='red-text' style={{ fontSize: 16 + 'px' }}>
+          {errors.message}</span>} 
       </form>
     </div>
     );

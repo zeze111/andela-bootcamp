@@ -3,8 +3,6 @@ import { Link  } from 'react-router-dom';
 import { Tabs, Tab } from 'react-materialize';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import '../../assets/style.scss';
-import '../../assets/init';
 import SigninForm from './signinForm';
 import SignupForm from './signupForm';
 import { userSignupRequest } from '../../actions/signupActions';
