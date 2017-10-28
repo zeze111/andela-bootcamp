@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
+import TextFieldGroup from '../common/textFieldGroup';
 
 class signinForm extends React.Component {
   constructor(props) {
@@ -33,19 +34,25 @@ class signinForm extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="col s4 offset-s4"> <br/>
-        <div className="input-field ">
-          <label htmlFor="email"> Email: </label>
-          <input type="email" id="email" name='email' className="validate" 
-          value={this.state.email} onChange={this.onChange}/>
-        </div>
-        <div className="input-field ">
-          <label htmlFor="pwd"> Password: </label>
-          <input type="password" id="pwd" name='password' className="validate" 
-          value={this.state.password} onChange={this.onChange}/>
-        </div>
+        <form onSubmit={this.onSubmit} className="col s5 offset-s4"> <br/>
+          <TextFieldGroup
+          label="Email"
+          value={this.state.email}
+          onChange={this.onChange}
+          id="email"
+          type="email"
+          name="email"
+        />
+          <TextFieldGroup
+          label="Password"
+          value={this.state.password}
+          onChange={this.onChange}
+          id="pwd"
+          type="password"
+          name="password"
+        />
         <div>
-          <input className="btn grey white-text right-align" type="submit" value="Sign in"/>
+          <input disabled={this.state.isLoading} className="btn grey white-text right-align" type="submit" value="Sign in"/>
         </div> <br/>
         {errors && <span className='help-block' style={{ fontSize: 16 + 'px' }}>
             {errors.message}</span>} 
