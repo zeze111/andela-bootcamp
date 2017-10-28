@@ -5,6 +5,8 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import App from './components/app'
 import rootReducer from './rootReducer';
+import './assets/style.scss';
+import './assets/init';
 
 const store = createStore(
   rootReducer,
