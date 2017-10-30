@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import { SET_CURRENT_USER } from './types'
+import { SET_CURRENT_USER } from './types';
 
 export function setCurrentUser(user) {
   return {

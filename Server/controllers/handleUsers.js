@@ -7,6 +7,14 @@ require('dotenv').config();
 
 const User = models.User;
 
+function createToken(payload) {
+  const token = jwt.sign(
+    payload, process.env.SECRET_KEY,
+    { expiresIn: 60 * 60 * 48 },
+  );
+  return token;
+}
+
 const handleUser = {
 
   /** Creates new User and stores in the User table
@@ -30,10 +38,7 @@ const handleUser = {
               password_confirmation: req.body.password_confirmation,
             }).then((userCreated) => {
               const payload = { id: userCreated.id };
-              const token = jwt.sign(
-                payload, process.env.SECRET_KEY,
-                { expiresIn: 60 * 60 * 48 },
-              );
+              const token = createToken(payload);
               return res.status(201).json({
                 status: 'Success',
                 userId: userCreated.dataValues.id,
@@ -75,9 +80,12 @@ const handleUser = {
         .then((user) => {
           if (user) {
             if (user.comparePassword(req.body.password, user)) {
+              const payload = { id: user.id };
+              const token = createToken(payload);
               return res.status(200).json({
                 status: 'Success',
                 message: 'You are now signed in',
+                token,
               });
             }
             return res.status(400).json({
