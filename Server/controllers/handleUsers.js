@@ -1,18 +1,19 @@
 import Validator from 'validatorjs';
 import jwt from 'jsonwebtoken';
 import models from '../models';
+import userRules from '../shared/validations';
 
 require('dotenv').config();
 
 const User = models.User;
 
-const userRules = {
-  firstName: 'required|between:2,35',
-  surname: 'required|between:2,50',
-  email: 'required|email',
-  password: 'required|confirmed|min:6',
-  password_confirmation: 'required',
-};
+function createToken(payload) {
+  const token = jwt.sign(
+    payload, process.env.SECRET_KEY,
+    { expiresIn: 60 * 60 * 48 },
+  );
+  return token;
+}
 
 const handleUser = {
 
@@ -37,10 +38,7 @@ const handleUser = {
               password_confirmation: req.body.password_confirmation,
             }).then((userCreated) => {
               const payload = { id: userCreated.id };
-              const token = jwt.sign(
-                payload, process.env.SECRET_KEY,
-                { expiresIn: 60 * 60 * 48 },
-              );
+              const token = createToken(payload);
               return res.status(201).json({
                 status: 'Success',
                 userId: userCreated.dataValues.id,
@@ -58,10 +56,11 @@ const handleUser = {
         }) // if unsuccessful
         .catch(error => res.status(400).send(error));
     } else {
+      const errors = validator.errors.all();
       return res.status(400).json({
         status: 'Unsuccessful',
         message: 'Invalid data input',
-        errors: validator.errors.all(),
+        errors,
       });
     }
   },
@@ -81,9 +80,12 @@ const handleUser = {
         .then((user) => {
           if (user) {
             if (user.comparePassword(req.body.password, user)) {
+              const payload = { id: user.id };
+              const token = createToken(payload);
               return res.status(200).json({
                 status: 'Success',
                 message: 'You are now signed in',
+                token,
               });
             }
             return res.status(400).json({
