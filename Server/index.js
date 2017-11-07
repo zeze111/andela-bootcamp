@@ -9,10 +9,10 @@ import confirmAuth from './middleware/index';
 require('dotenv').config();
 
 const app = express();
-// const jsonKey = process.env.SECRET_KEY;
+const jsonKey = process.env.SECRET_KEY;
 
 //
-// app.set('JsonSecret', jsonKey);
+app.set('JsonSecret', jsonKey);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
