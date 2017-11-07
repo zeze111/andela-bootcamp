@@ -70,7 +70,7 @@
     "testify": "^0.3.0"
   },
   "scripts": {
-    "start:dev": "nodemon ./Server --watch Server/ --exec babel-node",
+    "start:dev": "nodemon ./Server/server.js --watch Server/ --exec babel-node",
     "migrate:test": "sequelize db:migrate --env test",
     "unmigrate:test": "sequelize db:migrate:undo:all --env test",
     "test": "cross-env NODE_ENV=test && nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
