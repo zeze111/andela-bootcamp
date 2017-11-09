@@ -35,7 +35,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "sequelize": "^4.11.1",
+    "sequelize": "^4.22.5",
     "sequelize-cli": "^3.0.0",
     "shortid": "^2.2.8",
     "validatorjs": "^3.13.5",
@@ -74,7 +74,7 @@
     "migrate:test": "sequelize db:migrate --env test",
     "unmigrate:test": "sequelize db:migrate:undo:all --env test",
     "test": "cross-env NODE_ENV=test && nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
-    "start": "babel-node ./Server/index.js",
+    "starts": "babel-node ./Server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },

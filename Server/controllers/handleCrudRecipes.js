@@ -1,27 +1,12 @@
 import Validator from 'validatorjs';
+import Sequelize from 'sequelize';
 import models from '../models';
+import validations from '../shared/validations';
 
 const User = models.User;
 const Recipe = models.Recipe;
 const Rating = models.Rating;
-
-const recipeRules = {
-  name: 'required|between:2,90',
-  description: 'between:2,140',
-  prepTime: 'required|min:5',
-  type: 'required',
-  ingredients: 'required|min:15',
-  instructions: 'required|min:10',
-};
-
-const updateRecipeRules = {
-  name: 'between:2,90',
-  description: 'between:3,140',
-  prepTime: 'between:2,90',
-  type: 'between:4,90',
-  ingredients: 'between:5,1200',
-  instructions: 'between:10,1200',
-};
+const Op = Sequelize.Op;
 
 const handleCrudRecipe = {
 
@@ -31,41 +16,21 @@ const handleCrudRecipe = {
   * @returns {Object} Response object
   */
   newRecipe(req, res) {
-    const validator = new Validator(req.body, recipeRules);
+    const validator = new Validator(req.body, validations.recipeRules);
     if (validator.passes()) {
       Recipe.findOne({
-        where: { userId: req.decoded.id },
+        where: { 
+          userId: req.decoded.id,
+          name: req.body.name,
+        }
       })
         .then((userRecipe) => {
           if (userRecipe) {
-            if (userRecipe.name === req.body.name || userRecipe.ingredients === req.body.ingredients) {
-              return res.status(400).json({
+            return res.status(400).json({
                 code: 400,
                 status: 'Unsuccessful',
                 message: 'Cannot Create A Recipe Twice',
               });
-            }
-            Recipe.create({
-              name: req.body.name,
-              description: req.body.description,
-              prepTime: req.body.prepTime,
-              type: req.body.type,
-              ingredients: req.body.ingredients,
-              instructions: req.body.instructions,
-              userId: req.decoded.id,
-            })
-              .then((recipeCreated) => {
-                return res.status(201).json({
-                  code: 201,
-                  status: 'Success',
-                  recipeId: recipeCreated.dataValues.id,
-                  data: {
-                    recipeName: `${recipeCreated.type}: ${recipeCreated.name} ${recipeCreated.description}`,
-                  },
-                });
-              }) // if unsuccessful
-              .catch(error => res.status(400).send(error));
-
           } else {
             Recipe.create({
               name: req.body.name,
@@ -108,13 +73,33 @@ const handleCrudRecipe = {
   allRecipes(req, res) {
     // returns a list of popular recipes req has a '?' in it's header paramater
     if (req.query.sort) {
-      const sqlQuery = 'SELECT "Recipes"."name", COUNT ("Ratings"."vote") FROM "Recipes" INNER JOIN "Ratings" ON "Recipes"."id" = "Ratings"."recipeId" AND "Ratings"."vote" = 1 GROUP BY "Recipes"."name", "Ratings"."vote" ORDER BY "Ratings"."vote" desc LIMIT 20';
+      /* const sqlQuery = 'SELECT "Recipes"."name", COUNT ("Ratings"."vote") FROM "Recipes" INNER JOIN "Ratings" ON "Recipes"."id" = "Ratings"."recipeId" AND "Ratings"."vote" = 1 GROUP BY "Recipes"."name", "Ratings"."vote" ORDER BY "Ratings"."vote" desc LIMIT 20';
       models.sequelize.query(
         sqlQuery,
         { type: models.sequelize.QueryTypes.SELECT },
-      )
+      ) */
+      Recipe.findAll({}).then((recipes) => {
+        let recipeid = [];
+        recipes.map(key => recipeid.push(key.id));
+      Rating.findAndCountAll({
+        where: {
+          [Op.and]: [
+            {recipeId: recipeid},
+            {vote: 1}
+         ]
+        },
+        include: [{
+          model: Recipe,
+          attributes: ['name'],
+        }],
+        order: [
+          ['vote', 'DESC']
+        ],
+        limit: 5
+      })
         .then((popularRecipes) => {
-          if (popularRecipes.length === 0) {
+          console.log(popularRecipes);
+          if (popularRecipes.count === 0) {
             res.status(200).json({ // checks if list is empty
               code: 200,
               status: 'Successful',
@@ -128,6 +113,7 @@ const handleCrudRecipe = {
             });
           }
         })
+      })
         .catch((error) => { res.status(400).send(error); });
     } else {
       Recipe.findAll({}).then((allRecipes) => {
@@ -166,7 +152,7 @@ const handleCrudRecipe = {
           });
         } else if (req.body.name || req.body.description || req.body.prepTime
           || req.body.type || req.body.ingredients || req.body.instructions) {
-          const validator = new Validator(req.body, updateRecipeRules);
+          const validator = new Validator(req.body, validations.updateRecipeRules);
           if (validator.passes()) {
             recipe.update({
               name: req.body.name || recipe.name,

@@ -8,7 +8,7 @@ module.exports = {
     password: process.env.DB_PASS,
     database: 'recipes-dev',
     host: '127.0.0.1',
-    port: '5433',
+    port: '5432',
     dialect: 'postgres',
   },
   test: {
@@ -16,7 +16,7 @@ module.exports = {
     password: process.env.DB_PASS,
     database: 'recipes-test',
     host: '127.0.0.1',
-    port: '5433',
+    port: '5432',
     dialect: 'postgres',
   },
   production: {
