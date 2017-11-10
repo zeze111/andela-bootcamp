@@ -47,7 +47,7 @@ const handleCrudRecipe = {
                   status: 'Success',
                   recipeId: recipeCreated.dataValues.id,
                   data: {
-                    recipeName: `${recipeCreated.type}: ${recipeCreated.name} ${recipeCreated.description}`,
+                    recipeName: `${recipeCreated.type}: ${recipeCreated.name} ${recipeCreated.prepTime}`,
                   },
                 });
               }) // if unsuccessful
@@ -73,32 +73,23 @@ const handleCrudRecipe = {
   allRecipes(req, res) {
     // returns a list of popular recipes req has a '?' in it's header paramater
     if (req.query.sort) {
-      /* const sqlQuery = 'SELECT "Recipes"."name", COUNT ("Ratings"."vote") FROM "Recipes" INNER JOIN "Ratings" ON "Recipes"."id" = "Ratings"."recipeId" AND "Ratings"."vote" = 1 GROUP BY "Recipes"."name", "Ratings"."vote" ORDER BY "Ratings"."vote" desc LIMIT 20';
-      models.sequelize.query(
-        sqlQuery,
-        { type: models.sequelize.QueryTypes.SELECT },
-      ) */
       Recipe.findAll({}).then((recipes) => {
-        let recipeid = [];
-        recipes.map(key => recipeid.push(key.id));
-      Rating.findAndCountAll({
-        where: {
-          [Op.and]: [
-            {recipeId: recipeid},
-            {vote: 1}
-         ]
-        },
-        include: [{
-          model: Recipe,
-          attributes: ['name'],
-        }],
-        order: [
-          ['vote', 'DESC']
-        ],
-        limit: 5
-      })
+        Rating.findAll({
+          where: {
+            vote: 1
+          },
+          attributes: ['recipeId', [Sequelize.fn('count', Sequelize.col('vote')), 'votes']],
+          include: [{
+            model: Recipe,
+            attributes: ['name', 'type', 'prepTime']
+          }],
+          order: [
+            ['vote', 'DESC']
+          ],
+          group: ['recipeId', 'vote', 'Recipe.id'],
+          limit: 5
+        })
         .then((popularRecipes) => {
-          console.log(popularRecipes);
           if (popularRecipes.count === 0) {
             res.status(200).json({ // checks if list is empty
               code: 200,

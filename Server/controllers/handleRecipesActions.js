@@ -98,6 +98,11 @@ const handleRecipe = {
       .catch(error => res.status(400).send(error));
   },
 
+  /** Creates new Recipe and stores in the Recipes table
+  * @param {Object} req - Request object
+  * @param {Object} res - Response object
+  * @returns {Object} Response object
+  */
   upvote(req, res) {
     const reqid = parseInt(req.params.recipeId, 10);
     Recipe.findOne({
@@ -143,8 +148,86 @@ const handleRecipe = {
             })
           }
          } else {
-            votes.create({
+            Rating.create({
               vote: 1,
+              userId: req.decoded.id,
+              recipeId: recipe.id,
+            })
+            .then((rating) => {
+              res.status(200).json({
+                code: 200,
+                status: 'Successful',
+                data: rating,
+              })
+            })
+            .catch(error => res.status(400).send(error));
+          }
+        })
+      }
+    })
+  },
+
+  /** Creates new Recipe and stores in the Recipes table
+  * @param {Object} req - Request object
+  * @param {Object} res - Response object
+  * @returns {Object} Response object
+  */
+  downvote(req, res) {
+    const reqid = parseInt(req.params.recipeId, 10);
+    Recipe.findOne({
+      where: { id: reqid },
+    })
+    .then((recipe) => {
+      if (!recipe) {
+        return res.status(404).json({
+          code: 404,
+          status: 'Unsuccessful',
+          message: 'Recipe Not Found',
+        });
+      } else {
+        Rating.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: reqid
+          }
+        })
+        .then((votes) => {
+          if (votes) {
+            if (votes.vote === 1) {
+              votes.update({
+                vote: 0,
+              })
+              .then((downvote) => {
+                res.status(200).json({
+                  code: 200,
+                  status: 'Successful',
+                  data: downvote,
+                })
+                .catch(error => res.status(400).send(error));
+              })
+              .catch(error => res.status(400).send(error));
+            } else if (votes.vote === 0) {
+            votes.destroy()
+            .then((novote) => {
+              res.status(200).json({
+                code: 200,
+                status: 'Successful',
+                message: 'No Votes Recorded'
+              });
+            })
+          }
+         } else {
+            Rating.create({
+              vote: 0,
+              userId: req.decoded.id,
+              recipeId: recipe.id,
+            })
+            .then((rating) => {
+              res.status(200).json({
+                code: 200,
+                status: 'Successful',
+                data: rating,
+              })
             })
             .catch(error => res.status(400).send(error));
           }
