@@ -13,47 +13,6 @@ const recipeRules = {
 
 const handleRecipe = {
 
-  /** Retrieves all Recipes a user has favorited
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
-  */
-  faveRecipes(req, res) {
-    const reqid = parseInt(req.params.userId, 10);
-    if (reqid === req.decoded.id) {
-      Favorite.findAll({
-        where: {
-          id: reqid,
-        },
-        include: [{
-          model: Recipe,
-          attributes: ['name', 'description'],
-        }],
-      }).then((faveRecipes) => {
-        if (faveRecipes.length === 0) {
-          res.status(200).json({
-            code: 200,
-            status: 'Successful',
-            message: 'You Currently Have No Favorite Recipes',
-          });
-        } else {
-          res.status(200).json({
-            code: 200,
-            status: 'Successful',
-            data: faveRecipes,
-          });
-        }
-      })
-        .catch(error => res.status(400).send(error.toString()));
-    } else {
-      res.status(401).json({
-        code: 401,
-        status: 'Unsuccessful',
-        message: 'You are Unauthorized',
-      });
-    }
-  },
-
   /** Creates new Recipe and stores in the Recipes table
   * @param {Object} req - Request object
   * @param {Object} res - Response object
@@ -96,6 +55,62 @@ const handleRecipe = {
         }
       })
       .catch(error => res.status(400).send(error));
+  },
+
+  /** Creates new Recipe and stores in the Recipes table
+  * @param {Object} req - Request object
+  * @param {Object} res - Response object
+  * @returns {Object} Response object
+  */
+  faveRecipe(req, res) {
+    const reqid = parseInt(req.params.recipeId, 10);
+    Recipe.findOne({
+      where: { id: reqid },
+    })
+    .then((recipe) => {
+      if (!recipe) {
+        return res.status(404).json({
+          code: 404,
+          status: 'Unsuccessful',
+          message: 'Recipe Not Found',
+        });
+      } else {
+        Favorite.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: reqid
+          }
+        })
+        .then((fave) => {
+          if (fave) {
+            fave.destroy()
+            .then((unfave) => {
+              res.status(200).json({
+                code: 200,
+                status: 'Successful',
+                message: `Recipe Id: ${fave.recipeId} has been removed from Favorites`
+              });
+            })
+            .catch(error => res.status(400).send(error));
+          } else {
+            Favorite.create({
+              userId: req.decoded.id,
+              recipeId: recipe.id,
+            })
+            .then((favorited) => {
+              res.status(200).json({
+                code: 200,
+                status: 'Successful',
+                data: favorited,
+              })
+            })
+            .catch(error => res.status(400).send(error));
+          }
+        })
+        .catch(error => res.status(400).send(error));
+      }
+    })
+    .catch(error => res.status(400).send(error));
   },
 
   /** Creates new Recipe and stores in the Recipes table
@@ -163,9 +178,13 @@ const handleRecipe = {
             .catch(error => res.status(400).send(error));
           }
         })
+        .catch(error => res.status(400).send(error));
       }
     })
+    .catch(error => res.status(400).send(error));
   },
+
+  
 
   /** Creates new Recipe and stores in the Recipes table
   * @param {Object} req - Request object
@@ -232,36 +251,11 @@ const handleRecipe = {
             .catch(error => res.status(400).send(error));
           }
         })
+        .catch(error => res.status(400).send(error));
       }
     })
+    .catch(error => res.status(400).send(error));
   },
-
-  /** Creates new Recipe and stores in the Recipes table
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
-  */
-  getRecipe(req, res) {
-    const reqid = parseInt(req.params.recipeId, 10);
-    Recipe.findOne({
-      where: { id: reqid },
-    })
-      .then((recipe) => {
-        if (!recipe) {
-          return res.status(404).json({
-            code: 404,
-            status: 'Unsuccessful',
-            message: 'Recipe Not Found',
-          });
-        }
-        res.status(200).json({
-          code: 200,
-          status: 'Successful',
-          data: recipe,
-        });
-      });
-  },
-
 };
 
 export default handleRecipe;

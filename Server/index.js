@@ -26,6 +26,7 @@ app.post('/api/v1/users/signup', handleUser.newUser);
 app.post('/api/v1/users/signin', handleUser.userSignIn);
 app.post('/api/v1/recipes', confirmAuth.authenticate, handleCrudRecipe.newRecipe);
 app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);
+app.post('/api/v1/recipes/:recipeId/favorite', confirmAuth.authenticate, handleRecipe.faveRecipe);
 app.post('/api/v1/recipes/:recipeId/upvote', confirmAuth.authenticate, handleRecipe.upvote);
 app.post('/api/v1/recipes/:recipeId/downvote', confirmAuth.authenticate, handleRecipe.downvote);
 
