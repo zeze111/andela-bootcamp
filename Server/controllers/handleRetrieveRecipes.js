@@ -18,13 +18,14 @@ const handleRetrieve = {
     if (reqid === req.decoded.id) {
       Favorite.findAll({
         where: {
-          id: reqid,
+          userId: reqid,
         },
         include: [{
           model: Recipe,
-          attributes: ['name', 'description'],
+          attributes: ['name', 'type', 'prepTime'],
         }],
       }).then((faveRecipes) => {
+        console.log(faveRecipes);
         if (faveRecipes.length === 0) {
           res.status(200).json({
             code: 200,
