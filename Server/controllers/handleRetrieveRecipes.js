@@ -59,21 +59,45 @@ const handleRetrieve = {
     Recipe.findOne({
       where: { id: reqid },
     })
-      .then((recipe) => {
-        if (!recipe) {
-          return res.status(404).json({
-            code: 404,
-            status: 'Unsuccessful',
-            message: 'Recipe Not Found',
-          });
-        }
+    .then((recipe) => {
+       if (!recipe) {
+        return res.status(404).json({
+          code: 404,
+          status: 'Unsuccessful',
+          message: 'Recipe Not Found',
+        });
+      }
+      res.status(200).json({
+        code: 200,
+        status: 'Successful',
+        data: recipe,
+      });
+    })
+    .catch(error => res.status(400).send(error.toString()));
+  },
+
+  getUserRecipes(req, res) {
+    const reqid = parseInt(req.params.userId, 10);
+    Recipe.findAll({
+      where: { userId: reqid },
+    })
+    .then((userRecipes) => {
+      if (userRecipes.length === 0) {
+        res.status(200).json({ // checks if list is empty
+          code: 200,
+          status: 'Successful',
+          message: 'You Have NOt Posted Any Recipe',
+        });
+      } else {
         res.status(200).json({
           code: 200,
           status: 'Successful',
-          data: recipe,
+          data: userRecipes,
         });
-      });
-  },
+      }
+    })
+    .catch(error => res.status(400).send(error.toString()));
+  }
 
 };
 
