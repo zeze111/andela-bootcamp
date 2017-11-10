@@ -90,7 +90,7 @@ const handleCrudRecipe = {
           limit: 5
         })
         .then((popularRecipes) => {
-          if (popularRecipes.count === 0) {
+          if (popularRecipes.length === 0) {
             res.status(200).json({ // checks if list is empty
               code: 200,
               status: 'Successful',

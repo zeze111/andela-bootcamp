@@ -25,7 +25,6 @@ const handleRetrieve = {
           attributes: ['name', 'type', 'prepTime'],
         }],
       }).then((faveRecipes) => {
-        console.log(faveRecipes);
         if (faveRecipes.length === 0) {
           res.status(200).json({
             code: 200,
