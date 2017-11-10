@@ -78,7 +78,7 @@ const handleCrudRecipe = {
           where: {
             vote: 1
           },
-          attributes: ['recipeId', [Sequelize.fn('count', Sequelize.col('vote')), 'votes']],
+          attributes: ['recipeId', [Sequelize.fn('count', Sequelize.col('vote')), 'Upvotes']],
           include: [{
             model: Recipe,
             attributes: ['name', 'type', 'prepTime']
