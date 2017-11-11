@@ -147,7 +147,7 @@ const handleRecipe = {
                 res.status(200).json({
                   code: 200,
                   status: 'Successful',
-                  data: upvote,
+                  message: `Updated upvote:${upvote.vote} for recipe:${upvote.recipeId}`,
                 })
                 .catch(error => res.status(400).send(error));
               })
@@ -169,8 +169,8 @@ const handleRecipe = {
               recipeId: recipe.id,
             })
             .then((rating) => {
-              res.status(200).json({
-                code: 200,
+              res.status(201).json({
+                code: 201,
                 status: 'Successful',
                 data: rating,
               })
@@ -220,7 +220,7 @@ const handleRecipe = {
                 res.status(200).json({
                   code: 200,
                   status: 'Successful',
-                  data: downvote,
+                  message: `Updated downvote:${downvote.vote} for recipe:${downvote.recipeId}`,
                 })
                 .catch(error => res.status(400).send(error));
               })
@@ -242,8 +242,8 @@ const handleRecipe = {
               recipeId: recipe.id,
             })
             .then((rating) => {
-              res.status(200).json({
-                code: 200,
+              res.status(201).json({
+                code: 201,
                 status: 'Successful',
                 data: rating,
               })

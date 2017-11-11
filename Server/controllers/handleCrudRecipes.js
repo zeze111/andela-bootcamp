@@ -47,7 +47,7 @@ const handleCrudRecipe = {
                   status: 'Success',
                   recipeId: recipeCreated.dataValues.id,
                   data: {
-                    recipeName: `${recipeCreated.type}: ${recipeCreated.name} ${recipeCreated.prepTime}`,
+                    recipe: `${recipeCreated.type}: ${recipeCreated.name} ${recipeCreated.prepTime}`,
                   },
                 });
               }) // if unsuccessful
@@ -71,41 +71,39 @@ const handleCrudRecipe = {
   * @returns {Object} Response object
   */
   allRecipes(req, res) {
-    // returns a list of popular recipes req has a '?' in it's header paramater
+    // returns a list of popular recipes, req has a '?' in it's header paramater
     if (req.query.sort) {
-      Recipe.findAll({}).then((recipes) => {
-        Rating.findAll({
-          where: {
-            vote: 1
-          },
-          attributes: ['recipeId', [Sequelize.fn('count', Sequelize.col('vote')), 'Upvotes']],
-          include: [{
-            model: Recipe,
-            attributes: ['name', 'type', 'prepTime']
-          }],
-          order: [
-            ['vote', 'DESC']
-          ],
-          group: ['recipeId', 'vote', 'Recipe.id'],
-          limit: 5
-        })
-        .then((popularRecipes) => {
-          if (popularRecipes.length === 0) {
-            res.status(200).json({ // checks if list is empty
-              code: 200,
-              status: 'Successful',
-              message: 'There are no Popular Recipes',
-            });
-          } else {
-            res.status(200).json({
-              code: 200,
-              status: 'Successful',
-              data: popularRecipes,
-            });
-          }
-        })
-      })
-        .catch((error) => { res.status(400).send(error); });
+      Rating.findAll({
+				where: {
+					vote: 1
+				},
+				attributes: ['recipeId', [Sequelize.fn('count', Sequelize.col('vote')), 'Upvotes']],
+				include: [{
+					model: Recipe,
+					attributes: ['name', 'type', 'prepTime']
+				}],
+				order: [
+					['vote', 'DESC']
+				],
+				group: ['recipeId', 'vote', 'Recipe.id'],
+				limit: 5
+			})
+			.then((popularRecipes) => {
+				if (popularRecipes.length === 0) {
+					res.status(200).json({ // checks if list is empty
+						code: 200,
+						status: 'Successful',
+						message: 'There are no Popular Recipes',
+					});
+				} else {
+					res.status(200).json({
+						code: 200,
+						status: 'Successful',
+						data: popularRecipes,
+					});
+				}
+			})
+			.catch((error) => { res.status(400).send(error); });
     } else {
       Recipe.findAll({}).then((allRecipes) => {
         if (allRecipes.length === 0) { // checks if the table is empty
@@ -131,7 +129,7 @@ const handleCrudRecipe = {
   * @param {Object} res - Response object
   * @returns {Object} Response object
   */
-  updateRecipe(req, res) {
+  updateRecipe(req, res) { 
     const recipeid = parseInt(req.params.recipeId, 10);
     Recipe.findById(recipeid)
       .then((recipe) => {
@@ -140,42 +138,50 @@ const handleCrudRecipe = {
             code: 404,
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
-          });
-        } else if (req.body.name || req.body.description || req.body.prepTime
-          || req.body.type || req.body.ingredients || req.body.instructions) {
-          const validator = new Validator(req.body, validations.updateRecipeRules);
-          if (validator.passes()) {
-            recipe.update({
-              name: req.body.name || recipe.name,
-              description: req.body.description || recipe.description,
-              prepTime: req.body.prepTime || recipe.prepTime,
-              type: req.body.type || recipe.type,
-              ingredients: req.body.ingredients || recipe.ingredients,
-              instructions: req.body.instructions || recipe.instructions,
-            })
-              .then((updatedRecipe) => {
-                res.status(200).json({
-                  code: 200,
-                  status: 'Successful',
-                  data: `${recipe.name} has been updated`,
-                });
-              })
-              .catch(error => res.status(400).send(error));
-          } else {
-            res.status(400).json({
-              code: 400,
-              status: 'Unsuccessful',
-              message: 'Invalid data input',
-              errors: validator.errors.all(),
-            });
-          }
-        } else {
-          res.status(400).json({
-            code: 400,
-            status: 'Unsuccessful',
-            message: 'Must input data',
-          });
-        }
+          }); //check if recipe belongs to user
+				} else if (recipe.userId === req.decoded.id) {
+					if (req.body.name || req.body.description || req.body.prepTime
+						|| req.body.type || req.body.ingredients || req.body.instructions) {
+						const validator = new Validator(req.body, validations.updateRecipeRules);
+						if (validator.passes()) {
+							recipe.update({
+								name: req.body.name || recipe.name,
+								description: req.body.description || recipe.description,
+								prepTime: req.body.prepTime || recipe.prepTime,
+								type: req.body.type || recipe.type,
+								ingredients: req.body.ingredients || recipe.ingredients,
+								instructions: req.body.instructions || recipe.instructions,
+							})
+								.then((updatedRecipe) => {
+									res.status(200).json({
+										code: 200,
+										status: 'Successful',
+										data: `${recipe.name} has been updated`,
+									});
+								})
+								.catch(error => res.status(400).send(error));
+						} else {
+							res.status(400).json({
+								code: 400,
+								status: 'Unsuccessful',
+								message: 'Invalid data input',
+								errors: validator.errors.all(),
+							});
+						}
+					} else {
+						res.status(400).json({
+							code: 400,
+							status: 'Unsuccessful',
+							message: 'Must input data',
+						});
+					}
+				} else {
+					res.status(401).json({
+						code: 401,
+						status: 'Unsuccessful',
+						message: 'You are Unauthorized',
+					});
+				}
       })
       .catch(error => res.status(400).send(error));
   },
@@ -185,7 +191,7 @@ const handleCrudRecipe = {
   * @param {Object} res - Response object
   * @returns {Object} Response object
   */
-  deleteRecipe(req, res) {
+  deleteRecipe(req, res) { 
     const recipeid = parseInt(req.params.recipeId, 10);
     Recipe.findById(recipeid)
       .then((recipe) => {
@@ -195,7 +201,7 @@ const handleCrudRecipe = {
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
           });
-        } else {
+        } else if (recipe.userId === req.decoded.id) {
           recipe.destroy()
             .then((deletedRecipe) => {
               res.status(200).json({
@@ -205,7 +211,13 @@ const handleCrudRecipe = {
               });
             })
             .catch(error => res.status(400).send(error));
-        }
+        } else {
+					res.status(401).json({
+						code: 401,
+						status: 'Unsuccessful',
+						message: 'You are Unauthorized',
+					});
+				}
       })
       .catch(error => res.status(400).send(error));
   },
