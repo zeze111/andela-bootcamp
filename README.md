@@ -1,5 +1,6 @@
 # More-Recipes
-  [![Build Status](https://travis-ci.org/zeze111/andela-bootcamp27.svg?branch=master)](https://travis-ci.org/zeze111/andela-bootcamp27)  <a href="https://codeclimate.com/github/codeclimate/codeclimate"><img [![Coverage Status](https://coveralls.io/repos/github/zeze111/more-recipes/badge.svg?branch=develope)](https://coveralls.io/github/zeze111/more-recipes?branch=develope)
+  [![Build Status](https://travis-ci.org/zeze111/andela-bootcamp27.svg?branch=master)](https://travis-ci.org/zeze111/andela-bootcamp27)  <a href="https://codeclimate.com/github/codeclimate/codeclimate">
+[![Coverage Status](https://coveralls.io/repos/github/zeze111/more-recipes/badge.svg?branch=develope)](https://coveralls.io/github/zeze111/more-recipes?branch=develope)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/zeze111/more-recipes)
 More Recipe Project: Click this link https://zeze111.github.io/more-recipes/Templates/ to access the website. More Recipes is a website applications that allow users submit and share their cooking recipes.
 
