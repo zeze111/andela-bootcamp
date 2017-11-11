@@ -3,7 +3,6 @@ import Sequelize from 'sequelize';
 import models from '../models';
 import validations from '../shared/validations';
 
-const User = models.User;
 const Recipe = models.Recipe;
 const Rating = models.Rating;
 const Op = Sequelize.Op;

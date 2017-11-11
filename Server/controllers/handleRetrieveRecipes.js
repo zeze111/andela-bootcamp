@@ -1,10 +1,7 @@
 import models from '../models';
 
-const User = models.User;
 const Recipe = models.Recipe;
 const Favorite = models.Favorite;
-const Review = models.Review;
-const Rating = models.Rating;
 
 const handleRetrieve = {
 
@@ -86,7 +83,7 @@ const handleRetrieve = {
         res.status(200).json({ // checks if list is empty
           code: 200,
           status: 'Successful',
-          message: 'You Have NOt Posted Any Recipe',
+          message: 'You currently have no recipes',
         });
       } else {
         res.status(200).json({

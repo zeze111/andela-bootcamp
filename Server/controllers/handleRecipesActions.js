@@ -1,7 +1,6 @@
 import Validator from 'validatorjs';
 import models from '../models';
 
-const User = models.User;
 const Recipe = models.Recipe;
 const Favorite = models.Favorite;
 const Review = models.Review;
