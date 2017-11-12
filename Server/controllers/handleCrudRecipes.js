@@ -102,7 +102,7 @@ const handleCrudRecipe = {
           }
         })
         .catch((error) => { res.status(400).send(error); });
-    } else {
+    } else if (req.query.page) {
       const limits = 3;   // number of records per page
       let offsets = 0;
       Recipe.findAndCountAll()
@@ -114,7 +114,7 @@ const handleCrudRecipe = {
             attributes: ['name', 'description', 'prepTime', 'type'],
             limit: limits,
             offset: offsets,
-          }).then((allRecipes) => {
+          }).then((pagedRecipes) => {
             if (page > pages) {
               res.status(404).json({
                 code: 404,
@@ -122,7 +122,7 @@ const handleCrudRecipe = {
                 message: 'Page Not Found',
               });
             }
-            if (allRecipes.length === 0) { // checks if the table is empty
+            if (pagedRecipes.length === 0) { // checks if the table is empty
               res.status(200).json({
                 code: 200,
                 status: 'Successful',
@@ -132,7 +132,7 @@ const handleCrudRecipe = {
               res.status(200).json({
                 code: 200,
                 status: 'Successful',
-                data: allRecipes,
+                data: pagedRecipes,
                 pageSize: limits,
                 totalCount: data.count,
                 currentPage: page,
@@ -143,6 +143,26 @@ const handleCrudRecipe = {
             .catch(error => res.status(400).send(error));
         })
         .catch(error => res.status(400).send(error));
+      } else {
+        Recipe.findAll({
+          attributes: ['name', 'description', 'prepTime', 'type'],
+        }).then((allRecipes) => {
+          if (allRecipes.length === 0) { // checks if the table is empty
+            res.status(200).json({
+              code: 200,
+              status: 'Successful',
+              message: 'Currently No Recipes',
+            });
+          } else {
+            res.status(200).json({
+              code: 200,
+              status: 'Successful',
+              data: allRecipes,
+            });
+          }
+        })
+        .catch(error => res.status(400).send(error));
+      }
     }
   },
 
