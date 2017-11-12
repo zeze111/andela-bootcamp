@@ -35,6 +35,7 @@ app.get('/api/v1/users/:userId/favorites', confirmAuth.authenticate, handleRetri
 app.get('/api/v1/users/:userId/recipes', confirmAuth.authenticate, handleRetrieve.getUserRecipes);
 app.get('/api/v1/recipes/:recipeId', handleRetrieve.getRecipe);
 // app.get('api/v1/recipes?sort=upvotes&order=des', handleCrudRecipe.allRecipes);
+// app.get('/api/v1/recipes/?page=number', handleCrudRecipe.allRecipes);
 
 app.delete('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.deleteRecipe);
 app.put('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.updateRecipe);
