@@ -1,7 +1,7 @@
 import Validator from 'validatorjs';
 import jwt from 'jsonwebtoken';
 import models from '../models';
-import userRules from '../shared/validations';
+import validations from '../shared/validations';
 
 require('dotenv').config();
 
@@ -23,7 +23,7 @@ const handleUser = {
   * @returns {Object} Response object
   */
   newUser(req, res) {
-    const validator = new Validator(req.body, userRules);
+    const validator = new Validator(req.body, validations.userRules);
     if (validator.passes()) {
       User.findOne({
         where: { email: req.body.email },

@@ -6,6 +6,10 @@
 
 More Recipe Project: Click this link https://zeze111.github.io/more-recipes/Templates/ to access the website. More Recipes is a website applications that allow users submit and share their cooking recipes.
 
+
+## Heroku App
+* https://zeze-more-recipes.herokuapp.com/
+
 ## Website Features
 #### User Authentication
 Users are authenticated and validated using JSONWebTokens
@@ -26,6 +30,23 @@ Users are authenticated and validated using JSONWebTokens
 * Up-vote or down-vote a recipe
 * Favorite a recipe
 * Review a recipe
+
+## API End-Points
+* User Sign up - /api/v1/users/signup
+* User Sing in - /api/v1/users/signin
+* Create Recipe by Authenticated user - /api/v1/recipes
+* Update Recipe by Authenticated user - /api/v1/recipes/:recipeId
+* Delete Recipe by Authenticated user - /api/v1/recipes/:recipeId
+* Favorite a Recipe by Authenticated user - /api/v1/recipes/:recipeId/favorite
+* Upvote a Recipe by Authenticated user - /api/v1/recipes/:recipeId/upvote
+* Downvote a Recipe by Authenticated user - /api/v1/recipes/:recipeId/downvote
+* Review a Recipe by Authenticated user - /api/v1/recipes/:recipeId/reviews
+* Retrieve a Favorite Recipes for authenticated user - api/v1/users/:userId/favorites
+* Retrieve a list of Submitted Reecipes for Authenticated user - api/v1/users/:userId/recipes
+* Retrieve a Recipe by User - /api/v1/recipes/:recipeId
+* Retrieve a list of All Recipes by User - /api/v1/recipes
+* Retrieve a list of (paginated) All Recipes by User - /api/v1/recipes/?page=number
+* Retrieve a list of Popular Recipes by User - api/v1/recipes?sort=upvotes&order=des
 
 ## Technologies
 Written following JavaScript ES6 Syntax and nodejs on the backend, using:
