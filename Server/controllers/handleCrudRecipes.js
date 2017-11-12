@@ -143,26 +143,25 @@ const handleCrudRecipe = {
             .catch(error => res.status(400).send(error));
         })
         .catch(error => res.status(400).send(error));
-      } else {
-        Recipe.findAll({
-          attributes: ['name', 'description', 'prepTime', 'type'],
-        }).then((allRecipes) => {
-          if (allRecipes.length === 0) { // checks if the table is empty
-            res.status(200).json({
-              code: 200,
-              status: 'Successful',
-              message: 'Currently No Recipes',
-            });
-          } else {
-            res.status(200).json({
-              code: 200,
-              status: 'Successful',
-              data: allRecipes,
-            });
-          }
-        })
+    } else {
+      Recipe.findAll({
+        attributes: ['name', 'description', 'prepTime', 'type'],
+      }).then((allRecipes) => {
+        if (allRecipes.length === 0) { // checks if the table is empty
+          res.status(200).json({
+            code: 200,
+            status: 'Successful',
+            message: 'Currently No Recipes',
+          });
+        } else {
+          res.status(200).json({
+            code: 200,
+            status: 'Successful',
+            data: allRecipes,
+          });
+        }
+      })
         .catch(error => res.status(400).send(error));
-      }
     }
   },
 
