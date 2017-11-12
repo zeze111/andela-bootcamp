@@ -74,7 +74,7 @@
     "migrate:test": "NODE_ENV=test sequelize db:migrate",
     "unmigrate:test": "NODE_ENV=test sequelize db:migrate:undo:all",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./tests --compilers js:babel-register",
-    "starts": "babel-node ./Server/index.js",
+    "start": "babel-node ./Server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
