@@ -83,7 +83,7 @@ const handleRecipe = {
           .then((fave) => {
             if (fave) {
               fave.destroy()
-                .then((unfave) => {
+                .then(() => {
                   res.status(200).json({
                     code: 200,
                     status: 'Successful',
@@ -107,7 +107,6 @@ const handleRecipe = {
             }
           })
           .catch(error => res.status(400).send(error));
-        
       })
       .catch(error => res.status(400).send(error));
   },
@@ -129,12 +128,12 @@ const handleRecipe = {
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
           });
-        } 
+        }
         Rating.findOne({
           where: {
             userId: req.decoded.id,
-            recipeId: reqid
-          }
+            recipeId: reqid,
+          },
         })
           .then((votes) => {
             if (votes) {
@@ -153,11 +152,11 @@ const handleRecipe = {
                   .catch(error => res.status(400).send(error));
               } else if (votes.vote === 1) {
                 votes.destroy()
-                  .then((novote) => {
+                  .then(() => {
                     res.status(200).json({
                       code: 200,
                       status: 'Successful',
-                      message: 'No Votes Recorded'
+                      message: 'No Votes Recorded',
                     });
                   });
               }
@@ -178,7 +177,6 @@ const handleRecipe = {
             }
           })
           .catch(error => res.status(400).send(error));
-        
       })
       .catch(error => res.status(400).send(error));
   },
@@ -201,11 +199,11 @@ const handleRecipe = {
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
           });
-        } 
+        }
         Rating.findOne({
           where: {
             userId: req.decoded.id,
-            recipeId: reqid
+            recipeId: reqid,
           }
         })
           .then((votes) => {
@@ -225,11 +223,11 @@ const handleRecipe = {
                   .catch(error => res.status(400).send(error));
               } else if (votes.vote === 0) {
                 votes.destroy()
-                  .then((novote) => {
+                  .then(() => {
                     res.status(200).json({
                       code: 200,
                       status: 'Successful',
-                      message: 'No Votes Recorded'
+                      message: 'No Votes Recorded',
                     });
                   });
               }
@@ -250,7 +248,6 @@ const handleRecipe = {
             }
           })
           .catch(error => res.status(400).send(error));
-        
       })
       .catch(error => res.status(400).send(error));
   },

@@ -103,11 +103,11 @@ const handleCrudRecipe = {
         })
         .catch((error) => { res.status(400).send(error); });
     } else if (req.query.page) {
-      const limits = 3;   // number of records per page
+      const limits = 3; // number of records per page
       let offsets = 0;
       Recipe.findAndCountAll()
         .then((data) => {
-          const page = parseInt(req.query.page, 10);      // page number
+          const page = parseInt(req.query.page, 10); // page number
           const pages = Math.ceil(data.count / limits);
           offsets = limits * (page - 1);
           Recipe.findAll({
@@ -217,10 +217,10 @@ const handleCrudRecipe = {
             });
           }
         } else {
-          res.status(401).json({
-            code: 401,
+          res.status(403).json({
+            code: 403,
             status: 'Unsuccessful',
-            message: 'You are Unauthorized',
+            message: 'You are Not Aauthorized to Update This Recipe',
           });
         }
       })
@@ -244,7 +244,7 @@ const handleCrudRecipe = {
           });
         } else if (recipe.userId === req.decoded.id) {
           recipe.destroy()
-            .then((deletedRecipe) => {
+            .then(() => {
               res.status(200).json({
                 code: 200,
                 status: 'Successful',
@@ -253,10 +253,10 @@ const handleCrudRecipe = {
             })
             .catch(error => res.status(400).send(error));
         } else {
-          res.status(401).json({
-            code: 401,
+          res.status(403).json({
+            code: 403,
             status: 'Unsuccessful',
-            message: 'You are Unauthorized',
+            message: 'You are Not Aauthorized to Delete This Recipe',
           });
         }
       })
