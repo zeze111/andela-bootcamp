@@ -15,21 +15,21 @@ function createToken(payload) {
   return token;
 }
 
-const handleUser = {
+const user = {
 
   /** Creates new User and stores in the User table
   * @param {Object} req - Request object
   * @param {Object} res - Response object
   * @returns {Object} Response object
   */
-  newUser(req, res) {
+  createUser(req, res) {
     const validator = new Validator(req.body, validations.userRules);
     if (validator.passes()) {
       User.findOne({
         where: { email: req.body.email },
       })
-        .then((user) => {
-          if (!user) {
+        .then((isUser) => {
+          if (!isUser) {
             User.create({
               firstName: req.body.firstName,
               surname: req.body.surname,
@@ -42,7 +42,7 @@ const handleUser = {
               return res.status(201).json({
                 status: 'Success',
                 userId: userCreated.dataValues.id,
-                data: {
+                user: {
                   userName: `${userCreated.firstName} ${userCreated.surname}`,
                 },
                 token,
@@ -70,17 +70,17 @@ const handleUser = {
   * @param {Object} res - Response object
   * @returns {Object} Response object
   */
-  userSignIn(req, res) {
+  signIn(req, res) {
     const userEmail = req.body.email;
     const userPassword = req.body.password;
     if (userEmail && userPassword) {
       User.findOne({
         where: { email: userEmail },
       })
-        .then((user) => {
-          if (user) {
-            if (user.comparePassword(req.body.password, user)) {
-              const payload = { id: user.id };
+        .then((isUser) => {
+          if (isUser) {
+            if (isUser.comparePassword(req.body.password, isUser)) {
+              const payload = { id: isUser.id };
               const token = createToken(payload);
               return res.status(200).json({
                 status: 'Success',
@@ -110,4 +110,4 @@ const handleUser = {
   },
 };
 
-export default handleUser;
+export default user;

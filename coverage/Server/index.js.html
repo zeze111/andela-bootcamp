@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">96.67% </span>
+        <span class="strong">96.97% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>29/30</span>
+        <span class='fraction'>32/33</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>29/29</span>
+        <span class='fraction'>32/32</span>
       </div>
     </div>
   </div>
@@ -88,29 +88,12 @@
 43
 44
 45
-46</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+46
+47
+48
+49
+50</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -119,8 +102,33 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -137,7 +145,8 @@
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import handleUser from './controllers/handleUsers';
-import handleRecipe from './controllers/handleRecipes';
+import handleRecipe from './controllers/handleRecipesActions';
+import handleRetrieve from './controllers/handleRetrieveRecipes';
 import handleCrudRecipe from './controllers/handleCrudRecipes';
 import confirmAuth from './middleware/index';
 &nbsp;
@@ -160,13 +169,16 @@ app.post('/api/v1/users/signup', handleUser.newUser);
 app.post('/api/v1/users/signin', handleUser.userSignIn);
 app.post('/api/v1/recipes', confirmAuth.authenticate, handleCrudRecipe.newRecipe);
 app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, handleRecipe.reviewRecipe);
+app.post('/api/v1/recipes/:recipeId/favorite', confirmAuth.authenticate, handleRecipe.faveRecipe);
 app.post('/api/v1/recipes/:recipeId/upvote', confirmAuth.authenticate, handleRecipe.upvote);
 app.post('/api/v1/recipes/:recipeId/downvote', confirmAuth.authenticate, handleRecipe.downvote);
 &nbsp;
 app.get('/api/v1/recipes', handleCrudRecipe.allRecipes);
-app.get('/api/v1/users/:userId/recipes', confirmAuth.authenticate, handleRecipe.faveRecipes);
-app.get('/api/v1/recipes/:recipeId', handleRecipe.getRecipe);
+app.get('/api/v1/users/:userId/favorites', confirmAuth.authenticate, handleRetrieve.getFaveRecipes);
+app.get('/api/v1/users/:userId/recipes', confirmAuth.authenticate, handleRetrieve.getUserRecipes);
+app.get('/api/v1/recipes/:recipeId', handleRetrieve.getRecipe);
 // app.get('api/v1/recipes?sort=upvotes&amp;order=des', handleCrudRecipe.allRecipes);
+// app.get('/api/v1/recipes/?page=number', handleCrudRecipe.allRecipes);
 &nbsp;
 app.delete('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.deleteRecipe);
 app.put('/api/v1/recipes/:recipeId', confirmAuth.authenticate, handleCrudRecipe.updateRecipe);
@@ -184,7 +196,7 @@ export default app;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 10 2017 13:43:19 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Nov 13 2017 21:28:04 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../prettify.js"></script>
