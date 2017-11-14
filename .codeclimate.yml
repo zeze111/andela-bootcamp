@@ -17,3 +17,4 @@ exclude_paths:
 - node_modules/
 - Templates/
 - nyc_output/
+- coverage/
