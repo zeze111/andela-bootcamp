@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">88.24% </span>
+        <span class="strong">84.21% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>15/17</span>
+        <span class='fraction'>16/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>4/4</span>
+        <span class='fraction'>5/6</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">60% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>3/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">88.24% </span>
+        <span class="strong">84.21% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/17</span>
+        <span class='fraction'>16/19</span>
       </div>
     </div>
   </div>
@@ -101,7 +101,11 @@
 56
 57
 58
-59</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+59
+60
+61
+62
+63</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -115,6 +119,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,7 +146,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -146,15 +155,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,7 +177,7 @@ const recipeRules = {
   comment: 'required|min:10',
 };
 &nbsp;
-const review = {
+const reviews = {
 &nbsp;
   /** Creates new Recipe and stores in the Recipes table
   * @param {Object} req - Request object
@@ -177,53 +185,57 @@ const review = {
   * @returns {Object} Response object
   */
   reviewRecipe(req, res) {
-    const recipeid = parseInt(req.params.recipeId, 10);
-    Recipe.findById(recipeid)
-      .then((recipe) =&gt; {
-        if (recipe) {
-          const validator = new Validator(req.body, recipeRules);
-          if (validator.passes()) {
-            Review.create({
-              comment: req.body.comment,
-              recipeId: recipeid,
-              userId: req.decoded.id,
-            })
-              .then((comment) =&gt; {
-                res.status(200).json({
-                  code: 200,
-                  status: 'Successful',
-                  review: comment,
-                });
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isNaN(req.params.recipeId)) {
+<span class="cstat-no" title="statement not covered" >      res.status(406).json({</span>
+        status: 'Unsuccessful',
+        message: 'Page Must Be A Number',
+      });
+    } else {
+      const recipeid = parseInt(req.params.recipeId, 10);
+      Recipe.findById(recipeid)
+        .then((recipe) =&gt; {
+          if (recipe) {
+            const validator = new Validator(req.body, recipeRules);
+            if (validator.passes()) {
+              Review.create({
+                comment: req.body.comment,
+                recipeId: recipeid,
+                userId: req.decoded.id,
               })
-              .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
+                .then((comment) =&gt; {
+                  res.status(201).json({
+                    status: 'Successful',
+                    review: comment,
+                  });
+                })
+                .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
+            } else {
+              res.status(406).json({
+                status: 'Unsuccessful',
+                message: 'Invalid data input',
+                errors: validator.errors.all(),
+              });
+            }
           } else {
-            res.status(400).json({
-              code: 400,
+            res.status(404).json({
               status: 'Unsuccessful',
-              message: 'Invalid data input',
-              errors: validator.errors.all(),
+              message: 'Recipe Not Found',
             });
           }
-        } else {
-          res.status(404).json({
-            code: 404,
-            status: 'Unsuccessful',
-            message: 'Recipe Not Found',
-          });
-        }
-      })
-      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
+        })
+        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
+    }
   },
 };
 &nbsp;
-export default review;
+export default reviews;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Nov 14 2017 15:45:12 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Nov 14 2017 20:12:21 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

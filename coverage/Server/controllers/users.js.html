@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">91.43% </span>
+        <span class="strong">89.47% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>32/35</span>
+        <span class='fraction'>34/38</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85.71% </span>
+        <span class="strong">81.25% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>12/14</span>
+        <span class='fraction'>13/16</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">75% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>6/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">91.43% </span>
+        <span class="strong">89.47% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>32/35</span>
+        <span class='fraction'>34/38</span>
       </div>
     </div>
   </div>
@@ -156,13 +156,22 @@
 111
 112
 113
-114</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+114
+115
+116
+117
+118
+119
+120
+121
+122</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,6 +198,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,6 +223,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -277,6 +293,7 @@ import validations from '../shared/validations';
 require('dotenv').config();
 &nbsp;
 const User = models.User;
+const whitespace = /\s/;
 &nbsp;
 function createToken(payload) {
   const token = jwt.sign(
@@ -286,7 +303,7 @@ function createToken(payload) {
   return token;
 }
 &nbsp;
-const user = {
+const users = {
 &nbsp;
   /** Creates new User and stores in the User table
   * @param {Object} req - Request object
@@ -301,10 +318,16 @@ const user = {
       })
         .then((foundUser) =&gt; {
           if (!foundUser) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (whitespace.test(req.body.password)) {
+<span class="cstat-no" title="statement not covered" >              return res.status(403).json({</span>
+                status: 'Unsuccessful',
+                message: 'No Spaces Allowed In Password',
+              });
+            }
             User.create({
-              firstName: req.body.firstName,
-              surname: req.body.surname,
-              email: req.body.email.toLowerCase(),
+              firstName: req.body.firstName.trim(),
+              surname: req.body.surname.trim(),
+              email: req.body.email.toLowerCase().trim(),
               password: req.body.password,
               password_confirmation: req.body.password_confirmation,
             }).then((userCreated) =&gt; {
@@ -320,15 +343,16 @@ const user = {
               });
             });
           } else {
-            return res.status(400).json({
-              status: 'Unsuccessful', message: 'Email already exist',
+            return res.status(409).json({
+              status: 'Unsuccessful',
+              message: 'Email already exist',
             });
           }
         }) // if unsuccessful
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
     } else {
       const errors = validator.errors.all();
-      return res.status(400).json({
+      return res.status(406).json({
         status: 'Unsuccessful',
         message: 'Invalid data input',
         errors,
@@ -359,13 +383,13 @@ const user = {
                 token,
               });
             }
-            return res.status(400).json({
+            return res.status(409).json({
               status: 'Unsuccessful',
               message: 'Sign in failed, Wrong password',
             });
           }
           <span class="missing-if-branch" title="else path not taken" >E</span>if (!foundUser) {
-            return res.status(400).json({
+            return res.status(404).json({
               status: 'Unsuccessful',
               message: 'User not found',
             });
@@ -373,7 +397,7 @@ const user = {
         }) // if unsuccessful
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
     } else {
-<span class="cstat-no" title="statement not covered" >      return res.status(400).json({</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(406).json({</span>
         status: 'Unsuccessful',
         message: 'Missing data input',
       });
@@ -381,14 +405,14 @@ const user = {
   },
 };
 &nbsp;
-export default user;
+export default users;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Nov 14 2017 15:45:12 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Nov 14 2017 20:12:21 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

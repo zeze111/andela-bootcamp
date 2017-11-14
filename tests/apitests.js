@@ -62,7 +62,7 @@ describe('User Sign Up and Sign In', () => {
 
     describe('Error Handling for User Sign Up and Sign In', () => {
       describe('POST /api/v1/users/signup', () => {
-        it('it should return code 400, invalid password error', (done) => {
+        it('it should return code 406, invalid password error', (done) => {
           chai.request(app)
             .post('/api/v1/users/signup')
             .send({
@@ -73,13 +73,13 @@ describe('User Sign Up and Sign In', () => {
               password_confirmation: 'test',
             })
             .end((err, res) => {
-              res.status.should.equal(400);
+              res.status.should.equal(406);
               res.body.status.should.equal('Unsuccessful');
               res.body.message.should.equal('Invalid data input');
               done();
             });
         });
-        it('it should return code 400, user already exists error', (done) => {
+        it('it should return code 409, user already exists error', (done) => {
           chai.request(app)
             .post('/api/v1/users/signup')
             .send({
@@ -90,14 +90,14 @@ describe('User Sign Up and Sign In', () => {
               password_confirmation: 'testpassword',
             })
             .end((err, res) => {
-              res.status.should.equal(400);
+              res.status.should.equal(409);
               res.body.status.should.equal('Unsuccessful');
               res.body.message.should.equal('Email already exist');
               done();
             });
         });
         describe('POST /api/v1/users/signin', () => {
-          it('it should return code 400, user not found error', (done) => {
+          it('it should return code 404, user not found error', (done) => {
             chai.request(app)
               .post('/api/v1/users/signin')
               .send({
@@ -105,13 +105,13 @@ describe('User Sign Up and Sign In', () => {
                 password: 'testpassword',
               })
               .end((err, res) => {
-                res.status.should.equal(400);
+                res.status.should.equal(404);
                 res.body.status.should.equal('Unsuccessful');
                 res.body.message.should.equal('User not found');
                 done();
               });
           });
-          it('it should return code 400, invalid password error', (done) => {
+          it('it should return code 409, invalid password error', (done) => {
             chai.request(app)
               .post('/api/v1/users/signin')
               .send({
@@ -119,7 +119,7 @@ describe('User Sign Up and Sign In', () => {
                 password: 'testpass',
               })
               .end((err, res) => {
-                res.status.should.equal(400);
+                res.status.should.equal(409);
                 res.body.status.should.equal('Unsuccessful');
                 res.body.message.should.equal('Sign in failed, Wrong password');
                 done();
@@ -134,13 +134,13 @@ describe('User Sign Up and Sign In', () => {
 
 describe('CRUD operations on Recipes', () => {
   describe('GET /api/v1/recipes', () => {
-    it('it should return code 200 Succesful and empty list of recipes', (done) => {
+    it('it should return code 422 Unprocessable and empty list of recipes', (done) => {
       chai.request(app)
         .get('/api/v1/recipes')
         .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.body.status.should.equal('Successful');
+          should.exist(err);
+          res.status.should.equal(422);
+          res.body.status.should.equal('Unprocessable');
           res.body.message.should.equal('Currently No Recipes');
           done();
         });
@@ -186,7 +186,7 @@ describe('CRUD operations on Recipes', () => {
           done();
         });
     });
-    it('it should return code 400 cannot create recipe twice', (done) => {
+    it('it should return code 409 cannot create recipe twice', (done) => {
       chai.request(app)
         .post('/api/v1/recipes')
         .set('x-token', token)
@@ -200,13 +200,13 @@ describe('CRUD operations on Recipes', () => {
         })
         .end((err, res) => {
           should.exist(err);
-          res.status.should.equal(400);
+          res.status.should.equal(409);
           res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('Cannot Create A Recipe Twice');
+          res.body.message.should.equal('Cannot Create A Recipe With the Same Name');
           done();
         });
     });
-    it('it should return code 400 invalid data input', (done) => {
+    it('it should return code 406 invalid data input', (done) => {
       chai.request(app)
         .post('/api/v1/recipes')
         .set('x-token', token)
@@ -220,7 +220,7 @@ describe('CRUD operations on Recipes', () => {
         })
         .end((err, res) => {
           should.exist(err);
-          res.status.should.equal(400);
+          res.status.should.equal(406);
           res.body.status.should.equal('Unsuccessful');
           res.body.message.should.equal('Invalid data input');
           done();
@@ -252,7 +252,7 @@ describe('CRUD operations on Recipes', () => {
 
 
   describe('GET /api/v1/recipes', () => {
-    it('it should return code 200 Succesful and list of all recipes', (done) => {
+    it('it should return code 200 Successful and list of all recipes', (done) => {
       chai.request(app)
         .get('/api/v1/recipes')
         .end((err, res) => {
@@ -262,23 +262,13 @@ describe('CRUD operations on Recipes', () => {
           done();
         });
     });
-    it('it should return code 200 Succesful and list of popular recipes', (done) => {
+    it('it should return code 422 Unprocessable and empty list recipes', (done) => {
       chai.request(app)
         .get('/api/v1/recipes?sort=upvotes&order=des')
         .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.body.status.should.equal('Successful');
-          done();
-        });
-    });
-    it('it should return code 200 Succesful and empty list recipes', (done) => {
-      chai.request(app)
-        .get('/api/v1/recipes?sort=upvotes&order=des')
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.body.status.should.equal('Successful');
+          should.exist(err);
+          res.status.should.equal(422);
+          res.body.status.should.equal('Unprocessable');
           res.body.message.should.equal('There are no Popular Recipes');
           done();
         });
@@ -330,7 +320,7 @@ describe('CRUD operations on Recipes', () => {
           done();
         });
     });
-    it('it should return code 400 invalid data input', (done) => {
+    it('it should return code 406 invalid data input', (done) => {
       chai.request(app)
         .put(`/api/v1/recipes/${recipeId}`)
         .set('x-token', token)
@@ -339,7 +329,7 @@ describe('CRUD operations on Recipes', () => {
         })
         .end((err, res) => {
           should.exist(err);
-          res.status.should.equal(400);
+          res.status.should.equal(406);
           res.body.status.should.equal('Unsuccessful');
           res.body.message.should.equal('Invalid data input');
           done();
@@ -401,7 +391,7 @@ describe('Operations on Recipes', () => {
   });
 
   describe('POST /api/v1/recipes/:recipeId/reviews', () => {
-    it('it should return code 200 and recipe details', (done) => {
+    it('it should return code 201 and recipe details', (done) => {
       chai.request(app)
         .post(`/api/v1/recipes/${recipeId2}/reviews`)
         .set('x-token', token)
@@ -410,7 +400,7 @@ describe('Operations on Recipes', () => {
         })
         .end((err, res) => {
           should.not.exist(err);
-          res.status.should.equal(200);
+          res.status.should.equal(201);
           res.body.status.should.equal('Successful');
           done();
         });
@@ -430,7 +420,7 @@ describe('Operations on Recipes', () => {
           done();
         });
     });
-    it('it should return code 400 invalid data', (done) => {
+    it('it should return code 406 invalid data', (done) => {
       chai.request(app)
         .post(`/api/v1/recipes/${recipeId2}/reviews`)
         .set('x-token', token)
@@ -439,7 +429,7 @@ describe('Operations on Recipes', () => {
         })
         .end((err, res) => {
           should.exist(err);
-          res.status.should.equal(400);
+          res.status.should.equal(406);
           res.body.status.should.equal('Unsuccessful');
           res.body.message.should.equal('Invalid data input');
           done();
@@ -448,20 +438,19 @@ describe('Operations on Recipes', () => {
   });
 
   describe('GET /api/v1/user/:userId/favorites', () => {
-    it('it should return code 200 and empty list', (done) => {
+    it('it should return code 422 and empty list', (done) => {
       chai.request(app)
         .get(`/api/v1/user/${userId}/favorites`)
         .set('x-token', token)
         .end((err, res) => {
-          console.log(err);
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.body.status.should.equal('Successful');
+          should.exist(err);
+          res.status.should.equal(422);
+          res.body.status.should.equal('Unprocessable');
           res.body.message.should.equal('You Currently Have No Favorite Recipes');
           done();
         });
     });
-    it('it should return code 200 and recipe details', (done) => {
+    /* it('it should return code 200 and recipe details', (done) => {
       chai.request(app)
         .get(`/api/v1/user/${userId}/favorites`)
         .set('x-token', token)
@@ -471,8 +460,8 @@ describe('Operations on Recipes', () => {
           res.body.status.should.equal('Successful');
           done();
         });
-    });
-    it('it should return code 401 unauthorized', (done) => {
+    }); */
+    it('it should return code 403 unauthorized', (done) => {
       chai.request(app)
         .get('/api/v1/user/1/favorites')
         .set('x-token', token)
