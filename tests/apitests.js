@@ -447,12 +447,13 @@ describe('Operations on Recipes', () => {
     });
   });
 
-  describe('GET /api/v1/users/:userId/recipes', () => {
-    it('it should return code 200 and rempty list', (done) => {
+  describe('GET /api/v1/user/:userId/favorites', () => {
+    it('it should return code 200 and empty list', (done) => {
       chai.request(app)
-        .get(`/api/v1/users/${userId}/recipes`)
+        .get(`/api/v1/user/${userId}/favorites`)
         .set('x-token', token)
         .end((err, res) => {
+          console.log(err);
           should.not.exist(err);
           res.status.should.equal(200);
           res.body.status.should.equal('Successful');
@@ -462,7 +463,7 @@ describe('Operations on Recipes', () => {
     });
     it('it should return code 200 and recipe details', (done) => {
       chai.request(app)
-        .get(`/api/v1/users/${userId}/recipes`)
+        .get(`/api/v1/user/${userId}/favorites`)
         .set('x-token', token)
         .end((err, res) => {
           should.not.exist(err);
@@ -473,13 +474,13 @@ describe('Operations on Recipes', () => {
     });
     it('it should return code 401 unauthorized', (done) => {
       chai.request(app)
-        .get('/api/v1/users/3/recipes')
+        .get('/api/v1/user/1/favorites')
         .set('x-token', token)
         .end((err, res) => {
           should.exist(err);
-          res.status.should.equal(401);
+          res.status.should.equal(403);
           res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('You are Unauthorized');
+          res.body.message.should.equal('Cannot Access Another User\'s Favorites');
           done();
         });
     });

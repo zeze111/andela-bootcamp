@@ -8,7 +8,7 @@ const recipeRules = {
   comment: 'required|min:10',
 };
 
-const review = {
+const reviews = {
 
   /** Creates new Recipe and stores in the Recipes table
   * @param {Object} req - Request object
@@ -16,43 +16,47 @@ const review = {
   * @returns {Object} Response object
   */
   reviewRecipe(req, res) {
-    const recipeid = parseInt(req.params.recipeId, 10);
-    Recipe.findById(recipeid)
-      .then((recipe) => {
-        if (recipe) {
-          const validator = new Validator(req.body, recipeRules);
-          if (validator.passes()) {
-            Review.create({
-              comment: req.body.comment,
-              recipeId: recipeid,
-              userId: req.decoded.id,
-            })
-              .then((comment) => {
-                res.status(200).json({
-                  code: 200,
-                  status: 'Successful',
-                  review: comment,
-                });
+    if (isNaN(req.params.recipeId)) {
+      res.status(406).json({
+        status: 'Unsuccessful',
+        message: 'Page Must Be A Number',
+      });
+    } else {
+      const recipeid = parseInt(req.params.recipeId, 10);
+      Recipe.findById(recipeid)
+        .then((recipe) => {
+          if (recipe) {
+            const validator = new Validator(req.body, recipeRules);
+            if (validator.passes()) {
+              Review.create({
+                comment: req.body.comment,
+                recipeId: recipeid,
+                userId: req.decoded.id,
               })
-              .catch(error => res.status(400).send(error));
+                .then((comment) => {
+                  res.status(201).json({
+                    status: 'Successful',
+                    review: comment,
+                  });
+                })
+                .catch(error => res.status(400).send(error));
+            } else {
+              res.status(406).json({
+                status: 'Unsuccessful',
+                message: 'Invalid data input',
+                errors: validator.errors.all(),
+              });
+            }
           } else {
-            res.status(400).json({
-              code: 400,
+            res.status(404).json({
               status: 'Unsuccessful',
-              message: 'Invalid data input',
-              errors: validator.errors.all(),
+              message: 'Recipe Not Found',
             });
           }
-        } else {
-          res.status(404).json({
-            code: 404,
-            status: 'Unsuccessful',
-            message: 'Recipe Not Found',
-          });
-        }
-      })
-      .catch(error => res.status(400).send(error));
+        })
+        .catch(error => res.status(400).send(error));
+    }
   },
 };
 
-export default review;
+export default reviews;

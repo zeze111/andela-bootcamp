@@ -13,6 +13,7 @@ ratings:
   - "**.js"
 exclude_paths:
 - lib/
-- test/
-- node_modules/**/
-- Template/assets/
+- tests/
+- node_modules/
+- Templates/
+- nyc_output/

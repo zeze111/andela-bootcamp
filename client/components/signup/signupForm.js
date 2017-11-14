@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Validator from 'validatorjs';
-import userRules from '../../../Server/shared/validations';
+import validations from '../../../Server/shared/validations';
 import TextFieldGroup from '../common/textFieldGroup';
 
 class signupForm extends React.Component {
@@ -27,7 +27,7 @@ class signupForm extends React.Component {
   }
 
   isValid() {
-    const validator = new Validator(this.state, userRules);
+    const validator = new Validator(this.state, validations.userRules);
     if (validator.fails()) {
       const errors = validator.errors.all()
       this.setState({ errors });

@@ -6,6 +6,7 @@ import validations from '../shared/validations';
 require('dotenv').config();
 
 const User = models.User;
+const whitespace = /\s/;
 
 function createToken(payload) {
   const token = jwt.sign(
@@ -15,7 +16,7 @@ function createToken(payload) {
   return token;
 }
 
-const user = {
+const users = {
 
   /** Creates new User and stores in the User table
   * @param {Object} req - Request object
@@ -28,12 +29,18 @@ const user = {
       User.findOne({
         where: { email: req.body.email },
       })
-        .then((isUser) => {
-          if (!isUser) {
+        .then((foundUser) => {
+          if (!foundUser) {
+            if (whitespace.test(req.body.password)) {
+              return res.status(403).json({
+                status: 'Unsuccessful',
+                message: 'No Spaces Allowed In Password',
+              });
+            }
             User.create({
-              firstName: req.body.firstName,
-              surname: req.body.surname,
-              email: req.body.email.toLowerCase(),
+              firstName: req.body.firstName.trim(),
+              surname: req.body.surname.trim(),
+              email: req.body.email.toLowerCase().trim(),
               password: req.body.password,
               password_confirmation: req.body.password_confirmation,
             }).then((userCreated) => {
@@ -49,15 +56,16 @@ const user = {
               });
             });
           } else {
-            return res.status(400).json({
-              status: 'Unsuccessful', message: 'Email already exist',
+            return res.status(409).json({
+              status: 'Unsuccessful',
+              message: 'Email already exist',
             });
           }
         }) // if unsuccessful
         .catch(error => res.status(400).send(error));
     } else {
       const errors = validator.errors.all();
-      return res.status(400).json({
+      return res.status(406).json({
         status: 'Unsuccessful',
         message: 'Invalid data input',
         errors,
@@ -77,10 +85,10 @@ const user = {
       User.findOne({
         where: { email: userEmail },
       })
-        .then((isUser) => {
-          if (isUser) {
-            if (isUser.comparePassword(req.body.password, isUser)) {
-              const payload = { id: isUser.id };
+        .then((foundUser) => {
+          if (foundUser) {
+            if (foundUser.comparePassword(req.body.password, foundUser)) {
+              const payload = { id: foundUser.id };
               const token = createToken(payload);
               return res.status(200).json({
                 status: 'Success',
@@ -88,13 +96,13 @@ const user = {
                 token,
               });
             }
-            return res.status(400).json({
+            return res.status(409).json({
               status: 'Unsuccessful',
               message: 'Sign in failed, Wrong password',
             });
           }
-          if (!user) {
-            return res.status(400).json({
+          if (!foundUser) {
+            return res.status(404).json({
               status: 'Unsuccessful',
               message: 'User not found',
             });
@@ -102,7 +110,7 @@ const user = {
         }) // if unsuccessful
         .catch(error => res.status(400).send(error));
     } else {
-      return res.status(400).json({
+      return res.status(406).json({
         status: 'Unsuccessful',
         message: 'Missing data input',
       });
@@ -110,4 +118,4 @@ const user = {
   },
 };
 
-export default user;
+export default users;
