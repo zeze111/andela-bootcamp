@@ -10,10 +10,14 @@ node_js:
 services:
   - postgresql
 
-deploy:
-  provider: heroku
-  api_key:
-    secure: "ea7eedab-016f-4fb6-a744-377186590205"
+before_script:
+  - psql -c 'create database recipestest;' -U postgres
+  - sequelize db:migrate
+
+env:
+  global: 
+    - export NODE_ENV=test
+    - export SECRET_KEY = 'rEc1pEs-Âp1-1nada2la1'
 
 cache:
   directories:
