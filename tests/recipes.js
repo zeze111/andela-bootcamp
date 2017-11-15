@@ -1,7 +1,8 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../Server';
-import { token, userId } from './users';
+import { token } from './users';
+import { recipe1, recipe2, errorRecipe, update } from './mockdata';
 
 const should = chai.should();
 
@@ -11,7 +12,7 @@ export let recipeId;
 export let recipeId2;
 
 
-describe('GET /api/v1/recipes', () => {
+describe('Error handling for empty recipes table', () => {
   it('it should return code 422 Unprocessable and an empty list of recipes', (done) => {
     chai.request(app)
       .get('/api/v1/recipes')
@@ -23,22 +24,27 @@ describe('GET /api/v1/recipes', () => {
         done();
       });
   });
+  it('it should return code 422 Unprocessable for an empty list of popular recipes', (done) => {
+    chai.request(app)
+      .get('/api/v1/recipes?sort=upvotes&order=des')
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(422);
+        res.body.status.should.equal('Unprocessable');
+        res.body.message.should.equal('There are no Popular Recipes');
+        done();
+      });
+  });
+
 });
 
 
-describe('POST /api/v1/recipes', () => {
+describe('Submit a Recipe succesfully', () => {
   it('it should return code 201, Recipe created', (done) => {
     chai.request(app)
       .post('/api/v1/recipes')
       .set('x-token', token)
-      .send({
-        name: 'Amala and Ewedu',
-        description: 'Yummy amala for everyday consumption',
-        prepTime: '40 mins',
-        type: 'dessert',
-        ingredients: 'amala powder, ewedu leaf, stew',
-        instructions: 'turn amala in pot, mix ewedu and stew',
-      })
+      .send(recipe1)
       .end((err, res) => {
         recipeId = res.body.recipeId;
         should.not.exist(err);
@@ -47,17 +53,27 @@ describe('POST /api/v1/recipes', () => {
         done();
       });
   });
+  it('it should return code 201, for another recipe created', (done) => {
+    chai.request(app)
+      .post('/api/v1/recipes')
+      .set('x-token', token)
+      .send(recipe2)
+      .end((err, res) => {
+        recipeId2 = res.body.recipeId;
+        should.not.exist(err);
+        res.status.should.equal(201);
+        res.body.status.should.equal('Success');
+        done();
+      });
+  });
+});
+
+
+describe('Error handling for submitting a recipe', () => {
   it('it should return code 401, Unauthorised user', (done) => {
     chai.request(app)
       .post('/api/v1/recipes')
-      .send({
-        name: 'Amala and Ewedu',
-        description: 'Yummy amala for everyday consumption',
-        prepTime: '40 mins',
-        type: 'dessert',
-        ingredients: 'amala powder, ewedu leaf, stew',
-        instructions: 'turn amala in pot, mix ewedu and stew',
-      })
+      .send(recipe1)
       .end((err, res) => {
         should.exist(err);
         res.status.should.equal(401);
@@ -70,14 +86,7 @@ describe('POST /api/v1/recipes', () => {
     chai.request(app)
       .post('/api/v1/recipes')
       .set('x-token', token)
-      .send({
-        name: 'Amala and Ewedu',
-        description: 'Yummy amala for everyday consumption',
-        prepTime: '40 mins',
-        type: 'dessert',
-        ingredients: 'amala powder, ewedu leaf, stew',
-        instructions: 'turn amala in pot, mix ewedu and stew',
-      })
+      .send(recipe1)
       .end((err, res) => {
         should.exist(err);
         res.status.should.equal(409);
@@ -90,14 +99,7 @@ describe('POST /api/v1/recipes', () => {
     chai.request(app)
       .post('/api/v1/recipes')
       .set('x-token', token)
-      .send({
-        name: 'Amala and Ewedu',
-        description: '',
-        prepTime: '40 mins',
-        type: 'dessert',
-        ingredients: '',
-        instructions: 'turn amala in pot, mix ewedu and stew',
-      })
+      .send(errorRecipe)
       .end((err, res) => {
         should.exist(err);
         res.status.should.equal(406);
@@ -106,30 +108,10 @@ describe('POST /api/v1/recipes', () => {
         done();
       });
   });
-  it('it should return code 201, for another recipe created', (done) => {
-    chai.request(app)
-      .post('/api/v1/recipes')
-      .set('x-token', token)
-      .send({
-        name: 'name',
-        description: 'description',
-        prepTime: 'time time',
-        type: 'dessert',
-        ingredients: 'ingredients, ingredients, ingredients',
-        instructions: 'instructions',
-      })
-      .end((err, res) => {
-        recipeId2 = res.body.recipeId;
-        should.not.exist(err);
-        res.status.should.equal(201);
-        res.body.status.should.equal('Success');
-        done();
-      });
-  });
 });
 
 
-describe('GET /api/v1/recipes', () => {
+describe('Retrieve list of all recipes', () => {
   it('it should return code 200 Successful and list of all recipes', (done) => {
     chai.request(app)
       .get('/api/v1/recipes')
@@ -140,21 +122,10 @@ describe('GET /api/v1/recipes', () => {
         done();
       });
   });
-  it('it should return code 422 Unprocessable for an empty list recipes', (done) => {
-    chai.request(app)
-      .get('/api/v1/recipes?sort=upvotes&order=des')
-      .end((err, res) => {
-        should.exist(err);
-        res.status.should.equal(422);
-        res.body.status.should.equal('Unprocessable');
-        res.body.message.should.equal('There are no Popular Recipes');
-        done();
-      });
-  });
 });
 
 
-describe('PUT /api/v1/recipes/recipeId', () => {
+describe('Updating a recipe succesfully', () => {
   it('it should return code 200 Succesful, recipe updated', (done) => {
     chai.request(app)
       .put(`/api/v1/recipes/${recipeId}`)
@@ -169,13 +140,15 @@ describe('PUT /api/v1/recipes/recipeId', () => {
         done();
       });
   });
+});
+
+
+describe('Error handling for updating a recipe', () => {
   it('it should return code 401, invalid token', (done) => {
     chai.request(app)
       .put(`/api/v1/recipes/${recipeId}`)
       .set('x-token', 'jefrsghndxfngxkjdgrldxgk.jdhffhkjvnuhdgn.jdudfshsk')
-      .send({
-        type: 'main',
-      })
+      .send(update)
       .end((err, res) => {
         should.exist(err);
         res.status.should.equal(401);
@@ -188,9 +161,7 @@ describe('PUT /api/v1/recipes/recipeId', () => {
     chai.request(app)
       .put('/api/v1/recipes/500')
       .set('x-token', token)
-      .send({
-        type: 'main',
-      })
+      .send(update)
       .end((err, res) => {
         should.exist(err);
         res.status.should.equal(404);
@@ -217,7 +188,7 @@ describe('PUT /api/v1/recipes/recipeId', () => {
 });
 
 
-describe('DELETE /api/v1/recipes/recipeId', () => {
+describe('Delete a recipe succesfully', () => {
   it('it should return code 200 Succesful, recipe deleted', (done) => {
     chai.request(app)
       .delete(`/api/v1/recipes/${recipeId}`)
@@ -229,6 +200,10 @@ describe('DELETE /api/v1/recipes/recipeId', () => {
         done();
       });
   });
+});
+
+
+describe('Error handling for deleting a recipe', () => {
   it('it should return code 404, Recipe Not Found', (done) => {
     chai.request(app)
       .delete('/api/v1/recipes/500')
@@ -243,3 +218,30 @@ describe('DELETE /api/v1/recipes/recipeId', () => {
   });
 });
 
+describe('Retrieve one recipe successfully', () => {
+  it('it should return code 200 and recipe details', (done) => {
+    chai.request(app)
+      .get(`/api/v1/recipes/${recipeId2}`)
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        done();
+      });
+  });
+});
+
+
+describe('Error handling for retrieving one recipe', () => {
+  it('it should return code 404 and recipe not found', (done) => {
+    chai.request(app)
+      .get('/api/v1/recipes/493')
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(404);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe Not Found');
+        done();
+      });
+  });
+});
