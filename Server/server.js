@@ -57,6 +57,8 @@ app.put('/api/v1/recipes/:recipeId', confirmAuth.authenticate, recipe.updateReci
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
 
-app.listen(port);
+app.listen(port, () => {
+  console.log(`App started on Port: ${port}`);
+});
 
 export default app;
