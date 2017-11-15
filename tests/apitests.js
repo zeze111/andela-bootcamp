@@ -307,7 +307,7 @@ describe('CRUD operations on Recipes', () => {
     });
     it('it should return code 404 Recipe Not Found', (done) => {
       chai.request(app)
-        .put('/api/v1/recipes/2')
+        .put('/api/v1/recipes/500')
         .set('x-token', token)
         .send({
           type: 'main',
