@@ -313,8 +313,7 @@ describe('CRUD operations on Recipes', () => {
           type: 'main',
         })
         .end((err, res) => {
-          // should.exist(err);
-          console.log(err);
+          should.exist(err);
           res.status.should.equal(404);
           res.body.status.should.equal('Unsuccessful');
           res.body.message.should.equal('Recipe Not Found');
@@ -352,7 +351,7 @@ describe('CRUD operations on Recipes', () => {
     });
     it('it should return code 404 Recipe Not Found', (done) => {
       chai.request(app)
-        .delete('/api/v1/recipes/2')
+        .delete('/api/v1/recipes/500')
         .set('x-token', token)
         .end((err, res) => {
           should.exist(err);
@@ -464,7 +463,7 @@ describe('Operations on Recipes', () => {
     }); */
     it('it should return code 403 unauthorized', (done) => {
       chai.request(app)
-        .get('/api/v1/user/1/favorites')
+        .get('/api/v1/user/300/favorites')
         .set('x-token', token)
         .end((err, res) => {
           should.exist(err);
