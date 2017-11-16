@@ -173,7 +173,7 @@ const recipes = {
     if (isNaN(req.params.recipeId)) {
       res.status(406).json({
         status: 'Unsuccessful',
-        message: 'Page Must Be A Number',
+        message: 'Recipe ID Must Be A Number',
       });
     } else {
       const recipeid = parseInt(req.params.recipeId, 10);
@@ -245,7 +245,7 @@ const recipes = {
     if (isNaN(req.params.recipeId)) {
       res.status(406).json({
         status: 'Unsuccessful',
-        message: 'Page Must Be A Number',
+        message: 'Recipe ID Must Be A Number',
       });
     } else {
       const recipeid = parseInt(req.params.recipeId, 10);
@@ -280,7 +280,7 @@ const recipes = {
     if (isNaN(req.params.recipeId)) {
       res.status(406).json({
         status: 'Unsuccessful',
-        message: 'Page Must Be A Number',
+        message: 'Recipe ID Must Be A Number',
       });
     } else {
       const reqid = parseInt(req.params.recipeId, 10);
@@ -304,10 +304,10 @@ const recipes = {
   },
 
   getUserRecipes(req, res) {
-    if (isNaN(req.params.recipeId)) {
+    if (isNaN(req.params.userId)) {
       res.status(406).json({
         status: 'Unsuccessful',
-        message: 'Page Must Be A Number',
+        message: 'User ID Must Be A Number',
       });
     } else {
       const reqid = parseInt(req.params.userId, 10);

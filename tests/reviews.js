@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import app from '../Server';
 import { token } from './users';
 import { recipeId2 } from './recipes';
-import { review } from './mockdata';
+import { review, update } from './mockdata';
 
 const should = chai.should();
 
@@ -53,6 +53,19 @@ describe('Error handling for reviewing a recipe', () => {
         res.status.should.equal(406);
         res.body.status.should.equal('Unsuccessful');
         res.body.message.should.equal('Invalid data input');
+        done();
+      });
+  });
+  it('it should return code 406, Recipe ID Must Be A Number', (done) => {
+    chai.request(app)
+      .post('/api/v1/recipes/recipeid/reviews')
+      .set('x-token', token)
+      .send(update)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(406);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe ID Must Be A Number');
         done();
       });
   });

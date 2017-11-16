@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>21/21</span>
+        <span class='fraction'>36/36</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/5</span>
+        <span class='fraction'>11/11</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>21/21</span>
+        <span class='fraction'>36/36</span>
       </div>
     </div>
   </div>
@@ -89,37 +89,77 @@
 44
 45
 46
-47</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -138,11 +178,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../Server';
-import { token, userId } from './users';
+import { token, token2, userId, userId2 } from './users';
+import { recipeId2 } from './recipes';
 &nbsp;
 const should = chai.should();
 &nbsp;
 chai.use(chaiHttp);
+&nbsp;
+describe('Favorite a recipe successfuly', () =&gt; {
+  it('it should return code 201, recipe added to favorite', (done) =&gt; {
+    chai.request(app)
+      .post(`/api/v1/recipes/${recipeId2}/favorite`)
+      .set('x-token', token2)
+      .end((err, res) =&gt; {
+        should.not.exist(err);
+        res.status.should.equal(201);
+        res.body.status.should.equal('Successful');
+        done();
+      });
+  });
+});
+&nbsp;
+&nbsp;
+describe('Retrieving a user\'s favorites', () =&gt; {
+  it('it should return code 200, and a list of favorited recipes', (done) =&gt; {
+    chai.request(app)
+      .get(`/api/v1/user/${userId2}/favorites`)
+      .set('x-token', token2)
+      .end((err, res) =&gt; {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        done();
+      });
+  });
+});
+&nbsp;
 &nbsp;
 describe('Error handling for retrieving a user\'s favorites', () =&gt; {
   it('it should return code 422 and empty list', (done) =&gt; {
@@ -157,20 +228,9 @@ describe('Error handling for retrieving a user\'s favorites', () =&gt; {
         done();
       });
   });
-  /* it('it should return code 200 and recipe details', (done) =&gt; {
-    chai.request(app)
-      .get(`/api/v1/user/${userId}/favorites`)
-      .set('x-token', token)
-      .end((err, res) =&gt; {
-        should.not.exist(err);
-        res.status.should.equal(200);
-        res.body.status.should.equal('Successful');
-        done();
-      });
-  }); */
   it('it should return code 403 unauthorized', (done) =&gt; {
     chai.request(app)
-      .get('/api/v1/user/300/favorites')
+      .get(`/api/v1/user/${userId2}/favorites`)
       .set('x-token', token)
       .end((err, res) =&gt; {
         should.exist(err);
@@ -187,7 +247,7 @@ describe('Error handling for retrieving a user\'s favorites', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 15 2017 21:26:27 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 16 2017 13:24:44 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../prettify.js"></script>

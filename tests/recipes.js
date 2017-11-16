@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../Server';
-import { token } from './users';
+import { token, token2, userId, userId2 } from './users';
 import { recipe1, recipe2, errorRecipe, update } from './mockdata';
 
 const should = chai.should();
@@ -114,7 +114,7 @@ describe('Error handling for submitting a recipe', () => {
 describe('Retrieve list of all recipes', () => {
   it('it should return code 200 Successful and list of all recipes', (done) => {
     chai.request(app)
-      .get('/api/v1/recipes')
+      .get('/api/v1/recipes/?page=1')
       .end((err, res) => {
         should.not.exist(err);
         res.status.should.equal(200);
@@ -144,6 +144,19 @@ describe('Updating a recipe succesfully', () => {
 
 
 describe('Error handling for updating a recipe', () => {
+  it('it should return code 406, Recipe ID Must Be A Number', (done) => {
+    chai.request(app)
+      .put('/api/v1/recipes/recipeId')
+      .set('x-token', token)
+      .send(update)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(406);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe ID Must Be A Number');
+        done();
+      });
+  });
   it('it should return code 401, invalid token', (done) => {
     chai.request(app)
       .put(`/api/v1/recipes/${recipeId}`)
@@ -185,6 +198,18 @@ describe('Error handling for updating a recipe', () => {
         done();
       });
   });
+  it('it should return code 403, Unauthorised to update recipe', (done) => {
+    chai.request(app)
+      .put(`/api/v1/recipes/${recipeId2}`)
+      .set('x-token', token2)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(403);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('You are Not Aauthorized to Update This Recipe');
+        done();
+      });
+  });
 });
 
 
@@ -216,6 +241,18 @@ describe('Error handling for deleting a recipe', () => {
         done();
       });
   });
+  it('it should return code 403, Unauthorised to delete recipe', (done) => {
+    chai.request(app)
+      .delete(`/api/v1/recipes/${recipeId2}`)
+      .set('x-token', token2)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(403);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('You are Not Aauthorized to Delete This Recipe');
+        done();
+      });
+  });
 });
 
 describe('Retrieve one recipe successfully', () => {
@@ -241,6 +278,49 @@ describe('Error handling for retrieving one recipe', () => {
         res.status.should.equal(404);
         res.body.status.should.equal('Unsuccessful');
         res.body.message.should.equal('Recipe Not Found');
+        done();
+      });
+  });
+});
+
+
+describe('Retrieve all recipes for user successfully', () => {
+  it('it should return code 200 and recipe details', (done) => {
+    chai.request(app)
+      .get(`/api/v1/user/${userId}/recipes`)
+      .set('x-token', token)
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        done();
+      });
+  });
+});
+
+
+describe('Error handling for retrieving all recipes of user', () => {
+  it('it should return code 406, user ID in header must be a number', (done) => {
+    chai.request(app)
+      .get('/api/v1/user/userId/recipes')
+      .set('x-token', token)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(406);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('User ID Must Be A Number');
+        done();
+      });
+  });
+  it('it should return code 422, user has no submitted recipes', (done) => {
+    chai.request(app)
+      .get(`/api/v1/user/${userId2}/recipes`)
+      .set('x-token', token2)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(422);
+        res.body.status.should.equal('Unprocessable');
+        res.body.message.should.equal('You currently have no recipes');
         done();
       });
   });

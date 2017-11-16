@@ -2,13 +2,15 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../Server';
 import db from '../Server/models';
-import { createUser1, createUser2, fakeUser, errorUser, user1 } from './mockdata';
+import { createUser1, createUser2, createUser3, fakeUser, errorUser, user1 } from './mockdata';
 
 
 const should = chai.should();
 
 export let token;
 export let userId;
+export let token2;
+export let userId2;
 
 chai.use(chaiHttp);
 
@@ -28,6 +30,19 @@ describe('Users', () => {
           should.not.exist(err);
           token = res.body.token;
           userId = res.body.userId;
+          res.status.should.equal(201);
+          res.body.status.should.equal('Success');
+          done();
+        });
+    });
+    it('it should return code 201, Sign up successful for user2', (done) => {
+      chai.request(app)
+        .post('/api/v1/users/signup')
+        .send(createUser2)
+        .end((err, res) => {
+          should.not.exist(err);
+          token2 = res.body.token;
+          userId2 = res.body.userId;
           res.status.should.equal(201);
           res.body.status.should.equal('Success');
           done();
@@ -56,7 +71,7 @@ describe('Users', () => {
     it('it should return code 406, invalid password error', (done) => {
       chai.request(app)
         .post('/api/v1/users/signup')
-        .send(createUser2)
+        .send(createUser3)
         .end((err, res) => {
           res.status.should.equal(406);
           res.body.status.should.equal('Unsuccessful');
