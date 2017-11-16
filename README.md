@@ -1,6 +1,6 @@
 # More-Recipes
   [![Build Status](https://travis-ci.org/zeze111/more-recipes.svg?branch=develop)](https://travis-ci.org/zeze111/more-recipes) 
-[![Coverage Status](https://coveralls.io/repos/github/zeze111/more-recipes/badge.svg?branch=develope)](https://coveralls.io/github/zeze111/more-recipes?branch=develope)
+[![Coverage Status](https://coveralls.io/repos/github/zeze111/more-recipes/badge.svg?branch=develop)](https://coveralls.io/github/zeze111/more-recipes?branch=develop)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/zeze111/more-recipes)
 
 
