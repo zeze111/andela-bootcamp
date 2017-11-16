@@ -1,8 +1,5 @@
 language: node_js
 sudo: false
-addons:
-  code_climate:
-    repo_token: 9e9a8782a28047259e7f1c8df7b2bb0545040fe84958586f96f82335bf88c289
 
 node_js:
   - node
@@ -26,8 +23,7 @@ cache:
 script:
 - npm install
 - npm test
-- npm run coveralls
 
-after_script:
-  - npm install -g codeclimate-test-reporter
-  - codeclimate-test-reporter < ./coverage/lcov.info
+
+after_success:
+- npm run coveralls
