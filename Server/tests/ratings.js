@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../Server';
+import app from '../index';
 import { token2 } from './users';
 import { recipeId2 } from './recipes';
 
@@ -8,8 +8,8 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Downvote a recipe successfuly', () => {
-  it('it should return code 201, you downvoted this recipe', (done) => {
+describe('Downvote a recipe', () => {
+  it('recipe should be downvoted', (done) => {
     chai.request(app)
       .post(`/api/v1/recipes/${recipeId2}/downvote`)
       .set('x-token', token2)
@@ -23,8 +23,8 @@ describe('Downvote a recipe successfuly', () => {
   });
 });
 
-describe('Upvote a recipe successfuly', () => {
-  it('it should return code 200, you changed downvote to upvote', (done) => {
+describe('Upvote a recipe', () => {
+  it('downvote should be changed to upvote', (done) => {
     chai.request(app)
       .post(`/api/v1/recipes/${recipeId2}/upvote`)
       .set('x-token', token2)
@@ -36,10 +36,7 @@ describe('Upvote a recipe successfuly', () => {
         done();
       });
   });
-});
-
-describe('Error handling for upvoting a recipe', () => {
-  it('it should return code 200, your upvote was deleted', (done) => {
+  it('it should delete upvote', (done) => {
     chai.request(app)
       .post(`/api/v1/recipes/${recipeId2}/upvote`)
       .set('x-token', token2)
@@ -54,7 +51,7 @@ describe('Error handling for upvoting a recipe', () => {
 });
 
 describe('Upvote the recipe again', () => {
-  it('it should return code 201, you upvoted this recipe', (done) => {
+  it('recipe should be upvoted', (done) => {
     chai.request(app)
       .post(`/api/v1/recipes/${recipeId2}/upvote`)
       .set('x-token', token2)

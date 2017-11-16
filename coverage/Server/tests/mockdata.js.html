@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for Server/controllers/reviews.js</title>
+    <title>Code coverage report for Server/tests/mockdata.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -16,28 +16,28 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">Server/controllers</a> reviews.js
+      <a href="../../index.html">All files</a> / <a href="index.html">Server/tests</a> mockdata.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.47% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>17/19</span>
+        <span class='fraction'>11/11</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/5</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.47% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>17/19</span>
+        <span class='fraction'>11/11</span>
       </div>
     </div>
   </div>
@@ -105,50 +105,19 @@
 60
 61
 62
-63</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,74 +130,138 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Validator from 'validatorjs';
-import models from '../models';
-&nbsp;
-const Recipe = models.Recipe;
-const Review = models.Review;
-&nbsp;
-const recipeRules = {
-  comment: 'required|min:10',
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const createUser1 = {
+  firstName: 'user1',
+  surname: 'user',
+  email: 'user1@gmail.com',
+  password: 'testpassword',
+  password_confirmation: 'testpassword',
 };
 &nbsp;
-const reviews = {
-&nbsp;
-  /** Creates new Recipe and stores in the Recipes table
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
-  */
-  reviewRecipe(req, res) {
-    if (isNaN(req.params.recipeId)) {
-      res.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Recipe ID Must Be A Number',
-      });
-    } else {
-      const recipeid = parseInt(req.params.recipeId, 10);
-      Recipe.findById(recipeid)
-        .then((recipe) =&gt; {
-          if (recipe) {
-            const validator = new Validator(req.body, recipeRules);
-            if (validator.passes()) {
-              Review.create({
-                comment: req.body.comment,
-                recipeId: recipeid,
-                userId: req.decoded.id,
-              })
-                .then((comment) =&gt; {
-                  res.status(201).json({
-                    status: 'Successful',
-                    review: comment,
-                  });
-                })
-                .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
-            } else {
-              res.status(406).json({
-                status: 'Unsuccessful',
-                message: 'Invalid data input',
-                errors: validator.errors.all(),
-              });
-            }
-          } else {
-            res.status(404).json({
-              status: 'Unsuccessful',
-              message: 'Recipe Not Found',
-            });
-          }
-        })
-        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
-    }
-  },
+export const createUser2 = {
+  firstName: 'osaze',
+  surname: 'edo',
+  email: 'osaze@gmail.com',
+  password: 'testpassword',
+  password_confirmation: 'testpassword',
 };
 &nbsp;
-export default reviews;
+export const createUser3 = {
+  firstName: 'user1',
+  surname: 'user',
+  email: 'user1@gmail.com',
+  password: 'test',
+  password_confirmation: 'test',
+};
+&nbsp;
+export const fakeUser = {
+  email: 'fake@gmail.com',
+  password: 'fakepassword',
+};
+&nbsp;
+export const errorUser = {
+  email: 'user1@gmail.com',
+  password: 'fakepassword',
+};
+&nbsp;
+export const user1 = {
+  email: 'user1@gmail.com',
+  password: 'testpassword',
+};
+&nbsp;
+export const recipe1 = {
+  name: 'Amala and Ewedu',
+  description: 'Yummy amala for everyday consumption',
+  prepTime: '40 mins',
+  type: 'dessert',
+  ingredients: 'amala powder, ewedu leaf, stew',
+  instructions: 'turn amala in pot, mix ewedu and stew',
+};
+&nbsp;
+export const recipe2 = {
+  name: 'name',
+  description: 'description',
+  prepTime: 'time time',
+  type: 'dessert',
+  ingredients: 'ingredients, ingredients, ingredients',
+  instructions: 'instructions',
+};
+&nbsp;
+export const errorRecipe = {
+  name: 'Amala and Ewedu',
+  description: '',
+  prepTime: '40 mins',
+  type: 'dessert',
+  ingredients: '',
+  instructions: 'turn amala in pot, mix ewedu and stew',
+};
+&nbsp;
+export const update = {
+  type: 'main',
+};
+&nbsp;
+export const review = {
+  comment: 'love this recipe',
+}
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

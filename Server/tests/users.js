@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../Server';
-import db from '../Server/models';
+import app from '../index';
+import db from '../models';
 import { createUser1, createUser2, createUser3, fakeUser, errorUser, user1 } from './mockdata';
 
 
@@ -21,8 +21,8 @@ describe('Users', () => {
       cascade: true,
       truncate: true,
     });
-  describe('Succesful User Creation', () => {
-    it('it should return code 201, Sign up successful', (done) => {
+  describe('Create User', () => {
+    it('it should sign up user successfuly', (done) => {
       chai.request(app)
         .post('/api/v1/users/signup')
         .send(createUser1)
@@ -35,7 +35,7 @@ describe('Users', () => {
           done();
         });
     });
-    it('it should return code 201, Sign up successful for user2', (done) => {
+    it('it should sign up user2 successfuly', (done) => {
       chai.request(app)
         .post('/api/v1/users/signup')
         .send(createUser2)
@@ -51,8 +51,8 @@ describe('Users', () => {
   });
 
 
-  describe('Successful User Sign In', () => {
-    it('it should return code 200, sign in successful', (done) => {
+  describe('User Sign In', () => {
+    it('it should sign user in successfuly', (done) => {
       chai.request(app)
         .post('/api/v1/users/signin')
         .send(user1)
@@ -67,8 +67,8 @@ describe('Users', () => {
   });
 
 
-  describe('Error Handling when users sign up', () => {
-    it('it should return code 406, invalid password error', (done) => {
+  describe('Errors for User Sign up', () => {
+    it('it should prompt an invalid data input message', (done) => {
       chai.request(app)
         .post('/api/v1/users/signup')
         .send(createUser3)
@@ -79,7 +79,7 @@ describe('Users', () => {
           done();
         });
     });
-    it('it should return code 409, user already exists error', (done) => {
+    it('it should prompt an email already exists message', (done) => {
       chai.request(app)
         .post('/api/v1/users/signup')
         .send(createUser1)
@@ -93,8 +93,8 @@ describe('Users', () => {
   });
 
 
-  describe('Error handling when users sign in', () => {
-    it('it should return code 404, user not found error', (done) => {
+  describe('Errors for Users Sign in', () => {
+    it('it should not find user in the database', (done) => {
       chai.request(app)
         .post('/api/v1/users/signin')
         .send(fakeUser)
@@ -105,7 +105,7 @@ describe('Users', () => {
           done();
         });
     });
-    it('it should return code 409, invalid password error', (done) => {
+    it('it should promp a wrong password message', (done) => {
       chai.request(app)
         .post('/api/v1/users/signin')
         .send(errorUser)

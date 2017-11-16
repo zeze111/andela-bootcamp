@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for Server/models/user.js</title>
+    <title>Code coverage report for more-recipes/Server/models/recipe.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">Server/models</a> user.js
+      <a href="../../../index.html">All files</a> / <a href="index.html">more-recipes/Server/models</a> recipe.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>15/15</span>
+        <span class='fraction'>8/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/4</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/15</span>
+        <span class='fraction'>8/8</span>
       </div>
     </div>
   </div>
@@ -93,16 +93,13 @@
 48
 49
 50
-51
-52
-53
-54
-55
-56
-57</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+51</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,82 +142,67 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import bcrypt from 'bcrypt';
-&nbsp;
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 module.exports = (sequelize, DataTypes) =&gt; {
-  const User = sequelize.define('User', {
-    firstName: {
+  const Recipe = sequelize.define('Recipe', {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    surname: {
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    prepTime: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
+    type: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    password: {
-      type: DataTypes.STRING,
+    ingredients: {
+      type: DataTypes.STRING(1234),
       allowNull: false,
     },
-    password_confirmation: {
-      type:DataTypes.STRING,
-      allowNull: false
+    instructions: {
+      type: DataTypes.STRING(1234),
+      allowNull: false,
     }
   });
 &nbsp;
-  User.associate = (models) =&gt; {
-    User.hasMany(models.Recipe, {
-      foreignKey: 'userId',
+  Recipe.associate = (models) =&gt; {
+    Recipe.hasMany(models.Review, {
+      foreignKey: 'recipeId',
       onDelete: 'CASCADE',
     });
-    User.hasMany(models.Rating, {
-      foreignKey: 'userId',
+    Recipe.hasMany(models.Rating, {
+      foreignKey: 'recipeId',
       onDelete: 'CASCADE',
     });
-    User.hasMany(models.Favorite, {
-      foreignKey: 'userId',
+    Recipe.hasMany(models.Favorite, {
+      foreignKey: 'recipeId',
       onDelete: 'CASCADE',
     });
-    User.hasMany(models.Review, {
+    Recipe.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
   };
 &nbsp;
-  User.hook('beforeCreate', (user) =&gt; {
-    const salt = bcrypt.genSaltSync();
-    const hash = bcrypt.hashSync(user.password, salt);
-    user.password = hash;
-  });
-&nbsp;
-  User.prototype.comparePassword = (password, user) =&gt; {
-    return bcrypt.compareSync(password, user.password);
-  };
-  return User;
-}
+  return Recipe;
+};
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 16 2017 16:19:40 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 16 2017 16:16:16 GMT+0100 (WAT)
 </div>
 </div>
-<script src="../../prettify.js"></script>
+<script src="../../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -228,6 +210,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="../../sorter.js"></script>
+<script src="../../../sorter.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../Server';
+import app from '../index';
 import { token } from './users';
 import { recipeId2 } from './recipes';
 import { review, update } from './mockdata';
@@ -9,8 +9,8 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Reviewing a recipe successfuly', () => {
-  it('it should return code 201 and recipe details', (done) => {
+describe('Review a recipe', () => {
+  it('post the review for a recipes', (done) => {
     chai.request(app)
       .post(`/api/v1/recipes/${recipeId2}/reviews`)
       .set('x-token', token)
@@ -27,8 +27,8 @@ describe('Reviewing a recipe successfuly', () => {
 });
 
 
-describe('Error handling for reviewing a recipe', () => {
-  it('it should return code 404 not found', (done) => {
+describe('Errors for reviewing a recipe', () => {
+  it('it should not find recipe', (done) => {
     chai.request(app)
       .post('/api/v1/recipes/7/reviews')
       .set('x-token', token)
@@ -41,7 +41,7 @@ describe('Error handling for reviewing a recipe', () => {
         done();
       });
   });
-  it('it should return code 406 invalid data', (done) => {
+  it('it should reject wrong input data format', (done) => {
     chai.request(app)
       .post(`/api/v1/recipes/${recipeId2}/reviews`)
       .set('x-token', token)
@@ -56,7 +56,7 @@ describe('Error handling for reviewing a recipe', () => {
         done();
       });
   });
-  it('it should return code 406, Recipe ID Must Be A Number', (done) => {
+  it('it should only accept a number for recipe id', (done) => {
     chai.request(app)
       .post('/api/v1/recipes/recipeid/reviews')
       .set('x-token', token)

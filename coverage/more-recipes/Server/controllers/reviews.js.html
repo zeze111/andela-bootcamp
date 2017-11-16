@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for Server/controllers/reviews.js</title>
+    <title>Code coverage report for more-recipes/Server/controllers/reviews.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,32 +16,32 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">Server/controllers</a> reviews.js
+      <a href="../../../index.html">All files</a> / <a href="index.html">more-recipes/Server/controllers</a> reviews.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.47% </span>
+        <span class="strong">31.58% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>17/19</span>
+        <span class='fraction'>6/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>0/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/5</span>
+        <span class='fraction'>0/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">89.47% </span>
+        <span class="strong">31.58% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>17/19</span>
+        <span class='fraction'>6/19</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -123,39 +123,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,7 +177,7 @@ const recipeRules = {
   comment: 'required|min:10',
 };
 &nbsp;
-const reviews = {
+const reviews = <span class="fstat-no" title="function not covered" >{</span>
 &nbsp;
   /** Creates new Recipe and stores in the Recipes table
   * @param {Object} req - Request object
@@ -185,39 +185,39 @@ const reviews = {
   * @returns {Object} Response object
   */
   reviewRecipe(req, res) {
-    if (isNaN(req.params.recipeId)) {
-      res.status(406).json({
+<span class="cstat-no" title="statement not covered" >    if (isNaN(req.params.recipeId)) {</span>
+<span class="cstat-no" title="statement not covered" >      res.status(406).json({</span>
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const recipeid = parseInt(req.params.recipeId, 10);
-      Recipe.findById(recipeid)
-        .then((recipe) =&gt; {
-          if (recipe) {
-            const validator = new Validator(req.body, recipeRules);
-            if (validator.passes()) {
-              Review.create({
+      const recipeid = <span class="cstat-no" title="statement not covered" >parseInt(req.params.recipeId, 10);</span>
+<span class="cstat-no" title="statement not covered" >      Recipe.findById(recipeid)</span>
+        .then(<span class="fstat-no" title="function not covered" >(</span>recipe) =&gt; {
+<span class="cstat-no" title="statement not covered" >          if (recipe) {</span>
+            const validator = <span class="cstat-no" title="statement not covered" >new Validator(req.body, recipeRules);</span>
+<span class="cstat-no" title="statement not covered" >            if (validator.passes()) {</span>
+<span class="cstat-no" title="statement not covered" >              Review.create({</span>
                 comment: req.body.comment,
                 recipeId: recipeid,
                 userId: req.decoded.id,
               })
-                .then((comment) =&gt; {
-                  res.status(201).json({
+                .then(<span class="fstat-no" title="function not covered" >(</span>comment) =&gt; {
+<span class="cstat-no" title="statement not covered" >                  res.status(201).json({</span>
                     status: 'Successful',
                     review: comment,
                   });
                 })
                 .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; res.status(400).send(error));</span></span>
             } else {
-              res.status(406).json({
+<span class="cstat-no" title="statement not covered" >              res.status(406).json({</span>
                 status: 'Unsuccessful',
                 message: 'Invalid data input',
                 errors: validator.errors.all(),
               });
             }
           } else {
-            res.status(404).json({
+<span class="cstat-no" title="statement not covered" >            res.status(404).json({</span>
               status: 'Unsuccessful',
               message: 'Recipe Not Found',
             });
@@ -235,10 +235,10 @@ export default reviews;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 16 2017 16:19:40 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 16 2017 16:16:16 GMT+0100 (WAT)
 </div>
 </div>
-<script src="../../prettify.js"></script>
+<script src="../../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -246,6 +246,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="../../sorter.js"></script>
+<script src="../../../sorter.js"></script>
 </body>
 </html>

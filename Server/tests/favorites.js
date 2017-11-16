@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../Server';
+import app from '../index';
 import { token, token2, userId, userId2 } from './users';
 import { recipeId2 } from './recipes';
 
@@ -8,8 +8,8 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Favorite a recipe successfuly', () => {
-  it('it should return code 201, recipe added to favorite', (done) => {
+describe('Favorite a recipe', () => {
+  it('recipe should be added to favorites', (done) => {
     chai.request(app)
       .post(`/api/v1/recipes/${recipeId2}/favorite`)
       .set('x-token', token2)
@@ -23,8 +23,8 @@ describe('Favorite a recipe successfuly', () => {
 });
 
 
-describe('Retrieving a user\'s favorites', () => {
-  it('it should return code 200, and a list of favorited recipes', (done) => {
+describe('Get a user\'s favorites', () => {
+  it('it should return a list of all recipes favorited by the user', (done) => {
     chai.request(app)
       .get(`/api/v1/user/${userId2}/favorites`)
       .set('x-token', token2)
@@ -38,8 +38,8 @@ describe('Retrieving a user\'s favorites', () => {
 });
 
 
-describe('Error handling for retrieving a user\'s favorites', () => {
-  it('it should return code 422 and empty list', (done) => {
+describe('Errors for geting a user\'s favorites', () => {
+  it('it should return an empty list', (done) => {
     chai.request(app)
       .get(`/api/v1/user/${userId}/favorites`)
       .set('x-token', token)
@@ -51,7 +51,7 @@ describe('Error handling for retrieving a user\'s favorites', () => {
         done();
       });
   });
-  it('it should return code 403 unauthorized', (done) => {
+  it('User should not be able to access another user\'s favorites', (done) => {
     chai.request(app)
       .get(`/api/v1/user/${userId2}/favorites`)
       .set('x-token', token)

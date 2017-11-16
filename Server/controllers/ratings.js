@@ -116,8 +116,7 @@ const ratings = {
                     return res.status(200).json({
                       status: 'Successful',
                       message: 'You Have Upvoted this Recipe',
-                    })
-                      .catch(error => res.status(400).send(error));
+                    });
                   })
                   .catch(error => res.status(400).send(error));
               } else if (votes.vote === 0) {
