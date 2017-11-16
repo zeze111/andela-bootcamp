@@ -1,2 +1,3 @@
-repo_token: lEWaNLVA98xHkPTpThG3i1hnYiTiWrg3N
+service_name: travis-pro
+repo_token: 0yL8RpzVNH8Kl15GdkbTk6fJM6bIBPZnB
 gem 'coveralls', require: false
