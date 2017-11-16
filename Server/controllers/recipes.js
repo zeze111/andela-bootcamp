@@ -1,10 +1,8 @@
 import Validator from 'validatorjs';
 import Sequelize from 'sequelize';
-import models from '../models';
+import { Recipe, Rating } from '../models';
 import validations from '../shared/validations';
 
-const Recipe = models.Recipe;
-const Rating = models.Rating;
 const Op = Sequelize.Op;
 
 const recipes = {
@@ -45,7 +43,7 @@ const recipes = {
                 recipeId: recipeCreated.dataValues.id,
                 recipe: {
                   recipeName: recipeCreated.name,
-                  $recipeType: recipeCreated.type,
+                  recipeType: recipeCreated.type,
                   recipeTime: recipeCreated.prepTime,
                 },
               });
@@ -186,7 +184,7 @@ const recipes = {
             }); // check if recipe belongs to user
           } else if (recipe.userId === req.decoded.id) {
             if (req.body.name || req.body.description || req.body.prepTime
-      || req.body.type || req.body.ingredients || req.body.instructions) {
+              || req.body.type || req.body.ingredients || req.body.instructions) {
               const validator = new Validator(req.body, validations.updateRecipeRules);
               if (validator.passes()) {
                 recipe.update({
