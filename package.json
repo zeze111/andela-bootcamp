@@ -71,7 +71,7 @@
     "testify": "^0.3.0"
   },
   "scripts": {
-    "start:dev": "nodemon ./Server --watch Server/ --exec babel-node",
+    "start:dev": "nodemon ./Server/server --watch Server/ --exec babel-node",
     "migrate": "NODE_ENV=test sequelize db:migrate",
     "unmigrate": "NODE_ENV=test sequelize db:migrate:undo:all",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./Server/tests --compilers js:babel-register",

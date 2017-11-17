@@ -5,6 +5,7 @@ import signupPage from './signup/signuppage'
 import NavigationBar from './NavigationBar';
 import Footer from './footer';
 import FlashMessageList from './flash/flashMessageList';
+import '../assets/init';
 
 class App extends Component {
   render() {
