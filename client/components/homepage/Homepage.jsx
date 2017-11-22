@@ -1,11 +1,11 @@
 import React, { Component }  from 'react';
-import Slide from './slide';
-import PopularContent from './popularContent';
-import AllContent from './allContent';
+import Slide from './Slide';
+import PopularContent from './PopularContent';
+import AllContent from './AllContent';
 import '../../assets/style.scss';
 import '../../assets/init';
 
-class homepage extends Component {
+class Homepage extends Component {
   render() {
     return (
       <div>
