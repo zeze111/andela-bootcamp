@@ -1,11 +1,10 @@
 import Validator from 'validatorjs';
 import jwt from 'jsonwebtoken';
-import models from '../models';
+import { User } from '../models';
 import validations from '../shared/validations';
 
 require('dotenv').config();
 
-const User = models.User;
 const whitespace = /\s/;
 
 function createToken(payload) {
