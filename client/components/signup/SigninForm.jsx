@@ -1,9 +1,9 @@
 import React, { Component }  from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import TextFieldGroup from '../common/textFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
 
-class signinForm extends React.Component {
+class SigninForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,9 +69,9 @@ class signinForm extends React.Component {
   }
 }
 
-signinForm.propTypes = {
+SigninForm.propTypes = {
   userSigninRequest: PropTypes.func.isRequired
 }
 
 
-export default signinForm;
+export default SigninForm;

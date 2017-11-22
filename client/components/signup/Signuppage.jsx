@@ -3,14 +3,14 @@ import { Link  } from 'react-router-dom';
 import { Tabs, Tab } from 'react-materialize';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SigninForm from './signinForm';
-import SignupForm from './signupForm';
-import { userSignupRequest } from '../../actions/signupActions';
-import { userSigninRequest } from '../../actions/signinActions';
-import { addFlashMessages } from '../../actions/flashMessages';
+import SigninForm from './SigninForm';
+import SignupForm from './SignupForm';
+import { userSignupRequest } from '../../actions/SignupActions';
+import { userSigninRequest } from '../../actions/SigninActions';
+import { addFlashMessages } from '../../actions/FlashMessages';
 
 
-class signupPage extends Component {
+class SignupPage extends Component {
   render() {
     const {userSignupRequest, userSigninRequest, addFlashMessages} = this.props;
     return (
@@ -38,12 +38,12 @@ class signupPage extends Component {
   }
 }
 
-signupPage.propTypes = {
+SignupPage.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   userSigninRequest: PropTypes.func.isRequired,
   addFlashMessages: PropTypes.func.isRequired
 }
 
 
-export default connect(null, {userSignupRequest, userSigninRequest, addFlashMessages}) (signupPage);
+export default connect(null, {userSignupRequest, userSigninRequest, addFlashMessages}) (SignupPage);
 

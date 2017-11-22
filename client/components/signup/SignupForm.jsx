@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Validator from 'validatorjs';
 import validations from '../../../Server/shared/validations';
-import TextFieldGroup from '../common/textFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
 
-class signupForm extends React.Component {
+class SignupForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -120,10 +120,10 @@ class signupForm extends React.Component {
   }
 }
 
-signupForm.propTypes = {
+SignupForm.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   addFlashMessages: PropTypes.func.isRequired
 }
 
 
-export default signupForm;
+export default SignupForm;
