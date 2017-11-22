@@ -7,6 +7,14 @@ export const createUser1 = {
 };
 
 export const createUser2 = {
+  firstName: 'osaze',
+  surname: 'edo',
+  email: 'osaze@gmail.com',
+  password: 'testpassword',
+  password_confirmation: 'testpassword',
+};
+
+export const createUser3 = {
   firstName: 'user1',
   surname: 'user',
   email: 'user1@gmail.com',

@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { User } from '../models';
 
 const confirmAuth = {
   authenticate(req, res, next) {
@@ -11,8 +12,18 @@ const confirmAuth = {
             message: 'Invalid token',
           });
         }
-        req.decoded = decoded;
-        next();
+        User.findOne({
+          where: { id: decoded.id },
+          attributes: ['id', 'email'],
+        }).then((user) => {
+          if (!user) {
+            return res.status(404).json({ error: 'User Not Found' });
+          }
+          req.currentUser = user;
+          req.decoded = decoded;
+          next();
+        })
+          .catch(error => res.status(500).send(error));
       });
     } else {
       return res.status(401).json({
