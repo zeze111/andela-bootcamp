@@ -3,7 +3,7 @@ import Slide from './Slide';
 import PopularContent from './PopularContent';
 import AllContent from './AllContent';
 import '../../assets/style.scss';
-
+import '../../assets/init';
 
 class Homepage extends Component {
   render() {
