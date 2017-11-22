@@ -18,6 +18,7 @@ require('dotenv').config();
 const app = express();
 const jsonKey = process.env.SECRET_KEY;
 const compiler = webpack(webpackConfig);
+const publicPath = express.static(path.join(__dirname, '../build/'));
 
 //
 app.set('JsonSecret', jsonKey);
@@ -30,8 +31,9 @@ app.use(webpackMiddleware(compiler, {
   noInfo: true,
 }));
 app.use(webpackHotMiddleware(compiler));
+app.use('/', publicPath);
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.status(202).sendFile(path.join(__dirname, '../client/index.html'));
 });
 

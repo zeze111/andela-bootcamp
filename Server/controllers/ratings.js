@@ -12,70 +12,68 @@ const ratings = {
   */
   upvote(req, res) {
     if (isNaN(req.params.recipeId)) {
-      res.status(406).json({
+      return res.status(406).json({
         status: 'Unsuccessful',
         message: 'Page Must Be A Number',
       });
-    } else {
-      const recipeid = parseInt(req.params.recipeId, 10);
-      Recipe.findOne({
-        where: { id: recipeid },
-      })
-        .then((recipe) => {
-          if (!recipe) {
-            return res.status(404).json({
-              status: 'Unsuccessful',
-              message: 'Recipe Not Found',
-            });
-          }
-          Rating.findOne({
-            where: {
-              userId: req.decoded.id,
-              recipeId: recipeid,
-            },
-          })
-            .then((votes) => {
-              if (votes) {
-                if (votes.vote === 0) {
-                  votes.update({
-                    vote: 1,
-                  })
-                    .then(() => {
-                      res.status(200).json({
-                        status: 'Successful',
-                        message: 'You Have Upvoted this Recipe',
-                      })
-                        .catch(error => res.status(400).send(error));
-                    })
-                    .catch(error => res.status(400).send(error));
-                } else if (votes.vote === 1) {
-                  votes.destroy()
-                    .then(() => {
-                      res.status(200).json({
-                        status: 'Successful',
-                        message: 'Your Vote was Deleted',
-                      });
-                    });
-                }
-              } else {
-                Rating.create({
+    }
+    const recipeid = parseInt(req.params.recipeId, 10);
+    Recipe.findOne({
+      where: { id: recipeid },
+    })
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).json({
+            status: 'Unsuccessful',
+            message: 'Recipe Not Found',
+          });
+        }
+        Rating.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: recipeid,
+          },
+        })
+          .then((votes) => {
+            if (votes) {
+              if (votes.vote === 0) {
+                votes.update({
                   vote: 1,
-                  userId: req.decoded.id,
-                  recipeId: recipe.id,
                 })
-                  .then((rated) => {
-                    res.status(201).json({
+                  .then(() => {
+                    return res.status(200).json({
                       status: 'Successful',
-                      vote: rated,
+                      message: 'You Have Upvoted this Recipe',
                     });
                   })
                   .catch(error => res.status(400).send(error));
+              } else if (votes.vote === 1) {
+                votes.destroy()
+                  .then(() => {
+                    return res.status(200).json({
+                      status: 'Successful',
+                      message: 'Your Vote was Deleted',
+                    });
+                  });
               }
-            })
-            .catch(error => res.status(400).send(error));
-        })
-        .catch(error => res.status(400).send(error));
-    }
+            } else {
+              Rating.create({
+                vote: 1,
+                userId: req.decoded.id,
+                recipeId: recipe.id,
+              })
+                .then((rated) => {
+                  return res.status(201).json({
+                    status: 'Successful',
+                    vote: rated,
+                  });
+                })
+                .catch(error => res.status(400).send(error));
+            }
+          })
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
   },
 
 
@@ -86,70 +84,68 @@ const ratings = {
   */
   downvote(req, res) {
     if (isNaN(req.params.recipeId)) {
-      res.status(406).json({
+      return res.status(406).json({
         status: 'Unsuccessful',
         message: 'Page Must Be A Number',
       });
-    } else {
-      const recipeid = parseInt(req.params.recipeId, 10);
-      Recipe.findOne({
-        where: { id: recipeid },
-      })
-        .then((recipe) => {
-          if (!recipe) {
-            return res.status(404).json({
-              status: 'Unsuccessful',
-              message: 'Recipe Not Found',
-            });
-          }
-          Rating.findOne({
-            where: {
-              userId: req.decoded.id,
-              recipeId: recipeid,
-            },
-          })
-            .then((votes) => {
-              if (votes) {
-                if (votes.vote === 1) {
-                  votes.update({
-                    vote: 0,
-                  })
-                    .then(() => {
-                      res.status(200).json({
-                        status: 'Successful',
-                        message: 'You Have Upvoted this Recipe',
-                      })
-                        .catch(error => res.status(400).send(error));
-                    })
-                    .catch(error => res.status(400).send(error));
-                } else if (votes.vote === 0) {
-                  votes.destroy()
-                    .then(() => {
-                      res.status(200).json({
-                        status: 'Successful',
-                        message: 'Your Vote was Deleted',
-                      });
-                    });
-                }
-              } else {
-                Rating.create({
+    }
+    const recipeid = parseInt(req.params.recipeId, 10);
+    Recipe.findOne({
+      where: { id: recipeid },
+    })
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).json({
+            status: 'Unsuccessful',
+            message: 'Recipe Not Found',
+          });
+        }
+        Rating.findOne({
+          where: {
+            userId: req.decoded.id,
+            recipeId: recipeid,
+          },
+        })
+          .then((votes) => {
+            if (votes) {
+              if (votes.vote === 1) {
+                votes.update({
                   vote: 0,
-                  userId: req.decoded.id,
-                  recipeId: recipe.id,
                 })
-                  .then((rated) => {
-                    res.status(201).json({
+                  .then(() => {
+                    return res.status(200).json({
                       status: 'Successful',
-                      vote: rated,
+                      message: 'You Have Upvoted this Recipe',
                     });
                   })
                   .catch(error => res.status(400).send(error));
+              } else if (votes.vote === 0) {
+                votes.destroy()
+                  .then(() => {
+                    return res.status(200).json({
+                      status: 'Successful',
+                      message: 'Your Vote was Deleted',
+                    });
+                  });
               }
-            })
-            .catch(error => res.status(400).send(error));
-        })
-        .catch(error => res.status(400).send(error));
-    }
+            } else {
+              Rating.create({
+                vote: 0,
+                userId: req.decoded.id,
+                recipeId: recipe.id,
+              })
+                .then((rated) => {
+                  return res.status(201).json({
+                    status: 'Successful',
+                    vote: rated,
+                  });
+                })
+                .catch(error => res.status(400).send(error));
+            }
+          })
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
   },
 
 };

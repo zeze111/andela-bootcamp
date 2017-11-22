@@ -19,7 +19,7 @@ const reviews = {
     if (isNaN(req.params.recipeId)) {
       res.status(406).json({
         status: 'Unsuccessful',
-        message: 'Page Must Be A Number',
+        message: 'Recipe ID Must Be A Number',
       });
     } else {
       const recipeid = parseInt(req.params.recipeId, 10);
