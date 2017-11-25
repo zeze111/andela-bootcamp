@@ -112,7 +112,7 @@ class SignupForm extends React.Component {
             error={errors.password_confirmation}
           />
           <div className="right-align">
-            <input disabled={this.state.isLoading} className="btn grey white-text" type="submit" value="Create" />
+            <input disabled={this.state.isLoading} className="btn grey white-text" type="submit" value="Register" />
           </div> <br />
         </form>
       </div>

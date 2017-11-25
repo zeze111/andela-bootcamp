@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
-import { userSignupRequest } from '../../actions/SignupActions';
-import { userSigninRequest } from '../../actions/SigninActions';
+import { userSignupRequest } from '../../actions/signupActions';
+import { userSigninRequest } from '../../actions/signinActions';
 import { addFlashMessages } from '../../actions/FlashMessages';
 
 
@@ -23,7 +23,7 @@ class SignupPage extends Component {
               <div className="row">
                 <div className="col s12">
                   <Tabs className='tab-demo z-depth-1'>
-                    <Tab className="col s6" title="Create User" active>
+                    <Tab className="col s6" title="Register User" active>
                       <SignupForm userSignupRequest={userSignupRequest} addFlashMessages={addFlashMessages}/></Tab>
                     <Tab className="col s6" title="Sign In">
                       <SigninForm userSigninRequest={userSigninRequest}/></Tab>

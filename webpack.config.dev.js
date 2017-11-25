@@ -5,7 +5,7 @@ export default {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    path.join(__dirname, '/client/index'),
+    path.join(__dirname, '/client/Index'),
   ],
   output: {
     path: `${__dirname}/build/js`,
@@ -20,7 +20,7 @@ export default {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: [
           path.join(__dirname, 'client'),
           path.join(__dirname, 'Server/shared'),
@@ -40,7 +40,7 @@ export default {
     ],
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.jsx'],
   },
   node: {
     net: 'empty',
