@@ -39,8 +39,8 @@ app.get('/*', (req, res) => {
 
 app.post('/api/v1/users/signup', user.createUser);
 app.post('/api/v1/users/signin', user.signIn);
-/* app.post('/api/v1/recipes', confirmAuth.authenticate, recipe.addRecipe);
-app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, review.reviewRecipe);
+app.post('/api/v1/recipes', confirmAuth.authenticate, recipe.addRecipe);
+/* app.post('/api/v1/recipes/:recipeId/reviews', confirmAuth.authenticate, review.reviewRecipe);
 app.post('/api/v1/recipes/:recipeId/favorite', confirmAuth.authenticate, favorite.faveRecipe);
 app.post('/api/v1/recipes/:recipeId/upvote', confirmAuth.authenticate, rating.upvote);
 app.post('/api/v1/recipes/:recipeId/downvote', confirmAuth.authenticate, rating.downvote);

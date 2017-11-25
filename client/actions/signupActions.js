@@ -19,8 +19,7 @@ export function signout() {
 }
 
 export function userSignupRequest(userData) {
-  //return dispatch => {
-    console.log(userData);
+  return dispatch => {
     return axios.post('/api/v1/users/signup', userData)
     .then(res => {
       const token = res.data.token;
@@ -28,5 +27,5 @@ export function userSignupRequest(userData) {
       setAuthorizationToken(token);
       dispatch(setCurrentUser(jwt.decode(token)));
     });
-  //}
+  }
 }
