@@ -2,10 +2,10 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const TextFieldGroup = ({ value, onChange, id, type, name, label, error }) => {
+export const TextFieldGroup = ({ value, onChange, id, type, name, label, error }) => {
   return (
     <div className="input-field">
-      <label className={classnames('', { 'red-text': error })} htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <input
         value={value}
         onChange={onChange}
@@ -14,7 +14,23 @@ const TextFieldGroup = ({ value, onChange, id, type, name, label, error }) => {
         className="validate"
         name={name}
       />
-      {error && <span className="help-block" style={{ fontSize: 13 + 'px' }}>{error}</span>}
+      {error && <span className="help-block red-text" style={{ fontSize: 13 + 'px' }}>{error}</span>}
+    </div>);
+};
+
+export const TextFieldGroup2 = ({ value, onChange, id, type, classname, name, label, error }) => {
+  return (
+    <div className="input-field">
+      <label htmlFor={id}>{label}</label>
+      <textarea
+        value={value}
+        onChange={onChange}
+        id={id}
+        className="materialize-textarea"
+        name={name}
+      >
+      </textarea>
+      {error && <span className="help-block red-text" style={{ fontSize: 13 + 'px' }}>{error}</span>}
     </div>);
 };
 
@@ -28,8 +44,16 @@ TextFieldGroup.propTypes = {
   error: PropTypes.array,
 }
 
+TextFieldGroup2.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  error: PropTypes.array,
+}
+
 TextFieldGroup.defaultProps = {
   type: 'text'
 }
 
-export default TextFieldGroup;

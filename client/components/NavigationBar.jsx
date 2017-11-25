@@ -17,7 +17,7 @@ class NavigationBar extends Component {
     const userLinks = (
       <div>
         <ul className="right hide-on-med-and-down">
-          <li><Link  to="/recipes" className="btn-floating btn-medium tooltipped waves-effect waves-light grey" 
+          <li><Link  to="/addRecipe" className="btn-floating btn-medium tooltipped waves-effect waves-light grey" 
           data-position="bottom" data-delay="50" data-tooltip="Add A Recipe"> 
             <i className="material-icons">add</i></Link ></li>
           <li><Link  to="/user" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
@@ -37,7 +37,7 @@ class NavigationBar extends Component {
     const guestLinks = (
       <div>
         <ul className="right hide-on-med-and-down">
-        <li><Link  to="/recipes" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
+        <li><Link  to="/addRecipe" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
          data-position="bottom" data-delay="50" data-tooltip="Add A Recipe">
           <i className="material-icons">add</i></Link ></li>
         <li><Link  to="/user" className="btn-floating btn-medium tooltipped waves-effect waves-light grey" 
@@ -46,7 +46,7 @@ class NavigationBar extends Component {
         <li><Link  to="/signup">Sign In</Link ></li>
         </ul>
         <ul id="nav-mobile" className="side-nav">
-          <li><Link  to="/recipes">Add</Link></li>
+          <li><Link  to="/addRecipe">Add</Link></li>
           <li><Link  to="/user">Favourites</Link></li>
           <li><Link  to="/signup">Sign In</Link></li>
         </ul>

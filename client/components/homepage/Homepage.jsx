@@ -18,4 +18,4 @@ class Homepage extends Component {
     );
   }
 }
- export default homepage;
+ export default Homepage;
