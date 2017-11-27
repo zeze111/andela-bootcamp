@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import TextFieldGroup from '../common/TextFieldGroup';
+import { TextFieldGroup } from '../common/TextFieldGroup';
 
 class SigninForm extends React.Component {
   constructor(props) {

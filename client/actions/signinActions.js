@@ -12,7 +12,7 @@ export function setCurrentUser(user) {
 
 export function signout() {
   return dispatch => {
-    localStorage.removeItem('jwtTokem');
+    localStorage.removeItem('jwtToken');
     setAuthorizationToken(false);
     dispatch(setCurrentUser({}));
   }

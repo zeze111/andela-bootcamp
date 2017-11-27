@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Validator from 'validatorjs';
 import { map, pick } from 'lodash';
 import { Input, Row } from 'react-materialize';
+import { Redirect } from 'react-router-dom';
 import validations from '../../../Server/shared/validations';
 import { TextFieldGroup, TextFieldGroup2 } from '../common/TextFieldGroup';
 
@@ -68,6 +69,11 @@ class AddRecipeForm extends React.Component {
 
   render() {
     const { errors } = this.state;
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
+    
     return (
       <div className="card-content col s6 offset-s3">
         <form onSubmit={this.onSubmit}>

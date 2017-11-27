@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Validator from 'validatorjs';
 import validations from '../../../Server/shared/validations';
-import TextFieldGroup from '../common/TextFieldGroup';
+import { TextFieldGroup } from '../common/TextFieldGroup';
 
 class SignupForm extends React.Component {
   constructor(props) {
