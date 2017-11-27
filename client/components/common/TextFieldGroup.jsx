@@ -34,6 +34,22 @@ export const TextFieldGroup2 = ({ value, onChange, id, type, classname, name, la
     </div>);
 };
 
+export const TextFieldGroup3 = ({ value, onChange, id, type, name, label, icon}) => {
+  return (
+    <div className="input-field">
+      <label htmlFor={id}>{label} 
+      <i className={"material-icons left"}>icon</i> </label>
+      <input
+        value={value}
+        onChange={onChange}
+        id={id}
+        type={type}
+        className="validate"
+        name={name}
+      />
+    </div>);
+};
+
 TextFieldGroup.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -51,6 +67,15 @@ TextFieldGroup2.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   error: PropTypes.array,
+}
+
+TextFieldGroup3.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
 }
 
 TextFieldGroup.defaultProps = {

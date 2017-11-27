@@ -6,6 +6,7 @@ import NavigationBar from './NavigationBar';
 import Footer from './Footer';
 import FlashMessageList from './flash/FlashMessageList';
 import AddRecipePage from './addRecipe/AddRecipePage';
+import UserPage from './user/UserPage';
 import '../assets/init';
 
 
@@ -20,6 +21,7 @@ class App extends Component {
               <Route path='/' exact component={Homepage} />
               <Route path='/signup' component={SignupPage} />
               <Route path='/addRecipe' component={AddRecipePage} />
+              <Route path='/user' component={UserPage} />
             </Switch>
             <Footer/>
           </div>
