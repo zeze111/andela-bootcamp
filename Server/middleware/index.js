@@ -3,9 +3,7 @@ import { User } from '../models';
 
 const confirmAuth = {
   authenticate(req, res, next) {
-    const reqAuthorization = req.headers.authorization;
-    const token = req.body.token || req.query.token || 
-    reqAuthorization.split(' ')[1] || req.header('x-token');
+    const token = req.body.token || req.query.token || req.header('x-token');
     if (token) {
       jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {

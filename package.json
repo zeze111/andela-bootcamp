@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "description": "More-recipes project",
   "main": "./Server/index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.babel.js",
+    "start:dev": "nodemon --exec babel-node -- ./Server/index.js",
+    "migrate": "NODE_ENV=test sequelize db:migrate",
+    "unmigrate": "NODE_ENV=test sequelize db:migrate:undo:all",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./Server/tests --compilers js:babel-register",
+    "start": "babel-node ./Server/index.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
+  },
   "directories": {
     "test": "tests"
   },
@@ -34,6 +44,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "redux-persist": "^5.4.0",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.22.5",
     "sequelize-cli": "^3.0.0",
@@ -69,15 +80,6 @@
     "style-loader": "^0.19.0",
     "supertest": "^3.0.0",
     "testify": "^0.3.0"
-  },
-  "scripts": {
-    "start:dev": "nodemon ./Server/server --watch Server/ --exec babel-node",
-    "migrate": "NODE_ENV=test sequelize db:migrate",
-    "unmigrate": "NODE_ENV=test sequelize db:migrate:undo:all",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./Server/tests --compilers js:babel-register",
-    "start": "babel-node ./Server/index.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
   "repository": {
     "type": "git",

@@ -15,7 +15,6 @@ export default (state = initialState, action = {}) => {
         recipes: action.payload.recipes,
       };
     case GET_ALL_RECIPES:
-      console.log('Recipe Reducer', action.payload.recipes);
       return {
         ...state,
         recipes: action.payload.recipes,

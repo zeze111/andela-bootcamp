@@ -28,8 +28,8 @@ const users = {
       User.findOne({
         where: { email: req.body.email },
       })
-        .then((foundUser) => {
-          if (!foundUser) {
+        .then((user) => {
+          if (!user) {
             if (whitespace.test(req.body.password)) {
               return res.status(403).json({
                 status: 'Unsuccessful',
@@ -84,15 +84,16 @@ const users = {
       User.findOne({
         where: { email: userEmail },
       })
-        .then((foundUser) => {
-          if (foundUser) {
-            if (foundUser.comparePassword(req.body.password, foundUser)) {
-              const payload = { id: foundUser.id };
+        .then((user) => {
+          if (user) {
+            if (user.comparePassword(req.body.password, user)) {
+              const payload = { id: user.id };
               const token = createToken(payload);
               return res.status(200).json({
                 status: 'Success',
                 message: 'You are now signed in',
                 token,
+                user,
               });
             }
             return res.status(409).json({
@@ -100,7 +101,7 @@ const users = {
               message: 'Sign in failed, Wrong password',
             });
           }
-          if (!foundUser) {
+          if (!user) {
             return res.status(404).json({
               status: 'Unsuccessful',
               message: 'User not found',
