@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Tabs, Tab } from 'react-materialize';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getAllRecipes } from '../../actions/recipeActions'
+import { getUserRecipes } from '../../actions/recipeActions'
 
 import Details from './Details';
 import PasswordForm from './PasswordForm';
@@ -13,20 +13,16 @@ import Favorites from './Favorites';
 class Profile extends Component {
   constructor(props) {
     super(props);
-
-    this.onClick = this.handleOnClick.bind(this);
   }
-  
+
   componentDidMount() {
-    this.props.getAllRecipes();
-  }
-
-  handleOnClick() {
-    console.log("hey, you're beautiful");
+    // $('ul.tabs').tabs('select_tab', 'tab_10');
+    const user = localStorage.getItem('user');
+    this.props.getUserRecipes(JSON.parse(user).id);
   }
 
   render() {
-    const { getAllRecipes } = this.props;
+    const { getUserRecipes } = this.props;
     return (
       <main>
         <div className="container" style={{ width: '100%', margin: '0 auto' }}>
@@ -57,21 +53,39 @@ class Profile extends Component {
             <div className="row">
               <div className="col s12">
                 <Tabs className='tab-demo z-depth-1'>
-                  <Tab className="col s3" title="MY DETAILS" active>
+                  <Tab className="col s3" title="MY DETAILS" >
                     <Details /></Tab>
                   <Tab className="col s3" title="CHANGE PASSWORD">
                     <PasswordForm /></Tab>
+
                   <Tab className="col s3" title="MY RECIPES">
-                    {
-                      this.props.recipes.map((recipe, index) => {
-                        return (
-                          <Recipes
-                            recipe={recipe}
-                            key={index}
-                            getAllRecipes={this.props.getAllRecipes}
-                          />)
-                      })
-                    }
+                    <div id="recipe" className="col s10 offest-s2" style={{ marginTop: '3em' }}>
+                      <div className="col s6 offset-s2">
+                        <Link to="/addRecipe" className="btn waves-effect waves-light grey"> Add Recipe
+                        <i className="material-icons left">add</i></Link>
+                      </div>
+                      <div className="col s12 offest-s4">
+                        <br />
+                        <div className="divider"></div>
+                      </div>
+                      <div id="myrecipe" className="col s9 offset-s2">
+                        <br />
+                        <div className="col s12">
+                          <ul id="userlist" className="collection">
+                            {this.state.recipes &&
+                              this.state.recipes.map((recipe, index) => {
+                                return (
+                                  <Recipes
+                                    recipe={recipe}
+                                    key={index}
+                                    getUserRecipes={this.props.getUserRecipes}
+                                  />)
+                              })
+                            }
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </Tab>
                   <Tab className="col s3" title="FAVORITES">
                     <Favorites /> </Tab>
@@ -86,7 +100,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-  getAllRecipes: PropTypes.func.isRequired
+  getUserRecipes: PropTypes.func.isRequired
 }
 
 // const mapStateToProps = state => ({
@@ -95,8 +109,9 @@ Profile.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    recipes: state.recipeReducer.recipes
+    recipes: state.recipeReducer.recipes,
+    user: state.auth.user
   };
 }
 
-export default connect(mapStateToProps, { getAllRecipes })(Profile);
+export default connect(mapStateToProps, { getUserRecipes })(Profile);
