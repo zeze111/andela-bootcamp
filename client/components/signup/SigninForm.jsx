@@ -29,7 +29,10 @@ class SigninForm extends React.Component {
     .then(() => { 
       this.setState({ redirect: true });
     })
-    .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }) });
+    .catch((error) => { 
+      console.log("Error", error);
+      this.setState({ errors: error.response, isLoading: false })
+    });
   }
 
   render() {

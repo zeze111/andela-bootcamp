@@ -16,7 +16,6 @@ export function addRecipeRequest(recipeData) {
 export function getAllRecipes() {
   return dispatch => axios.get('/api/v1/recipes')
     .then((response) => {
-      console.log('RESPONSE FROM ACTION', response);
       dispatch({
         type: GET_ALL_RECIPES,
         payload: response.data,

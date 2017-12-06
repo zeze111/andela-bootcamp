@@ -6,24 +6,15 @@ import PropTypes from 'prop-types';
 import { signout } from '../actions/signinActions';
 
 class NavigationBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      redirect: false
-    }
-  }
+  
   signout(e) {
     e.preventDefault();
     this.props.signout();
-    this.setState({ redirect: true })
-    
+    this.context.router.history.push('/');
   }
 
   
   render() {
-    if (this.state.redirect) {
-      return <Redirect to="/" />;
-    }
 
     const { isAuthenticated } = this.props.auth;
 
@@ -89,7 +80,9 @@ NavigationBar.propTypes = {
   auth: PropTypes.object.isRequired,
   signout: PropTypes.func.isRequired
 }
-
+NavigationBar.contextTypes={
+  router: PropTypes.object.isRequired
+};
 function mapStateToProps(state) {
   return {
     auth: state.auth

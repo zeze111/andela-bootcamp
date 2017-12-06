@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import { SET_CURRENT_USER } from './types';
 
+
 export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
@@ -11,21 +12,23 @@ export function setCurrentUser(user) {
 }
 
 export function signout() {
-  return dispatch => {
+  return (dispatch) => {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('user');
     setAuthorizationToken(false);
-    dispatch(setCurrentUser({}));
-  }
+    dispatch(setCurrentUser(undefined, undefined));
+  };
 }
 
 export function userSigninRequest(userData) {
-  return dispatch => {
-    return axios.post('/api/v1/users/signin', userData)
-    .then(res => {
-      const token = res.data.token;
+  return dispatch => axios.post('/api/v1/users/signin', userData)
+    .then((res) => {
+      const { token, user } = res.data;
+      const { id, email } = user;
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem('user', JSON.stringify({ id, email }));
+      // localStorage.setItem('email', email);
       setAuthorizationToken(token);
-      dispatch(setCurrentUser(jwt.decode(token)));
+      dispatch(setCurrentUser({ id, email }));
     });
-  }
 }
