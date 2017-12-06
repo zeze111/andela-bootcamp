@@ -38,7 +38,7 @@ export const TextFieldGroup3 = ({ value, onChange, id, type, name, label, icon})
   return (
     <div className="input-field">
       <label htmlFor={id}>{label} 
-      <i className={"material-icons left"}>icon</i> </label>
+      <i className="material-icons left">{icon}</i> </label>
       <input
         value={value}
         onChange={onChange}

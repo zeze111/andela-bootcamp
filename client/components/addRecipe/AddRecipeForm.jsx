@@ -61,9 +61,9 @@ class AddRecipeForm extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.addRecipeRequest(recipe)
         .then(() => {
-          this.setState({ redirect: true });
+          return this.setState({ redirect: true });
         })
-        .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }); });
+        .catch((error) => { return this.setState({ errors: error.response.data, isLoading: false }); });
     }
   }
 
@@ -71,7 +71,7 @@ class AddRecipeForm extends React.Component {
     const { errors } = this.state;
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to="/" />;
+      return <Redirect to="/user" />;
     }
     
     return (
