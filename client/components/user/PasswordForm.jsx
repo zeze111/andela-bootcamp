@@ -20,7 +20,7 @@ class PasswordForm extends Component {
 
   render() {
     return (
-      <div id="chpwd" className="col s10 offest-s2" style={{ marginTop: '3em' }}>
+      <div id="chpwd" className="col s10 offest-s2" style={{ marginTop: '3em', marginBottom: '3em' }}>
         <form className="col s6 offset-s2">
           <TextFieldGroup3
             label="Old Password:"

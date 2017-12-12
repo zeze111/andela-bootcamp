@@ -23,7 +23,7 @@ class Details extends Component {
   render() {
     const { firstName, surname, email } = this.props
     return (
-      <div id="detail" className="col s10 offest-s2" style={{ marginTop: '3em' }}>
+      <div id="detail" className="col s10 offest-s2" style={{ marginTop: '3em', marginBottom: '3em' }}>
         <form className="col s6 offset-s2">
           <TextFieldGroup3
             label="First Name"
@@ -63,7 +63,7 @@ class Details extends Component {
           />
           <div className="right-align">
             <button className="btn grey" type="button"> Update </button>
-          </div>
+          </div >
         </form>
       </div>
     )

@@ -7,7 +7,7 @@ class Favorites extends Component {
 
   render() {
     return (
-      <div id="fave" className="col s10 offest-s2" style={{ marginTop: '3em' }}>
+      <div id="fave" className="col s10 offest-s2" style={{ marginTop: '3em', marginBottom: '3em' }}>
         <div id="myfave" className="col s11 offset-s1"> You currently have no Favourites </div>
       </div>
     )

@@ -7,3 +7,4 @@ dist/
 .coveralls/
 .travis/
 build/
+package-lock.json/

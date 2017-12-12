@@ -7,7 +7,7 @@ import { getAllRecipes } from '../../actions/recipeActions'
 import Slide from './Slide';
 import PopularContent from './PopularContent';
 import AllContent from './AllContent';
-import '../../assets/style.scss';
+
 
 
 
@@ -24,7 +24,7 @@ class Homepage extends Component {
   render() {
     const { getAllRecipes } = this.props;
     return (
-      <div>
+      <div id="homepageBody">
         <main>
           <Slide />
           <PopularContent/>
@@ -33,7 +33,7 @@ class Homepage extends Component {
             <Link to="/allRecipes">
               <h5 className="light teal-text"> ALL RECIPES </h5>
             </Link>
-            <div className="row">
+            <div className="row remove-margin-bottom">
               <div className="categories-container">
                 <ul className="categories">
                   {

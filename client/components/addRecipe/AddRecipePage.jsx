@@ -8,12 +8,12 @@ class AddRecipePage extends Component {
   render() {
     const { addRecipeRequest } = this.props;
     return (
-      <div>
-        <main>
+      <div >
+        <main id="addRecipebody">
           <div className="container" style={{ width: '100%', margin: '0 auto' }}>
             <p className="center-align grey-text text-lighten-3"
-            style={{ marginTop: '2em', marginBottom: '2em', fontSize: '30px' }}> ADD A NEW RECIPE </p>
-            <div className="row">
+            style={{ marginTop: '0', marginBottom: '0', fontSize: '30px' }}> ADD A NEW RECIPE </p>
+            <div className="row remove-margin-bottom">
               <div className="col s8 offset-s2">
                 <div className="card z-depth-2">
                   <span className="card-title col s3 offset-s5 teal-text" 

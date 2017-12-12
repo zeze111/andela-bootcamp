@@ -14,7 +14,7 @@ class SignupPage extends Component {
   render() {
     const {userSignupRequest, userSigninRequest, addFlashMessages} = this.props;
     return (
-      <div>
+      <div id="signup-body">
         <main>
           <div className="container">
             <br/> <br/>
