@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES } from './types';
+import { CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, DELETE_RECIPE } from './types';
 
 
 export function addRecipeRequest(recipeData) {
@@ -28,6 +28,16 @@ export function getUserRecipes(userId) {
     .then((response) => {
       dispatch({
         type: GET_USER_RECIPES,
+        payload: response.data,
+      });
+    });
+}
+
+export function deleteRecipes(recipeId) {
+  return dispatch => axios.delete(`/api/v1/recipes/${recipeId}`)
+    .then((response) => {
+      dispatch({
+        type: DELETE_RECIPE,
         payload: response.data,
       });
     });

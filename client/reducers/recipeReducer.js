@@ -1,4 +1,4 @@
-import { CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES } from '../actions/types';
+import { CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, DELETE_RECIPE } from '../actions/types';
 
 const initialState = { recipes: [], currentRecipe: {} };
 
@@ -19,7 +19,11 @@ export default (state = initialState, action = {}) => {
         ...state,
         recipes: action.payload.recipes,
       };
+    case DELETE_RECIPE:
+      return {
+        ...state,
+        recipes: state.recipes,
+      };
     default: return state;
   }
 };
-
