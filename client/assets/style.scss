@@ -21,7 +21,15 @@ main {
   flex: 1 0 auto;
 }
 
-#wrapper { background: rgba(109, 109, 200, 0.7) }
+#recipe-body {
+  background-image: url("./images/bgd3.jpg");
+  background-size: cover;
+}
+
+#wrapper {
+  background: rgba(109, 109, 200, 0.7);
+  margin-top: 0 !important;
+}
 
 .icon-block {
   padding: 0 15px;

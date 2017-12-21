@@ -21,13 +21,25 @@ class Homepage extends Component {
     this.props.getAllRecipes();
   }
 
+  componentWillMount() {
+    $(document).ready(() => {
+      $('.dropown-button').dropdown();
+      $('.materialboxed').materialbox();
+      $('.slider').slider({
+        height: 300
+      });
+      Materialize.updateTextFields();
+      $('select').material_select();
+    });
+  }
+
   render() {
     const { getAllRecipes } = this.props;
     return (
       <div id="homepageBody">
         <main>
           <Slide />
-          <PopularContent/>
+          <PopularContent />
           <div className="container" style={{ width: 100 + '%', margin: 0 + 'auto' }}>
             <br /> <br />
             <Link to="/allRecipes">

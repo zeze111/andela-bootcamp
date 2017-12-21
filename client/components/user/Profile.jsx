@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getUserRecipes, deleteRecipes } from '../../actions/recipeActions'
+import { getUserRecipes, deleteRecipe } from '../../actions/recipeActions'
 
 import Details from './Details';
 import PasswordForm from './PasswordForm';
@@ -12,18 +12,20 @@ import Favorites from './Favorites';
 
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
-    // $('ul.tabs').tabs('select_tab', 'tab_10');
     const user = localStorage.getItem('user');
     this.props.getUserRecipes(JSON.parse(user).id);
   }
 
+  componentWillUpdate() {
+    $(document).ready(() => {
+      Materialize.updateTextFields();
+    });
+  }
+
   render() {
-    const { getUserRecipes, deleteRecipes } = this.props;
+    const { getUserRecipes, deleteRecipe } = this.props;
     return (
       <div id="profile-body">
         <main>
@@ -97,7 +99,7 @@ class Profile extends Component {
                                       recipe={recipe}
                                       key={index}
                                       getUserRecipes={getUserRecipes}
-                                      deleteRecipes={deleteRecipes}
+                                      deleteRecipe={deleteRecipe}
                                     />)
                                 })
                               }
@@ -122,7 +124,7 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getUserRecipes: PropTypes.func.isRequired,
-  deleteRecipes: PropTypes.func.isRequired
+  deleteRecipe: PropTypes.func.isRequired
 }
 
 // const mapStateToProps = state => ({
@@ -136,4 +138,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getUserRecipes, deleteRecipes })(Profile);
+export default connect(mapStateToProps, { getUserRecipes, deleteRecipe })(Profile);
