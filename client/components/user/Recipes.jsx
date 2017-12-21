@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TextFieldGroup3 } from '../common/TextFieldGroup';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getUserRecipes } from '../../actions/recipeActions';
+import AddRecipeForm from '../addRecipe/AddRecipeForm';
 
 class Recipes extends Component {
   constructor(props) {
@@ -14,30 +14,32 @@ class Recipes extends Component {
     const $toastContent = $('<span>Are you sure you want to delete this recipe</span>')
       .add($('<button class="btn-flat toast-action" on>Yes</button>')
         .click(() => {
-          this.props.deleteRecipes(this.props.recipe.id)
+          this.props.deleteRecipe(this.props.recipe.id)
             .then(() => {
               const user = localStorage.getItem('user');
               this.props.getUserRecipes(JSON.parse(user).id);
             })
         }))
       .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
-    Materialize.toast($toastContent, 5000);
+    Materialize.toast($toastContent, 3000);
   }
 
   render() {
     return (
       <li className="collection-item">
-        <Link to="/userRecipe"> {this.props.recipe.name}</Link>
-        <a href="#!" className="secondary-content">
-          <i className="material-icons" >mode_edit</i>
-          <i onClick={this.clickEvent} className="material-icons">delete</i></a>
+        <Link to={`/userRecipe/${this.props.recipe.id}`}> {this.props.recipe.name}</Link>
+        <a href="#" className="secondary-content">
+          <i onClick={this.clickEvent} className="material-icons">delete</i>
+        </a>
+        <Link to={`/updateRecipe/${this.props.recipe.id}`} className="secondary-content">
+          <i className="material-icons" >mode_edit</i></Link>
       </li>
     )
   };
 }
 
 Recipes.propTypes = {
-  deleteRecipes: PropTypes.func.isRequired,
+  deleteRecipe: PropTypes.func.isRequired,
   getUserRecipes: PropTypes.func.isRequired
 }
 

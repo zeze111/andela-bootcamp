@@ -256,7 +256,7 @@ const recipes = {
               .then(() => {
                 res.status(200).json({
                   status: 'Successful',
-                  data: `${recipe.name} has been deleted`,
+                  message: `${recipe.name} has been deleted`,
                 });
               })
               .catch(error => res.status(400).send(error));
@@ -291,7 +291,7 @@ const recipes = {
           }
           res.status(200).json({
             status: 'Successful',
-            recipes: recipe,
+            recipe,
           });
         })
         .catch(error => res.status(400).send(error.toString()));
