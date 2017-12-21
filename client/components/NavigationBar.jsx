@@ -13,6 +13,10 @@ class NavigationBar extends Component {
     this.context.router.history.push('/');
   }
 
+  componentWillMount() {
+    $('.dropown-button').dropdown();
+    $('.button-collapse').sideNav();
+  }
 
   render() {
 
@@ -27,13 +31,13 @@ class NavigationBar extends Component {
           <li><Link to="/user" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
             data-position="bottom" data-delay="50" data-tooltip="Favorites">
             <i className="material-icons">star_border</i></Link></li>
-          <li><a className="dropdown-button" href="#" data-activates="userdrop">Username
+          <li><a className="dropdown-button" href="#" data-activates="userdrop">{this.props.user.firstName}
             <i className="material-icons right">arrow_drop_down</i></a></li>
         </ul>
         <ul id="nav-mobile" className="side-nav">
           <li><a href="#">Add</a></li>
           <li><a href="#">Favourites</a></li>
-          <li><a href="#">Username</a></li>
+          <li><a href="#" style={{ textTransform: "capitalize" }}>{this.props.user.firstName}</a></li>
         </ul>
       </div>
     );
@@ -41,12 +45,6 @@ class NavigationBar extends Component {
     const guestLinks = (
       <div>
         <ul className="right hide-on-med-and-down">
-          {/* <li><Link to="" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
-         data-position="bottom" data-delay="50" data-tooltip="Add A Recipe">
-          <i className="material-icons">add</i></Link ></li>
-        <li><Link to="" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
-        data-position="bottom" data-delay="50" data-tooltip="Favorites">
-              <i className="material-icons">star_border</i></Link ></li> */}
           <li><Link to="/signup">Sign In</Link ></li>
         </ul>
         <ul id="nav-mobile" className="side-nav">
@@ -85,7 +83,8 @@ NavigationBar.contextTypes = {
 };
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
+    user: state.auth.user
   };
 }
 

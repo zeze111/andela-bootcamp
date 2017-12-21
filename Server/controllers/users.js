@@ -48,9 +48,7 @@ const users = {
               return res.status(201).json({
                 status: 'Success',
                 userId: userCreated.dataValues.id,
-                user: {
-                  userName: `${userCreated.firstName} ${userCreated.surname}`,
-                },
+                user,
                 token,
               });
             });

@@ -24,11 +24,10 @@ export function userSigninRequest(userData) {
   return dispatch => axios.post('/api/v1/users/signin', userData)
     .then((res) => {
       const { token, user } = res.data;
-      const { id, email } = user;
+      const { id, email, firstName } = user;
       localStorage.setItem('jwtToken', token);
-      localStorage.setItem('user', JSON.stringify({ id, email }));
-      // localStorage.setItem('email', email);
+      localStorage.setItem('user', JSON.stringify({ id, email, firstName }));
       setAuthorizationToken(token);
-      dispatch(setCurrentUser({ id, email }));
+      dispatch(setCurrentUser({ id, email, firstName }));
     });
 }
