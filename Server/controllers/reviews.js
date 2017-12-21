@@ -1,12 +1,8 @@
 import Validator from 'validatorjs';
 import models from '../models';
+import validations from '../shared/validations';
 
-const Recipe = models.Recipe;
-const Review = models.Review;
-
-const recipeRules = {
-  comment: 'required|min:10',
-};
+const { Recipe, Review } = models;
 
 const reviews = {
 
@@ -26,9 +22,10 @@ const reviews = {
       Recipe.findById(recipeid)
         .then((recipe) => {
           if (recipe) {
-            const validator = new Validator(req.body, recipeRules);
+            const validator = new Validator(req.body, validations.reviewRules);
             if (validator.passes()) {
               Review.create({
+                title: req.body.title,
                 comment: req.body.comment,
                 recipeId: recipeid,
                 userId: req.decoded.id,

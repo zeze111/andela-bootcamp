@@ -1,6 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('Review', {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     comment: {
       type: DataTypes.STRING(1234),
       allowNull: false,
