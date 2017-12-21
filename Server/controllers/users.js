@@ -42,6 +42,7 @@ const users = {
               email: req.body.email.toLowerCase().trim(),
               password: req.body.password,
               password_confirmation: req.body.password_confirmation,
+              image: req.body.image,
             }).then((userCreated) => {
               const payload = { id: userCreated.id };
               const token = createToken(payload);

@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     password_confirmation: {
       type:DataTypes.STRING,
       allowNull: false
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   });
 

@@ -3,7 +3,6 @@ import Sequelize from 'sequelize';
 import { Recipe, Rating } from '../models';
 import validations from '../shared/validations';
 
-const Op = Sequelize.Op;
 
 const recipes = {
 
@@ -35,6 +34,7 @@ const recipes = {
             type: req.body.type,
             ingredients: req.body.ingredients,
             instructions: req.body.instructions,
+            image: req.body.image,
             userId: req.decoded.id,
           })
             .then((recipe) => {
@@ -180,7 +180,7 @@ const recipes = {
               message: 'Recipe Not Found',
             }); // check if recipe belongs to user
           } else if (recipe.userId === req.decoded.id) {
-            if (req.body.name || req.body.description || req.body.prepTime
+            if (req.body.name || req.body.description || req.body.prepTime || req.body.image
               || req.body.type || req.body.ingredients || req.body.instructions) {
               const validator = new Validator(req.body, validations.updateRecipeRules);
               if (validator.passes()) {
@@ -191,6 +191,7 @@ const recipes = {
                   type: req.body.type || recipe.type,
                   ingredients: req.body.ingredients || recipe.ingredients,
                   instructions: req.body.instructions || recipe.instructions,
+                  image: req.body.image || recipe.image,
                 })
                   .then((updatedRecipe) => {
                     res.status(200).json({
@@ -203,6 +204,7 @@ const recipes = {
                         type: updatedRecipe.type,
                         ingredients: updatedRecipe.ingredients,
                         instructions: updatedRecipe.instructions,
+                        image: updatedRecipe.image,
                       },
                     });
                   })
