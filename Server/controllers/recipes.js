@@ -109,7 +109,7 @@ const recipes = {
           const pages = Math.ceil(data.count / limits);
           offsets = limits * (page - 1);
           Recipe.findAll({
-            attributes: ['name', 'description', 'prepTime', 'type'],
+            attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
             limit: limits,
             offset: offsets,
           }).then((pagedRecipes) => {
@@ -141,7 +141,7 @@ const recipes = {
     }
 
     return Recipe.findAll({
-      attributes: ['name', 'description', 'prepTime', 'type'],
+      attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
       limit: 6,
     }).then((allRecipes) => {
       if (allRecipes.length === 0) { // checks if the table is empty

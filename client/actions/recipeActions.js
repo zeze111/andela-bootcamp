@@ -3,6 +3,9 @@ import axios from 'axios';
 import { CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, DELETE_RECIPE,
   UPDATE_RECIPE, GET_RECIPE } from './types';
 
+// if (axios.defaults.headers.common['x-token'] === '') {
+
+// }
 
 export function addRecipeRequest(recipeData) {
   return dispatch => axios.post('/api/v1/recipes', recipeData)

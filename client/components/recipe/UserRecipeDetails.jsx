@@ -46,23 +46,22 @@ class UserRecipeDetails extends Component {
     }
 
     return (
-      <div id="recipe-body" >
-        <main id="wrapper">
-          <div className="container " style={{ paddingTop: "3em", paddingBottom: "3em" }}>
-            <div className="card z-depth-4 lime lighten-5" style={{ marginBottom: "0em" }}>
+      <div className="lime lighten-5">
+        <main>
               <div className="row">
-                <div className="col s3 offset-s1">
-                  <div className="card" style={{ width: "230px", height: "230px" }}>
-                    <div className="card-image" style={{ marginTop: "3em" }}>
-                      <img src="assets/images/card.jpeg" className="materialboxed responsive-img" />
+                <div className="col s2 offset-s1">
+                  <div className="view-image">
+                    <div className="recipe-v-image " >
+                      <img src={recipe.image || '/images/noimg.png'}
+                        className="materialboxed responsive-img pic-style" />
                     </div>
                   </div>
                 </div>
-                <div className="col s7" style={{ paddingLeft: "0em" }}>
+                <div className="col s7" style={{ paddingLeft: "1em" }}>
                   <div className="row" style={{ marginBottom: "0px", marginTop: "6em" }}>
                     <div className="col s12">
-                      <h5 id="title" style={{ marginBottom: "0px", marginTop: "0px", textTransform: "capitalize"}}>
-                      {recipe.name} </h5>
+                      <h5 id="title" style={{ marginBottom: "0px", marginTop: "0px", textTransform: "capitalize" }}>
+                        {recipe.name} </h5>
                     </div>
                     <div className="col s12">
                       <p style={{ marginTop: "0px", textTransform: "capitalize" }}> Posted by <a id="uname" href="user-recipe.html">
@@ -72,7 +71,7 @@ class UserRecipeDetails extends Component {
                       <p id="desc" style={{ marginTop: "0px", textTransform: "capitalize" }}>{recipe.description} </p>
                     </div>
                     <div className="col s12">
-                      <p style={{ marginBottom: "0px"}}> Like this Recipe? Add to your favourites
+                      <p style={{ marginBottom: "0px" }}> Like this Recipe? Add to your favourites
                      <a className="btn-floating btn-small waves-effect waves-light yellow" >
                           <i className="material-icons">star_border</i></a>
                       </p>
@@ -84,62 +83,70 @@ class UserRecipeDetails extends Component {
                 </div>
 
                 <div className="col s12">
-                    <a href="#!" className="col s1 push-s2 center-align"> <i className="material-icons">thumb_up</i></a>
-                    <p className="col s1 push-s1 right-align"> 300 </p>
-                    <a href="#!"  className="col s1 push-s1">
-                      <i className="material-icons">thumb_down</i></a>
-                    <p className="col s1 center-align">150</p>
+                <div className="col s6 push-s1">
+                  <a href="#!">
+                  <i className="col s1 push-s2 material-icons">thumb_up</i></a>
+                  <p className="col s1 push-s1 right-align" style={{ paddingLeft: "2.2em" }}> 300 </p>
+                  <a href="#!">
+                    <i className="col s1 push-s1 material-icons">thumb_down</i></a>
+                  <p className="col s1 right-align" style={{ paddingLeft: "2.2em" }}>150</p>
                 </div> <br />
+                </div>
               </div>
 
-              <div className="container">
-                <h5 className="left-align" style={{ marginLeft: "50px", paddingTop: "1em"}}> Recipe </h5>
-                <div id="time" className="col s6 ">
+              <div className="container-fluid col s8 push-s2">
+              <div className="row">
+              <div className="col s8 offset-s1">
+                <h5 className="left-align" style={{ marginLeft: "50px", paddingTop: "1em" }}> Recipe </h5>
+                <div id="time" className="col s12 ">
                   <p style={{ fontSize: "18px", marginBottom: "0px" }}> Prep Time: {recipe.prepTime} </p>
                 </div>
-                <div id="Ing" className="col s6 ">
+                <div id="Ing" className="col s12 ">
                   <p style={{ fontSize: "18px", marginBottom: "0px" }}> Ingredients: </p>
                   {ingredients}
                 </div>
-                <div id="Ins" className="col s6">
+                <div id="Ins" className="col s12">
                   <p style={{ fontSize: "18px", marginBottom: "0px" }}> Instructions: </p>
                   <p id="instruct" style={{ marginTop: "0px" }}> {recipe.instructions} </p>
                 </div>
-                <div className="row">
-                  <div className="col s3 offset-s8">
+                  <div className="col s4 offset-s5">
                     <Link to={`/updateRecipe/${recipe.id}`}
-                      className="btn-floating btn-medium waves-effect waves-light blue">
-                      <i className="material-icons" >mode_edit</i></Link>
-                    <a href="#" className="btn-floating btn-medium waves-effect waves-light blue"
-                      style={{ marginLeft: "5px" }}>
-                      <i onClick={this.clickEvent} className="material-icons">delete</i>
-                    </a>
+                      className="waves-effect waves-light text-blue">
+                      Edit this recipe</Link>
+                    <a href="#" className=" waves-effect waves-light text-blue right"
+                      style={{ marginLeft: "5px" }}
+                      onClick={this.clickEvent}>Delete this recipe</a>
                   </div>
+                </div>
                 </div>
               </div> <br />
 
-              <div >
+              <div className="row remove-margin-bottom">
                 <br /> <br />
-                <h5 id="rev" className="blue-text" style={{ marginLeft: "2em" }}> Reviews </h5>
-                <div className="row" style={{ marginLeft: "2em" }}>
-                  <p style={{ marginLeft: "2em" }}> Add a comment to review this recipe </p>
+                <h5 id="rev" className="blue-text" style={{ marginLeft: "5em" }}> Reviews </h5>
+                <div className="col s12" style={{ marginLeft: "5em" }}>
+                  <p style={{ marginLeft: "3em" }}> Add a comment to review this recipe </p>
                   <div className="row" style={{ marginBottom: "0em" }}>
                     <form className="col s6">
+                    <div >
                       <div className="input-field" style={{ marginLeft: "2em" }}>
-                        <label htmlFor="cmt"> Review: <i className="material-icons left">mode_edit</i></label>
+                        <input id="title" type="text" placeholder="Title"></input>
+                      </div>
+                      <div className="input-field" style={{ marginLeft: "2em" }}>
                         <textarea id="cmt" className="materialize-textarea " placeholder="Comment"></textarea>
                       </div>
                       <div className="right-align">
                         <button className="btn grey" type="button"> Review </button> <br /> <br />
                       </div>
+                      </div>
                     </form>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col s8" style={{ paddingBottom: "2em"}}>
-                    <ul className="collection" style={{ marginLeft: "2em" }}>
+                  <div className="col s6" style={{ marginLeft: "7em", marginTop: "1em"}}>
+                    <ul className="collection" >
                       <li className="collection-item avatar">
-                        <img src="assets/images/profilepic.png" alt="" className="circle" />
+                        <img src="/images/profilepic.png" alt="" className="circle" />
                         <span className="title"> <a href="#"> Title </a></span>
                         <p id="r-cmt"> User comment... </p>
                       </li>
@@ -147,8 +154,6 @@ class UserRecipeDetails extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
         </main>
       </div >
     );

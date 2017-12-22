@@ -5,7 +5,7 @@ import { map, pick } from 'lodash';
 import { Input, Row } from 'react-materialize';
 import { Redirect } from 'react-router-dom';
 import validations from '../../../Server/shared/validations';
-import Loader from './Loader';
+import PreLoader from './PreLoader';
 import { TextFieldGroup, TextFieldGroup2 } from '../common/TextFieldGroup';
 
 
@@ -20,6 +20,7 @@ class UpdateRecipeForm extends React.Component {
       type: '',
       ingredients: '',
       instructions: '',
+      image: '',
       errors: {},
       isLoading: false
     }
@@ -36,7 +37,7 @@ class UpdateRecipeForm extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { recipe } = nextProps;
     this.setState({
-      name: recipe.name, prepTime: recipe.prepTime, description: recipe.description,
+      name: recipe.name, prepTime: recipe.prepTime, description: recipe.description, image: recipe.image,
       type: recipe.type, ingredients: recipe.ingredients, instructions: recipe.instructions
     });
   }
@@ -66,7 +67,7 @@ class UpdateRecipeForm extends React.Component {
     event.preventDefault();
 
     const recipeId = this.props.recipe.id;
-    const recipe = pick(this.state, ["name", "prepTime", "description", "type", "ingredients", "instructions"]);
+    const recipe = pick(this.state, ["name", "prepTime", "description", "type", "ingredients", "instructions", "image"]);
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
@@ -85,78 +86,87 @@ class UpdateRecipeForm extends React.Component {
     const { recipe } = this.props;
 
     if (redirect) {
-      return <Redirect to={`/userRecipe/${recipe.id}`}/>;
+      return <Redirect to={`/userRecipe/${recipe.id}`} />;
     }
 
     return (
-      <div className="card-content col s6 offset-s3">
-        <form onSubmit={this.onSubmit}>
-          {errors && <span className='red-text' style={{ fontSize: 16 + 'px' }}>
-            {errors.message}</span>}
-          <TextFieldGroup
-            label="Recipe Name"
-            value={this.state.name}
-            onChange={this.onChange}
-            id="name"
-            type="text"
-            name="name"
-            error={errors.name}
-          />
-          <TextFieldGroup
-            label="Recipe Time"
-            value={this.state.prepTime}
-            onChange={this.onChange}
-            id="time"
-            type="text"
-            name="prepTime"
-            error={errors.prepTime}
-          />
-          <TextFieldGroup
-            label="Description"
-            value={this.state.description}
-            onChange={this.onChange}
-            id="desc"
-            type="text"
-            name="description"
-            error={errors.description}
-          />
-          <Row>
-            <Input s={12}
-              type="select"
-              label="Recipe Type"
-              name="type"
-              defaultValue="0"
-              onChange={this.onSelectChange}
-            >
-              <option value="0" disabled> Choose your option </option>
-              <option value="Appetizer">Appetizer</option>
-              <option value="Main" >Main</option>
-              <option value="Dessert" >Dessert</option>
-              <option value="Drink" >Drink</option>
-            </Input>
-            {errors && <span className="help-block red-text" style={{ fontSize: 13 + 'px', marginLeft: 1 + 'em' }}>
-              {errors.type}</span>}
-          </Row>
-          <TextFieldGroup2
-            label="Ingredients"
-            value={this.state.ingredients}
-            onChange={this.onChange}
-            id="ingred"
-            name="ingredients"
-            error={errors.ingredients}
-          />
-          <TextFieldGroup2
-            label="Instructions"
-            value={this.state.instructions}
-            onChange={this.onChange}
-            id="instruct"
-            name="instructions"
-            error={errors.instructions}
-          />
-          <div className="right-align">
-            <input disabled={this.state.isLoading} className="btn grey" type="submit" value="Submit" />
-          </div> <br />
-        </form>
+      <div className="row">
+        <div className="card-content col s6 offset-s3">
+          <form onSubmit={this.onSubmit}>
+            {errors && <span className='red-text' style={{ fontSize: 16 + 'px' }}>
+              {errors.message}</span>}
+            <TextFieldGroup
+              label="Recipe Name"
+              value={this.state.name}
+              onChange={this.onChange}
+              id="name"
+              type="text"
+              name="name"
+              error={errors.name}
+            />
+            <TextFieldGroup
+              label="Recipe Time"
+              value={this.state.prepTime}
+              onChange={this.onChange}
+              id="time"
+              type="text"
+              name="prepTime"
+              error={errors.prepTime}
+            />
+            <TextFieldGroup
+              label="Description"
+              value={this.state.description}
+              onChange={this.onChange}
+              id="desc"
+              type="text"
+              name="description"
+              error={errors.description}
+            />
+            <Row>
+              <Input s={12}
+                type="select"
+                label="Recipe Type"
+                name="type"
+                defaultValue="0"
+                onChange={this.onSelectChange}
+              >
+                <option value="0" disabled> Choose your option </option>
+                <option value="Appetizer">Appetizer</option>
+                <option value="Main" >Main</option>
+                <option value="Dessert" >Dessert</option>
+                <option value="Drink" >Drink</option>
+              </Input>
+              {errors && <span className="help-block red-text" style={{ fontSize: 13 + 'px', marginLeft: 1 + 'em' }}>
+                {errors.type}</span>}
+            </Row>
+            <TextFieldGroup2
+              label="Ingredients"
+              value={this.state.ingredients}
+              onChange={this.onChange}
+              id="ingred"
+              name="ingredients"
+              error={errors.ingredients}
+            />
+            <TextFieldGroup2
+              label="Instructions"
+              value={this.state.instructions}
+              onChange={this.onChange}
+              id="instruct"
+              name="instructions"
+              error={errors.instructions}
+            />
+            <div className="file-field input-field col s12 left-align" style={{ paddingBottom: "4em" }}>
+              <input type="text" className="validate col s6" />
+              <div className="btn-floating btn-small waves-effect waves-light blue ">
+                <i className="material-icons">photo</i>
+                <input type="file" />
+              </div>
+            </div>
+            <div className="right-align">
+              <input disabled={this.state.isLoading} className="btn grey" type="submit" value="Submit" />
+            </div> <br />
+          </form>
+        </div>
       </div>
     );
   }

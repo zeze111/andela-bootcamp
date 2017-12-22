@@ -26,6 +26,9 @@ module.exports = {
       instructions: {
         type: Sequelize.STRING(1234)
       },
+      image: {
+        type: Sequelize.STRING
+      },
       userId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
