@@ -8,10 +8,11 @@
     "start:dev": "nodemon --exec babel-node -- ./Server/index.js",
     "migrate": "NODE_ENV=test sequelize db:migrate",
     "unmigrate": "NODE_ENV=test sequelize db:migrate:undo:all",
+    "pretest":"npm run unmigrate && npm run migrate",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./Server/tests --compilers js:babel-register",
     "start": "babel-node ./Server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
+    "coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "directories": {
     "test": "tests"
