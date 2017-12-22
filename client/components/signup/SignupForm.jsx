@@ -44,13 +44,11 @@ class SignupForm extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state)
         .then(() => {
-          this.props.addFlashMessages({
-            type: 'success',
-            text: 'Your registration was successful. Welcome!'
-          });
-          this.setState({ redirect: true });
+          return this.setState({ redirect: true });
         })
-        .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }); });
+        .catch((error) => {
+          this.setState({ errors: error.response.data, isLoading: false });
+        });
     }
   }
 

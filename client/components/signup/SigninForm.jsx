@@ -24,13 +24,12 @@ class SigninForm extends React.Component {
   onSubmit(e) {
     this.setState({ errors: {}, isLoading: true });
     e.preventDefault();
-    
+
     this.props.userSigninRequest(this.state)
-    .then(() => { 
+    .then(() => {
       this.setState({ redirect: true });
     })
-    .catch((error) => { 
-      console.log("Error", error);
+    .catch((error) => {
       this.setState({ errors: error.response, isLoading: false })
     });
   }
@@ -65,7 +64,7 @@ class SigninForm extends React.Component {
           <input disabled={this.state.isLoading} className="btn grey white-text right-align" type="submit" value="Sign in"/>
         </div> <br/>
         {errors && <span className='red-text' style={{ fontSize: 16 + 'px' }}>
-          {errors.message}</span>} 
+          {errors.message}</span>}
       </form>
     </div>
     );
