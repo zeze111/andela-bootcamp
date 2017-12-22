@@ -28,8 +28,8 @@ const users = {
       User.findOne({
         where: { email: req.body.email },
       })
-        .then((user) => {
-          if (!user) {
+        .then((foundUser) => {
+          if (!foundUser) {
             if (whitespace.test(req.body.password)) {
               return res.status(403).json({
                 status: 'Unsuccessful',
@@ -44,6 +44,11 @@ const users = {
               password_confirmation: req.body.password_confirmation,
               image: req.body.image,
             }).then((userCreated) => {
+              const user = {
+                id: userCreated.id,
+                firstName: userCreated.firstName,
+                email: userCreated.email,
+              };
               const payload = { id: userCreated.id };
               const token = createToken(payload);
               return res.status(201).json({

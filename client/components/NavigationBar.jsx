@@ -6,6 +6,13 @@ import PropTypes from 'prop-types';
 import { signout } from '../actions/signinActions';
 
 class NavigationBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      firstName: this.props.user.firstName,
+    };
+  }
 
   signout(e) {
     e.preventDefault();
@@ -18,8 +25,13 @@ class NavigationBar extends Component {
     $('.button-collapse').sideNav();
   }
 
-  render() {
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      firstName: nextProps.user.firstName,
+    })
+  }
 
+  render() {
     const { isAuthenticated } = this.props.auth;
 
     const userLinks = (
@@ -31,13 +43,13 @@ class NavigationBar extends Component {
           <li><Link to="/user" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
             data-position="bottom" data-delay="50" data-tooltip="Favorites">
             <i className="material-icons">star_border</i></Link></li>
-          <li><a className="dropdown-button" href="#" data-activates="userdrop">{this.props.user.firstName}
+          <li><a className="dropdown-button" href="#" data-activates="userdrop">{this.state.firstName}
             <i className="material-icons right">arrow_drop_down</i></a></li>
         </ul>
         <ul id="nav-mobile" className="side-nav">
           <li><a href="#">Add</a></li>
           <li><a href="#">Favourites</a></li>
-          <li><a href="#" style={{ textTransform: "capitalize" }}>{this.props.user.firstName}</a></li>
+          <li><a href="#" style={{ textTransform: "capitalize" }}>{this.state.firstName}</a></li>
         </ul>
       </div>
     );
@@ -76,8 +88,14 @@ class NavigationBar extends Component {
 
 NavigationBar.propTypes = {
   auth: PropTypes.object.isRequired,
-  signout: PropTypes.func.isRequired
+  user: PropTypes.object,
 }
+
+NavigationBar.defaultProps =
+{
+  user:{}
+};
+
 NavigationBar.contextTypes = {
   router: PropTypes.object.isRequired
 };
