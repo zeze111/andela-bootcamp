@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom';
 import validations from '../../../Server/shared/validations';
 import { TextFieldGroup, TextFieldGroup2 } from '../common/TextFieldGroup';
 import PreLoader from '../updateRecipe/PreLoader';
+import loadImage from '../../utils/images';
 
 require('dotenv').config();
 
@@ -21,7 +22,8 @@ class AddRecipeForm extends React.Component {
       type: '',
       ingredients: '',
       instructions: '',
-      image: '',
+      imageSrc: '/images/noimg.png',
+      imageFile: '',
       errors: {},
       isLoading: false
     }
@@ -48,39 +50,16 @@ class AddRecipeForm extends React.Component {
   }
 
   uploadImage(event) {
-    this.setState({ isLoading: true });
-
-    // const imgUrl = process.env.CLOUDINARY_URL;
-    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/zeze-andela/image/upload';
-    // const preset = process.env.CLOUDINARY_UPLOAD_PRESET;
-    const CLOUDINARY_UPLOAD_PRESET = 'oenu8grd';
-
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-
-    delete axios.defaults.headers.common['x-token'];
-    axios({
-      url: CLOUDINARY_URL,
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/x-www-form-urlencoded'
-      },
-      data: formData
-    })
-      .then((res) => {
-        this.setState({
-          image: res.data.secure_url,
-          isLoading: false
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          isLoading: false
-        });
-      })
-      axios.defaults.headers.common['x-token'] = window.localStorage.jwtToken;
+    if (event.target.files && event.target.files[0]) {
+      this.setState({ imageFile: event.target.files[0] });
+      const reader = new FileReader();
+      reader.onload = (readerEvent) => {
+        this.setState({ imageSrc: readerEvent.target.result });
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
+      this.setState({ imageSrc: '/images/noimg.png', imageFile: '' });
+    }
   }
 
   isValid() {
@@ -96,7 +75,7 @@ class AddRecipeForm extends React.Component {
   onSubmit(event) {
     event.preventDefault();
 
-    const recipe = pick(this.state, ["name", "prepTime", "description", "type", "ingredients", "instructions", "image"]);
+    const recipe = pick(this.state, ["name", "prepTime", "description", "type", "ingredients", "instructions", "imageFile"]);
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
@@ -121,12 +100,9 @@ class AddRecipeForm extends React.Component {
           <form onSubmit={this.onSubmit}>
             <div className="row" style={{ paddingTop: "2em", paddingLeft: "2em" }}>
               <div className="file-field input-field col s12 center-align" >
-                {this.state.isLoading &&
-                  <PreLoader />
-                }
                 <div className="image-placeholder">
                   <img
-                    src={this.state.image || '/images/noimg.png'}
+                    src={this.state.imageSrc}
                     alt=""
                     className="recipe-image"
                   />

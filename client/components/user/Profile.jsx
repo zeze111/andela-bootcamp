@@ -33,7 +33,7 @@ class Profile extends Component {
             <br /> <br />
             <div className="row" style={{ paddingBottom: '1em' }}>
               <div className="col s3 offset-s2">
-                <img className="materialboxed responsive-img circle" width="200" src="assets/images/profilepic.png" />
+                <img className="materialboxed responsive-img circle" width="200" src="/images/profilepic.png" />
               </div>
               <div className="col s7 pull-s1 grey-text text-lighten-2">
                 <br /> <br /> <br />
@@ -46,7 +46,7 @@ class Profile extends Component {
                 <div className="file-field input-field">
                   <div className="btn waves-effect waves-light grey">
                     <span> Upload Photo
-            <i className="material-icons left">photo</i> </span>
+                      <i className="material-icons left">photo</i> </span>
                     <input type="file" />
                   </div>
                 </div>
