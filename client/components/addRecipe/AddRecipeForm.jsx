@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom';
 import validations from '../../../Server/shared/validations';
 import { TextFieldGroup, TextFieldGroup2 } from '../common/TextFieldGroup';
 import PreLoader from '../updateRecipe/PreLoader';
-import loadImage from '../../utils/images';
 
 require('dotenv').config();
 
