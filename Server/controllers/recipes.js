@@ -3,7 +3,6 @@ import Sequelize from 'sequelize';
 import { Recipe, Rating } from '../models';
 import validations from '../shared/validations';
 
-const Op = Sequelize.Op;
 
 const recipes = {
 
@@ -35,17 +34,14 @@ const recipes = {
             type: req.body.type,
             ingredients: req.body.ingredients,
             instructions: req.body.instructions,
+            image: req.body.image,
             userId: req.decoded.id,
           })
-            .then((recipeCreated) => {
+            .then((recipe) => {
               return res.status(201).json({
                 status: 'Success',
-                recipeId: recipeCreated.dataValues.id,
-                recipe: {
-                  recipeName: recipeCreated.name,
-                  recipeType: recipeCreated.type,
-                  recipeTime: recipeCreated.prepTime,
-                },
+                recipeId: recipe.dataValues.id,
+                recipe,
               });
             }) // if unsuccessful
             .catch(error => res.status(400).send(error));
@@ -68,7 +64,7 @@ const recipes = {
   getAllRecipes(req, res) {
     // returns a list of popular recipes, req has a '?' in it's header paramater
     if (req.query.sort) {
-      Rating.findAll({
+      return Rating.findAll({
         where: {
           vote: 1,
         },
@@ -92,74 +88,75 @@ const recipes = {
           } else {
             res.status(200).json({
               status: 'Successful',
-              data: popularRecipes,
+              drecipes: popularRecipes,
             });
           }
         })
         .catch((error) => { res.status(400).send(error); });
     } else if (req.query.page) {
       if (isNaN(req.query.page)) {
-        res.status(406).json({
+        return res.status(406).json({
           status: 'Unsuccessful',
           message: 'Page Must Be A Number',
         });
-      } else {
-        const limits = 3; // number of records per page
-        let offsets = 0;
-        Recipe.findAndCountAll()
-          .then((data) => {
-            const page = (req.query.page <= 1) ? 1 : parseInt(req.query.page, 10); // page number
-            const pages = Math.ceil(data.count / limits);
-            offsets = limits * (page - 1);
-            Recipe.findAll({
-              attributes: ['name', 'description', 'prepTime', 'type'],
-              limit: limits,
-              offset: offsets,
-            }).then((pagedRecipes) => {
-              if (page > pages) {
-                res.status(404).json({
-                  status: 'Unsuccessful',
-                  message: 'Page Not Found',
-                });
-              }
-              if (pagedRecipes.length === 0) { // checks if the table is empty
-                res.status(422).json({
-                  status: 'Unprocessable',
-                  message: 'Currently No Recipes',
-                });
-              } else {
-                res.status(200).json({
-                  status: 'Successful',
-                  data: pagedRecipes,
-                  pageSize: limits,
-                  totalCount: data.count,
-                  currentPage: page,
-                  pageCount: pages,
-                });
-              }
-            })
-              .catch(error => res.status(400).send(error));
-          })
-          .catch(error => res.status(400).send(error));
       }
-    } else {
-      Recipe.findAll({
-        attributes: ['name', 'description', 'prepTime', 'type'],
-      }).then((allRecipes) => {
-        if (allRecipes.length === 0) { // checks if the table is empty
-          res.status(422).json({
-            status: 'Unprocessable',
-            message: 'Currently No Recipes',
-          });
-        } else {
-          res.status(200).json({
-            status: 'Successful',
-            data: allRecipes,
-          });
-        }
-      })
+
+      const limits = 3; // number of records per page
+      let offsets = 0;
+      return Recipe.findAndCountAll()
+        .then((data) => {
+          const page = (req.query.page <= 1) ? 1 : parseInt(req.query.page, 10); // page number
+          const pages = Math.ceil(data.count / limits);
+          offsets = limits * (page - 1);
+          Recipe.findAll({
+            attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
+            limit: limits,
+            offset: offsets,
+          }).then((pagedRecipes) => {
+            if (page > pages) {
+              res.status(404).json({
+                status: 'Unsuccessful',
+                message: 'Page Not Found',
+              });
+            }
+            if (pagedRecipes.length === 0) { // checks if the table is empty
+              res.status(422).json({
+                status: 'Unprocessable',
+                message: 'Currently No Recipes',
+              });
+            } else {
+              res.status(200).json({
+                status: 'Successful',
+                recipes: pagedRecipes,
+                pageSize: limits,
+                totalCount: data.count,
+                currentPage: page,
+                pageCount: pages,
+              });
+            }
+          })
+            .catch(error => res.status(400).send(error));
+        })
         .catch(error => res.status(400).send(error));
     }
+
+    return Recipe.findAll({
+      attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
+      limit: 6,
+    }).then((allRecipes) => {
+      if (allRecipes.length === 0) { // checks if the table is empty
+        res.status(422).json({
+          status: 'Unprocessable',
+          message: 'Currently No Recipes',
+        });
+      } else {
+        res.status(200).json({
+          status: 'Successful',
+          recipes: allRecipes,
+        });
+      }
+    })
+      .catch(error => res.status(400).send(error));
   },
 
   /** Updates a recipe according to User's input
@@ -183,7 +180,7 @@ const recipes = {
               message: 'Recipe Not Found',
             }); // check if recipe belongs to user
           } else if (recipe.userId === req.decoded.id) {
-            if (req.body.name || req.body.description || req.body.prepTime
+            if (req.body.name || req.body.description || req.body.prepTime || req.body.image
               || req.body.type || req.body.ingredients || req.body.instructions) {
               const validator = new Validator(req.body, validations.updateRecipeRules);
               if (validator.passes()) {
@@ -194,6 +191,7 @@ const recipes = {
                   type: req.body.type || recipe.type,
                   ingredients: req.body.ingredients || recipe.ingredients,
                   instructions: req.body.instructions || recipe.instructions,
+                  image: req.body.image || recipe.image,
                 })
                   .then((updatedRecipe) => {
                     res.status(200).json({
@@ -206,6 +204,7 @@ const recipes = {
                         type: updatedRecipe.type,
                         ingredients: updatedRecipe.ingredients,
                         instructions: updatedRecipe.instructions,
+                        image: updatedRecipe.image,
                       },
                     });
                   })
@@ -259,7 +258,7 @@ const recipes = {
               .then(() => {
                 res.status(200).json({
                   status: 'Successful',
-                  data: `${recipe.name} has been deleted`,
+                  message: `${recipe.name} has been deleted`,
                 });
               })
               .catch(error => res.status(400).send(error));
@@ -294,7 +293,7 @@ const recipes = {
           }
           res.status(200).json({
             status: 'Successful',
-            recipes: recipe,
+            recipe,
           });
         })
         .catch(error => res.status(400).send(error.toString()));

@@ -5,6 +5,12 @@
  *
  * Made By MaterializeCSS.com
  */
+
+
+  @import '../../node_modules/react-tabs/style/react-tabs.scss';
+ // @import './react-tabs.scss';
+
+
 body {
   display: flex;
   min-height: 100vh;
@@ -15,11 +21,93 @@ main {
   flex: 1 0 auto;
 }
 
-#wrapper { background: rgba(109, 109, 200, 0.7) }
+#recipe-body {
+  background-image: url("./images/bgd3.jpg");
+  background-size: cover;
+}
+
+#wrapper {
+  background: rgba(109, 109, 200, 0.7);
+  margin-top: 0 !important;
+}
 
 .icon-block {
   padding: 0 15px;
 }
 .icon-block .material-icons {
 	font-size: inherit;
+}
+
+#addRecipebody {
+  background: url("./images/bgd3.jpg");
+  background-repeat: no-repeat;
+  // background-position: 115px 0%;
+  background-size: cover;
+}
+.remove-margin-bottom{
+  margin-bottom: 0;
+}
+
+#homepageBody {
+  background-color: rgb(251, 252, 228);
+}
+
+#signup-body {
+  background: url("./images/bgd.jpeg");
+  background-size: cover;
+}
+
+#profile-body {
+  background: url("./images/bgd2.jpg");
+  background-color: rgb(251, 252, 228);
+  background-repeat: no-repeat;
+  background-position: 0px 0%;
+  background-size: 1500px 430px;
+}
+.tabs-styling {
+  font-family: sans-serif;
+  padding-left: 6em;
+}
+.dropdown-content{
+  right:0 !important;
+  left:none !important;
+  top:63px !important;
+}
+.image-placeholder{
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 1px;
+  border: 2px dashed #aaa;
+  height: 130px;
+  width: 150px;
+  .recipe-image{
+    height:100%;
+    width: 100%;
+  }
+}
+
+.view-image {
+    display: block;
+    border: 2px white;
+    position: absolute;
+    width: 230px;
+    top: 8.5em;
+    .recipe-v-image{
+      height:100%;
+      width: 100%;
+  }
+}
+
+.materialboxed.responsive-img.pic-style {
+  max-width: 100%;
+  height: 200px;
+}
+
+#vote-up-style {
+  right: 0;
+}
+
+#vote-down-style {
+  left: 0
 }

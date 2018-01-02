@@ -17,17 +17,17 @@ const store = createStore(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
- 
+
 );
 
-if (localStorage) {
+if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
-  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+  store.dispatch(setCurrentUser(JSON.parse(localStorage.user)));
 }
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
-  </Provider>, 
+  </Provider>,
   document.getElementById('app')
 ); 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Validator from 'validatorjs';
 import validations from '../../../Server/shared/validations';
-import TextFieldGroup from '../common/TextFieldGroup';
+import { TextFieldGroup } from '../common/TextFieldGroup';
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -44,13 +44,11 @@ class SignupForm extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state)
         .then(() => {
-          this.props.addFlashMessages({
-            type: 'success',
-            text: 'Your registration was successful. Welcome!'
-          });
-          this.setState({ redirect: true });
+          return this.setState({ redirect: true });
         })
-        .catch((error) => { this.setState({ errors: error.response.data, isLoading: false }); });
+        .catch((error) => {
+          this.setState({ errors: error.response.data, isLoading: false });
+        });
     }
   }
 
@@ -112,7 +110,7 @@ class SignupForm extends React.Component {
             error={errors.password_confirmation}
           />
           <div className="right-align">
-            <input disabled={this.state.isLoading} className="btn grey white-text" type="submit" value="Create" />
+            <input disabled={this.state.isLoading} className="btn grey white-text" type="submit" value="Register" />
           </div> <br />
         </form>
       </div>

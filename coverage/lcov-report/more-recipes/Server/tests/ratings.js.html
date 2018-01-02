@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for more-recipes/Server/tests/ratings.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">more-recipes/Server/tests</a> ratings.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">52.94% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>18/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.64% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">52.94% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>18/34</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import chai from 'chai';
+import chaiHttp from 'chai-http';
+import app from '../index';
+import { token2 } from './users';
+import { recipeId2 } from './recipes';
+&nbsp;
+const should = chai.should();
+&nbsp;
+chai.use(chaiHttp);
+&nbsp;
+describe('Downvote a recipe', () =&gt; {
+  it('recipe should be downvoted', (done) =&gt; {
+    chai.request(app)
+      .post(`/api/v1/recipes/${recipeId2}/downvote`)
+      .set('x-token', token2)
+      .send()
+      .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >        should.not.exist(err);</span>
+<span class="cstat-no" title="statement not covered" >        res.status.should.equal(201);</span>
+<span class="cstat-no" title="statement not covered" >        res.body.status.should.equal('Successful');</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      });
+  });
+});
+&nbsp;
+describe('Upvote a recipe', () =&gt; {
+  it('downvote should be changed to upvote', (done) =&gt; {
+    chai.request(app)
+      .post(`/api/v1/recipes/${recipeId2}/upvote`)
+      .set('x-token', token2)
+      .send()
+      .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >        should.not.exist(err);</span>
+<span class="cstat-no" title="statement not covered" >        res.status.should.equal(200);</span>
+<span class="cstat-no" title="statement not covered" >        res.body.status.should.equal('Successful');</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      });
+  });
+  it('it should delete upvote', (done) =&gt; {
+    chai.request(app)
+      .post(`/api/v1/recipes/${recipeId2}/upvote`)
+      .set('x-token', token2)
+      .send()
+      .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >        should.not.exist(err);</span>
+<span class="cstat-no" title="statement not covered" >        res.status.should.equal(200);</span>
+<span class="cstat-no" title="statement not covered" >        res.body.status.should.equal('Successful');</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      });
+  });
+});
+&nbsp;
+describe('Upvote the recipe again', () =&gt; {
+  it('recipe should be upvoted', (done) =&gt; {
+    chai.request(app)
+      .post(`/api/v1/recipes/${recipeId2}/upvote`)
+      .set('x-token', token2)
+      .send()
+      .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >        should.not.exist(err);</span>
+<span class="cstat-no" title="statement not covered" >        res.status.should.equal(201);</span>
+<span class="cstat-no" title="statement not covered" >        res.body.status.should.equal('Successful');</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      });
+  });
+});
+&nbsp;
+/* describe('Retrieving the most popular recipes', () =&gt; {
+  it('it should return code 200, and a list of popular recipes', (done) =&gt; {
+    chai.request(app)
+      .get('api/v1/recipes?sort=upvotes&amp;order=des')
+      .end((err, res) =&gt; {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        done();
+      });
+  });
+}); */
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Dec 21 2017 16:57:06 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -6,3 +6,5 @@ dist/
 .nyc_output
 .coveralls/
 .travis/
+build/
+package-lock.json/
