@@ -7,7 +7,7 @@ import Footer from './Footer';
 import FlashMessageList from './flash/FlashMessageList';
 import AddRecipePage from './addRecipe/AddRecipePage';
 import UpdateRecipePage from './updateRecipe/UpdateRecipePage';
-import UserRecipeDetails from './recipe/UserRecipeDetails';
+import RecipeDetails from './recipe/RecipeDetails';
 import Profile from './user/Profile';
 import Favorites from './user/Favorites';
 import '../assets/init';
@@ -26,7 +26,8 @@ class App extends Component {
             <Route path='/addRecipe' component={AddRecipePage} />
             <Route path='/user' component={Profile} />
             <Route path='/updateRecipe/:recipeId' component={UpdateRecipePage} />
-            <Route path='/userRecipe/:recipeId' component={UserRecipeDetails} />
+            <Route path='/userRecipe/:recipeId' component={RecipeDetails}/>
+            <Route path='/recipe/:recipeId' component={RecipeDetails}/>
           </Switch>
           <Footer />
         </div>

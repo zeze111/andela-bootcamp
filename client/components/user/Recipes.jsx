@@ -18,10 +18,11 @@ class Recipes extends Component {
             .then(() => {
               const user = localStorage.getItem('user');
               this.props.getUserRecipes(JSON.parse(user).id);
-            })
+              Materialize.Toast.removeAll();
+            });
         }))
       .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
-    Materialize.toast($toastContent, 3000);
+    Materialize.toast($toastContent);
   }
 
   render() {
