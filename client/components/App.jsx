@@ -12,7 +12,6 @@ import Profile from './user/Profile';
 import Favorites from './user/Favorites';
 import '../assets/init';
 
-
 class App extends Component {
   render() {
     return (
