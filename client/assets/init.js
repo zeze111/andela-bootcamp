@@ -8,9 +8,6 @@
 
 $(document).ready(() => {
   $('.materialboxed').materialbox();
-  $('.slider').slider({
-    height: 300
-  });
   Materialize.updateTextFields();
   $('select').material_select();
   $('.dropdown-button').dropdown();
@@ -29,5 +26,3 @@ $(document).ready(() => {
 // $(document).ready(() => {
 //   $('select').material_select();
 // });
-
-

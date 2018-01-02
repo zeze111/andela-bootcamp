@@ -25,9 +25,7 @@ class Homepage extends Component {
     $(document).ready(() => {
       $('.dropown-button').dropdown();
       $('.materialboxed').materialbox();
-      $('.slider').slider({
-        height: 300
-      });
+      $('.tooltipp').tooltip({delay: 20});
       Materialize.updateTextFields();
       $('select').material_select();
     });
