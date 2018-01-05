@@ -48,7 +48,7 @@ class SigninForm extends React.Component {
           label="Email"
           value={this.state.email}
           onChange={this.onChange}
-          id="email"
+          id="signInEmail"
           type="email"
           name="email"
         />
@@ -56,7 +56,7 @@ class SigninForm extends React.Component {
           label="Password"
           value={this.state.password}
           onChange={this.onChange}
-          id="pwd"
+          id="signInPwd"
           type="password"
           name="password"
         />

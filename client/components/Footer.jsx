@@ -4,7 +4,7 @@ import { Link  } from 'react-router-dom';
 class Footer extends Component {
   render() {
     return (
-      <footer className="page-footer teal lighten-2">
+      <footer className="page-footer nav-color">
         <div className="container">
           <div className="row">
             <div className="col l6 s12">
