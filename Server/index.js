@@ -35,11 +35,24 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(webpackHotMiddleware(compiler));
 }
 
+app.use((req, res, next) => {
+  const { send } = res;
+  let sent = false;
+  res.send = (data) => {
+    if (sent) return;
+    send.bind(res)(data);
+    sent = true;
+  };
+  next();
+});
+
 app.use('/', publicPath);
 
 app.use('/api/v1/users', users);
 app.use('/api/v1/user', users);
 app.use('/api/v1/recipes', recipes);
+app.use('/api/v1/favorites', recipes);
+
 
 if (process.env.NODE_ENV !== 'test') {
   app.get('/*', (req, res) => {

@@ -3,13 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { deleteRecipe, getARecipe } from '../../actions/recipeActions';
+import { favoriteRecipe } from '../../actions/favoriteActions';
 
 class RecipeDetails extends Component {
   constructor(props) {
     super(props);
 
     this.ingredients = '';
+    this.creator = '';
     this.state = {};
+
+    this.onClickFave = this.onClickFave.bind(this);
   }
 
   componentDidMount() {
@@ -20,11 +24,13 @@ class RecipeDetails extends Component {
   componentWillMount() {
     $(document).ready(() => {
       $('.tooltipp').tooltip('remove')
+      $('.materialboxed').materialbox();
     });
   }
 
   componentWillReceiveProps(nextProps) {
     const { recipe } = nextProps;
+    this.creator = recipe.User;
     this.ingredients = recipe.ingredients;
   }
 
@@ -36,10 +42,18 @@ class RecipeDetails extends Component {
             .then(() => {
               Materialize.Toast.removeAll();
               return this.setState({ redirect: true });
-            })
+            });
         }))
       .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
     Materialize.toast($toastContent);
+  }
+
+  onClickFave(event) {
+    this.props.favoriteRecipe(this.props.recipe.id)
+      .then(() => {
+        const $toastContent = $(`<span>${this.props.message}</span>`)
+        Materialize.toast($toastContent, 2000);
+      });
   }
 
   render() {
@@ -51,12 +65,12 @@ class RecipeDetails extends Component {
     ));
 
     const creatorUser = (
-      <div>
-        <div className="col s4 offset-s5">
+      <div >
+        <div className="col s4 offset-s7 creator">
           <Link to={`/updateRecipe/${recipe.id}`}
-            className="waves-effect waves-light text-blue">
+            className="waves-effect waves-light orange-text">
             Edit this recipe</Link>
-          <a href="#" className=" waves-effect waves-light text-blue right"
+          <a href="#" className=" waves-effect waves-light orange-text right"
             style={{ marginLeft: "5px" }}
             onClick={this.clickEvent}>Delete this recipe</a>
         </div>
@@ -66,83 +80,79 @@ class RecipeDetails extends Component {
     const guestUser = (
       <div> </div>
     );
-
+    
     if (redirect) {
       return <Redirect to='/user' />;
     }
 
     return (
-      <div className="lime lighten-5">
+      <div >
         <main>
-          <div className="row">
-            <div className="col s2 offset-s1">
-              <div className="view-image">
-                <div className="recipe-v-image " >
+          <div className="row flex-container">
+            <div className="col s5">
+              <div className="card right" style={{ width: '500px', height: '300px' }}>
+                <div className="card-image">
                   <img src={recipe.image || '/images/noimg.png'}
                     className="materialboxed responsive-img pic-style" />
                 </div>
+                <div className="card-action card-buttons">
+                  <a href="#!">
+                    <i className="col s2 material-icons right-align">thumb_up</i></a>
+                  <p className="col s1 pull-s1 icon" > 300 </p>
+                  <a href="#!">
+                    <i className="col s2 push-s1 material-icons right-align">thumb_down</i></a>
+                  <p className="col s1 icon" >150</p>
+                  <a href="#!" className="col s2 push-s2 right-align" onClick={this.onClickFave}>
+                    <i className="material-icons">star_border</i></a>
+                </div>
               </div>
             </div>
-            <div className="col s7" style={{ paddingLeft: "1em" }}>
-              <div className="row" style={{ marginBottom: "0px", marginTop: "6em" }}>
+            <div className="col s7">
+              <div className="row text-flex" >
                 <div className="col s12">
-                  <h5 id="title" style={{ marginBottom: "0px", marginTop: "0px", textTransform: "capitalize" }}>
+                  <h5 className="title-details remove-margin-bottom">
                     {recipe.name} </h5>
                 </div>
-                <div className="col s12">
-                  <p style={{ marginTop: "0px", textTransform: "capitalize" }}> Posted by <a id="uname" href="user-recipe.html">
-                    {this.props.user.firstName} </a> </p>
+                <div className="col s12 ">
+                  <p className="title-details top-style"> Posted by <a className="orange-text title-details" href="user-recipe.html">
+                     {this.creator.firstName} </a> </p>
                 </div>
                 <div className="col s12">
-                  <p id="desc" style={{ marginTop: "0px", textTransform: "capitalize" }}>{recipe.description || 'Try out this recipe'} </p>
+                  <p id="desc" className="title-details">{recipe.description || 'Try out this recipe'} </p>
                 </div>
                 <div className="col s12">
-                  <p style={{ marginBottom: "0px" }}> Like this Recipe? Add to your favourites
-                     <a style={{ marginLeft: "8px" }} className="btn-floating btn-small waves-effect waves-light yellow" >
-                      <i className="material-icons">star</i></a>
-                  </p>
+                  <p className="remove-margin-bottom"> Like this Recipe? Add to your favourites
+                  </p> <br />
                 </div>
                 <div className="col s12">
-                  <a href="#rev" style={{ marginTop: "0px" }} className="scrollspy"> Reviews </a>
+                  <a href="#rev" className="scrollspy orange-text remove-margin-bottom"> Reviews </a>
                 </div>
               </div>
-            </div>
-
-            <div className="col s12">
-              <div className="col s6 push-s1">
-                <a href="#!">
-                  <i className="col s1 push-s2 material-icons">thumb_up</i></a>
-                <p className="col s1 push-s1 right-align" style={{ paddingLeft: "2.2em" }}> 300 </p>
-                <a href="#!">
-                  <i className="col s1 push-s1 material-icons">thumb_down</i></a>
-                <p className="col s1 right-align" style={{ paddingLeft: "2.2em" }}>150</p>
-              </div> <br />
             </div>
           </div>
 
-          <div className="container-fluid col s8 push-s2">
-            <div className="row">
-              <div className="col s8 offset-s1">
-                <h5 className="left-align" style={{ marginLeft: "50px", paddingTop: "1em" }}> Recipe </h5>
-                <div id="time" className="col s12 ">
-                  <p style={{ fontSize: "18px", marginBottom: "0px" }}> Prep Time: {recipe.prepTime} </p>
-                </div>
-                <div id="Ing" className="col s12 ">
-                  <p style={{ fontSize: "18px", marginBottom: "0px" }}> Ingredients: </p>
-                  {ingredients}
-                </div>
-                <div id="Ins" className="col s12">
-                  <p style={{ fontSize: "18px", marginBottom: "0px" }}> Instructions: </p>
-                  <p id="instruct" style={{ marginTop: "0px" }}> {recipe.instructions} </p>
-                </div>
-                {(id === recipe.userId) ? creatorUser : guestUser}
+
+          <div className="row">
+            <div className="col s8 offset-s1">
+              <h5 className="center-align text-recipe title" > Recipe </h5>
+              <div id="time" className="col s4 ">
+                <p className="recipe"> Prep Time: {recipe.prepTime} </p>
               </div>
+              <div id="Ing" className="col s4">
+                <p className="recipe"> Ingredients: </p>
+                {ingredients}
+              </div>
+              <div id="Ins" className="col s4">
+                <p className="recipe"> Instructions: </p>
+                <p id="instruct" style={{ marginTop: "0px" }}> {recipe.instructions} </p>
+              </div>
+              {(id === recipe.userId) ? creatorUser : guestUser}
             </div>
           </div> <br />
 
           <div className="row remove-margin-bottom">
             <br /> <br />
-            <h5 id="rev" className="blue-text" style={{ marginLeft: "5em" }}> Reviews </h5>
+            <h5 id="rev" style={{ marginLeft: "5em" }}> Reviews </h5>
             <div className="col s12" style={{ marginLeft: "5em" }}>
               <p style={{ marginLeft: "3em" }}> Add a comment to review this recipe </p>
               <div className="row" style={{ marginBottom: "0em" }}>
@@ -166,7 +176,7 @@ class RecipeDetails extends Component {
                 <ul className="collection" >
                   <li className="collection-item avatar">
                     <img src="/images/profilepic.png" alt="" className="circle" />
-                    <span className="title"> <a href="#"> Title </a></span>
+                    <span className="title"> Title </span>
                     <p id="r-cmt"> User comment... </p>
                   </li>
                 </ul>
@@ -181,12 +191,14 @@ class RecipeDetails extends Component {
 
 RecipeDetails.propTypes = {
   deleteRecipe: PropTypes.func.isRequired,
-  getARecipe: PropTypes.func.isRequired
+  getARecipe: PropTypes.func.isRequired,
+  favoriteRecipe: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
   recipe: state.recipeReducer.currentRecipe,
-  user: state.auth.user
+  user: state.auth.user,
+  message: state.favoriteReducer.message
 });
 
-export default connect(mapStateToProps, { getARecipe, deleteRecipe })(RecipeDetails);
+export default connect(mapStateToProps, { getARecipe, deleteRecipe, favoriteRecipe })(RecipeDetails);

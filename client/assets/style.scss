@@ -27,7 +27,7 @@ main {
 }
 
 #wrapper {
-  background: rgba(109, 109, 200, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   margin-top: 0 !important;
 }
 
@@ -49,7 +49,7 @@ main {
 }
 
 #homepageBody {
-  background-color: rgb(251, 252, 228);
+  // background-color: rgb(251, 252, 228);
 }
 
 #signup-body {
@@ -59,7 +59,7 @@ main {
 
 #profile-body {
   background: url("./images/bgd2.jpg");
-  background-color: rgb(251, 252, 228);
+  // background-color: rgb(251, 252, 228);
   background-repeat: no-repeat;
   background-position: 0px 0%;
   background-size: 1500px 430px;
@@ -91,23 +91,77 @@ main {
     display: block;
     border: 2px white;
     position: absolute;
-    width: 230px;
+    width: 700px;
     top: 8.5em;
     .recipe-v-image{
-      height:100%;
+      height:80%;
       width: 100%;
   }
 }
 
 .materialboxed.responsive-img.pic-style {
   max-width: 100%;
-  height: 200px;
+  height: 300px;
 }
 
-#vote-up-style {
-  right: 0;
+// #vote-up-style {
+//   right: 0;
+// }
+
+// #vote-down-style {
+//   left: 0
+// }
+.top-style {
+  padding-top: 5px;
 }
 
-#vote-down-style {
-  left: 0
+.caps {
+  text-transform: capitalize
+}
+
+.bottom-style {
+  margin-bottom: 2.5em;
+}
+
+.card-buttons {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  padding-bottom: 2em !important;
+  .icon {
+    margin-top: 0;
+    padding-left: 2.5em;
+  }
+}
+
+
+.text-recipe {
+  padding-top: 2em;
+}
+
+.flex-container {
+  display: flex;
+  padding-top: 4em;
+  .text-flex {
+    padding-top: 2em;
+  }
+}
+
+.nav-color {
+  background-color: #af9c1d;
+}
+
+.recipe {
+  font-size: 18;
+  margin-bottom: 0;
+}
+
+.title {
+  padding-top: 4em !important;
+}
+.creator {
+  padding-top: 3em !important;
+}
+
+.title-details {
+  margin-top: 0 !important;
+  text-transform: capitalize !important;
 }

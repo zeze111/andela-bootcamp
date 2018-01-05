@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getUserRecipes, deleteRecipe } from '../../actions/recipeActions'
+import { getUserRecipes, deleteRecipe } from '../../actions/recipeActions';
+import { getFavoriteRecipes, deleteFavorite } from '../../actions/favoriteActions';
+
 
 import Details from './Details';
 import PasswordForm from './PasswordForm';
@@ -12,10 +14,15 @@ import Favorites from './Favorites';
 
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+
+  }
 
   componentDidMount() {
     const user = localStorage.getItem('user');
     this.props.getUserRecipes(JSON.parse(user).id);
+    this.props.getFavoriteRecipes(JSON.parse(user).id);
   }
 
   componentWillUpdate() {
@@ -25,7 +32,19 @@ class Profile extends Component {
   }
 
   render() {
-    const { getUserRecipes, deleteRecipe } = this.props;
+    const { getUserRecipes, deleteRecipe, getFavoriteRecipes, deleteFavorite, faveMessage } = this.props;
+
+    const faves = (this.props.favorites) ? (this.props.favorites) : [];
+    const recipeList = (this.props.recipes) ? (this.props.recipes) : [];
+
+    const noFaves = (
+      <div className="col s11 offset-s1 bottom-style"> {faveMessage} </div>
+    );
+
+    const noRecipes = (
+      <div className="col s11 offset-s1 bottom-style"> {this.props.message} </div>
+    );
+
     return (
       <div id="profile-body">
         <main>
@@ -67,7 +86,7 @@ class Profile extends Component {
                       <Tab >
                         MY RECIPES
                       </Tab>
-                      <Tab >
+                      <Tab id="faves">
                         FAVORITES
                       </Tab>
                     </TabList>
@@ -81,7 +100,7 @@ class Profile extends Component {
                     <TabPanel>
                       <div id="recipe" className="col s10 offest-s2" style={{ marginTop: '3em', marginBottom: '3em' }}>
                         <div className="col s6 offset-s2">
-                          <Link to="/addRecipe" className="btn waves-effect waves-light grey"> Add Recipe
+                          <Link to="/addRecipe" className="btn waves-effect waves-light grey"> Add A Recipe
                           <i className="material-icons left">add</i></Link>
                         </div>
                         <div className="col s12 offest-s4">
@@ -91,25 +110,47 @@ class Profile extends Component {
                         <div id="myrecipe" className="col s9 offset-s2">
                           <br />
                           <div className="col s12">
-                            <ul id="userlist" className="collection">
-                              {
-                                this.props.recipes.map((recipe, index) => {
-                                  return (
-                                    <Recipes
-                                      recipe={recipe}
-                                      key={index}
-                                      getUserRecipes={getUserRecipes}
-                                      deleteRecipe={deleteRecipe}
-                                    />)
-                                })
-                              }
-                            </ul>
+                            {(recipeList.length === 0) ? noRecipes :
+                              <ul id="userlist" className="collection bottom-style">
+                                {
+                                  recipeList.map((recipe, index) => {
+                                    return (
+                                      <Recipes
+                                        recipe={recipe}
+                                        key={index}
+                                        getUserRecipes={getUserRecipes}
+                                        deleteRecipe={deleteRecipe}
+                                      />)
+                                  })
+                                }
+                              </ul>
+                            }
                           </div>
                         </div>
                       </div>
                     </TabPanel>
-                    <TabPanel>
-                      <Favorites />
+                    <TabPanel><div id="myrecipe" className="col s9 offset-s1">
+                      <br />
+                      <div className="col s12">
+                        {(faves.length === 0) ? noFaves :
+                          <ul id="userlist" className="collection bottom-style">
+                            {
+                              faves.map((favorite, index) => {
+                                return (
+                                  <Favorites
+                                    favorites={this.props.favorites}
+                                    favorite={favorite}
+                                    key={index}
+                                    getFavoriteRecipes={getFavoriteRecipes}
+                                    deleteFavorite={deleteFavorite}
+                                    message={faveMessage}
+                                  />)
+                              })
+                            }
+                          </ul>
+                        }
+                      </div>
+                    </div>
                     </TabPanel>
                   </Tabs>
                 </div> <br /> <br />
@@ -124,18 +165,21 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getUserRecipes: PropTypes.func.isRequired,
-  deleteRecipe: PropTypes.func.isRequired
+  deleteRecipe: PropTypes.func.isRequired,
+  getFavoriteRecipes: PropTypes.func.isRequired,
+  deleteFavorite: PropTypes.func.isRequired
 }
-
-// const mapStateToProps = state => ({
-//   recipes: state.recipeReducer.recipes,
-// });
 
 function mapStateToProps(state) {
   return {
     recipes: state.recipeReducer.recipes,
-    user: state.auth.user
+    user: state.auth.user,
+    favorites: state.favoriteReducer.favorites,
+    faveMessage: state.favoriteReducer.message,
+    message: state.recipeReducer.message
   };
 }
 
-export default connect(mapStateToProps, { getUserRecipes, deleteRecipe })(Profile);
+export default connect(mapStateToProps, {
+  getUserRecipes, deleteRecipe, getFavoriteRecipes, deleteFavorite,
+})(Profile);
