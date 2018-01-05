@@ -1,12 +1,12 @@
 import axios from 'axios';
-import FormData from 'form-data';
+import uploadImageToCloud from '../utils/image';
 
 import {
   CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, DELETE_RECIPE,
   UPDATE_RECIPE, GET_RECIPE,
 } from './types';
 
-function addRecipe(recipeData, cloudUrl) {
+export function addRecipe(recipeData, imageUrl) {
   return (dispatch) => {
     axios.defaults.headers.common['x-token'] = window.localStorage.jwtToken;
     const {
@@ -19,7 +19,7 @@ function addRecipe(recipeData, cloudUrl) {
       type,
       ingredients,
       instructions,
-      image: cloudUrl,
+      image: imageUrl,
     };
 
     return axios.post('/api/v1/recipes', recipe)
@@ -34,31 +34,14 @@ function addRecipe(recipeData, cloudUrl) {
 
 export function addRecipeRequest(recipeData) {
   return (dispatch) => {
-    let cloudUrl = 'http://res.cloudinary.com/zeze-andela/image/upload/v1513857342/noimg_mhvbu1.png';
-    if (recipeData.imageFile.name != null) {
-      const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/zeze-andela/image/upload';
-      const CLOUDINARY_UPLOAD_PRESET = 'oenu8grd';
-
-      const formData = new FormData();
-      formData.append('file', recipeData.imageFile);
-      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-
-      delete axios.defaults.headers.common['x-token'];
-      return axios({
-        url: CLOUDINARY_URL,
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/x-www-form-urlencoded',
-        },
-        data: formData,
-      })
+    const cloudUrl = 'http://res.cloudinary.com/zeze-andela/image/upload/v1513857342/noimg_mhvbu1.png';
+    if (recipeData.imageFile.name) {
+      return uploadImageToCloud(recipeData.imageFile)
         .then((response) => {
-          cloudUrl = response.data.secure_url;
-          dispatch(addRecipe(recipeData, cloudUrl));
+          const imageUrl = response.data.secure_url;
+          dispatch(addRecipe(recipeData, imageUrl));
         })
-        .catch((error) => {
-          dispatch(error);
-        });
+        .catch(error => console.log(error));
     }
     return dispatch(addRecipe(recipeData, cloudUrl));
   };
