@@ -6,7 +6,7 @@ const AllContent = ({ recipe: { id, name, prepTime, image } }) => {
   return (
     <li >
       <div className="col s2 offset-1">
-        <div className="card hoverable grey lighten-4" style={{ height: '200px', width: '195px' }}>
+        <div className="card hoverable grey lighten-4" style={{ height: '200px', width: '190px' }}>
           <div className="card-image">
             <img src={image || '/images/noimg.png'} className="responsive-img" style={{ height: 130 + 'px' }} />
             <div className="card-action">

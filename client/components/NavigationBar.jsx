@@ -37,10 +37,10 @@ class NavigationBar extends Component {
     const userLinks = (
       <div>
         <ul className="right hide-on-med-and-down">
-          <li><Link to="/addRecipe" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
+          <li><Link to="/addRecipe" className="btn-floating btn-medium tooltipped waves-effect waves-light grey lighten-1"
             data-position="bottom" data-delay="50" data-tooltip="Add A Recipe">
             <i className="material-icons">add</i></Link></li>
-          <li><Link to="/user" className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
+          <li><Link to="/user" className="btn-floating btn-medium tooltipped waves-effect waves-light grey lighten-1"
             data-position="bottom" data-delay="50" data-tooltip="Favorites">
             <i className="material-icons">star_border</i></Link></li>
           <li><a className="dropdown-button" href="#" data-activates="userdrop">{this.state.firstName}
@@ -60,8 +60,6 @@ class NavigationBar extends Component {
           <li><Link to="/signup">Sign In</Link ></li>
         </ul>
         <ul id="nav-mobile" className="side-nav">
-          <li><Link to="/addRecipe">Add</Link></li>
-          <li><Link to="/favorites">Favourites</Link></li>
           <li><Link to="/signup">Sign In</Link></li>
         </ul>
       </div>
@@ -73,7 +71,7 @@ class NavigationBar extends Component {
           <li><Link to="/user">Profile</Link></li>
           <li><Link to="/" onClick={this.signout.bind(this)}>Sign Out</Link></li>
         </ul>
-        <nav className="teal lighten-2" role="navigation">
+        <nav className="nav-color" role="navigation">
           <div className="nav-wrapper ">
             <Link to="/" id="logo" className="left brand-logo" style={{ marginLeft: 2 + 'em' }}>More-Recipes</Link >
             <Link to="#" data-activates="nav-mobile" className="button-collapse left"><i className="material-icons">

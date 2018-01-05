@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { TextFieldGroup3 } from '../common/TextFieldGroup';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import AddRecipeForm from '../addRecipe/AddRecipeForm';
 
 class Recipes extends Component {
   constructor(props) {

@@ -27,6 +27,7 @@ class App extends Component {
             <Route path='/updateRecipe/:recipeId' component={UpdateRecipePage} />
             <Route path='/userRecipe/:recipeId' component={RecipeDetails}/>
             <Route path='/recipe/:recipeId' component={RecipeDetails}/>
+            {/* <Route path='/favorite' component={Profile}/> */}
           </Switch>
           <Footer />
         </div>

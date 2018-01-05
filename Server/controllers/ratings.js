@@ -14,7 +14,7 @@ const ratings = {
     if (isNaN(req.params.recipeId)) {
       return res.status(406).json({
         status: 'Unsuccessful',
-        message: 'Page Must Be A Number',
+        message: 'Recipe Must Be A Number',
       });
     }
     const recipeid = parseInt(req.params.recipeId, 10);
@@ -86,7 +86,7 @@ const ratings = {
     if (isNaN(req.params.recipeId)) {
       return res.status(406).json({
         status: 'Unsuccessful',
-        message: 'Page Must Be A Number',
+        message: 'Recipe Must Be A Number',
       });
     }
     const recipeid = parseInt(req.params.recipeId, 10);

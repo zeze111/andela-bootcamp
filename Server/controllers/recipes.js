@@ -1,8 +1,7 @@
 import Validator from 'validatorjs';
 import Sequelize from 'sequelize';
-import { Recipe, Rating } from '../models';
+import { Recipe, Rating, User } from '../models';
 import validations from '../shared/validations';
-
 
 const recipes = {
 
@@ -283,6 +282,10 @@ const recipes = {
       const reqid = parseInt(req.params.recipeId, 10);
       Recipe.findOne({
         where: { id: reqid },
+        include: [{
+          model: User,
+          attributes: ['firstName', 'surname'],
+        }],
       })
         .then((recipe) => {
           if (!recipe) {
@@ -313,9 +316,9 @@ const recipes = {
       })
         .then((userRecipes) => {
           if (userRecipes.length === 0) { // checks if list is empty
-            res.status(422).json({
-              status: 'Unprocessable',
-              message: 'You currently have no recipes',
+            res.status(200).json({
+              status: 'Successsful',
+              message: 'You Currently Have No Recipes',
             });
           } else {
             res.status(200).json({
@@ -326,6 +329,35 @@ const recipes = {
         })
         .catch(error => res.status(400).send(error.toString()));
     }
+  },
+
+  searchRecipe(req, res) {
+    Recipe.findAll({
+      where: {
+        $or: [{
+          name: {
+            $like: `%${decodeURIComponent(req.query.search)}%`,
+          },
+          ingredients: {
+            $like: `%${decodeURIComponent(req.query.search)}%`,
+          },
+        }],
+      },
+    })
+      .then((searchFound) => {
+        if (searchFound.length === 0) { // checks if search is empty
+          res.status(404).json({
+            status: 'Unsuccessful',
+            message: 'Recipe not found',
+          });
+        } else {
+          res.status(200).json({
+            status: 'Successful',
+            recipe: searchFound,
+          });
+        }
+      })
+      .catch(error => res.status(400).send(error.toString()));
   },
 };
 

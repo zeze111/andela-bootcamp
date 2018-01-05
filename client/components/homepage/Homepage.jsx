@@ -32,6 +32,7 @@ class Homepage extends Component {
 
   render() {
     const { getAllRecipes } = this.props;
+    const allRecipes = (this.props.recipes) ? (this.props.recipes) : [];
     return (
       <div id="homepageBody">
         <main>
@@ -43,10 +44,9 @@ class Homepage extends Component {
               <h5 className="light teal-text"> ALL RECIPES </h5>
             </Link>
             <div className="row remove-margin-bottom">
-              <div className="categories-container">
-                <ul className="categories">
+                <ul className="categories flex-container-homepage">
                   {
-                    this.props.recipes.map((recipe, index) => {
+                    allRecipes.map((recipe, index) => {
                       return (
                         <AllContent
                           recipe={recipe}
@@ -56,7 +56,6 @@ class Homepage extends Component {
                     })
                   }
                 </ul>
-              </div>
             </div>
           </div>
         </main>
