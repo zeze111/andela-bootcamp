@@ -3,7 +3,7 @@ import {
   UPDATE_RECIPE, GET_RECIPE,
 } from '../actions/types';
 
-const initialState = { recipes: [], currentRecipe: {} };
+const initialState = { recipes: [], currentRecipe: {}, message: '' };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
@@ -16,6 +16,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         recipes: action.payload.recipes,
+        message: action.payload.message,
       };
     case GET_ALL_RECIPES:
       return {

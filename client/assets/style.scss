@@ -145,6 +145,11 @@ main {
   }
 }
 
+.flex-container-homepage {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .nav-color {
   background-color: #af9c1d;
 }
