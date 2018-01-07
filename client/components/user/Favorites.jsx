@@ -21,7 +21,7 @@ class Favorites extends Component {
     return (
       <div>
         <li className="collection-item">
-          <Link to={`/userRecipe/${favorite.recipeId}`} className="caps">
+          <Link to={`/userRecipe/${favorite.id}`} className="caps">
             {favorite.name} <span className="black-text" >
              posted by {favorite.User.firstName} {favorite.User.surname} </span>
           </Link>
