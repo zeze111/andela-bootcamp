@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { deleteRecipe, getARecipe } from '../../actions/recipeActions';
 import { favoriteRecipe } from '../../actions/favoriteActions';
+import { upvoteRecipe, downvoteRecipe, getDownvotes, getUpvotes } from '../../actions/ratingActions';
 
 class RecipeDetails extends Component {
   constructor(props) {
@@ -11,14 +12,19 @@ class RecipeDetails extends Component {
 
     this.ingredients = '';
     this.creator = '';
+    this.upvotes = 0;
+    this.downvotes = 0;
     this.state = {};
 
     this.onClickFave = this.onClickFave.bind(this);
+    this.onUpvote = this.onUpvote.bind(this);
+    this.onDownvote = this.onDownvote.bind(this);
   }
 
   componentDidMount() {
     this.props.getARecipe(this.props.match.params.recipeId);
-
+    this.props.getUpvotes(this.props.match.params.recipeId);
+    this.props.getDownvotes(this.props.match.params.recipeId);
   }
 
   componentWillMount() {
@@ -29,7 +35,9 @@ class RecipeDetails extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { recipe } = nextProps;
+    const { recipe, upvotes, downvotes } = nextProps;
+    this.upvotes = upvotes.count;
+    this.downvotes = downvotes.count;
     this.creator = recipe.User;
     this.ingredients = recipe.ingredients;
   }
@@ -56,6 +64,22 @@ class RecipeDetails extends Component {
       });
   }
 
+  onUpvote(event) {
+    this.props.upvoteRecipe(this.props.recipe.id)
+    .then(() => {
+      this.props.getUpvotes(this.props.recipe.id);
+      this.props.getDownvotes(this.props.recipe.id);
+    });
+  }
+
+  onDownvote(event) {
+    this.props.downvoteRecipe(this.props.recipe.id)
+    .then(() => {
+      this.props.getDownvotes(this.props.recipe.id);
+      this.props.getUpvotes(this.props.recipe.id);
+    });
+  }
+
   render() {
     const { recipe } = this.props;
     const { redirect } = this.state;
@@ -80,7 +104,7 @@ class RecipeDetails extends Component {
     const guestUser = (
       <div> </div>
     );
-    
+
     if (redirect) {
       return <Redirect to='/user' />;
     }
@@ -96,12 +120,12 @@ class RecipeDetails extends Component {
                     className="materialboxed responsive-img pic-style" />
                 </div>
                 <div className="card-action card-buttons">
-                  <a href="#!">
+                  <a href="#" onClick={this.onUpvote}>
                     <i className="col s2 material-icons right-align">thumb_up</i></a>
-                  <p className="col s1 pull-s1 icon" > 300 </p>
-                  <a href="#!">
+                  <p className="col s1 vote-up-style icon" > {this.upvotes} </p>
+                  <a href="#!" onClick={this.onDownvote}>
                     <i className="col s2 push-s1 material-icons right-align">thumb_down</i></a>
-                  <p className="col s1 icon" >150</p>
+                  <p className="col s1 icon" > {this.downvotes} </p>
                   <a href="#!" className="col s2 push-s2 right-align" onClick={this.onClickFave}>
                     <i className="material-icons">star_border</i></a>
                 </div>
@@ -152,9 +176,9 @@ class RecipeDetails extends Component {
 
           <div className="row remove-margin-bottom">
             <br /> <br />
-            <h5 id="rev" style={{ marginLeft: "5em" }}> Reviews </h5>
-            <div className="col s12" style={{ marginLeft: "5em" }}>
-              <p style={{ marginLeft: "3em" }}> Add a comment to review this recipe </p>
+            <h5 className="text1" id="rev"> Reviews </h5>
+            <div className="col s12 reviews-style">
+              <p className="text2" > Add a comment to review this recipe </p>
               <div className="row" style={{ marginBottom: "0em" }}>
                 <form className="col s6">
                   <div >
@@ -193,12 +217,20 @@ RecipeDetails.propTypes = {
   deleteRecipe: PropTypes.func.isRequired,
   getARecipe: PropTypes.func.isRequired,
   favoriteRecipe: PropTypes.func.isRequired,
+  upvoteRecipe: PropTypes.func.isRequired,
+  downvoteRecipe: PropTypes.func.isRequired,
+  getUpvotes: PropTypes.func.isRequired,
+  getDownvotes: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   recipe: state.recipeReducer.currentRecipe,
   user: state.auth.user,
-  message: state.favoriteReducer.message
+  message: state.favoriteReducer.message,
+  upvotes: state.ratingsReducer.upvotes,
+  downvotes: state.ratingsReducer.downvotes
 });
 
-export default connect(mapStateToProps, { getARecipe, deleteRecipe, favoriteRecipe })(RecipeDetails);
+export default connect(mapStateToProps, {
+  getARecipe, deleteRecipe, favoriteRecipe, upvoteRecipe, downvoteRecipe, getDownvotes, getUpvotes
+ })(RecipeDetails);

@@ -1,17 +1,14 @@
-import models from '../models';
-
-const Recipe = models.Recipe;
-const Rating = models.Rating;
+import { Recipe, Rating } from '../models';
 
 const ratings = {
 
-  /** Upvotes a Recipe and stores in the RRatings table
+  /** Upvotes a Recipe and stores in the Ratings table
   * @param {Object} req - Request object
   * @param {Object} res - Response object
   * @returns {Object} Response object
   */
   upvote(req, res) {
-    if (isNaN(req.params.recipeId)) {
+    if (Number.isNaN(req.params.recipeId)) {
       return res.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',
@@ -83,7 +80,7 @@ const ratings = {
   * @returns {Object} Response object
   */
   downvote(req, res) {
-    if (isNaN(req.params.recipeId)) {
+    if (Number.isNaN(req.params.recipeId)) {
       return res.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',
@@ -115,7 +112,7 @@ const ratings = {
                   .then(() => {
                     return res.status(200).json({
                       status: 'Successful',
-                      message: 'You Have Upvoted this Recipe',
+                      message: 'You Have Downvoted this Recipe',
                     });
                   })
                   .catch(error => res.status(400).send(error));
@@ -144,6 +141,52 @@ const ratings = {
             }
           })
           .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
+
+  getUpvotes(req, res) {
+    if (Number.isNaN(req.params.recipeId)) {
+      res.status(406).json({
+        status: 'Unsuccessful',
+        message: 'Recipe Must Be A Number',
+      });
+    }
+    const recipeid = parseInt(req.params.recipeId, 10);
+    Rating.findAndCountAll({
+      where: {
+        recipeId: recipeid,
+        vote: 1,
+      },
+    })
+      .then((upvotes) => {
+        res.status(200).json({
+          status: 'Successful',
+          votes: upvotes,
+        });
+      })
+      .catch(error => res.status(400).send(error));
+  },
+
+  getDownvotes(req, res) {
+    if (Number.isNaN(req.params.recipeId)) {
+      res.status(406).json({
+        status: 'Unsuccessful',
+        message: 'Recipe Must Be A Number',
+      });
+    }
+    const recipeid = parseInt(req.params.recipeId, 10);
+    Rating.findAndCountAll({
+      where: {
+        recipeId: recipeid,
+        vote: 0,
+      },
+    })
+      .then((downvotes) => {
+        res.status(200).json({
+          status: 'Successful',
+          votes: downvotes,
+        });
       })
       .catch(error => res.status(400).send(error));
   },

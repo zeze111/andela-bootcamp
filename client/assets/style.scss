@@ -104,13 +104,10 @@ main {
   height: 300px;
 }
 
-// #vote-up-style {
-//   right: 0;
-// }
+.vote-up-style {
+  padding-left: 10px !important;
+}
 
-// #vote-down-style {
-//   left: 0
-// }
 .top-style {
   padding-top: 5px;
 }
@@ -132,9 +129,20 @@ main {
   }
 }
 
+.reviews-style {
+  padding-left: 5em !important;
+  .text2 {
+    padding-left: 3em !important;
+  }
+}
+
+.text1 {
+  padding-left: 4.5em !important;
+}
+
 
 .text-recipe {
-  padding-top: 2em;
+  padding-top: 5em;
 }
 
 .flex-container {
@@ -147,7 +155,7 @@ main {
 
 .flex-container-homepage {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap !important;
 }
 
 .nav-color {
