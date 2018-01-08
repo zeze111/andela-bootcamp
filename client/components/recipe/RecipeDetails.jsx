@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
+
+import ReviewForm from './ReviewForm';
+import Reviews from './Reviews';
 import { deleteRecipe, getARecipe } from '../../actions/recipeActions';
 import { favoriteRecipe } from '../../actions/favoriteActions';
+import { reviewRecipe, getReviews, deleteReview } from '../../actions/reviewActions';
 import { upvoteRecipe, downvoteRecipe, getDownvotes, getUpvotes } from '../../actions/ratingActions';
+
 
 class RecipeDetails extends Component {
   constructor(props) {
@@ -25,6 +30,7 @@ class RecipeDetails extends Component {
     this.props.getARecipe(this.props.match.params.recipeId);
     this.props.getUpvotes(this.props.match.params.recipeId);
     this.props.getDownvotes(this.props.match.params.recipeId);
+    this.props.getReviews(this.props.match.params.recipeId);
   }
 
   componentWillMount() {
@@ -66,22 +72,24 @@ class RecipeDetails extends Component {
 
   onUpvote(event) {
     this.props.upvoteRecipe(this.props.recipe.id)
-    .then(() => {
-      this.props.getUpvotes(this.props.recipe.id);
-      this.props.getDownvotes(this.props.recipe.id);
-    });
+      .then(() => {
+        this.props.getUpvotes(this.props.recipe.id);
+        this.props.getDownvotes(this.props.recipe.id);
+      });
   }
 
   onDownvote(event) {
     this.props.downvoteRecipe(this.props.recipe.id)
-    .then(() => {
-      this.props.getDownvotes(this.props.recipe.id);
-      this.props.getUpvotes(this.props.recipe.id);
-    });
+      .then(() => {
+        this.props.getDownvotes(this.props.recipe.id);
+        this.props.getUpvotes(this.props.recipe.id);
+      });
   }
 
   render() {
-    const { recipe } = this.props;
+    const {
+      recipe, getReviews, reviewRecipe, reviews, user, reviewMessage, deleteReview
+    } = this.props;
     const { redirect } = this.state;
     const { id } = this.props.user;
     const ingredients = this.ingredients.split(',').map((item, i) => (
@@ -139,7 +147,7 @@ class RecipeDetails extends Component {
                 </div>
                 <div className="col s12 ">
                   <p className="title-details top-style"> Posted by <a className="orange-text title-details" href="user-recipe.html">
-                     {this.creator.firstName} </a> </p>
+                    {this.creator.firstName} </a> </p>
                 </div>
                 <div className="col s12">
                   <p id="desc" className="title-details">{recipe.description || 'Try out this recipe'} </p>
@@ -176,35 +184,29 @@ class RecipeDetails extends Component {
 
           <div className="row remove-margin-bottom">
             <br /> <br />
-            <h5 className="text1" id="rev"> Reviews </h5>
-            <div className="col s12 reviews-style">
-              <p className="text2" > Add a comment to review this recipe </p>
-              <div className="row" style={{ marginBottom: "0em" }}>
-                <form className="col s6">
-                  <div >
-                    <div className="input-field" style={{ marginLeft: "2em" }}>
-                      <input id="title" type="text" placeholder="Title"></input>
-                    </div>
-                    <div className="input-field" style={{ marginLeft: "2em" }}>
-                      <textarea id="cmt" className="materialize-textarea " placeholder="Comment"></textarea>
-                    </div>
-                    <div className="right-align">
-                      <button className="btn grey" type="button"> Review </button> <br /> <br />
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+            <ReviewForm
+              recipe={recipe}
+              reviewRecipe={reviewRecipe}
+              getReviews={getReviews}
+            />
             <div className="row">
               <div className="col s6" style={{ marginLeft: "7em", marginTop: "1em" }}>
                 <ul className="collection" >
-                  <li className="collection-item avatar">
-                    <img src="/images/profilepic.png" alt="" className="circle" />
-                    <span className="title"> Title </span>
-                    <p id="r-cmt"> User comment... </p>
-                  </li>
+                  {
+                    reviews.map((review, index) => {
+                      return (
+                        <Reviews
+                          key={index}
+                          review={review}
+                          getReviews={getReviews}
+                          user={user}
+                          deleteReview={deleteReview}
+                          message={reviewMessage}
+                        />)
+                    })
+                  }
                 </ul>
-              </div>
+              </div >
             </div>
           </div>
         </main>
@@ -220,7 +222,10 @@ RecipeDetails.propTypes = {
   upvoteRecipe: PropTypes.func.isRequired,
   downvoteRecipe: PropTypes.func.isRequired,
   getUpvotes: PropTypes.func.isRequired,
-  getDownvotes: PropTypes.func.isRequired
+  getDownvotes: PropTypes.func.isRequired,
+  reviewRecipe: PropTypes.func.isRequired,
+  getReviews: PropTypes.func.isRequired,
+  deleteReview: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -228,9 +233,12 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   message: state.favoriteReducer.message,
   upvotes: state.ratingsReducer.upvotes,
-  downvotes: state.ratingsReducer.downvotes
+  downvotes: state.ratingsReducer.downvotes,
+  reviews: state.reviewReducer.reviews,
+  reviewMessage: state.reviewReducer.message
 });
 
 export default connect(mapStateToProps, {
-  getARecipe, deleteRecipe, favoriteRecipe, upvoteRecipe, downvoteRecipe, getDownvotes, getUpvotes
- })(RecipeDetails);
+  getARecipe, deleteRecipe, favoriteRecipe, upvoteRecipe, downvoteRecipe,
+  getDownvotes, getUpvotes, reviewRecipe, getReviews, deleteReview
+})(RecipeDetails);

@@ -21,7 +21,6 @@ const favorites = {
         .then((recipe) => {
           if (!recipe) {
             return res.status(404).json({
-              code: 404,
               status: 'Unsuccessful',
               message: 'Recipe Not Found',
             });
@@ -37,7 +36,6 @@ const favorites = {
                 fave.destroy()
                   .then(() => {
                     res.status(200).json({
-                      code: 200,
                       status: 'Successful',
                       message: 'Recipe has been removed from your Favorites',
                     });
@@ -50,7 +48,6 @@ const favorites = {
                 })
                   .then((favorited) => {
                     res.status(201).json({
-                      code: 201,
                       status: 'Successful',
                       message: 'Recipe has been added to your Favorites',
                       favorite: favorited,
@@ -89,7 +86,6 @@ const favorites = {
             fave.destroy()
               .then(() => {
                 res.status(200).json({
-                  code: 200,
                   status: 'Successful',
                   message: 'Recipe has been removed from your Favorites',
                 });

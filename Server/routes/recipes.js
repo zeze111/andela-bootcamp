@@ -19,8 +19,12 @@ router.get('/:recipeId/upvotes', rating.getUpvotes);
 router.get('/:recipeId/downvotes', rating.getDownvotes);
 router.post('/:recipeId/upvote', confirmAuth.authenticate, rating.upvote);
 router.post('/:recipeId/downvote', confirmAuth.authenticate, rating.downvote);
-/* router.post('/:recipeId/reviews', confirmAuth.authenticate, review.reviewRecipe);
+router.post('/:recipeId/review', confirmAuth.authenticate, review.reviewRecipe);
+router.delete('/:reviewId/review', confirmAuth.authenticate, review.deletReview);
+router.get('/:recipeId/reviews', review.getReviews);
 
+
+/*
 // router.get('api/v1/recipes?sort=upvotes&order=des', handleCrudRecipe.allRecipes);
 // router.get('/?page=number', handleCrudRecipe.allRecipes);
 router.get('/?search=string', recipe.searchecipe);
