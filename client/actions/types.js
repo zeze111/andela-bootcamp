@@ -14,3 +14,6 @@ export const UPVOTE_RECIPE = 'UPVOTE_RECIPE';
 export const DOWNVOTE_RECIPE = 'DOWNVOTE_RECIPE';
 export const GET_UPVOTES = 'GET_UPVOTES';
 export const GET_DOWNVOTES = 'GET_DOWNVOTES';
+export const REVIEW_RECIPE = 'REVIEW_RECIPE';
+export const GET_REVIEWS = 'GET_REVIEWS';
+export const DELETE_REVIEW = 'DELETE_REVIEW';
