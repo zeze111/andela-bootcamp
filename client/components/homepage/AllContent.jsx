@@ -10,7 +10,7 @@ const AllContent = ({ recipe: { id, name, prepTime, image } }) => {
           <div className="card-image">
             <img src={image || '/images/noimg.png'} className="responsive-img" style={{ height: 130 + 'px' }} />
             <div className="card-action">
-              <Link to={`/recipe/${id}`} className="tooltipp" data-tooltip={name} style={{ fontSize: 14 + 'px' }}> {show} : { prepTime} </Link>
+              <Link to={`/recipe/${id}`} className="tooltip" data-tooltip={name} style={{ fontSize: 14 + 'px' }}> {show} : { prepTime} </Link>
             </div>
           </div>
         </div>
