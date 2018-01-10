@@ -17,12 +17,15 @@ class NavigationBar extends Component {
   signout(e) {
     e.preventDefault();
     this.props.signout();
+      $('.tooltipped').tooltip('remove')
+      $('.materialboxed').materialbox();
     this.context.router.history.push('/');
   }
 
   componentWillMount() {
     $('.dropown-button').dropdown();
     $('.button-collapse').sideNav();
+    $('.tooltipped').tooltip({delay: 50});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,10 +41,10 @@ class NavigationBar extends Component {
       <div>
         <ul className="right hide-on-med-and-down">
           <li><Link to="/addRecipe" className="btn-floating btn-medium tooltipped waves-effect waves-light grey lighten-1"
-            data-position="bottom" data-delay="50" data-tooltip="Add A Recipe">
+            data-position="bottom" data-tooltip="Add A Recipe">
             <i className="material-icons">add</i></Link></li>
           <li><Link to="/user" className="btn-floating btn-medium tooltipped waves-effect waves-light grey lighten-1"
-            data-position="bottom" data-delay="50" data-tooltip="Favorites">
+            data-position="bottom" data-tooltip="Favorites">
             <i className="material-icons">star_border</i></Link></li>
           <li><a className="dropdown-button" href="#" data-activates="userdrop">{this.state.firstName}
             <i className="material-icons right">arrow_drop_down</i></a></li>

@@ -5,21 +5,24 @@ import { Link, Redirect } from 'react-router-dom';
 
 import ReviewForm from './ReviewForm';
 import Reviews from './Reviews';
+import PreLoader from '../updateRecipe/PreLoader';
 import { deleteRecipe, getARecipe } from '../../actions/recipeActions';
 import { favoriteRecipe } from '../../actions/favoriteActions';
 import { reviewRecipe, getReviews, deleteReview } from '../../actions/reviewActions';
 import { upvoteRecipe, downvoteRecipe, getDownvotes, getUpvotes } from '../../actions/ratingActions';
+import Preloader from 'react-materialize/lib/Preloader';
 
 
 class RecipeDetails extends Component {
   constructor(props) {
     super(props);
 
-    this.ingredients = '';
-    this.creator = '';
-    this.upvotes = 0;
-    this.downvotes = 0;
-    this.state = {};
+    this.state = {
+      ingredients: '',
+      creator: {},
+      upvotes: 0,
+      downvotes: 0,
+    };
 
     this.onClickFave = this.onClickFave.bind(this);
     this.onUpvote = this.onUpvote.bind(this);
@@ -27,7 +30,10 @@ class RecipeDetails extends Component {
   }
 
   componentDidMount() {
-    this.props.getARecipe(this.props.match.params.recipeId);
+    setTimeout(() => {
+      this.props.getARecipe(this.props.match.params.recipeId);
+    }, 3000);
+
     this.props.getUpvotes(this.props.match.params.recipeId);
     this.props.getDownvotes(this.props.match.params.recipeId);
     this.props.getReviews(this.props.match.params.recipeId);
@@ -35,17 +41,20 @@ class RecipeDetails extends Component {
 
   componentWillMount() {
     $(document).ready(() => {
-      $('.tooltipp').tooltip('remove')
+      $('.tooltip').tooltip('remove')
       $('.materialboxed').materialbox();
     });
   }
 
   componentWillReceiveProps(nextProps) {
     const { recipe, upvotes, downvotes } = nextProps;
-    this.upvotes = upvotes.count;
-    this.downvotes = downvotes.count;
-    this.creator = recipe.User;
-    this.ingredients = recipe.ingredients;
+    this.setState({
+      upvotes: upvotes.count,
+      downvotes: downvotes.count,
+      creator: recipe.User,
+      ingredients: recipe.ingredients,
+
+    });
   }
 
   clickEvent = (event) => {
@@ -87,133 +96,155 @@ class RecipeDetails extends Component {
   }
 
   render() {
+    if (!this.props.recipe) {
+      return (<PreLoader />);
+    }
     const {
       recipe, getReviews, reviewRecipe, reviews, user, reviewMessage, deleteReview
     } = this.props;
     const { redirect } = this.state;
     const { id } = this.props.user;
-    const ingredients = this.ingredients.split(',').map((item, i) => (
-      <p style={{ marginTop: "0px", marginBottom: "0px" }} key={`${i}`}> - {item} </p>
-    ));
-
-    const creatorUser = (
-      <div >
-        <div className="col s4 offset-s7 creator">
-          <Link to={`/updateRecipe/${recipe.id}`}
-            className="waves-effect waves-light orange-text">
-            Edit this recipe</Link>
-          <a href="#" className=" waves-effect waves-light orange-text right"
-            style={{ marginLeft: "5px" }}
-            onClick={this.clickEvent}>Delete this recipe</a>
-        </div>
-      </div>
-    );
-
-    const guestUser = (
-      <div> </div>
-    );
-
-    if (redirect) {
-      return <Redirect to='/user' />;
+let ingredients=[];
+    if (!this.state.ingredients) {
+      console.log('wait your turn');
+       ingredients = [];
+    } else {
+       ingredients = this.state.ingredients.split(',').map((item, i) => (
+        <p style={{ marginTop: "0px", marginBottom: "0px" }} key={`${i}`}> - {item} </p>
+      ));
     }
 
-    return (
-      <div >
-        <main>
-          <div className="row flex-container">
-            <div className="col s5">
-              <div className="card right" style={{ width: '500px', height: '300px' }}>
-                <div className="card-image">
-                  <img src={recipe.image || '/images/noimg.png'}
-                    className="materialboxed responsive-img pic-style" />
-                </div>
-                <div className="card-action card-buttons">
-                  <a href="#" onClick={this.onUpvote}>
-                    <i className="col s2 material-icons right-align">thumb_up</i></a>
-                  <p className="col s1 vote-up-style icon" > {this.upvotes} </p>
-                  <a href="#!" onClick={this.onDownvote}>
-                    <i className="col s2 push-s1 material-icons right-align">thumb_down</i></a>
-                  <p className="col s1 icon" > {this.downvotes} </p>
-                  <a href="#!" className="col s2 push-s2 right-align" onClick={this.onClickFave}>
-                    <i className="material-icons">star_border</i></a>
-                </div>
-              </div>
-            </div>
-            <div className="col s7">
-              <div className="row text-flex" >
-                <div className="col s12">
-                  <h5 className="title-details remove-margin-bottom">
-                    {recipe.name} </h5>
-                </div>
-                <div className="col s12 ">
-                  <p className="title-details top-style"> Posted by <a className="orange-text title-details" href="user-recipe.html">
-                    {this.creator.firstName} </a> </p>
-                </div>
-                <div className="col s12">
-                  <p id="desc" className="title-details">{recipe.description || 'Try out this recipe'} </p>
-                </div>
-                <div className="col s12">
-                  <p className="remove-margin-bottom"> Like this Recipe? Add to your favourites
-                  </p> <br />
-                </div>
-                <div className="col s12">
-                  <a href="#rev" className="scrollspy orange-text remove-margin-bottom"> Reviews </a>
-                </div>
-              </div>
-            </div>
+
+      const creatorUser = (
+        <div >
+          <div className="col s4 offset-s7 creator">
+            <Link to={`/updateRecipe/${recipe.id}`}
+              className="waves-effect waves-light orange-text">
+              Edit this recipe</Link>
+            <a href="#" className=" waves-effect waves-light orange-text right"
+              style={{ marginLeft: "5px" }}
+              onClick={this.clickEvent}>Delete this recipe</a>
           </div>
+        </div>
+      );
 
+      const guestUser = (
+        <div> </div>
+      );
 
-          <div className="row">
-            <div className="col s8 offset-s1">
-              <h5 className="center-align text-recipe title" > Recipe </h5>
-              <div id="time" className="col s4 ">
-                <p className="recipe"> Prep Time: {recipe.prepTime} </p>
-              </div>
-              <div id="Ing" className="col s4">
-                <p className="recipe"> Ingredients: </p>
-                {ingredients}
-              </div>
-              <div id="Ins" className="col s4">
-                <p className="recipe"> Instructions: </p>
-                <p id="instruct" style={{ marginTop: "0px" }}> {recipe.instructions} </p>
-              </div>
-              {(id === recipe.userId) ? creatorUser : guestUser}
-            </div>
-          </div> <br />
+      if (redirect) {
+        return <Redirect to='/user' />;
+      }
 
-          <div className="row remove-margin-bottom">
-            <br /> <br />
-            <ReviewForm
-              recipe={recipe}
-              reviewRecipe={reviewRecipe}
-              getReviews={getReviews}
-            />
-            <div className="row">
-              <div className="col s6" style={{ marginLeft: "7em", marginTop: "1em" }}>
-                <ul className="collection" >
-                  {
-                    reviews.map((review, index) => {
-                      return (
-                        <Reviews
-                          key={index}
-                          review={review}
-                          getReviews={getReviews}
-                          user={user}
-                          deleteReview={deleteReview}
-                          message={reviewMessage}
-                        />)
-                    })
+      return (
+        <div >
+          <main>
+            <div className="row flex-container">
+              <div className="col s5">
+                <div className="card right" style={{ width: '500px', height: '300px' }}>
+                  <div className="card-image">
+                    <img src={recipe.image || '/images/noimg.png'}
+                      className="materialboxed responsive-img pic-style" />
+                  </div>
+                  <div className="card-action card-buttons">
+                    <a href="#" onClick={this.onUpvote}>
+                      <i className="col s2 material-icons right-align">thumb_up</i></a>
+                    <p className="col s1 vote-up-style icon" > {this.state.upvotes} </p>
+                    <a href="#!" onClick={this.onDownvote}>
+                      <i className="col s2 push-s1 material-icons right-align">thumb_down</i></a>
+                    <p className="col s1 icon" > {this.state.downvotes} </p>
+                    <a href="#!" className="col s2 push-s2 right-align" onClick={this.onClickFave}>
+                      <i className="material-icons">star_border</i></a>
+                  </div>
+                </div>
+              </div>
+              <div className="col s7">
+                <div className="row text-flex" >
+                  <div className="col s12">
+                    <h5 className="title-details remove-margin-bottom">
+                      {recipe.name} </h5>
+                  </div>
+                  <div className="col s12 ">
+                  {this.state.creator &&
+                    <p className="title-details top-style"> Posted by <a className="orange-text title-details" href="user-recipe.html">
+                      {this.state.creator.firstName} </a> </p>
                   }
-                </ul>
-              </div >
+                  </div>
+                  <div className="col s12">
+                    <p id="desc" className="title-details">{recipe.description || 'Try out this recipe'} </p>
+                  </div>
+                  <div className="col s12">
+                    <p className="remove-margin-bottom"> Like this Recipe? Add to your favourites
+                  </p> <br />
+                  </div>
+                  <div className="col s12">
+                    <a href="#rev" className="scrollspy orange-text remove-margin-bottom"> Reviews </a>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </main>
-      </div >
-    );
+
+
+            <div className="row">
+              <div className="col s8 offset-s1">
+                <h5 className="center-align text-recipe title" > Recipe </h5>
+                {(ingredients.length <= 0 )&&
+                 <PreLoader />
+                }
+                {(ingredients.length > 0 )&&
+                <div>
+                <div id="time" className="col s4 ">
+                  <p className="recipe"> Prep Time: {recipe.prepTime} </p>
+                </div>
+                <div id="Ing" className="col s4">
+
+                    <p className="recipe"> Ingredients: </p>
+                  {ingredients}
+
+                </div>
+                <div id="Ins" className="col s4">
+                  <p className="recipe"> Instructions: </p>
+                  <p id="instruct" style={{ marginTop: "0px" }}> {recipe.instructions} </p>
+                </div>
+                </div>
+                }
+                {(id === recipe.userId) ? creatorUser : guestUser}
+              </div>
+            </div> <br />
+
+            <div className="row remove-margin-bottom">
+              <br /> <br />
+              <ReviewForm
+                recipe={recipe}
+                reviewRecipe={reviewRecipe}
+                getReviews={getReviews}
+              />
+              <div className="row">
+                <div className="col s6" style={{ marginLeft: "7em", marginTop: "1em" }}>
+                  <ul className="collection" >
+                    {
+                      reviews.map((review, index) => {
+                        return (
+                          <Reviews
+                            key={index}
+                            review={review}
+                            getReviews={getReviews}
+                            user={user}
+                            deleteReview={deleteReview}
+                            message={reviewMessage}
+                          />)
+                      })
+                    }
+                  </ul>
+                </div >
+              </div>
+            </div>
+          </main>
+        </div >
+      );
+    }
   }
-}
+// }
 
 RecipeDetails.propTypes = {
   deleteRecipe: PropTypes.func.isRequired,
@@ -226,10 +257,17 @@ RecipeDetails.propTypes = {
   reviewRecipe: PropTypes.func.isRequired,
   getReviews: PropTypes.func.isRequired,
   deleteReview: PropTypes.func.isRequired
-}
+};
+RecipeDetails.defaultProps = {
+  recipe:{
+    User:{
+      firstName:''
+    }
+  }
+};
 
 const mapStateToProps = state => ({
-  recipe: state.recipeReducer.currentRecipe,
+  recipe: (state.recipeReducer.currentRecipe) ? state.recipeReducer.currentRecipe : {},
   user: state.auth.user,
   message: state.favoriteReducer.message,
   upvotes: state.ratingsReducer.upvotes,

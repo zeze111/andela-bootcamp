@@ -76,7 +76,7 @@ const recipes = {
           ['vote', 'DESC'],
         ],
         group: ['recipeId', 'vote', 'Recipe.id'],
-        limit: 5,
+        limit: 6,
       })
         .then((popularRecipes) => {
           if (popularRecipes.length === 0) { // checks if list is empty

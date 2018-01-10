@@ -17,3 +17,5 @@ export const GET_DOWNVOTES = 'GET_DOWNVOTES';
 export const REVIEW_RECIPE = 'REVIEW_RECIPE';
 export const GET_REVIEWS = 'GET_REVIEWS';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
+export const UPDATE_USER = 'UPDATE_USER';
+export const GET_USER = 'GET_USER';

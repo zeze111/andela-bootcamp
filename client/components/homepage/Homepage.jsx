@@ -24,11 +24,12 @@ class Homepage extends Component {
     $(document).ready(() => {
       $('.dropown-button').dropdown();
       $('.materialboxed').materialbox();
-      $('.tooltipp').tooltip({delay: 20});
+      $('.tooltip').tooltip({delay: 20});
       Materialize.updateTextFields();
       $('select').material_select();
     });
   }
+  
 
   render() {
     const { getAllRecipes } = this.props;
