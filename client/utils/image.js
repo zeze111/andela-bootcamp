@@ -1,6 +1,11 @@
 import axios from 'axios';
 import FormData from 'form-data';
 
+/**
+ * @export {function}
+ * @param {any} imageFile
+ * @returns {object} any
+ */
 function uploadImageToCloud(imageFile) {
   const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/zeze-andela/image/upload';
   const CLOUDINARY_UPLOAD_PRESET = 'oenu8grd';

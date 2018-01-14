@@ -3,20 +3,35 @@ import { TextFieldGroup3 } from '../common/TextFieldGroup';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+/**
+ *
+ *
+ * @class Recipes
+ * @extends {React.Component}
+ */
 class Recipes extends Component {
+  /**
+   * @description Constructor Function
+   * @param {any} props
+   * @memberof Home
+   * @return {void}
+   */
   constructor(props) {
     super(props);
 
   }
 
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   clickEvent = (event) => {
     const $toastContent = $('<span>Are you sure you want to delete this recipe</span>')
       .add($('<button class="btn-flat toast-action" on>Yes</button>')
         .click(() => {
           this.props.deleteRecipe(this.props.recipe.id)
             .then(() => {
-              const user = localStorage.getItem('user');
-              this.props.getUserRecipes(JSON.parse(user).id);
               Materialize.Toast.removeAll();
             });
         }))
@@ -24,13 +39,17 @@ class Recipes extends Component {
     Materialize.toast($toastContent);
   }
 
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     return (
       <li className="collection-item">
         <Link to={`/userRecipe/${this.props.recipe.id}`}> {this.props.recipe.name}</Link>
-        <a href="#" className="secondary-content">
+        <div className="secondary-content div-pointer2">
           <i onClick={this.clickEvent} className="material-icons">delete</i>
-        </a>
+        </div>
         <Link to={`/updateRecipe/${this.props.recipe.id}`} className="secondary-content">
           <i className="material-icons" >mode_edit</i></Link>
       </li>
@@ -39,8 +58,7 @@ class Recipes extends Component {
 }
 
 Recipes.propTypes = {
-  deleteRecipe: PropTypes.func.isRequired,
-  getUserRecipes: PropTypes.func.isRequired
+  deleteRecipe: PropTypes.func.isRequired
 }
 
 export default Recipes;

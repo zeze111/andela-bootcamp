@@ -3,31 +3,31 @@ import { Recipe, Rating } from '../models';
 const ratings = {
 
   /** Upvotes a Recipe and stores in the Ratings table
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
   */
-  upvote(req, res) {
-    if (Number.isNaN(req.params.recipeId)) {
-      return res.status(406).json({
+  upvote(request, response) {
+    if (Number.isNaN(request.params.recipeId)) {
+      return response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',
       });
     }
-    const recipeid = parseInt(req.params.recipeId, 10);
+    const recipeid = parseInt(request.params.recipeId, 10);
     Recipe.findOne({
       where: { id: recipeid },
     })
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).json({
+          return response.status(404).json({
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
           });
         }
         Rating.findOne({
           where: {
-            userId: req.decoded.id,
+            userId: request.decoded.id,
             recipeId: recipeid,
           },
         })
@@ -38,16 +38,16 @@ const ratings = {
                   vote: 1,
                 })
                   .then(() => {
-                    return res.status(200).json({
+                    return response.status(200).json({
                       status: 'Successful',
                       message: 'You Have Upvoted this Recipe',
                     });
                   })
-                  .catch(error => res.status(400).send(error));
+                  .catch(error => response.status(400).send(error));
               } else if (votes.vote === 1) {
                 votes.destroy()
                   .then(() => {
-                    return res.status(200).json({
+                    return response.status(200).json({
                       status: 'Successful',
                       message: 'Your Vote was Deleted',
                     });
@@ -56,50 +56,50 @@ const ratings = {
             } else {
               Rating.create({
                 vote: 1,
-                userId: req.decoded.id,
+                userId: request.decoded.id,
                 recipeId: recipe.id,
               })
                 .then((rated) => {
-                  return res.status(201).json({
+                  return response.status(201).json({
                     status: 'Successful',
                     vote: rated,
                   });
                 })
-                .catch(error => res.status(400).send(error));
+                .catch(error => response.status(500).send(error));
             }
           })
-          .catch(error => res.status(400).send(error));
+          .catch(error => response.status(500).send(error));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => response.status(500).send(error));
   },
 
 
   /** downvotes a Recipe and stores in the Ratings table
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
   */
-  downvote(req, res) {
-    if (Number.isNaN(req.params.recipeId)) {
-      return res.status(406).json({
+  downvote(request, response) {
+    if (Number.isNaN(request.params.recipeId)) {
+      return response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',
       });
     }
-    const recipeid = parseInt(req.params.recipeId, 10);
+    const recipeid = parseInt(request.params.recipeId, 10);
     Recipe.findOne({
       where: { id: recipeid },
     })
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).json({
+          return response.status(404).json({
             status: 'Unsuccessful',
             message: 'Recipe Not Found',
           });
         }
         Rating.findOne({
           where: {
-            userId: req.decoded.id,
+            userId: request.decoded.id,
             recipeId: recipeid,
           },
         })
@@ -110,16 +110,16 @@ const ratings = {
                   vote: 0,
                 })
                   .then(() => {
-                    return res.status(200).json({
+                    return response.status(200).json({
                       status: 'Successful',
                       message: 'You Have Downvoted this Recipe',
                     });
                   })
-                  .catch(error => res.status(400).send(error));
+                  .catch(error => response.status(400).send(error));
               } else if (votes.vote === 0) {
                 votes.destroy()
                   .then(() => {
-                    return res.status(200).json({
+                    return response.status(200).json({
                       status: 'Successful',
                       message: 'Your Vote was Deleted',
                     });
@@ -128,31 +128,36 @@ const ratings = {
             } else {
               Rating.create({
                 vote: 0,
-                userId: req.decoded.id,
+                userId: request.decoded.id,
                 recipeId: recipe.id,
               })
                 .then((rated) => {
-                  return res.status(201).json({
+                  return response.status(201).json({
                     status: 'Successful',
                     vote: rated,
                   });
                 })
-                .catch(error => res.status(400).send(error));
+                .catch(error => response.status(500).send(error));
             }
           })
-          .catch(error => res.status(400).send(error));
+          .catch(error => response.status(500).send(error));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => response.status(500).send(error));
   },
 
-  getUpvotes(req, res) {
-    if (Number.isNaN(req.params.recipeId)) {
-      res.status(406).json({
+  /** gets the total upvotes for a recipe
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
+  */
+  getUpvotes(request, response) {
+    if (Number.isNaN(request.params.recipeId)) {
+      response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',
       });
     }
-    const recipeid = parseInt(req.params.recipeId, 10);
+    const recipeid = parseInt(request.params.recipeId, 10);
     Rating.findAndCountAll({
       where: {
         recipeId: recipeid,
@@ -160,22 +165,27 @@ const ratings = {
       },
     })
       .then((upvotes) => {
-        res.status(200).json({
+        response.status(200).json({
           status: 'Successful',
           votes: upvotes,
         });
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => response.status(400).send(error));
   },
 
-  getDownvotes(req, res) {
-    if (Number.isNaN(req.params.recipeId)) {
-      res.status(406).json({
+  /** gets the total downvotes for a recipe
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
+  */
+  getDownvotes(request, response) {
+    if (Number.isNaN(request.params.recipeId)) {
+      response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',
       });
     }
-    const recipeid = parseInt(req.params.recipeId, 10);
+    const recipeid = parseInt(request.params.recipeId, 10);
     Rating.findAndCountAll({
       where: {
         recipeId: recipeid,
@@ -183,12 +193,12 @@ const ratings = {
       },
     })
       .then((downvotes) => {
-        res.status(200).json({
+        response.status(200).json({
           status: 'Successful',
           votes: downvotes,
         });
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => response.status(400).send(error));
   },
 
 };

@@ -3,34 +3,48 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getAllRecipes } from '../../actions/recipeActions'
+import { getAllRecipes } from '../../actions/recipeActions';
 import Slide from './Slide';
 import PopularContent from './PopularContent';
 import AllContent from './AllContent';
 import '../../assets/style.scss';
 import '../../assets/init';
 
+/**
+ *
+ *
+ * @class Homepage
+ * @extends {React.Component}
+ */
 class Homepage extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
-  componentDidMount() {
-    this.props.getAllRecipes();
-  }
-
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   componentWillMount() {
     $(document).ready(() => {
       $('.dropown-button').dropdown();
       $('.materialboxed').materialbox();
-      $('.tooltip').tooltip({delay: 20});
+      $('.tooltip').tooltip({ delay: 20 });
       Materialize.updateTextFields();
       $('select').material_select();
     });
   }
-  
 
+  /**
+   * @param {any} props
+   * @memberof Home
+   * @return {void}
+   */
+  componentDidMount() {
+    this.props.getAllRecipes();
+  }
+
+  /**
+   * @param {any} props
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     const { getAllRecipes } = this.props;
     const allRecipes = (this.props.recipes) ? (this.props.recipes) : [];
@@ -39,24 +53,24 @@ class Homepage extends Component {
         <main>
           <Slide />
           <PopularContent />
-          <div className="container" style={{ width: 100 + '%', margin: 0 + 'auto' }}>
+          <div className="container full-container">
             <br /> <br />
-            <Link to="/allRecipes">
+            <Link
+              to="/allRecipes"
+              href="/allRecipe"
+            >
               <h5 className="light teal-text"> ALL RECIPES </h5>
             </Link>
             <div className="row remove-margin-bottom">
-                <ul className="categories flex-container-homepage">
-                  {
-                    allRecipes.map((recipe, index) => {
-                      return (
-                        <AllContent
-                          recipe={recipe}
-                          key={index}
-                          getAllRecipes={this.props.getAllRecipes}
-                        />)
-                    })
+              <ul className="categories flex-container-homepage">
+                {
+                    allRecipes.map((recipe, index) => (
+                      <AllContent
+                        recipe={recipe}
+                        key={index}
+                      />))
                   }
-                </ul>
+              </ul>
             </div>
           </div>
         </main>
@@ -66,13 +80,12 @@ class Homepage extends Component {
 }
 
 Homepage.propTypes = {
-  getAllRecipes: PropTypes.func.isRequired
-}
+  getAllRecipes: PropTypes.func.isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.any).isRequired
+};
 
-function mapStateToProps(state) {
-  return {
-    recipes: state.recipeReducer.recipes
-  };
-}
+const mapStateToProps = state => ({
+  recipes: state.recipeReducer.recipes
+});
 
 export default connect(mapStateToProps, { getAllRecipes })(Homepage);

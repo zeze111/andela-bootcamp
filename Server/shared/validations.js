@@ -11,7 +11,7 @@ const recipeRules = {
   description: 'between:2,140',
   prepTime: 'required|min:5',
   type: 'required',
-  ingredients: 'required|min:15',
+  ingredients: 'required|min:5',
   instructions: 'required|min:10',
 };
 

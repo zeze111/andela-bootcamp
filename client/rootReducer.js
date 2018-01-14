@@ -5,7 +5,6 @@ import auth from './reducers/auth';
 import favoriteReducer from './reducers/favoriteRecuder';
 import ratingsReducer from './reducers/ratingsReducer';
 import reviewReducer from './reducers/reviewReducer';
-import flashMessages from './reducers/flashMessages';
 
 export default combineReducers({
   recipeReducer,
@@ -13,5 +12,4 @@ export default combineReducers({
   favoriteReducer,
   ratingsReducer,
   reviewReducer,
-  flashMessages,
 });

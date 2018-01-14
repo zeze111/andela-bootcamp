@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import PreLoader from '../updateRecipe/PreLoader';
+import PreLoader from '../common/PreLoader';
 
+/**
+ *
+ *
+ * @class Reviews
+ * @extends {React.Component}
+ */
 class Reviews extends Component {
-
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   reviewClickEvent = (event) => {
     this.props.deleteReview(this.props.review.id)
       .then(() => {
         const $toastContent = $(`<span>${this.props.message}</span>`)
         Materialize.toast($toastContent, 2000);
-        this.props.getReviews(this.props.review.recipeId);
       })
   }
 
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     const { review, user } = this.props;
 
@@ -43,7 +56,7 @@ class Reviews extends Component {
 
 Reviews.propTypes = {
   deleteReview: PropTypes.func.isRequired,
-  getReviews: PropTypes.func.isRequired
+  review: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 

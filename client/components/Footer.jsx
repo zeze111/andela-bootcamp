@@ -1,7 +1,17 @@
-import React, { Component }  from 'react';
-import { Link  } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
+/**
+ *
+ *
+ * @class App
+ * @extends {React.Component}
+ */
 class Footer extends Component {
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     return (
       <footer className="page-footer nav-color">
@@ -34,7 +44,7 @@ class Footer extends Component {
             Made by <Link to="#" className="teal-text text-lighten-3">Osaze Edo-Osagie</Link>
           </div>
         </div>
-    </footer>
+      </footer>
     );
   }
 }

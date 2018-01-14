@@ -1,26 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AddRecipeForm from './AddRecipeForm';
 import { addRecipeRequest } from '../../actions/recipeActions';
 
-class AddRecipePage extends Component {
+/**
+ *
+ *
+ * @class AddRecipePage
+ * @extends {React.Component}
+ */
+class AddRecipePage extends React.Component {
+
+  /**
+   * @param {any} props
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     const { addRecipeRequest } = this.props;
     return (
       <div id="addRecipebody">
         <main id="wrapper">
-          <div className="container" style={{ width: '100%', margin: '0 auto' }}>
+          <div className="container full-container">
             <div className="row remove-margin-bottom">
-              <div className="col s8 offset-s2" style={{paddingTop: "5em", paddingBottom: "2em"}}>
+              <div className="col s8 offset-s2 form-padding">
                 <div className="card z-depth-2">
-                  <span className="card-title col s5 offset-s4 teal-text"
-                  style={{ marginTop: '1em', marginBottom: '2em' }}> SUBMIT A RECIPE </span>
-                    <AddRecipeForm addRecipeRequest={addRecipeRequest} />
-                  </div>
+                  <span
+                    className="card-title col s5 offset-s4 teal-text inner"
+                  > SUBMIT A RECIPE
+              </span>
+                  <AddRecipeForm addRecipeRequest={addRecipeRequest} />
                 </div>
               </div>
             </div>
+          </div>
         </main>
       </div >
     );
@@ -28,7 +42,7 @@ class AddRecipePage extends Component {
 }
 
 AddRecipePage.propTypes = {
-  addRecipeRequest: PropTypes.func.isRequired
-}
+  addRecipeRequest: PropTypes.func.isRequired,
+};
 
 export default connect(null, { addRecipeRequest })(AddRecipePage);

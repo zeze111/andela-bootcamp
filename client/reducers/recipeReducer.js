@@ -10,6 +10,7 @@ export default (state = initialState, action = {}) => {
     case CREATE_RECIPE:
       return {
         ...state,
+        ...state.recipes,
         recipes: [...state.recipes, action.payload.recipe],
       };
     case GET_USER_RECIPES:
@@ -36,7 +37,7 @@ export default (state = initialState, action = {}) => {
     case DELETE_RECIPE:
       return {
         ...state,
-        recipes: state.recipes,
+        recipes: state.recipes.filter(recipe => recipe.id !== action.payload),
       };
     default: return state;
   }

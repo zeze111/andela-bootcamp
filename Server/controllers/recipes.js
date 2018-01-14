@@ -6,48 +6,48 @@ import validations from '../shared/validations';
 const recipes = {
 
   /** Creates new Recipe and stores in the Recipes table
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
   */
-  addRecipe(req, res) {
-    const validator = new Validator(req.body, validations.recipeRules);
+  addRecipe(request, response) {
+    const validator = new Validator(request.body, validations.recipeRules);
     if (validator.passes()) {
       Recipe.findOne({
         where: {
-          userId: req.decoded.id,
-          name: req.body.name,
+          userId: request.decoded.id,
+          name: request.body.name.toLowerCase(),
         },
       })
         .then((userRecipe) => {
           if (userRecipe) {
-            return res.status(409).json({
+            return response.status(409).json({
               status: 'Unsuccessful',
               message: 'Cannot Create A Recipe With the Same Name',
             });
           }
           Recipe.create({
-            name: req.body.name.trim(),
-            description: req.body.description.trim(),
-            prepTime: req.body.prepTime.trim(),
-            type: req.body.type,
-            ingredients: req.body.ingredients,
-            instructions: req.body.instructions,
-            image: req.body.image,
-            userId: req.decoded.id,
+            name: request.body.name.toLowerCase().trim(),
+            description: request.body.description.trim(),
+            prepTime: request.body.prepTime.trim(),
+            type: request.body.type,
+            ingredients: request.body.ingredients,
+            instructions: request.body.instructions,
+            image: request.body.image,
+            userId: request.decoded.id,
           })
             .then((recipe) => {
-              return res.status(201).json({
+              return response.status(201).json({
                 status: 'Success',
                 recipeId: recipe.dataValues.id,
                 recipe,
               });
             }) // if unsuccessful
-            .catch(error => res.status(400).send(error));
+            .catch(error => response.status(500).send(error));
         })
-        .catch(error => res.status(400).send(error));
+        .catch(error => response.status(500).send(error));
     } else {
-      return res.status(406).json({
+      return response.status(406).json({
         status: 'Unsuccessful',
         message: 'Invalid data input',
         errors: validator.errors.all(),
@@ -56,13 +56,13 @@ const recipes = {
   },
 
   /** Retrieves Popular Recipes / all Recipes in the database
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
   */
-  getAllRecipes(req, res) {
-    // returns a list of popular recipes, req has a '?' in it's header paramater
-    if (req.query.sort) {
+  getAllRecipes(request, response) {
+    // returns a list of popular recipes, request has a '?' in it's header paramater
+    if (request.query.sort) {
       return Rating.findAll({
         where: {
           vote: 1,
@@ -79,32 +79,32 @@ const recipes = {
         limit: 6,
       })
         .then((popularRecipes) => {
-          if (popularRecipes.length === 0) { // checks if list is empty
-            res.status(422).json({
-              status: 'Unprocessable',
-              message: 'There are no Popular Recipes',
+          if (popularRecipes.length === 0) {
+            response.status(200).json({
+              status: 'Successful',
+              message: 'There Are Currently No Popular Recipes',
             });
           } else {
-            res.status(200).json({
+            response.status(200).json({
               status: 'Successful',
               drecipes: popularRecipes,
             });
           }
         })
-        .catch((error) => { res.status(400).send(error); });
-    } else if (req.query.page) {
-      if (isNaN(req.query.page)) {
-        return res.status(406).json({
+        .catch((error) => { response.status(400).send(error); });
+    } else if (request.query.page) {
+      if (Number.isNaN(request.query.page)) {
+        return response.status(406).json({
           status: 'Unsuccessful',
           message: 'Page Must Be A Number',
         });
       }
 
-      const limits = 3; // number of records per page
+      const limits = 6;
       let offsets = 0;
       return Recipe.findAndCountAll()
         .then((data) => {
-          const page = (req.query.page <= 1) ? 1 : parseInt(req.query.page, 10); // page number
+          const page = (request.query.page <= 1) ? 1 : parseInt(request.query.page, 10);
           const pages = Math.ceil(data.count / limits);
           offsets = limits * (page - 1);
           Recipe.findAll({
@@ -113,18 +113,18 @@ const recipes = {
             offset: offsets,
           }).then((pagedRecipes) => {
             if (page > pages) {
-              res.status(404).json({
+              response.status(404).json({
                 status: 'Unsuccessful',
                 message: 'Page Not Found',
               });
             }
-            if (pagedRecipes.length === 0) { // checks if the table is empty
-              res.status(422).json({
-                status: 'Unprocessable',
-                message: 'Currently No Recipes',
+            if (pagedRecipes.length === 0) {
+              response.status(200).json({
+                status: 'Successful',
+                message: 'There Are Currently No Recipes',
               });
             } else {
-              res.status(200).json({
+              response.status(200).json({
                 status: 'Successful',
                 recipes: pagedRecipes,
                 pageSize: limits,
@@ -134,66 +134,66 @@ const recipes = {
               });
             }
           })
-            .catch(error => res.status(400).send(error));
+            .catch(error => response.status(500).send(error));
         })
-        .catch(error => res.status(400).send(error));
+        .catch(error => response.status(500).send(error));
     }
 
     return Recipe.findAll({
       attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
-      limit: 6,
+      limit: 5,
     }).then((allRecipes) => {
-      if (allRecipes.length === 0) { // checks if the table is empty
-        res.status(422).json({
-          status: 'Unprocessable',
-          message: 'Currently No Recipes',
+      if (allRecipes.length === 0) {
+        response.status(200).json({
+          status: 'Successful',
+          message: 'There Are Currently No Recipes',
         });
       } else {
-        res.status(200).json({
+        response.status(200).json({
           status: 'Successful',
           recipes: allRecipes,
         });
       }
     })
-      .catch(error => res.status(400).send(error));
+      .catch(error => response.status(500).send(error));
   },
 
   /** Updates a recipe according to User's input
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
   */
-  updateRecipe(req, res) {
-    if (isNaN(req.params.recipeId)) {
-      res.status(406).json({
+  updateRecipe(request, response) {
+    if (Number.isNaN(request.params.recipeId)) {
+      response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const recipeid = parseInt(req.params.recipeId, 10);
+      const recipeid = parseInt(request.params.recipeId, 10);
       Recipe.findById(recipeid)
         .then((recipe) => {
           if (!recipe) {
-            res.status(404).json({
+            response.status(404).json({
               status: 'Unsuccessful',
               message: 'Recipe Not Found',
             }); // check if recipe belongs to user
-          } else if (recipe.userId === req.decoded.id) {
-            if (req.body.name || req.body.description || req.body.prepTime || req.body.image
-              || req.body.type || req.body.ingredients || req.body.instructions) {
-              const validator = new Validator(req.body, validations.updateRecipeRules);
+          } else if (recipe.userId === request.decoded.id) {
+            if (request.body.name || request.body.description || request.body.prepTime || request.body.image
+              || request.body.type || request.body.ingredients || request.body.instructions) {
+              const validator = new Validator(request.body, validations.updateRecipeRules);
               if (validator.passes()) {
                 recipe.update({
-                  name: req.body.name || recipe.name,
-                  description: req.body.description || recipe.description,
-                  prepTime: req.body.prepTime || recipe.prepTime,
-                  type: req.body.type || recipe.type,
-                  ingredients: req.body.ingredients || recipe.ingredients,
-                  instructions: req.body.instructions || recipe.instructions,
-                  image: req.body.image || recipe.image,
+                  name: request.body.name || recipe.name,
+                  description: request.body.description || recipe.description,
+                  prepTime: request.body.prepTime || recipe.prepTime,
+                  type: request.body.type || recipe.type,
+                  ingredients: request.body.ingredients || recipe.ingredients,
+                  instructions: request.body.instructions || recipe.instructions,
+                  image: request.body.image || recipe.image,
                 })
                   .then((updatedRecipe) => {
-                    res.status(200).json({
+                    response.status(200).json({
                       code: 200,
                       status: 'Successful',
                       recipe: {
@@ -207,81 +207,86 @@ const recipes = {
                       },
                     });
                   })
-                  .catch(error => res.status(400).send(error));
+                  .catch(error => response.status(500).send(error));
               } else {
-                res.status(406).json({
+                response.status(406).json({
                   status: 'Unsuccessful',
                   message: 'Invalid data input',
                   errors: validator.errors.all(),
                 });
               }
             } else {
-              res.status(406).json({
+              response.status(406).json({
                 status: 'Unsuccessful',
                 message: 'Must input data',
               });
             }
           } else {
-            res.status(403).json({
+            response.status(403).json({
               status: 'Unsuccessful',
               message: 'You are Not Aauthorized to Update This Recipe',
             });
           }
         })
-        .catch(error => res.status(400).send(error));
+        .catch(error => response.status(500).send(error));
     }
   },
 
   /** Deletes a Recipe from the database table
-  * @param {Object} req - Request object
-  * @param {Object} res - Response object
-  * @returns {Object} Response object
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
   */
-  deleteRecipe(req, res) {
-    if (isNaN(req.params.recipeId)) {
-      res.status(406).json({
+  deleteRecipe(request, response) {
+    if (Number.isNaN(request.params.recipeId)) {
+      response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const recipeid = parseInt(req.params.recipeId, 10);
+      const recipeid = parseInt(request.params.recipeId, 10);
       Recipe.findById(recipeid)
         .then((recipe) => {
           if (!recipe) {
-            res.status(404).json({
+            response.status(404).json({
               status: 'Unsuccessful',
               message: 'Recipe Not Found',
             });
-          } else if (recipe.userId === req.decoded.id) {
+          } else if (recipe.userId === request.decoded.id) {
             recipe.destroy()
               .then(() => {
-                res.status(200).json({
+                response.status(200).json({
                   status: 'Successful',
                   message: `${recipe.name} has been deleted`,
                 });
               })
-              .catch(error => res.status(400).send(error));
+              .catch(error => response.status(400).send(error));
           } else {
-            res.status(403).json({
+            response.status(403).json({
               status: 'Unsuccessful',
               message: 'You are Not Aauthorized to Delete This Recipe',
             });
           }
         })
-        .catch(error => res.status(400).send(error));
+        .catch(error => response.status(500).send(error));
     }
   },
 
-  getRecipe(req, res) {
-    if (isNaN(req.params.recipeId)) {
-      res.status(406).json({
+  /** Gets a Recipe from the database table
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
+  */
+  getRecipe(request, response) {
+    if (Number.isNaN(request.params.recipeId)) {
+      response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const reqid = parseInt(req.params.recipeId, 10);
+      const requestid = parseInt(request.params.recipeId, 10);
       Recipe.findOne({
-        where: { id: reqid },
+        where: { id: requestid },
         include: [{
           model: User,
           attributes: ['firstName', 'surname'],
@@ -289,75 +294,85 @@ const recipes = {
       })
         .then((recipe) => {
           if (!recipe) {
-            return res.status(404).json({
+            return response.status(404).json({
               status: 'Unsuccessful',
               message: 'Recipe Not Found',
             });
           }
-          res.status(200).json({
+          response.status(200).json({
             status: 'Successful',
             recipe,
           });
         })
-        .catch(error => res.status(400).send(error.toString()));
+        .catch(error => response.status(500).send(error));
     }
   },
 
-  getUserRecipes(req, res) {
-    if (isNaN(req.params.userId)) {
-      res.status(406).json({
+  /** Gets all the Recipes a User has submitted
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
+  */
+  getUserRecipes(request, response) {
+    if (Number.isNaN(request.params.userId)) {
+      response.status(406).json({
         status: 'Unsuccessful',
         message: 'User ID Must Be A Number',
       });
     } else {
-      const reqid = parseInt(req.params.userId, 10);
+      const requestid = parseInt(request.params.userId, 10);
       Recipe.findAll({
-        where: { userId: reqid },
+        where: { userId: requestid },
       })
         .then((userRecipes) => {
           if (userRecipes.length === 0) { // checks if list is empty
-            res.status(200).json({
+            response.status(200).json({
               status: 'Successsful',
               message: 'You Currently Have No Recipes',
             });
           } else {
-            res.status(200).json({
+            response.status(200).json({
               status: 'Successful',
               recipes: userRecipes,
             });
           }
         })
-        .catch(error => res.status(400).send(error.toString()));
+        .catch(error => response.status(500).send(error));
     }
   },
 
-  searchRecipe(req, res) {
+  /** Searchs for a recipe by name or ingredients
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
+  */
+  searchRecipe(request, response) {
     Recipe.findAll({
       where: {
         $or: [{
           name: {
-            $like: `%${decodeURIComponent(req.query.search)}%`,
+            $like: `%${decodeURIComponent(request.query.search)}%`,
           },
           ingredients: {
-            $like: `%${decodeURIComponent(req.query.search)}%`,
+            $like: `%${decodeURIComponent(request.query.search)}%`,
           },
         }],
       },
     })
       .then((searchFound) => {
         if (searchFound.length === 0) { // checks if search is empty
-          res.status(404).json({
+          response.status(404).json({
             status: 'Unsuccessful',
             message: 'Recipe not found',
           });
         } else {
-          res.status(200).json({
+          response.status(200).json({
             status: 'Successful',
             recipe: searchFound,
           });
         }
       })
-      .catch(error => res.status(400).send(error.toString()));
+      .catch(error => response.status(500).send(error));
   },
 };
 
