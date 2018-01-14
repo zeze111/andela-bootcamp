@@ -5,7 +5,19 @@ import Validator from 'validatorjs';
 import validations from '../../../Server/shared/validations';
 import { TextFieldGroup } from '../common/TextFieldGroup';
 
+/**
+ *
+ *
+ * @class SignupForm
+ * @extends {React.Component}
+ */
 class SignupForm extends React.Component {
+  /**
+   * @description Constructor Function
+   * @param {any} props
+   * @memberof Home
+   * @return {void}
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -16,42 +28,58 @@ class SignupForm extends React.Component {
       password_confirmation: '',
       errors: {},
       isLoading: false
-    }
+    };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  isValid() {
-    const validator = new Validator(this.state, validations.userRules);
-    if (validator.fails()) {
-      const errors = validator.errors.all()
-      this.setState({ errors });
-    }
-
-    return validator.passes();
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
+  onSubmit(event) {
+    event.preventDefault();
 
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state)
-        .then(() => {
-          return this.setState({ redirect: true });
-        })
+        .then(() => this.setState({ redirect: true }))
         .catch((error) => {
           this.setState({ errors: error.response.data, isLoading: false });
         });
     }
   }
 
+  /**
+   * @memberof Home
+   * @return {void}
+   */
+  isValid() {
+    const validator = new Validator(this.state, validations.userRules);
+    if (validator.fails()) {
+      const errors = validator.errors.all();
+      this.setState({ errors });
+    }
+
+    return validator.passes();
+  }
+
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     const { errors } = this.state;
     const { redirect } = this.state;
@@ -62,8 +90,10 @@ class SignupForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmit} className="col s5 offset-s4"> <br />
-        {errors && <span className='red-text' style={{ fontSize: 16 + 'px' }}>
-          {errors.message}</span>}
+          {errors &&
+          <span className="red-text error-text">
+            {errors.message}
+          </span>}
           <TextFieldGroup
             label="First Name"
             value={this.state.firstName}
@@ -110,7 +140,17 @@ class SignupForm extends React.Component {
             error={errors.password_confirmation}
           />
           <div className="right-align">
-            <input disabled={this.state.isLoading} className="btn grey white-text" type="submit" value="Register" />
+          {
+              (this.state.isLoading) &&
+              <div className="center-align loader-style">
+              <PreLoader />
+            </div>
+            }
+            <input
+              className="btn grey white-text"
+              type="submit"
+              value="Register"
+            />
           </div> <br />
         </form>
       </div>
@@ -119,9 +159,8 @@ class SignupForm extends React.Component {
 }
 
 SignupForm.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired,
-  addFlashMessages: PropTypes.func.isRequired
-}
+  userSignupRequest: PropTypes.func.isRequired
+};
 
 
 export default SignupForm;

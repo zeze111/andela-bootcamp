@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import PreLoader from '../updateRecipe/PreLoader';
+import PreLoader from '../common/PreLoader';
 import { TextFieldGroup3 } from '../common/TextFieldGroup';
 
 const Details = (props) => {
-
   if (props.isLoading) {
     return (
       <div className="center-align loader-style">
@@ -56,8 +55,8 @@ const Details = (props) => {
         </div >
       </form>
     </div>
-  )
-}
+  );
+};
 
 Details.defaultProps = {
   firstName: '',
@@ -67,9 +66,13 @@ Details.defaultProps = {
 };
 
 Details.propTypes = {
-  firstName: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  surname: PropTypes.string.isRequired,
-}
+  firstName: PropTypes.string,
+  email: PropTypes.string,
+  surname: PropTypes.string,
+  bio: PropTypes.string,
+  isLoading: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Details;

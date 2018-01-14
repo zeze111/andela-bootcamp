@@ -6,15 +6,24 @@ import { connect } from 'react-redux';
 import { getUserRecipes, deleteRecipe } from '../../actions/recipeActions';
 import { updateUser, getUser } from '../../actions/userActions';
 import { getFavoriteRecipes, deleteFavorite } from '../../actions/favoriteActions';
-import PreLoader from '../updateRecipe/PreLoader';
+import PreLoader from '../common/PreLoader';
 import uploadImageToCloud from '../../utils/image';
 import Details from './Details';
 import PasswordForm from './PasswordForm';
 import Recipes from './Recipes';
 import Favorites from './Favorites';
 
-
+/**
+ * @class Profile
+ * @extends {Component}
+ */
 class Profile extends Component {
+  /**
+   * @description Constructor Function
+   * @param {any} props
+   * @memberof Home
+   * @return {void}
+   */
   constructor(props) {
     super(props);
 
@@ -31,6 +40,21 @@ class Profile extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  /**
+   * @memberof Home
+   * @return {void}
+   */
+  componentWillMount() {
+    $(document).ready(() => {
+      Materialize.updateTextFields();
+      $('.materialboxed').materialbox();
+    });
+  }
+
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   componentDidMount() {
     const user = localStorage.getItem('user');
     this.props.getUserRecipes(JSON.parse(user).id);
@@ -43,6 +67,11 @@ class Profile extends Component {
       });
   }
 
+  /**
+   * @param {any} nextProps
+   * @memberof Home
+   * @return {void}
+   */
   componentWillReceiveProps(nextProps) {
     const { profile } = nextProps;
     this.setState({
@@ -52,16 +81,20 @@ class Profile extends Component {
     });
   }
 
-  componentWillUpdate() {
-    $(document).ready(() => {
-      Materialize.updateTextFields();
-    });
-  }
-
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   onSubmit(event) {
     event.preventDefault();
 
@@ -72,6 +105,11 @@ class Profile extends Component {
       });
   }
 
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   uploadImage = (event) => {
     this.setState({ isPicLoading: true });
     const file = event.target.files[0];
@@ -81,7 +119,7 @@ class Profile extends Component {
           image: response.data.secure_url,
           isPicLoading: false
         });
-        if(!this.state.isPicLoading) {
+        if (!this.state.isPicLoading) {
           this.props.updateUser(this.props.user.id, this.state);
         }
       })
@@ -92,6 +130,10 @@ class Profile extends Component {
       })
   }
 
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     const {
       getUserRecipes,
@@ -102,6 +144,7 @@ class Profile extends Component {
       profile,
       user,
       updateUser,
+      delMessage,
       getUser
     } = this.props;
 
@@ -109,30 +152,32 @@ class Profile extends Component {
     const recipeList = (this.props.recipes) ? (this.props.recipes) : [];
 
     const noFaves = (
-      <div className="col s11 offset-s1 bottom-style"> {faveMessage} </div>
+      <div className="col s11 offset-s1 bottom-style"> You Currently Have No Favorite Recipes </div>
     );
 
     const noRecipes = (
       <div className="col s11 offset-s1 bottom-style"> {this.props.message} </div>
     );
 
+    console.log(delMessage);
+
     return (
       <div id="profile-body">
         <main>
-          <div className="container" style={{ width: '100%', margin: '0 auto', paddingBottom: '2em' }}>
+          <div className="container full-container two-down">
             <br /> <br />
             <div className="row">
               <div className="col s3 offset-s2">
-                <img className="materialboxed responsive-img circle img-style"
+                <img className="materialboxed responsive-img circle img-style" width="200px"
                   src={profile.image || this.state.image || "/images/profilepic.png"} />
-                  {this.state.isPicLoading &&
-                   <PreLoader />
-                 }
+                {this.state.isPicLoading &&
+                  <PreLoader />
+                }
               </div>
               <div className="col s7 pull-s1 grey-text text-lighten-2">
                 <br /> <br /> <br />
                 <p id="Name"> {profile.firstName} {profile.surname} </p>
-                <p id="Bio"> {profile.bio} </p>
+                <p id="Bio"> {profile.bio || "Add a bio"} </p>
               </div>
             </div>
             <div className="row">
@@ -180,7 +225,7 @@ class Profile extends Component {
                       <PasswordForm />
                     </TabPanel>
                     <TabPanel>
-                      <div id="recipe" className="col s10 offest-s2" style={{ marginTop: '3em', marginBottom: '3em' }}>
+                      <div id="recipe" className="col s10 offest-s2 form-style">
                         <div className="col s6 offset-s2">
                           <Link to="/addRecipe" className="btn waves-effect waves-light grey"> Add A Recipe
                           <i className="material-icons left">add</i></Link>
@@ -200,7 +245,6 @@ class Profile extends Component {
                                       <Recipes
                                         recipe={recipe}
                                         key={index}
-                                        getUserRecipes={getUserRecipes}
                                         deleteRecipe={deleteRecipe}
                                       />)
                                   })
@@ -223,9 +267,8 @@ class Profile extends Component {
                                     favorites={this.props.favorites}
                                     favorite={favorite}
                                     key={index}
-                                    getFavoriteRecipes={getFavoriteRecipes}
                                     deleteFavorite={deleteFavorite}
-                                    message={faveMessage}
+                                    message={delMessage}
                                   />)
                               })
                             }
@@ -261,18 +304,23 @@ Profile.propTypes = {
   profile: PropTypes.object
 }
 
-function mapStateToProps(state) {
-  return {
-    recipes: state.recipeReducer.recipes,
-    user: state.auth.user,
-    favorites: state.favoriteReducer.favorites,
-    faveMessage: state.favoriteReducer.message,
-    message: state.recipeReducer.message,
-    profile: state.auth.profile,
-    userMessage: state.auth.message
-  };
-}
+const mapStateToProps = state => ({
+  recipes: state.recipeReducer.recipes,
+  user: state.auth.user,
+  favorites: state.favoriteReducer.favorites,
+  faveMessage: state.favoriteReducer.message,
+  message: state.recipeReducer.message,
+  profile: state.auth.profile,
+  userMessage: state.auth.message,
+  delMessage: state.favoriteReducer.delMessage
+});
 
-export default connect(mapStateToProps, {
-  getUserRecipes, deleteRecipe, getFavoriteRecipes, deleteFavorite, updateUser, getUser
-})(Profile);
+export default connect(
+  mapStateToProps, {
+    getUserRecipes,
+    deleteRecipe,
+    getFavoriteRecipes,
+    deleteFavorite,
+    updateUser,
+    getUser
+  })(Profile);

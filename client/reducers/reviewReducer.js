@@ -13,12 +13,13 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         reviews: action.payload.reviews,
+        message: action.payload.message,
       };
     case DELETE_REVIEW:
       return {
         ...state,
-        reviews: state.reviews,
-        message: action.payload.message,
+        message: action.data.message,
+        reviews: state.reviews.filter(review => review.id !== action.payload),
       };
     default: return state;
   }

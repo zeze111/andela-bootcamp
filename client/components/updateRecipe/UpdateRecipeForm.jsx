@@ -1,15 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Validator from 'validatorjs';
-import { map, pick } from 'lodash';
+import { pick } from 'lodash';
 import { Input, Row } from 'react-materialize';
 import { Redirect } from 'react-router-dom';
 import validations from '../../../Server/shared/validations';
-import PreLoader from './PreLoader';
+import PreLoader from '../common/PreLoader';
 import { TextFieldGroup, TextFieldGroup2 } from '../common/TextFieldGroup';
 
-
+/**
+ *
+ *
+ * @class UpdateRecipeForm
+ * @extends {React.Component}
+ */
 class UpdateRecipeForm extends React.Component {
+  /**
+   * @description Constructor Function
+   * @param {any} props
+   * @memberof Home
+   * @return {void}
+   */
   constructor(props) {
     super(props);
 
@@ -24,7 +35,7 @@ class UpdateRecipeForm extends React.Component {
       imageFile: '',
       errors: {},
       isLoading: false
-    }
+    };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -32,22 +43,68 @@ class UpdateRecipeForm extends React.Component {
     this.uploadImage = this.uploadImage.bind(this);
   }
 
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   componentDidMount() {
     $(this.refs.selectType).material_select(this.onSelectChange.bind(this));
   }
 
+  /**
+   * @param {any} nextProps
+   * @memberof Home
+   * @return {void}
+   */
   componentWillReceiveProps(nextProps) {
     const { recipe } = nextProps;
     this.setState({
-      name: recipe.name, prepTime: recipe.prepTime, description: recipe.description, imageSrc: recipe.image,
-      type: recipe.type, ingredients: recipe.ingredients, instructions: recipe.instructions
+      name: recipe.name,
+      prepTime: recipe.prepTime,
+      description: recipe.description,
+      imageSrc: recipe.image,
+      type: recipe.type,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions
     });
   }
 
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
+  onSubmit(event) {
+    event.preventDefault();
+
+    const recipeId = this.props.recipe.id;
+    const recipe = pick(
+      this.state,
+      ['name', 'prepTime', 'description', 'type', 'ingredients', 'instructions', 'image']
+    );
+
+    if (this.isValid()) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props.updateRecipe(recipeId, recipe)
+        .then(() => this.setState({ redirect: true }))
+        .catch(error => this.setState({ errors: error.response.data, isLoading: false }));
+    }
+  }
+
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   onSelectChange(event) {
     const { value } = event.target;
     this.setState({
@@ -55,6 +112,11 @@ class UpdateRecipeForm extends React.Component {
     });
   }
 
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   uploadImage(event) {
     if (event.target.files && event.target.files[0]) {
       this.setState({ imageFile: event.target.files[0] });
@@ -68,34 +130,26 @@ class UpdateRecipeForm extends React.Component {
     }
   }
 
+  /**
+   * @memberof Home
+   * @return {any} errors
+   */
   isValid() {
     const validator = new Validator(this.state, validations.updateRecipeRules);
     if (validator.fails()) {
-      const errors = validator.errors.all()
+      const errors = validator.errors.all();
       this.setState({ errors });
     }
 
     return validator.passes();
   }
 
-  onSubmit(event) {
-    event.preventDefault();
-
-    const recipeId = this.props.recipe.id;
-    const recipe = pick(this.state, ["name", "prepTime", "description", "type", "ingredients", "instructions", "image"]);
-
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
-      this.props.updateRecipe(recipeId, recipe)
-        .then(() => {
-          return this.setState({ redirect: true });
-        })
-        .catch((error) => { return this.setState({ errors: error.response.data, isLoading: false }); });
-    }
-  }
-
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   render() {
-
     const { errors } = this.state;
     const { redirect } = this.state;
     const { recipe } = this.props;
@@ -108,7 +162,7 @@ class UpdateRecipeForm extends React.Component {
       <div className="row">
         <div className="card-content col s6 offset-s3">
           <form onSubmit={this.onSubmit}>
-            <div className="row" style={{ paddingTop: "2em", paddingLeft: "2em" }}>
+            <div className="row add-padding">
               <div className="file-field input-field col s12 center-align" >
                 <div className="image-placeholder">
                   <img
@@ -123,9 +177,11 @@ class UpdateRecipeForm extends React.Component {
                 </div>
               </div>
             </div>
-            <div style={{ paddingTop: "0.5em" }}>
-              {errors && <span className='red-text' style={{ fontSize: 16 + 'px' }}>
-                {errors.message}</span>}
+            <div className="half-top">
+              {errors &&
+                <span className="red-text error-text">
+                  {errors.message}
+                </span>}
               <TextFieldGroup
                 label="Recipe Name"
                 value={this.state.name}
@@ -154,7 +210,8 @@ class UpdateRecipeForm extends React.Component {
                 error={errors.description}
               />
               <Row>
-                <Input s={12}
+                <Input
+                  s={12}
                   type="select"
                   label="Recipe Type"
                   name="type"
@@ -167,8 +224,10 @@ class UpdateRecipeForm extends React.Component {
                   <option value="Dessert" >Dessert</option>
                   <option value="Drink" >Drink</option>
                 </Input>
-                {errors && <span className="help-block red-text" style={{ fontSize: 13 + 'px', marginLeft: 1 + 'em' }}>
-                  {errors.type}</span>}
+                {errors &&
+                  <span className="help-block red-text error-text2">
+                    {errors.type}
+                  </span>}
               </Row>
               <TextFieldGroup2
                 label="Ingredients"
@@ -187,7 +246,17 @@ class UpdateRecipeForm extends React.Component {
                 error={errors.instructions}
               />
               <div className="right-align">
-                <input disabled={this.state.isLoading} className="btn grey" type="submit" value="Submit" />
+                {
+                  (this.state.isLoading) &&
+                  <div className="center-align loader-style">
+                    <PreLoader />
+                  </div>
+                }
+                <input
+                  className="btn grey"
+                  type="submit"
+                  value="Submit"
+                />
               </div> <br />
             </div>
           </form>
@@ -199,6 +268,7 @@ class UpdateRecipeForm extends React.Component {
 
 UpdateRecipeForm.propTypes = {
   updateRecipe: PropTypes.func.isRequired,
-}
+  recipe: PropTypes.objectOf(PropTypes.any).isRequired
+};
 
 export default UpdateRecipeForm;

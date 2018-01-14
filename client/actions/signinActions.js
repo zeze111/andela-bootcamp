@@ -3,7 +3,11 @@ import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import { SET_CURRENT_USER } from './types';
 
-
+/**
+ * @export {function}
+ * @param {any} user
+ * @returns {object} any
+ */
 export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
@@ -11,6 +15,10 @@ export function setCurrentUser(user) {
   };
 }
 
+/**
+ * @export {function}
+ * @returns {object} any
+ */
 export function signout() {
   return (dispatch) => {
     localStorage.removeItem('jwtToken');
@@ -20,6 +28,11 @@ export function signout() {
   };
 }
 
+/**
+ * @export {function}
+ * @param {any} userData
+ * @returns {object} any
+ */
 export function userSigninRequest(userData) {
   return dispatch => axios.post('/api/v1/users/signin', userData)
     .then((res) => {

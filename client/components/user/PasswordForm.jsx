@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
-import { TextFieldGroup3 } from '../common/TextFieldGroup';
 import PropTypes from 'prop-types';
+import { TextFieldGroup3 } from '../common/TextFieldGroup';
 
+/**
+ * @class PasswordForm
+ * @extends {Component}
+ */
 class PasswordForm extends Component {
+  /**
+   * @description Constructor Function
+   * @param {any} props
+   * @memberof Home
+   * @return {void}
+   */
   constructor(props) {
     super(props);
     this.state = {
       oldPassword: '',
       newPassword: '',
-    }
-
-    // this.onChange = this.onChange.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
+    };
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     return (
-      <div id="chpwd" className="col s10 offest-s2" style={{ marginTop: '3em', marginBottom: '3em' }}>
+      <div id="chpwd" className="col s10 offest-s2 form-style">
         <form className="col s6 offset-s2">
           <TextFieldGroup3
             label="Old Password:"
@@ -45,11 +61,11 @@ class PasswordForm extends Component {
           </div>
         </form>
       </div>
-    )
-  };
+    );
+  }
 }
 
 PasswordForm.propTypes = {
-}
+};
 
 export default PasswordForm;

@@ -6,6 +6,12 @@ import {
   UPDATE_RECIPE, GET_RECIPE,
 } from './types';
 
+/**
+ * @export {function}
+ * @param {any} recipeData
+ * @param {any} imageUrl
+ * @returns {object} any
+ */
 export function addRecipe(recipeData, imageUrl) {
   return (dispatch) => {
     axios.defaults.headers.common['x-token'] = window.localStorage.jwtToken;
@@ -32,6 +38,11 @@ export function addRecipe(recipeData, imageUrl) {
   };
 }
 
+/**
+ * @export {function}
+ * @param {any} recipeData
+ * @returns {object} any
+ */
 export function addRecipeRequest(recipeData) {
   return (dispatch) => {
     const cloudUrl = 'http://res.cloudinary.com/zeze-andela/image/upload/v1513857342/noimg_mhvbu1.png';
@@ -47,6 +58,10 @@ export function addRecipeRequest(recipeData) {
   };
 }
 
+/**
+ * @export {function}
+ * @returns {object} any
+ */
 export function getAllRecipes() {
   return dispatch => axios.get('/api/v1/recipes')
     .then((response) => {
@@ -57,6 +72,11 @@ export function getAllRecipes() {
     });
 }
 
+/**
+ * @export {function}
+ * @param {any} userId
+ * @returns {object} any
+ */
 export function getUserRecipes(userId) {
   return dispatch => axios.get(`/api/v1/user/${userId}/recipes`)
     .then((response) => {
@@ -67,6 +87,11 @@ export function getUserRecipes(userId) {
     });
 }
 
+/**
+ * @export {function}
+ * @param {any} recipeId
+ * @returns {object} any
+ */
 export function getARecipe(recipeId) {
   return dispatch => axios.get(`/api/v1/recipes/${recipeId}`)
     .then((response) => {
@@ -77,6 +102,12 @@ export function getARecipe(recipeId) {
     });
 }
 
+/**
+ * @export {function}
+ * @param {any} recipeId
+ * @param {any} recipeData
+ * @returns {object} any
+ */
 export function updateRecipe(recipeId, recipeData) {
   return dispatch => axios.put(`/api/v1/recipes/${recipeId}`, recipeData)
     .then((response) => {
@@ -87,12 +118,17 @@ export function updateRecipe(recipeId, recipeData) {
     });
 }
 
+/**
+ * @export {function}
+ * @param {any} recipeId
+ * @returns {object} any
+ */
 export function deleteRecipe(recipeId) {
   return dispatch => axios.delete(`/api/v1/recipes/${recipeId}`)
-    .then((response) => {
+    .then(() => {
       dispatch({
         type: DELETE_RECIPE,
-        payload: response.data,
+        payload: recipeId,
       });
     });
 }

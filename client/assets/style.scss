@@ -99,6 +99,17 @@ main {
   }
 }
 
+.home-cards{
+  height: 250px;
+  width: 230px;
+  .image-style {
+    height: 180px;
+  }
+  .home-text-style {
+    font-size: 14px;
+  }
+}
+
 #r-cmt {
   padding-right: 16px;
   padding-bottom: 1.5em;
@@ -109,6 +120,11 @@ main {
 .materialboxed.responsive-img.pic-style {
   max-width: 100%;
   height: 300px;
+}
+
+.materialboxed.responsive-img.circle.img-style.initialized {
+  max-width: 100%;
+  height: 215px;
 }
 
 .vote-up-style {
@@ -129,7 +145,7 @@ main {
 
 .card-buttons {
   background-color: rgba(0, 0, 0, 0.1) !important;
-  padding-bottom: 2em !important;
+  padding-bottom: 3em !important;
   .icon {
     margin-top: 0;
     padding-left: 2.5em;
@@ -174,9 +190,32 @@ main {
   word-wrap: break-word;
 }
 
+.card.right {
+  width: 500px;
+  height: 300px;
+}
+
+.text-style {
+ margin-left: 5em
+}
+
+#instruct {
+  word-wrap: break-word;
+}
+
 .flex-container-homepage {
   display: flex;
   flex-wrap: wrap !important;
+}
+
+.div-pointer {
+  color: #ffb340 ;
+  cursor: pointer;
+}
+
+.div-pointer2 {
+  color: rgb(0, 161, 161);
+  cursor: pointer;
 }
 
 .nav-color {
@@ -184,8 +223,12 @@ main {
 }
 
 .recipe {
-  font-size: 18;
+  font-size: 18px;
   margin-bottom: 0;
+}
+
+.r-ingredients {
+  word-wrap: break-word;
 }
 
 .title {
@@ -195,9 +238,66 @@ main {
   padding-top: 3em !important;
 }
 
+.no-top {
+  margin-top: 0;
+}
+
+.half-top {
+  padding-top: 0.5em;
+}
+
+.review-section {
+  padding-left: 7em !important;
+  padding-top: 1em !important;
+}
+
+.add-padding {
+  padding-left: 2em;
+  padding-top: 2em;
+}
+
+.form-padding {
+  padding-top: 5em !important;
+  padding-bottom: 2em !important;
+  .inner {
+    margin-top: 1em;
+    margin-bottom: 2em;
+  }
+}
+
+.error-text {
+  font-size: 16px;
+}
+
+.error-text2 {
+  font-size: 13px;
+  margin-left: 1em
+}
+
+.full-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.one-top {
+  padding-top: 1em;
+}
+
+.two-down {
+  padding-bottom: 2em;
+}
+
 .title-details {
   margin-top: 0 !important;
   text-transform: capitalize !important;
+}
+
+.slide-pad{
+  padding-top: 8.5em;
+}
+
+.slide-text {
+  font-size: 30px;
 }
 
 .loader-style {
@@ -210,6 +310,6 @@ main {
   margin-bottom: 3em;
 }
 
-.img-style {
-  width: 200px !important;
-}
+// .img-style {
+//   width: 200px !important;
+// }

@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
-import jwt from 'jsonwebtoken';
-import App from './components/app'
+import App from './components/App';
 import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import { setCurrentUser } from './actions/signupActions';
@@ -30,4 +29,4 @@ ReactDOM.render(
     <App />
   </Provider>,
   document.getElementById('app')
-); 
+);

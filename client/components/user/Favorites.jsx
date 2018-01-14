@@ -3,18 +3,37 @@ import { TextFieldGroup3 } from '../common/TextFieldGroup';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-class Favorites extends Component {
+import PreLoader from '../common/PreLoader';
 
+/**
+ *
+ *
+ * @class Favorites
+ * @extends {React.Component}
+ */
+class Favorites extends Component {
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
   clickEvent = (event) => {
     this.props.deleteFavorite(this.props.favorite.id)
       .then(() => {
-        const $toastContent = $(`<span>${this.props.message}</span>`)
-        Materialize.toast($toastContent, 2000);
-        const user = localStorage.getItem('user');
-        this.props.getFavoriteRecipes(JSON.parse(user).id);
+        this.setState({ isLoading: false });
+        if (this.props.message) {
+          console.log(this.props.message);
+        }
+
+        // const $toastContent = $(`<span>${this.props.message}</span>`)
+        // Materialize.toast($toastContent, 2000);
       });
   }
 
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     const { favorite } = this.props;
 
@@ -23,11 +42,11 @@ class Favorites extends Component {
         <li className="collection-item">
           <Link to={`/userRecipe/${favorite.id}`} className="caps">
             {favorite.name} <span className="black-text" >
-             posted by {favorite.User.firstName} {favorite.User.surname} </span>
+              posted by {favorite.User.firstName} {favorite.User.surname} </span>
           </Link>
-          <a href="#" className="secondary-content">
+          <div className="secondary-content div-pointer2">
             <i onClick={this.clickEvent} className="material-icons">delete</i>
-          </a>
+          </div>
         </li>
       </div>
     )
@@ -36,7 +55,6 @@ class Favorites extends Component {
 
 Favorites.propTypes = {
   deleteFavorite: PropTypes.func.isRequired,
-  getFavoriteRecipes: PropTypes.func.isRequired,
 }
 
 export default Favorites;

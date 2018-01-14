@@ -5,9 +5,7 @@ export default () => {
   return (
     <div className="container" >
     <br/> <br/>
-    <Link to="/popularRecipes">
-      <h5 className="light teal-text"> POPULAR RECIPES </h5>
-    </Link>
+      <h5 className="black-text lighten-3"> POPULAR RECIPES </h5>
     <div className="row">
       <div className="categories-container">
         <ul id="favelist" className="categories ">
