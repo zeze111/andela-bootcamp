@@ -12,8 +12,11 @@ export function reviewRecipe(recipeId, review) {
     .then((response) => {
       dispatch({
         type: REVIEW_RECIPE,
-        payload: response.data,
+        payload: response.data
       });
+    })
+    .catch((error) => {
+     return error;
     });
 }
 

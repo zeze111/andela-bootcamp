@@ -2,6 +2,7 @@ import Validator from 'validatorjs';
 import Sequelize from 'sequelize';
 import { Recipe, Rating, User } from '../models';
 import validations from '../shared/validations';
+import paginationData from '../shared/helper';
 
 const recipes = {
 
@@ -26,6 +27,7 @@ const recipes = {
               message: 'Cannot Create A Recipe With the Same Name',
             });
           }
+
           Recipe.create({
             name: request.body.name.toLowerCase().trim(),
             description: request.body.description.trim(),
@@ -42,10 +44,8 @@ const recipes = {
                 recipeId: recipe.dataValues.id,
                 recipe,
               });
-            }) // if unsuccessful
-            .catch(error => response.status(500).send(error));
-        })
-        .catch(error => response.status(500).send(error));
+            });
+        });
     } else {
       return response.status(406).json({
         status: 'Unsuccessful',
@@ -90,9 +90,9 @@ const recipes = {
               drecipes: popularRecipes,
             });
           }
-        })
-        .catch((error) => { response.status(400).send(error); });
-    } else if (request.query.page) {
+        });
+
+    } else if (request.query.limit && request.query.offset) {
       if (Number.isNaN(request.query.page)) {
         return response.status(406).json({
           status: 'Unsuccessful',
@@ -100,43 +100,42 @@ const recipes = {
         });
       }
 
-      const limits = 6;
-      let offsets = 0;
-      return Recipe.findAndCountAll()
-        .then((data) => {
-          const page = (request.query.page <= 1) ? 1 : parseInt(request.query.page, 10);
-          const pages = Math.ceil(data.count / limits);
-          offsets = limits * (page - 1);
-          Recipe.findAll({
-            attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
-            limit: limits,
-            offset: offsets,
-          }).then((pagedRecipes) => {
-            if (page > pages) {
-              response.status(404).json({
-                status: 'Unsuccessful',
-                message: 'Page Not Found',
-              });
-            }
-            if (pagedRecipes.length === 0) {
-              response.status(200).json({
-                status: 'Successful',
-                message: 'There Are Currently No Recipes',
-              });
-            } else {
-              response.status(200).json({
-                status: 'Successful',
-                recipes: pagedRecipes,
-                pageSize: limits,
-                totalCount: data.count,
-                currentPage: page,
-                pageCount: pages,
-              });
-            }
-          })
-            .catch(error => response.status(500).send(error));
-        })
-        .catch(error => response.status(500).send(error));
+      return Recipe.findAndCountAll({
+        attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
+        limit: request.query.limit,
+        offset: request.query.offset,
+      })
+        .then(({ rows, count }) => {
+          return response.status(200).json({
+            status: 'Successful',
+            rows,
+            pagination: paginationData(count, request.query.limit, request.query.offset)
+
+          });
+        });
+
+    } else if (request.query.type) {
+      Recipe.findAll({
+        where: {
+          type: {
+            $iLike: `%${request.query.type}%`,
+          },
+        },
+      })
+        .then((recipesFound) => {
+          if (recipesFound.length === 0) {
+            return response.status(200).json({
+              status: 'Successful',
+              message: 'No Recipes In That Category Yet',
+              recipes: []
+            });
+          } else {
+            return response.status(200).json({
+              status: 'Successful',
+              recipes: recipesFound,
+            });
+          }
+        });
     }
 
     return Recipe.findAll({
@@ -170,6 +169,7 @@ const recipes = {
         message: 'Recipe ID Must Be A Number',
       });
     } else {
+
       const recipeid = parseInt(request.params.recipeId, 10);
       Recipe.findById(recipeid)
         .then((recipe) => {
@@ -177,10 +177,11 @@ const recipes = {
             response.status(404).json({
               status: 'Unsuccessful',
               message: 'Recipe Not Found',
-            }); // check if recipe belongs to user
+            });
           } else if (recipe.userId === request.decoded.id) {
             if (request.body.name || request.body.description || request.body.prepTime || request.body.image
               || request.body.type || request.body.ingredients || request.body.instructions) {
+
               const validator = new Validator(request.body, validations.updateRecipeRules);
               if (validator.passes()) {
                 recipe.update({
@@ -194,7 +195,6 @@ const recipes = {
                 })
                   .then((updatedRecipe) => {
                     response.status(200).json({
-                      code: 200,
                       status: 'Successful',
                       recipe: {
                         name: updatedRecipe.name,
@@ -206,8 +206,7 @@ const recipes = {
                         image: updatedRecipe.image,
                       },
                     });
-                  })
-                  .catch(error => response.status(500).send(error));
+                  });
               } else {
                 response.status(406).json({
                   status: 'Unsuccessful',
@@ -322,7 +321,7 @@ const recipes = {
     } else {
       const requestid = parseInt(request.params.userId, 10);
       Recipe.findAll({
-        where: { userId: requestid },
+        where: { userId: request.decoded.id },
       })
         .then((userRecipes) => {
           if (userRecipes.length === 0) { // checks if list is empty
@@ -369,6 +368,36 @@ const recipes = {
           response.status(200).json({
             status: 'Successful',
             recipe: searchFound,
+          });
+        }
+      })
+      .catch(error => response.status(500).send(error));
+  },
+
+
+  /** Gets the Recipes to a particular category
+  * @param {Object} request - request object
+  * @param {Object} response - response object
+  * @returns {Object} response object
+  */
+  getCategory(request, response) {
+    Recipe.findAll({
+      where: {
+        type: {
+          $like: `%${request.query.type}%`,
+        },
+      },
+    })
+      .then((recipesFound) => {
+        if (recipesFound.length === 0) {
+          response.status(404).json({
+            status: 'Unsuccessful',
+            message: 'Recipe not found',
+          });
+        } else {
+          response.status(200).json({
+            status: 'Successful',
+            recipes: recipesFound,
           });
         }
       })

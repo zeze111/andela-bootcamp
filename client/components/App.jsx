@@ -8,6 +8,7 @@ import AddRecipePage from './addRecipe/AddRecipePage';
 import UpdateRecipePage from './updateRecipe/UpdateRecipePage';
 import RecipeDetails from './recipe/RecipeDetails';
 import Profile from './user/Profile';
+import AllRecipes from './allRecipes/AllRecipes'
 import '../assets/init';
 
 /**
@@ -34,7 +35,7 @@ class App extends Component {
             <Route path="/updateRecipe/:recipeId" component={UpdateRecipePage} />
             <Route path="/userRecipe/:recipeId" component={RecipeDetails} />
             <Route path="/recipe/:recipeId" component={RecipeDetails} />
-            {/* <Route path='/favorite' component={Profile}/> */}
+            <Route path='/allRecipes' component={AllRecipes}/>
           </Switch>
           <Footer />
         </div>

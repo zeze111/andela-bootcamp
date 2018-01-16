@@ -3,7 +3,7 @@ import uploadImageToCloud from '../utils/image';
 
 import {
   CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, DELETE_RECIPE,
-  UPDATE_RECIPE, GET_RECIPE,
+  UPDATE_RECIPE, GET_RECIPE, GET_RECIPES_CATEGORY,
 } from './types';
 
 /**
@@ -34,6 +34,9 @@ export function addRecipe(recipeData, imageUrl) {
           type: CREATE_RECIPE,
           payload: response.data,
         });
+      })
+      .catch((error) => {
+        return error;
       });
   };
 }
@@ -52,7 +55,9 @@ export function addRecipeRequest(recipeData) {
           const imageUrl = response.data.secure_url;
           dispatch(addRecipe(recipeData, imageUrl));
         })
-        .catch(error => console.log(error));
+        .catch((error) => {
+          return error;
+        });
     }
     return dispatch(addRecipe(recipeData, cloudUrl));
   };
@@ -129,6 +134,21 @@ export function deleteRecipe(recipeId) {
       dispatch({
         type: DELETE_RECIPE,
         payload: recipeId,
+      });
+    });
+}
+
+/**
+ * @export {function}
+ * @param {any} type
+ * @returns {object} any
+ */
+export function getRecipeCategory(type) {
+  return dispatch => axios.get(`/api/v1/recipes/?type=${type}`)
+    .then((response) => {
+      dispatch({
+        type: GET_RECIPES_CATEGORY,
+        payload: response.data,
       });
     });
 }
