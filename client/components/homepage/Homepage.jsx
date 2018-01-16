@@ -46,7 +46,6 @@ class Homepage extends Component {
    * @return {void}
    */
   render() {
-    const { getAllRecipes } = this.props;
     const allRecipes = (this.props.recipes) ? (this.props.recipes) : [];
     return (
       <div id="homepageBody">

@@ -22,7 +22,7 @@ router.post('/:recipeId/downvote', confirmAuth.authenticate, rating.downvote);
 router.post('/:recipeId/review', confirmAuth.authenticate, review.reviewRecipe);
 router.delete('/:reviewId/review', confirmAuth.authenticate, review.deletReview);
 router.get('/:recipeId/reviews', review.getReviews);
-
+// router.get('/category/', recipe.getCategory);
 
 /*
 // router.get('api/v1/recipes?sort=upvotes&order=des', handleCrudRecipe.allRecipes);

@@ -13,6 +13,9 @@ export function favoriteRecipe(recipeId) {
         type: FAVORITE_RECIPE,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      return error;
     });
 }
 
