@@ -20,3 +20,4 @@ export const GET_REVIEWS = 'GET_REVIEWS';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
 export const UPDATE_USER = 'UPDATE_USER';
 export const GET_USER = 'GET_USER';
+export const SEARCH_RECIPE = 'SEARCH_RECIPE';

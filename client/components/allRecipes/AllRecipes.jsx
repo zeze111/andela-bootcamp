@@ -25,6 +25,7 @@ class AllRecipes extends Component {
     super(props);
 
     this.state = {
+      search: '',
       isLoading: true
     };
   }
@@ -79,6 +80,14 @@ class AllRecipes extends Component {
    * @memberof Home
    * @return {void}
    */
+  onChange = (event) => {
+    this.setState({ search: event.target.value });
+  }
+
+  /**
+   * @memberof Home
+   * @return {void}
+   */
   render() {
     if (!this.props.recipes) {
       return (
@@ -93,6 +102,17 @@ class AllRecipes extends Component {
     const main = "Main";
     const dessert = "Dessert";
     const drinks = "Drinks";
+
+    let recipes = allRecipes;
+
+    const searchWord = this.state.search.trim().toLowerCase();
+    if (searchWord.length > 0) {
+      recipes = recipes.filter((found) => {
+        const results = found.name.toLowerCase().match(searchWord)
+        || found.ingredients.toLowerCase().match(searchWord);
+       return results;
+      });
+    }
 
     const noRecipes = (
       <div className="col s12 bottom-style error-message"> {this.props.message} </div>
@@ -147,7 +167,13 @@ class AllRecipes extends Component {
               <div className="row">
                 <div className="input-field col s6">
                   <label htmlFor="search"> </label>
-                  <input placeholder="Search for Recipes" type="text" id="search" />
+                  <input
+                  placeholder="Search for Recipes"
+                  type="text"
+                  id="search"
+                  value={this.state.search}
+                  onChange={this.onChange}
+                  />
                 </div>
                 <div className="col s6">
                   <button
@@ -172,7 +198,7 @@ class AllRecipes extends Component {
             (allRecipes.length === 0) ? noRecipes :
             <ul className="categories flex-container-homepage">
               {
-                allRecipes.map((recipe, index) => (
+                recipes.map((recipe, index) => (
                   <RecipeCard
                     recipe={recipe}
                     key={index}
