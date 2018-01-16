@@ -3,7 +3,7 @@ import uploadImageToCloud from '../utils/image';
 
 import {
   CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, DELETE_RECIPE,
-  UPDATE_RECIPE, GET_RECIPE, GET_RECIPES_CATEGORY,
+  UPDATE_RECIPE, GET_RECIPE, GET_RECIPES_CATEGORY, SEARCH_RECIPE
 } from './types';
 
 /**
@@ -148,6 +148,21 @@ export function getRecipeCategory(type) {
     .then((response) => {
       dispatch({
         type: GET_RECIPES_CATEGORY,
+        payload: response.data,
+      });
+    });
+}
+
+/**
+ * @export {function}
+ * @param {any} word
+ * @returns {object} any
+ */
+export function searchRecipe(word) {
+  return dispatch => axios.get(`/api/v1/recipes/?searche=${word}`)
+    .then((response) => {
+      dispatch({
+        type: SEARCH_RECIPE,
         payload: response.data,
       });
     });

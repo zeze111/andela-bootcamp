@@ -38,13 +38,11 @@ const recipes = {
             image: request.body.image,
             userId: request.decoded.id,
           })
-            .then((recipe) => {
-              return response.status(201).json({
-                status: 'Success',
-                recipeId: recipe.dataValues.id,
-                recipe,
-              });
-            });
+            .then(recipe => response.status(201).json({
+              status: 'Success',
+              recipeId: recipe.dataValues.id,
+              recipe,
+            }));
         });
     } else {
       return response.status(406).json({
@@ -91,7 +89,6 @@ const recipes = {
             });
           }
         });
-
     } else if (request.query.limit && request.query.offset) {
       if (Number.isNaN(request.query.page)) {
         return response.status(406).json({
@@ -101,19 +98,24 @@ const recipes = {
       }
 
       return Recipe.findAndCountAll({
-        attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
+        attributes: [
+          'id',
+          'name',
+          'description',
+          'prepTime',
+          'type',
+          'ingredients',
+          'image'
+        ],
         limit: request.query.limit,
         offset: request.query.offset,
       })
-        .then(({ rows, count }) => {
-          return response.status(200).json({
-            status: 'Successful',
-            rows,
-            pagination: paginationData(count, request.query.limit, request.query.offset)
+        .then(({ rows, count }) => response.status(200).json({
+          status: 'Successful',
+          rows,
+          pagination: paginationData(count, request.query.limit, request.query.offset)
 
-          });
-        });
-
+        }));
     } else if (request.query.type) {
       Recipe.findAll({
         where: {
@@ -129,17 +131,51 @@ const recipes = {
               message: 'No Recipes In That Category Yet',
               recipes: []
             });
+          }
+          return response.status(200).json({
+            status: 'Successful',
+            recipes: recipesFound,
+          });
+        });
+    } else if (request.query.search) {
+      Recipe.findAll({
+        where: {
+          $or: [{
+            name: {
+              $iLike: `%${request.query.search}%`,
+            },
+            ingredients: {
+              $iLike: `%${request.query.search}%`,
+            },
+          }],
+        },
+      })
+        .then((searchFound) => {
+          if (searchFound.length === 0) { // checks if search is empty
+            response.status(404).json({
+              status: 'Unsuccessful',
+              message: 'Recipe not found',
+              recipes: []
+            });
           } else {
-            return response.status(200).json({
+            response.status(200).json({
               status: 'Successful',
-              recipes: recipesFound,
+              recipes: searchFound,
             });
           }
         });
     }
 
     return Recipe.findAll({
-      attributes: ['id', 'name', 'description', 'prepTime', 'type', 'image'],
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'prepTime',
+        'type',
+        'ingredients',
+        'image'
+      ],
       limit: 5,
     }).then((allRecipes) => {
       if (allRecipes.length === 0) {
@@ -169,7 +205,6 @@ const recipes = {
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-
       const recipeid = parseInt(request.params.recipeId, 10);
       Recipe.findById(recipeid)
         .then((recipe) => {
@@ -181,7 +216,6 @@ const recipes = {
           } else if (recipe.userId === request.decoded.id) {
             if (request.body.name || request.body.description || request.body.prepTime || request.body.image
               || request.body.type || request.body.ingredients || request.body.instructions) {
-
               const validator = new Validator(request.body, validations.updateRecipeRules);
               if (validator.passes()) {
                 recipe.update({

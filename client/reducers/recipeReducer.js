@@ -1,6 +1,6 @@
 import {
   CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, DELETE_RECIPE,
-  UPDATE_RECIPE, GET_RECIPE, GET_RECIPES_CATEGORY,
+  UPDATE_RECIPE, GET_RECIPE, GET_RECIPES_CATEGORY, SEARCH_RECIPE,
 } from '../actions/types';
 
 const initialState = { recipes: [], currentRecipe: {}, message: '' };
@@ -25,6 +25,12 @@ export default (state = initialState, action = {}) => {
         recipes: action.payload.recipes,
       };
     case GET_RECIPES_CATEGORY:
+      return {
+        ...state,
+        recipes: action.payload.recipes,
+        message: action.payload.message,
+      };
+    case SEARCH_RECIPE:
       return {
         ...state,
         recipes: action.payload.recipes,
