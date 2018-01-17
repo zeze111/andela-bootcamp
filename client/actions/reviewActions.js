@@ -15,9 +15,7 @@ export function reviewRecipe(recipeId, review) {
         payload: response.data
       });
     })
-    .catch((error) => {
-     return error;
-    });
+    .catch(error => error);
 }
 
 /**
@@ -43,10 +41,11 @@ export function getReviews(recipeId) {
 export function deleteReview(reviewId) {
   return dispatch => axios.delete(`/api/v1/recipes/${reviewId}/review`)
     .then((response) => {
+      Materialize.toast(`<span> ${response.data.message}</span>`, 2000);
+
       dispatch({
         type: DELETE_REVIEW,
         payload: reviewId,
-        data: response.data,
       });
     });
 }

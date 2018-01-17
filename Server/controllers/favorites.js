@@ -147,6 +147,7 @@ const favorites = {
                 response.status(200).json({
                   status: 'Successful',
                   message: 'You Currently Have No Favorite Recipes',
+                  favorites: []
                 });
               } else {
                 response.status(200).json({

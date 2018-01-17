@@ -92,15 +92,15 @@ class NavigationBar extends Component {
             </Link>
           </li>
           <li>
-            <a href="#" className="dropdown-button" data-activates="userdrop">{this.state.firstName}
+            <div className="dropdown-button caps div-pointer2" data-activates="userdrop">{this.state.firstName}
               <i className="material-icons right">arrow_drop_down</i>
-            </a>
+            </div>
           </li>
         </ul>
         <ul id="nav-mobile" className="side-nav">
           <li><a href="/addRecipe">Add</a></li>
           <li><a href="/user">Favourites</a></li>
-          <li><a href="#" style={{ textTransform: 'capitalize' }}>{this.state.firstName}</a></li>
+          <li><a href="#" className="caps" >{this.state.firstName}</a></li>
         </ul>
       </div>
     );

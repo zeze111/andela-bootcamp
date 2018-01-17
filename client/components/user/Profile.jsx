@@ -144,7 +144,6 @@ class Profile extends Component {
       profile,
       user,
       updateUser,
-      delMessage,
       getUser
     } = this.props;
 
@@ -158,8 +157,6 @@ class Profile extends Component {
     const noRecipes = (
       <div className="col s11 offset-s1 bottom-style"> {this.props.message} </div>
     );
-
-    console.log(delMessage);
 
     return (
       <div id="profile-body">
@@ -176,7 +173,7 @@ class Profile extends Component {
               </div>
               <div className="col s7 pull-s1 grey-text text-lighten-2">
                 <br /> <br /> <br />
-                <p id="Name"> {profile.firstName} {profile.surname} </p>
+                <p className="caps"> {profile.firstName} {profile.surname} </p>
                 <p id="Bio"> {profile.bio || "Add a bio"} </p>
               </div>
             </div>
@@ -268,7 +265,6 @@ class Profile extends Component {
                                     favorite={favorite}
                                     key={index}
                                     deleteFavorite={deleteFavorite}
-                                    message={delMessage}
                                   />)
                               })
                             }

@@ -18,7 +18,6 @@ export default (state = initialState, action = {}) => {
     case DELETE_REVIEW:
       return {
         ...state,
-        message: action.data.message,
         reviews: state.reviews.filter(review => review.id !== action.payload),
       };
     default: return state;
