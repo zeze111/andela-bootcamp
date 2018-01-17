@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getAllRecipes } from '../../actions/recipeActions';
+import {
+  getAllRecipes,
+  getMostUpvotedRecipe
+} from '../../actions/recipeActions';
 import Slide from './Slide';
-import PopularContent from './PopularContent';
+import UpvotedContent from './UpvotedContent';
 import AllContent from './AllContent';
+import PreLoader from '../common/PreLoader';
 import '../../assets/style.scss';
 import '../../assets/init';
 
@@ -18,26 +22,36 @@ import '../../assets/init';
  */
 class Homepage extends Component {
   /**
-   * @memberof Home
-   * @return {void}
-   */
-  componentWillMount() {
-    $(document).ready(() => {
-      $('.dropown-button').dropdown();
-      $('.materialboxed').materialbox();
-      $('.tooltip').tooltip({ delay: 20 });
-      Materialize.updateTextFields();
-      $('select').material_select();
-    });
-  }
-
-  /**
+   * @description Constructor Function
    * @param {any} props
    * @memberof Home
    * @return {void}
    */
-  componentDidMount() {
-    this.props.getAllRecipes();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: true
+    };
+  }
+
+  /**
+   * @memberof Home
+   * @return {void}
+   */
+  componentWillMount() {
+    $('.dropown-button').dropdown();
+    $('.materialboxed').materialbox();
+    $('.tooltip').tooltip({ delay: 20 });
+    $('select').material_select();
+    this.props.getAllRecipes()
+      .then(() => {
+        this.setState({ isLoading: false });
+      });
+    this.props.getMostUpvotedRecipe()
+      .then(() => {
+        this.setState({ isLoading: false });
+      });
   }
 
   /**
@@ -47,11 +61,34 @@ class Homepage extends Component {
    */
   render() {
     const allRecipes = (this.props.recipes) ? (this.props.recipes) : [];
+    const upvoted = (this.props.upvotedRecipes) ? (this.props.upvotedRecipes) : [];
     return (
       <div id="homepageBody">
         <main>
           <Slide />
-          <PopularContent />
+          <div className="container full-container">
+            <br /> <br />
+            <h5 className="black-text lighten-3"> MOST UPVOTED RECIPES </h5>
+            <div className="row">
+              {
+                (this.state.isLoading) &&
+                <div className="center-align loader-style min-preloader">
+                  <PreLoader />
+                </div>
+              }
+              {(!this.state.isLoading) &&
+                <ul className="categories flex-container-homepage">
+                  {
+                    upvoted.map((recipe, index) => (
+                      <UpvotedContent
+                        recipe={recipe}
+                        key={index}
+                      />))
+                  }
+                </ul>
+              }
+            </div>
+          </div>
           <div className="container full-container">
             <br /> <br />
             <Link
@@ -61,15 +98,23 @@ class Homepage extends Component {
               <h5 className="light teal-text"> ALL RECIPES </h5>
             </Link>
             <div className="row remove-margin-bottom">
-              <ul className="categories flex-container-homepage">
-                {
+              {
+                (this.state.isLoading) &&
+                <div className="center-align loader-style min-preloader">
+                  <PreLoader />
+                </div>
+              }
+              {(!this.state.isLoading) &&
+                <ul className="categories flex-container-homepage">
+                  {
                     allRecipes.map((recipe, index) => (
                       <AllContent
                         recipe={recipe}
                         key={index}
                       />))
                   }
-              </ul>
+                </ul>
+              }
             </div>
           </div>
         </main>
@@ -80,11 +125,17 @@ class Homepage extends Component {
 
 Homepage.propTypes = {
   getAllRecipes: PropTypes.func.isRequired,
-  recipes: PropTypes.arrayOf(PropTypes.any).isRequired
+  getMostUpvotedRecipe: PropTypes.func.isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.any).isRequired,
+  upvotedRecipes: PropTypes.arrayOf(PropTypes.any).isRequired
 };
 
 const mapStateToProps = state => ({
-  recipes: state.recipeReducer.recipes
+  recipes: state.recipeReducer.recipes,
+  upvotedRecipes: state.recipeReducer.upvotedRecipes
 });
 
-export default connect(mapStateToProps, { getAllRecipes })(Homepage);
+export default connect(mapStateToProps, {
+  getAllRecipes,
+  getMostUpvotedRecipe
+})(Homepage);

@@ -2,8 +2,15 @@ import axios from 'axios';
 import uploadImageToCloud from '../utils/image';
 
 import {
-  CREATE_RECIPE, GET_USER_RECIPES, GET_ALL_RECIPES, DELETE_RECIPE,
-  UPDATE_RECIPE, GET_RECIPE, GET_RECIPES_CATEGORY, SEARCH_RECIPE
+  CREATE_RECIPE,
+  GET_USER_RECIPES,
+  GET_ALL_RECIPES,
+  DELETE_RECIPE,
+  UPDATE_RECIPE,
+  GET_RECIPE,
+  GET_RECIPES_CATEGORY,
+  SEARCH_RECIPE,
+  MOST_UPVOTED_RECIPES
 } from './types';
 
 /**
@@ -159,10 +166,25 @@ export function getRecipeCategory(type) {
  * @returns {object} any
  */
 export function searchRecipe(word) {
-  return dispatch => axios.get(`/api/v1/recipes/?searche=${word}`)
+  return dispatch => axios.get(`/api/v1/recipes/?search=${word}`)
     .then((response) => {
       dispatch({
         type: SEARCH_RECIPE,
+        payload: response.data,
+      });
+    });
+}
+
+/**
+ * @export {function}
+ * @param {any} word
+ * @returns {object} any
+ */
+export function getMostUpvotedRecipe() {
+  return dispatch => axios.get('/api/v1/recipes/?sort=upvotes&order=des')
+    .then((response) => {
+      dispatch({
+        type: MOST_UPVOTED_RECIPES,
         payload: response.data,
       });
     });

@@ -3,31 +3,36 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
-const AllContent = ({
+const UpvotedContent = ({
   recipe: {
-    id, name, prepTime, image
+    recipeId, upvotes, Recipe
   }
 }) => {
-  const show = `${name.substring(0, 10)}...`;
+  const vote = (
+    <span >
+      <i className="material-icons home-icon">thumb_up</i> {upvotes}
+    </span>
+  );
+  const show = `${Recipe.name.substring(0, 10)}...`;
   return (
     <li >
       <div className="col s2 offset-1">
         <div className="card hoverable grey lighten-4 home-cards">
           <div className="card-image">
             <img
-              src={image || '/images/noimg.png'}
+              src={Recipe.image || '/images/noimg.png'}
               alt="recipe"
               className="responsive-img image-style"
             />
             <div className="card-action">
               <Link
-                to={`/recipe/${id}`}
-                href={`/recipe/${id}`}
+                to={`/recipe/${recipeId}`}
+                href={`/recipe/${recipeId}`}
                 className="home-text-style"
-                data-tip={name}
+                data-tip={Recipe.name}
               > {show}
                 <ReactTooltip />
-              </Link> {prepTime}
+              </Link> {vote}
             </div>
           </div>
         </div>
@@ -37,8 +42,8 @@ const AllContent = ({
   );
 };
 
-AllContent.propTypes = {
+UpvotedContent.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default AllContent;
+export default UpvotedContent;

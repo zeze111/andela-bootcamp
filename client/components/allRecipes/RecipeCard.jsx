@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 const RecipeCard = ({
   recipe: {
@@ -25,9 +25,9 @@ const RecipeCard = ({
                 href={`/recipe/${id}`}
                 className="home-text-style"
                 data-tip={name}
-              > {show} : {prepTime}
-              <ReactTooltip/>
-              </Link>
+              > {show}
+                <ReactTooltip />
+              </Link> {prepTime}
             </div>
           </div>
         </div>
