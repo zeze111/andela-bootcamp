@@ -49,10 +49,8 @@ const reviews = {
                         status: 'Successful',
                         review: createdReview,
                       });
-                    })
-                    .catch(error => response.status(500).send(error));
-                })
-                .catch(error => response.status(500).send(error));
+                    });
+                });
             } else {
               response.status(406).json({
                 status: 'Unsuccessful',
@@ -101,6 +99,7 @@ const reviews = {
             response.status(200).json({
               status: 'Successful',
               message: 'No Reviews Posted Yet',
+              reviews: []
             });
           } else {
             response.status(200).json({

@@ -108,6 +108,9 @@ const recipes = {
           'ingredients',
           'image'
         ],
+        order: [
+          ['createdAt', 'DESC'],
+        ],
         limit: request.query.limit,
         offset: request.query.offset,
       })
@@ -124,6 +127,9 @@ const recipes = {
             $ilike: `%${request.query.type}%`,
           },
         },
+        order: [
+          ['createdAt', 'DESC'],
+        ],
       })
         .then((recipesFound) => {
           if (recipesFound.length === 0) {
@@ -179,7 +185,9 @@ const recipes = {
         'ingredients',
         'image'
       ],
-      limit: 5,
+      order: [
+        ['createdAt', 'DESC'],
+      ],
     }).then((allRecipes) => {
       if (allRecipes.length === 0) {
         response.status(200).json({
@@ -359,6 +367,9 @@ const recipes = {
       const requestid = parseInt(request.params.userId, 10);
       Recipe.findAll({
         where: { userId: request.decoded.id },
+        order: [
+          ['createdAt', 'DESC'],
+        ],
       })
         .then((userRecipes) => {
           if (userRecipes.length === 0) { // checks if list is empty
@@ -378,69 +389,6 @@ const recipes = {
     }
   },
 
-  /** Searchs for a recipe by name or ingredients
-  * @param {Object} request - request object
-  * @param {Object} response - response object
-  * @returns {Object} response object
-  */
-  searchRecipe(request, response) {
-    Recipe.findAll({
-      where: {
-        $or: [{
-          name: {
-            $like: `%${decodeURIComponent(request.query.search)}%`,
-          },
-          ingredients: {
-            $like: `%${decodeURIComponent(request.query.search)}%`,
-          },
-        }],
-      },
-    })
-      .then((searchFound) => {
-        if (searchFound.length === 0) { // checks if search is empty
-          response.status(404).json({
-            status: 'Unsuccessful',
-            message: 'Recipe not found',
-          });
-        } else {
-          response.status(200).json({
-            status: 'Successful',
-            recipe: searchFound,
-          });
-        }
-      })
-      .catch(error => response.status(500).send(error));
-  },
-
-
-  /** Gets the Recipes to a particular category
-  * @param {Object} request - request object
-  * @param {Object} response - response object
-  * @returns {Object} response object
-  */
-  getCategory(request, response) {
-    Recipe.findAll({
-      where: {
-        type: {
-          $like: `%${request.query.type}%`,
-        },
-      },
-    })
-      .then((recipesFound) => {
-        if (recipesFound.length === 0) {
-          response.status(404).json({
-            status: 'Unsuccessful',
-            message: 'Recipe not found',
-          });
-        } else {
-          response.status(200).json({
-            status: 'Successful',
-            recipes: recipesFound,
-          });
-        }
-      })
-      .catch(error => response.status(500).send(error));
-  },
 };
 
 export default recipes;

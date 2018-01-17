@@ -14,9 +14,7 @@ export function favoriteRecipe(recipeId) {
         payload: response.data,
       });
     })
-    .catch((error) => {
-      return error;
-    });
+    .catch(error => error);
 }
 
 /**
@@ -42,7 +40,9 @@ export function getFavoriteRecipes(userId) {
 export function deleteFavorite(recipeId) {
   return dispatch => axios.delete(`/api/v1/favorites/${recipeId}/recipe`)
     .then((response) => {
+      Materialize.toast(`<span> ${response.data.message}</span>`, 2000);
       response.data.recipeId = recipeId;
+
       dispatch({
         type: DELETE_FAVORITE,
         payload: response.data,

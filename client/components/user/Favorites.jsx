@@ -18,16 +18,7 @@ class Favorites extends Component {
    * @return {void}
    */
   clickEvent = (event) => {
-    this.props.deleteFavorite(this.props.favorite.id)
-      .then(() => {
-        this.setState({ isLoading: false });
-        if (this.props.message) {
-          console.log(this.props.message);
-        }
-
-        // const $toastContent = $(`<span>${this.props.message}</span>`)
-        // Materialize.toast($toastContent, 2000);
-      });
+    this.props.deleteFavorite(this.props.favorite.id);
   }
 
   /**

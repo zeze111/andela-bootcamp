@@ -16,11 +16,7 @@ class Reviews extends Component {
    * @return {void}
    */
   reviewClickEvent = (event) => {
-    this.props.deleteReview(this.props.review.id)
-      .then(() => {
-        const $toastContent = $(`<span>${this.props.message}</span>`)
-        Materialize.toast($toastContent, 2000);
-      })
+    this.props.deleteReview(this.props.review.id);
   }
 
   /**

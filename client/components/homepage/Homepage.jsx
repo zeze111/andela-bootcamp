@@ -99,7 +99,7 @@ class Homepage extends Component {
             </Link>
             <div className="row remove-margin-bottom">
               {
-                (this.state.isLoading) &&
+                this.state.isLoading &&
                 <div className="center-align loader-style min-preloader">
                   <PreLoader />
                 </div>
@@ -107,7 +107,7 @@ class Homepage extends Component {
               {(!this.state.isLoading) &&
                 <ul className="categories flex-container-homepage">
                   {
-                    allRecipes.map((recipe, index) => (
+                    allRecipes.slice(0, 5).map((recipe, index) => (
                       <AllContent
                         recipe={recipe}
                         key={index}
