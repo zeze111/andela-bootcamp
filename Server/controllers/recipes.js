@@ -65,27 +65,28 @@ const recipes = {
         where: {
           vote: 1,
         },
-        attributes: ['recipeId', [Sequelize.fn('count', Sequelize.col('vote')), 'Upvotes']],
+        attributes: ['recipeId', [Sequelize.fn('count', Sequelize.col('vote')), 'upvotes']],
         include: [{
           model: Recipe,
-          attributes: ['name', 'type', 'prepTime'],
+          attributes: ['name', 'type', 'prepTime', 'image'],
         }],
         order: [
-          ['vote', 'DESC'],
+          [Sequelize.literal('upvotes'), 'DESC'],
         ],
         group: ['recipeId', 'vote', 'Recipe.id'],
-        limit: 6,
+        limit: 5,
       })
         .then((popularRecipes) => {
           if (popularRecipes.length === 0) {
             response.status(200).json({
               status: 'Successful',
               message: 'There Are Currently No Popular Recipes',
+              recipes: []
             });
           } else {
             response.status(200).json({
               status: 'Successful',
-              drecipes: popularRecipes,
+              recipes: popularRecipes,
             });
           }
         });
@@ -120,7 +121,7 @@ const recipes = {
       Recipe.findAll({
         where: {
           type: {
-            $iLike: `%${request.query.type}%`,
+            $ilike: `%${request.query.type}%`,
           },
         },
       })
@@ -142,19 +143,21 @@ const recipes = {
         where: {
           $or: [{
             name: {
-              $iLike: `%${request.query.search}%`,
+              $ilike: `%${request.query.search}%`,
             },
+          },
+          {
             ingredients: {
-              $iLike: `%${request.query.search}%`,
+              $ilike: `%${request.query.search}%`,
             },
           }],
         },
       })
         .then((searchFound) => {
-          if (searchFound.length === 0) { // checks if search is empty
-            response.status(404).json({
+          if (searchFound.length === 0) {
+            response.status(200).json({
               status: 'Unsuccessful',
-              message: 'Recipe not found',
+              message: 'Recipe(s) Not Found',
               recipes: []
             });
           } else {
@@ -362,6 +365,7 @@ const recipes = {
             response.status(200).json({
               status: 'Successsful',
               message: 'You Currently Have No Recipes',
+              recipes: []
             });
           } else {
             response.status(200).json({

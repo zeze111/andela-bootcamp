@@ -71,9 +71,7 @@ class RecipeDetails extends Component {
    * @return {void}
    */
   componentDidMount() {
-    setTimeout(() => {
-      this.props.getARecipe(this.props.match.params.recipeId);
-    }, 3000);
+    this.props.getARecipe(this.props.match.params.recipeId);
 
     this.props.getUpvotes(this.props.match.params.recipeId);
     this.props.getDownvotes(this.props.match.params.recipeId);

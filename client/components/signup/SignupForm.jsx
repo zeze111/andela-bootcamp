@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Validator from 'validatorjs';
 import validations from '../../../Server/shared/validations';
 import { TextFieldGroup } from '../common/TextFieldGroup';
+import PreLoader from '../common/PreLoader';
 
 /**
  *
@@ -91,9 +92,9 @@ class SignupForm extends React.Component {
       <div>
         <form onSubmit={this.onSubmit} className="col s5 offset-s4"> <br />
           {errors &&
-          <span className="red-text error-text">
-            {errors.message}
-          </span>}
+            <span className="red-text error-text">
+              {errors.message}
+            </span>}
           <TextFieldGroup
             label="First Name"
             value={this.state.firstName}
@@ -140,11 +141,11 @@ class SignupForm extends React.Component {
             error={errors.password_confirmation}
           />
           <div className="right-align">
-          {
+            {
               (this.state.isLoading) &&
               <div className="center-align loader-style">
-              <PreLoader />
-            </div>
+                <PreLoader />
+              </div>
             }
             <input
               className="btn grey white-text"

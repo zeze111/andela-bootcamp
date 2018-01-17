@@ -79,7 +79,8 @@ main {
 }
 
 .error-message {
-  min-height: 17em !important;
+  min-height: 5.5em !important;
+  font-size: 35px;
 }
 
 .dropdown-btn {
@@ -129,6 +130,10 @@ main {
   }
 }
 
+.home-icon {
+  color: gold;
+}
+
 .home-cards{
   height: 250px;
   width: 230px;
@@ -137,6 +142,7 @@ main {
   }
   .home-text-style {
     font-size: 14px;
+    color: rgb(0, 184, 184) !important;
   }
 }
 

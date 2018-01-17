@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
-import { getAllRecipes, getRecipeCategory } from '../../actions/recipeActions';
+import { getAllRecipes, getRecipeCategory, searchRecipe } from '../../actions/recipeActions';
 import PreLoader from '../common/PreLoader';
 import '../../assets/style.scss';
 import '../../assets/init';
@@ -82,6 +82,7 @@ class AllRecipes extends Component {
    */
   onChange = (event) => {
     this.setState({ search: event.target.value });
+    this.props.searchRecipe(event.target.value);
   }
 
   /**
@@ -89,13 +90,6 @@ class AllRecipes extends Component {
    * @return {void}
    */
   render() {
-    if (!this.props.recipes) {
-      return (
-        <div className="center-align loader-style min-preloader">
-          <PreLoader />
-        </div>
-      );
-    }
 
     const allRecipes = (this.props.recipes) ? (this.props.recipes) : [];
     const appetizer = "Appetizer";
@@ -103,19 +97,8 @@ class AllRecipes extends Component {
     const dessert = "Dessert";
     const drinks = "Drinks";
 
-    let recipes = allRecipes;
-
-    const searchWord = this.state.search.trim().toLowerCase();
-    if (searchWord.length > 0) {
-      recipes = recipes.filter((found) => {
-        const results = found.name.toLowerCase().match(searchWord)
-        || found.ingredients.toLowerCase().match(searchWord);
-       return results;
-      });
-    }
-
     const noRecipes = (
-      <div className="col s12 bottom-style error-message"> {this.props.message} </div>
+      <div className="col s12 bottom-style center-align error-message"> {this.props.message} </div>
     );
     return (
       <main >
@@ -163,7 +146,7 @@ class AllRecipes extends Component {
                 </h5>
               </a>
             </div>
-            <form className="col s6 offset-s4">
+            <form className="col s7 offset-s4">
               <div className="row">
                 <div className="input-field col s6">
                   <label htmlFor="search"> </label>
@@ -198,7 +181,7 @@ class AllRecipes extends Component {
             (allRecipes.length === 0) ? noRecipes :
             <ul className="categories flex-container-homepage">
               {
-                recipes.map((recipe, index) => (
+                allRecipes.map((recipe, index) => (
                   <RecipeCard
                     recipe={recipe}
                     key={index}
@@ -215,6 +198,7 @@ class AllRecipes extends Component {
 AllRecipes.propTypes = {
   getAllRecipes: PropTypes.func.isRequired,
   getRecipeCategory: PropTypes.func.isRequired,
+  searchRecipe: PropTypes.func.isRequired,
   recipes: PropTypes.arrayOf(PropTypes.any).isRequired
 };
 
@@ -223,4 +207,8 @@ const mapStateToProps = state => ({
   message: state.recipeReducer.message
 });
 
-export default connect(mapStateToProps, { getAllRecipes, getRecipeCategory })(AllRecipes);
+export default connect(mapStateToProps, {
+  getAllRecipes,
+  getRecipeCategory,
+  searchRecipe
+})(AllRecipes);
