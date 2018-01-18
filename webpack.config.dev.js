@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-export default {
+module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
