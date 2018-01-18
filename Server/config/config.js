@@ -20,6 +20,6 @@ module.exports = {
     dialect: 'postgres',
   },
   production: {
-    use_env_variable: 'HEROKU_POSTGRESQL_COPPER_URL'
+    use_env_variable: 'HEROKU_POSTGRESQL_CYAN_URL'
   },
 };
