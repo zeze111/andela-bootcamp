@@ -54,7 +54,7 @@ app.use('/api/v1/favorites', recipes);
 
 
 app.get('/*', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+  res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 
