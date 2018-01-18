@@ -53,9 +53,12 @@ app.use('/api/v1/recipes', recipes);
 app.use('/api/v1/favorites', recipes);
 
 
-app.get('/*', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
-});
+app.use('*', express.static('build'));
+
+// app.get('*', (req, res) => {
+//   // res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
+
+// });
 
 
 const port = parseInt(process.env.PORT, 10) || 8000;
