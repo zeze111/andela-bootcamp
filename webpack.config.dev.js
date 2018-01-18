@@ -1,5 +1,5 @@
-import path from 'path';
-import webpack from 'webpack';
+const path = require('path');
+const webpack = require('webpack');
 
 export default {
   devtool: 'eval-source-map',
