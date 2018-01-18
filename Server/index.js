@@ -5,7 +5,6 @@ import path from 'path';
 import webpack from 'webpack';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackMiddleware from 'webpack-dev-middleware';
-
 import webpackConfig from '../webpack.config.dev';
 import users from './routes/users';
 import recipes from './routes/recipes';
@@ -55,7 +54,7 @@ app.use('/api/v1/favorites', recipes);
 
 
 app.get('/*', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
+  res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
 
