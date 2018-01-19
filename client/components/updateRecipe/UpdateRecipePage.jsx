@@ -35,7 +35,7 @@ class UpdateRecipePage extends Component {
               <div className="col s8 offset-s2 form-padding">
                 <div className="card z-depth-2" >
                   <span
-                    className="card-title col s3 offset-s5 teal-text inner"
+                    className="card-title col s3 offset-s5 text-color inner"
                   > UPDATE RECIPE
                   </span>
                   <UpdateRecipeForm

@@ -46,12 +46,15 @@ class Recipes extends Component {
   render() {
     return (
       <li className="collection-item">
-        <Link to={`/userRecipe/${this.props.recipe.id}`}> {this.props.recipe.name}</Link>
+        <Link
+        to={`/userRecipe/${this.props.recipe.id}`}
+        className="text-color caps"> {this.props.recipe.name}
+        </Link>
         <div className="secondary-content div-pointer2">
-          <i onClick={this.clickEvent} className="material-icons">delete</i>
+          <i onClick={this.clickEvent} className="material-icons icon-color">delete</i>
         </div>
         <Link to={`/updateRecipe/${this.props.recipe.id}`} className="secondary-content">
-          <i className="material-icons" >mode_edit</i></Link>
+          <i className="material-icons icon-color" >mode_edit</i></Link>
       </li>
     )
   };

@@ -27,7 +27,7 @@ class AddRecipePage extends React.Component {
               <div className="col s8 offset-s2 form-padding">
                 <div className="card z-depth-2">
                   <span
-                    className="card-title col s5 offset-s4 teal-text inner"
+                    className="card-title col s5 offset-s4 text-color inner"
                   > SUBMIT A RECIPE
               </span>
                   <AddRecipeForm addRecipeRequest={addRecipeRequest} />

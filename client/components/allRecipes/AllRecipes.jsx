@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
+import { Dropdown, NavItem } from 'react-materialize';
 import RecipeCard from './RecipeCard';
 import { getAllRecipes, getRecipeCategory, searchRecipe } from '../../actions/recipeActions';
 import PreLoader from '../common/PreLoader';
@@ -25,6 +26,7 @@ class AllRecipes extends Component {
     super(props);
 
     this.state = {
+      dropdown: '',
       search: '',
       isLoading: true
     };
@@ -60,7 +62,7 @@ class AllRecipes extends Component {
     this.setState({ isLoading: true });
     this.props.getRecipeCategory(event)
       .then(() => {
-        this.setState({ isLoading: false })
+        this.setState({ dropdown: event, isLoading: false })
       });
   }
 
@@ -68,11 +70,11 @@ class AllRecipes extends Component {
    * @memberof Home
    * @return {void}
    */
-  onSelectAllRecipes = () => {
+  onSelectAllRecipes = (event) => {
     this.setState({ isLoading: true });
     this.props.getAllRecipes()
       .then(() => {
-        this.setState({ isLoading: false })
+        this.setState({ dropdown: event, isLoading: false })
       });
   }
 
@@ -96,6 +98,7 @@ class AllRecipes extends Component {
     const main = "Main";
     const dessert = "Dessert";
     const drinks = "Drinks";
+    const all = "All Recipes"
 
     const noRecipes = (
       <div className="col s12 bottom-style center-align error-message"> {this.props.message} </div>
@@ -105,57 +108,61 @@ class AllRecipes extends Component {
         <div className="container full-container">
           <div className="row">
             <div className="col s3">
-              <ul id="recipesdrop" className="dropdown-content content-recipes">
-                <li className="grey-text default-droplist">
-                  <div>Select Category</div>
-                </li>
-                <li className="content-text">
-                  <div
-                    className="btn-flat dropdown-btn"
-                    onClick={() => this.onSelectAllRecipes()}>All Recipes
+              <Dropdown className="content-recipes"
+                trigger={
+                  <div className="div-pointer">
+                    <h5 className="light top caps2"> {this.state.dropdown || all}
+                      <i className="material-icons">arrow_drop_down</i>
+                    </h5>
                   </div>
-                </li>
-                <li className="content-text">
-                  <div
-                    className="btn-flat dropdown-btn"
-                    onClick={() => this.onSelectCategory(appetizer)}>{appetizer}
+                }>
+                <ul>
+                  <li className="grey-text default-droplist">
+                    <div>Select Category</div>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-btn"
+                      onClick={() => this.onSelectAllRecipes(all)}>All Recipes
                   </div>
-                </li>
-                <li className="content-text">
-                  <div
-                    className="btn-flat dropdown-btn"
-                    onClick={() => this.onSelectCategory(main)}>{main}
-                  </div>
-                </li>
-                <li className="content-text">
-                  <div
-                    className="btn-flat dropdown-btn"
-                    onClick={() => this.onSelectCategory(dessert)}>{dessert}
-                  </div>
-                </li>
-                <li className="content-text">
-                  <div
-                    className="btn-flat dropdown-btn"
-                    onClick={() => this.onSelectCategory(drinks)}>{drinks}
-                  </div>
-                </li>
-              </ul>
-              <a href="#" className="dropdown-button" data-activates="recipesdrop">
-                <h5 className="light teal-text darken-4 top"> ALL RECIPES
-                <i className="material-icons">arrow_drop_down</i>
-                </h5>
-              </a>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-btn"
+                      onClick={() => this.onSelectCategory(appetizer)}>{appetizer}
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-btn"
+                      onClick={() => this.onSelectCategory(main)}>{main}
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-btn"
+                      onClick={() => this.onSelectCategory(dessert)}>{dessert}
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      className="dropdown-btn"
+                      onClick={() => this.onSelectCategory(drinks)}>{drinks}
+                    </div>
+                  </li>
+                </ul>
+              </Dropdown>
             </div>
             <form className="col s7 offset-s4">
               <div className="row">
                 <div className="input-field col s6">
                   <label htmlFor="search"> </label>
                   <input
-                  placeholder="Search for Recipes"
-                  type="text"
-                  id="search"
-                  value={this.state.search}
-                  onChange={this.onChange}
+                    placeholder="Search for Recipes"
+                    type="text"
+                    id="search"
+                    value={this.state.search}
+                    onChange={this.onChange}
                   />
                 </div>
                 <div className="col s6">

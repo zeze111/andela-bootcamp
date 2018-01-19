@@ -31,12 +31,12 @@ class Favorites extends Component {
     return (
       <div>
         <li className="collection-item">
-          <Link to={`/userRecipe/${favorite.id}`} className="caps">
+          <Link to={`/userRecipe/${favorite.id}`} className="caps text-color">
             {favorite.name} <span className="black-text" >
               posted by {favorite.User.firstName} {favorite.User.surname} </span>
           </Link>
           <div className="secondary-content div-pointer2">
-            <i onClick={this.clickEvent} className="material-icons">delete</i>
+            <i onClick={this.clickEvent} className="material-icons icon-color">delete</i>
           </div>
         </li>
       </div>

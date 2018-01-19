@@ -173,8 +173,8 @@ class Profile extends Component {
               </div>
               <div className="col s7 pull-s1 grey-text text-lighten-2">
                 <br /> <br /> <br />
-                <p className="caps"> {profile.firstName} {profile.surname} </p>
-                <p id="Bio"> {profile.bio || "Add a bio"} </p>
+                <p className="caps error-text"> {profile.firstName} {profile.surname} </p>
+                <p id="Bio" className="error-text"> {profile.bio || "Add a bio"} </p>
               </div>
             </div>
             <div className="row">

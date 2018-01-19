@@ -17,7 +17,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
     './client/Index.jsx',
   ],
   output: {

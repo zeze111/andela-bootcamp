@@ -28,6 +28,7 @@ class RecipeDetails extends Component {
     super(props);
 
     this.state = {
+      icon: 'star_border',
       ingredients: '',
       creator: {},
       upvotes: 0,
@@ -72,7 +73,6 @@ class RecipeDetails extends Component {
    */
   componentDidMount() {
     this.props.getARecipe(this.props.match.params.recipeId);
-
     this.props.getUpvotes(this.props.match.params.recipeId);
     this.props.getDownvotes(this.props.match.params.recipeId);
     this.props.getReviews(this.props.match.params.recipeId);
@@ -107,6 +107,11 @@ class RecipeDetails extends Component {
       .then(() => {
         const $toastContent = $(`<span>${this.props.message}</span>`)
         Materialize.toast($toastContent, 2000);
+        if (this.props.message.includes('added')) {
+          this.setState({ icon: 'star' });
+        } else {
+          this.setState({ icon: 'star_border' });
+        }
       });
   }
 
@@ -141,14 +146,6 @@ class RecipeDetails extends Component {
    * @return {void}
    */
   render() {
-    if (!this.props.recipe) {
-      return (
-        <div className="center-align loader-style">
-          <PreLoader />
-        </div>
-      );
-    }
-
     if (redirect) {
       return <Redirect to='/user' />;
     }
@@ -185,9 +182,9 @@ class RecipeDetails extends Component {
       <div >
         <div className="col s4 offset-s7 creator">
           <Link to={`/updateRecipe/${recipe.id}`}
-            className="waves-effect waves-light orange-text">
+            className="waves-effect waves-light text-color">
             Edit this recipe</Link>
-          <div className=" waves-effect waves-light orange-text right div-pointer text-style"
+          <div className=" waves-effect waves-light text-color right div-pointer text-style"
             onClick={this.clickEvent}>Delete this recipe</div>
         </div>
       </div>
@@ -207,15 +204,15 @@ class RecipeDetails extends Component {
                   <img src={recipe.image || '/images/noimg.png'}
                     className="materialboxed responsive-img pic-style" />
                 </div>
-                <div className="card-action card-buttons">
+                <div className="card-action card-buttons action-icons">
                   <div className="div-pointer" onClick={this.onUpvote}>
-                    <i className="col s2 material-icons right-align">thumb_up</i></div>
-                  <p className="col s1 vote-up-style icon" > {this.state.upvotes} </p>
+                    <i className="col s2 material-icons icon-color right-align">thumb_up</i></div>
+                  <p className="col s1 vote-up-style icon upvotes-text" > {this.state.upvotes} </p>
                   <div className="div-pointer" onClick={this.onDownvote}>
-                    <i className="col s2 push-s1 material-icons right-align">thumb_down</i></div>
-                  <p className="col s1 icon" > {this.state.downvotes} </p>
+                    <i className="col s2 push-s1 material-icons icon-color downvote right-align">thumb_down</i></div>
+                  <p className="col s1 icon downvote downvote2" > {this.state.downvotes} </p>
                   <div className="col s2 push-s2 right-align div-pointer" onClick={this.onClickFave}>
-                    <i className="material-icons">star_border</i></div>
+                    <i className="material-icons small icon-color favorite">{this.state.icon}</i></div>
                 </div>
               </div>
             </div>
@@ -227,7 +224,7 @@ class RecipeDetails extends Component {
                 </div>
                 <div className="col s12 ">
                   {this.state.creator &&
-                    <p className="title-details top-style"> Posted by <a className="orange-text title-details" href="user-recipe.html">
+                    <p className="title-details top-style"> Posted by <a className="text-color title-details" href="user-recipe.html">
                       {this.state.creator.firstName} </a> </p>
                   }
                 </div>
@@ -239,7 +236,7 @@ class RecipeDetails extends Component {
                   </p> <br />
                 </div>
                 <div className="col s12">
-                  <a href="#rev" className="scrollspy orange-text remove-margin-bottom"> Reviews </a>
+                  <a href="#rev" className="scrollspy text-color remove-margin-bottom"> Reviews </a>
                 </div>
               </div>
             </div>

@@ -233,7 +233,8 @@ class AddRecipeForm extends React.Component {
                 <input
                   className="btn grey"
                   type="submit"
-                  value="Submit" />
+                  value="Submit"
+                />
               </div> <br />
             </div>
           </form>
