@@ -88,8 +88,10 @@ main {
   color: orange;
   text-transform: capitalize;
   font-size: 18px;
+  padding-left: 1em;
+  padding-top: 10px;
   width: 100%;
-  height: 2.8em;
+  height: 2em;
 }
 
 .min-preloader {
@@ -130,9 +132,56 @@ main {
   }
 }
 
-.home-icon {
-  color: gold;
+#nav-mobile.side-nav {
+  width: 200px !important;
+  height: 198px !important;
+  background-color: rgb(211, 132, 6) !important;
 }
+
+.nav-list {
+  padding-left: 10px;
+  height: 3em;
+  .list-item {
+    position: relative;
+    bottom: 3.5em;
+  }
+}
+
+.home-icon {
+  position: relative;
+  color: gold;
+  top: 5px;
+}
+
+.text-color {
+  color: rgb(184, 84, 2) !important;
+}
+
+.icon-color {
+  color: #FFB63D;
+}
+
+  .upvotes-text{
+    position: relative;
+    top: 3px;
+    right: 8px !important;
+  }
+
+  .downvote {
+    position: relative;
+    top: 2px;
+  }
+
+  .downvote2 {
+    margin-left: 27px !important;
+    padding-left: 1em !important;
+  }
+
+  .favorite {
+    position: relative;
+    bottom: 3px;
+  }
+
 
 .home-cards{
   height: 250px;
@@ -142,7 +191,7 @@ main {
   }
   .home-text-style {
     font-size: 14px;
-    color: rgb(0, 184, 184) !important;
+    color: rgb(184, 84, 2) !important;
   }
 }
 
@@ -173,6 +222,10 @@ main {
 
 .caps {
   text-transform: capitalize;
+}
+
+.caps2 {
+  text-transform: uppercase;
 }
 
 .bottom-style {
@@ -245,7 +298,7 @@ main {
 }
 
 .div-pointer {
-  color: #ffb340 ;
+  color: rgb(184, 84, 2) ;
   cursor: pointer;
 }
 
@@ -260,7 +313,7 @@ main {
 }
 
 .nav-color {
-  background-color: #af9c1d;
+  background-color: rgb(211, 132, 6);
 }
 
 .recipe {

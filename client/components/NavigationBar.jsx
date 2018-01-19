@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Dropdown, NavItem } from 'react-materialize';
 import { signout } from '../actions/signinActions';
 
 /**
@@ -92,15 +93,72 @@ class NavigationBar extends Component {
             </Link>
           </li>
           <li>
-            <div className="dropdown-button caps div-pointer2" data-activates="userdrop">{this.state.firstName}
-              <i className="material-icons right">arrow_drop_down</i>
-            </div>
+            <Dropdown
+              trigger={
+                <div className="caps div-pointer2">{this.state.firstName}
+                  <i className="material-icons right">arrow_drop_down</i>
+                </div>}
+            >
+              <NavItem
+                to="/user"
+                href="/user"
+              >
+                <div
+                  className="text-color"
+                >Profile
+                </div>
+              </NavItem>
+              <NavItem
+                to="/"
+                href="/"
+                onClick={this.signout}
+              >
+                <div
+                  className="text-color"
+                >Sign Out
+                </div>
+              </NavItem>
+            </Dropdown>
+
           </li>
         </ul>
         <ul id="nav-mobile" className="side-nav">
-          <li><a href="/addRecipe">Add</a></li>
-          <li><a href="/user">Favourites</a></li>
-          <li><a href="#" className="caps" >{this.state.firstName}</a></li>
+          <li className="nav-list"><i className="material-icons">add</i>
+            <Link
+              to="/addRecipe"
+              href="/addRecipe"
+              className="white-text list-item"
+            >Add A Recipe
+            </Link>
+          </li>
+          <li className="nav-list">
+            <i className="material-icons">star</i>
+            <Link
+              to="/user"
+              href="/user"
+              className="white-text list-item"
+            >Favourites
+            </Link>
+          </li>
+          <li className="nav-list">
+            <i className="material-icons">person</i>
+            <Link
+              to="/user"
+              href="/user"
+              className="caps white-text list-item"
+            >{this.state.firstName}
+            </Link>
+          </li>
+          <li className="nav-list">
+            <i className="material-icons">keyboard_tab</i>
+            <Link
+              to="/"
+              href="/"
+              className="white-text list-item"
+              onClick={this.signout}
+            >Sign Out
+            </Link>
+          </li>
         </ul>
       </div>
     );
@@ -118,10 +176,6 @@ class NavigationBar extends Component {
 
     return (
       <header>
-        <ul id="userdrop" className="dropdown-content">
-          <li><Link to="/user" href="/user">Profile</Link></li>
-          <li><Link to="/" href="/" onClick={this.signout}>Sign Out</Link></li>
-        </ul>
         <nav className="nav-color">
           <div className="nav-wrapper ">
             <Link

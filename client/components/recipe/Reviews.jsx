@@ -28,7 +28,7 @@ class Reviews extends Component {
 
     const reviewUser = (
       <a href="#" className="secondary-content">
-        <i onClick={this.reviewClickEvent} className="material-icons">delete</i>
+        <i onClick={this.reviewClickEvent} className="material-icons icon-color">delete</i>
       </a>
     );
 

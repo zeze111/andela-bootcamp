@@ -14,7 +14,7 @@ const initialState = {
   recipes: [],
   upvotedRecipes: [],
   currentRecipe: {},
-  message: ''
+  message: '',
 };
 
 export default (state = initialState, action = {}) => {
@@ -34,6 +34,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         recipes: action.payload.recipes,
+        message: action.payload.message
       };
     case GET_RECIPES_CATEGORY:
       return {

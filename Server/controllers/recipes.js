@@ -161,17 +161,16 @@ const recipes = {
       })
         .then((searchFound) => {
           if (searchFound.length === 0) {
-            response.status(200).json({
+            return response.status(200).json({
               status: 'Unsuccessful',
               message: 'Recipe(s) Not Found',
               recipes: []
             });
-          } else {
-            response.status(200).json({
-              status: 'Successful',
-              recipes: searchFound,
-            });
           }
+          return response.status(200).json({
+            status: 'Successful',
+            recipes: searchFound,
+          });
         });
     }
 
