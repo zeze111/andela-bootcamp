@@ -1,8 +1,9 @@
 import Validator from 'validatorjs';
 import Sequelize from 'sequelize';
+
 import { Recipe, Rating, User } from '../models';
 import validations from '../shared/validations';
-import paginationData from '../shared/helper';
+import { paginationData } from '../shared/helper';
 
 const recipes = {
 
@@ -11,7 +12,7 @@ const recipes = {
   * @param {Object} response - response object
   * @returns {Object} response object
   */
-  addRecipe(request, response) {
+  create(request, response) {
     const validator = new Validator(request.body, validations.recipeRules);
     if (validator.passes()) {
       Recipe.findOne({
@@ -40,12 +41,11 @@ const recipes = {
           })
             .then(recipe => response.status(201).json({
               status: 'Success',
-              recipeId: recipe.dataValues.id,
               recipe,
             }));
         });
     } else {
-      return response.status(406).json({
+      return response.status(422).json({
         status: 'Unsuccessful',
         message: 'Invalid data input',
         errors: validator.errors.all(),
@@ -53,19 +53,24 @@ const recipes = {
     }
   },
 
-  /** Retrieves Popular Recipes / all Recipes in the database
+  /** Retrieves Popular Recipes /
+   * paginated all Recipes /
+   * searched recipes by search input /
+   * by searched categories in the database
   * @param {Object} request - request object
   * @param {Object} response - response object
   * @returns {Object} response object
   */
-  getAllRecipes(request, response) {
-    // returns a list of popular recipes, request has a '?' in it's header paramater
+  getAll(request, response) {
     if (request.query.sort) {
       return Rating.findAll({
         where: {
           vote: 1,
         },
-        attributes: ['recipeId', [Sequelize.fn('count', Sequelize.col('vote')), 'upvotes']],
+        attributes: [
+          'recipeId',
+          [Sequelize.fn('count', Sequelize.col('vote')), 'upvotes']
+        ],
         include: [{
           model: Recipe,
           attributes: ['name', 'type', 'prepTime', 'image'],
@@ -78,7 +83,7 @@ const recipes = {
       })
         .then((popularRecipes) => {
           if (popularRecipes.length === 0) {
-            response.status(200).json({
+            response.status(204).json({
               status: 'Successful',
               message: 'There Are Currently No Popular Recipes',
               recipes: []
@@ -117,7 +122,11 @@ const recipes = {
         .then(({ rows, count }) => response.status(200).json({
           status: 'Successful',
           rows,
-          pagination: paginationData(count, request.query.limit, request.query.offset)
+          pagination: paginationData(
+            count,
+            request.query.limit,
+            request.query.offset
+          )
 
         }));
     } else if (request.query.type) {
@@ -133,7 +142,7 @@ const recipes = {
       })
         .then((recipesFound) => {
           if (recipesFound.length === 0) {
-            return response.status(200).json({
+            return response.status(204).json({
               status: 'Successful',
               message: 'No Recipes In That Category Yet',
               recipes: []
@@ -161,7 +170,7 @@ const recipes = {
       })
         .then((searchFound) => {
           if (searchFound.length === 0) {
-            return response.status(200).json({
+            return response.status(204).json({
               status: 'Unsuccessful',
               message: 'Recipe(s) Not Found',
               recipes: []
@@ -189,7 +198,7 @@ const recipes = {
       ],
     }).then((allRecipes) => {
       if (allRecipes.length === 0) {
-        response.status(200).json({
+        response.status(204).json({
           status: 'Successful',
           message: 'There Are Currently No Recipes',
         });
@@ -208,15 +217,15 @@ const recipes = {
   * @param {Object} response - response object
   * @returns {Object} response object
   */
-  updateRecipe(request, response) {
+  update(request, response) {
     if (Number.isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const recipeid = parseInt(request.params.recipeId, 10);
-      Recipe.findById(recipeid)
+      const recipeId = parseInt(request.params.recipeId, 10);
+      Recipe.findById(recipeId)
         .then((recipe) => {
           if (!recipe) {
             response.status(404).json({
@@ -224,18 +233,30 @@ const recipes = {
               message: 'Recipe Not Found',
             });
           } else if (recipe.userId === request.decoded.id) {
-            if (request.body.name || request.body.description || request.body.prepTime || request.body.image
-              || request.body.type || request.body.ingredients || request.body.instructions) {
-              const validator = new Validator(request.body, validations.updateRecipeRules);
+            const {
+              name,
+              description,
+              prepTime,
+              image,
+              type,
+              ingredients,
+              instructions
+            } = request.body;
+            if (name || description || prepTime || image
+              || type || ingredients || instructions) {
+              const validator = new Validator(
+                request.body,
+                validations.updateRecipeRules
+              );
               if (validator.passes()) {
                 recipe.update({
-                  name: request.body.name || recipe.name,
-                  description: request.body.description || recipe.description,
-                  prepTime: request.body.prepTime || recipe.prepTime,
-                  type: request.body.type || recipe.type,
-                  ingredients: request.body.ingredients || recipe.ingredients,
-                  instructions: request.body.instructions || recipe.instructions,
-                  image: request.body.image || recipe.image,
+                  name: name || recipe.name,
+                  description: description || recipe.description,
+                  prepTime: prepTime || recipe.prepTime,
+                  type: type || recipe.type,
+                  ingredients: ingredients || recipe.ingredients,
+                  instructions: instructions || recipe.instructions,
+                  image: image || recipe.image,
                 })
                   .then((updatedRecipe) => {
                     response.status(200).json({
@@ -252,14 +273,14 @@ const recipes = {
                     });
                   });
               } else {
-                response.status(406).json({
+                response.status(422).json({
                   status: 'Unsuccessful',
                   message: 'Invalid data input',
                   errors: validator.errors.all(),
                 });
               }
             } else {
-              response.status(406).json({
+              response.status(400).json({
                 status: 'Unsuccessful',
                 message: 'Must input data',
               });
@@ -267,7 +288,7 @@ const recipes = {
           } else {
             response.status(403).json({
               status: 'Unsuccessful',
-              message: 'You are Not Aauthorized to Update This Recipe',
+              message: 'You are Not Authorized to Update This Recipe',
             });
           }
         })
@@ -280,15 +301,15 @@ const recipes = {
   * @param {Object} response - response object
   * @returns {Object} response object
   */
-  deleteRecipe(request, response) {
+  delete(request, response) {
     if (Number.isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const recipeid = parseInt(request.params.recipeId, 10);
-      Recipe.findById(recipeid)
+      const recipeId = parseInt(request.params.I, 10);
+      Recipe.findById(recipeId)
         .then((recipe) => {
           if (!recipe) {
             response.status(404).json({
@@ -298,7 +319,7 @@ const recipes = {
           } else if (recipe.userId === request.decoded.id) {
             recipe.destroy()
               .then(() => {
-                response.status(200).json({
+                response.status(204).json({
                   status: 'Successful',
                   message: `${recipe.name} has been deleted`,
                 });
@@ -307,7 +328,7 @@ const recipes = {
           } else {
             response.status(403).json({
               status: 'Unsuccessful',
-              message: 'You are Not Aauthorized to Delete This Recipe',
+              message: 'You are Not Authorized to Delete This Recipe',
             });
           }
         })
@@ -320,16 +341,16 @@ const recipes = {
   * @param {Object} response - response object
   * @returns {Object} response object
   */
-  getRecipe(request, response) {
+  getDetails(request, response) {
     if (Number.isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const requestid = parseInt(request.params.recipeId, 10);
+      const recipeId = parseInt(request.params.recipeId, 10);
       Recipe.findOne({
-        where: { id: requestid },
+        where: { id: recipeId },
         include: [{
           model: User,
           attributes: ['firstName', 'surname'],
@@ -357,35 +378,27 @@ const recipes = {
   * @returns {Object} response object
   */
   getUserRecipes(request, response) {
-    if (Number.isNaN(request.params.userId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'User ID Must Be A Number',
-      });
-    } else {
-      const requestid = parseInt(request.params.userId, 10);
-      Recipe.findAll({
-        where: { userId: request.decoded.id },
-        order: [
-          ['createdAt', 'DESC'],
-        ],
+    Recipe.findAll({
+      where: { userId: request.decoded.id },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+    })
+      .then((userRecipes) => {
+        if (userRecipes.length === 0) { // checks if list is empty
+          response.status(204).json({
+            status: 'Successsful',
+            message: 'You Currently Have No Recipes',
+            recipes: []
+          });
+        } else {
+          response.status(200).json({
+            status: 'Successful',
+            recipes: userRecipes,
+          });
+        }
       })
-        .then((userRecipes) => {
-          if (userRecipes.length === 0) { // checks if list is empty
-            response.status(200).json({
-              status: 'Successsful',
-              message: 'You Currently Have No Recipes',
-              recipes: []
-            });
-          } else {
-            response.status(200).json({
-              status: 'Successful',
-              recipes: userRecipes,
-            });
-          }
-        })
-        .catch(error => response.status(500).send(error));
-    }
+      .catch(error => response.status(500).send(error));
   },
 
 };

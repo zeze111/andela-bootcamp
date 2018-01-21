@@ -2,7 +2,7 @@ const userRules = {
   firstName: 'required|between:2,35',
   surname: 'required|between:2,50',
   email: 'required|email',
-  password: 'required|confirmed|min:6',
+  password: ['required|confirmed|min:6', 'regex:/\s/'],
   password_confirmation: 'required',
 };
 
@@ -29,7 +29,17 @@ const updateRecipeRules = {
   instructions: 'between:10,1200',
 };
 
+const updateUserRules = {
+  firstName: 'between:2,35',
+  surname: 'required|between:2,50',
+  email: 'email',
+  password: ['confirmed|min:6', 'regex:/\s/']
+};
 
 export default {
-  userRules, recipeRules, reviewRules, updateRecipeRules,
+  userRules,
+  recipeRules,
+  reviewRules,
+  updateRecipeRules,
+  updateUserRules
 };

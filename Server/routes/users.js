@@ -7,12 +7,38 @@ import confirmAuth from '../middleware/index';
 
 const router = express.Router();
 
-router.get('/:userId/recipes', confirmAuth.authenticate, recipe.getUserRecipes);
-router.get('/:userId/favorites', confirmAuth.authenticate, favorite.getFaveRecipes);
-router.get('/:userId/', confirmAuth.authenticate, user.getUser);
+router.get(
+  '/recipes',
+  confirmAuth.authenticate,
+  recipe.getUserRecipes
+);
 
-router.post('/signup', user.createUser);
-router.post('/signin', user.signIn);
-router.put('/:userId', confirmAuth.authenticate, user.updateUser);
+router.get(
+  '/favorites',
+  confirmAuth.authenticate,
+  favorite.getAll
+);
+
+router.get(
+  '/:userId/',
+  confirmAuth.authenticate,
+  user.getDetails
+);
+
+router.post(
+  '/signup',
+  user.signUp
+);
+
+router.post(
+  '/signin',
+  user.signIn
+);
+
+router.put(
+  '/',
+  confirmAuth.authenticate,
+  user.update
+);
 
 export default router;

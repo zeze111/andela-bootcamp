@@ -14,9 +14,9 @@ const ratings = {
         message: 'Recipe Must Be A Number',
       });
     }
-    const recipeid = parseInt(request.params.recipeId, 10);
+    const recipeId = parseInt(request.params.recipeId, 10);
     Recipe.findOne({
-      where: { id: recipeid },
+      where: { id: recipeId },
     })
       .then((recipe) => {
         if (!recipe) {
@@ -28,7 +28,7 @@ const ratings = {
         Rating.findOne({
           where: {
             userId: request.decoded.id,
-            recipeId: recipeid,
+            recipeId,
           },
         })
           .then((votes) => {
@@ -37,21 +37,16 @@ const ratings = {
                 votes.update({
                   vote: 1,
                 })
-                  .then(() => {
-                    return response.status(200).json({
-                      status: 'Successful',
-                      message: 'You Have Upvoted this Recipe',
-                    });
-                  })
-                  .catch(error => response.status(400).send(error));
+                  .then(() => response.status(200).json({
+                    status: 'Successful',
+                    message: 'You Have Upvoted this Recipe',
+                  }));
               } else if (votes.vote === 1) {
                 votes.destroy()
-                  .then(() => {
-                    return response.status(200).json({
-                      status: 'Successful',
-                      message: 'Your Vote was Deleted',
-                    });
-                  });
+                  .then(() => response.status(204).json({
+                    status: 'Successful',
+                    message: 'Your Vote was Deleted',
+                  }));
               }
             } else {
               Rating.create({
@@ -59,16 +54,12 @@ const ratings = {
                 userId: request.decoded.id,
                 recipeId: recipe.id,
               })
-                .then((rated) => {
-                  return response.status(201).json({
-                    status: 'Successful',
-                    vote: rated,
-                  });
-                })
-                .catch(error => response.status(500).send(error));
+                .then(rated => response.status(201).json({
+                  status: 'Successful',
+                  vote: rated,
+                }));
             }
-          })
-          .catch(error => response.status(500).send(error));
+          });
       })
       .catch(error => response.status(500).send(error));
   },
@@ -86,9 +77,9 @@ const ratings = {
         message: 'Recipe Must Be A Number',
       });
     }
-    const recipeid = parseInt(request.params.recipeId, 10);
+    const recipeId = parseInt(request.params.recipeId, 10);
     Recipe.findOne({
-      where: { id: recipeid },
+      where: { id: recipeId },
     })
       .then((recipe) => {
         if (!recipe) {
@@ -100,7 +91,7 @@ const ratings = {
         Rating.findOne({
           where: {
             userId: request.decoded.id,
-            recipeId: recipeid,
+            recipeId,
           },
         })
           .then((votes) => {
@@ -109,21 +100,16 @@ const ratings = {
                 votes.update({
                   vote: 0,
                 })
-                  .then(() => {
-                    return response.status(200).json({
-                      status: 'Successful',
-                      message: 'You Have Downvoted this Recipe',
-                    });
-                  })
-                  .catch(error => response.status(400).send(error));
+                  .then(() => response.status(200).json({
+                    status: 'Successful',
+                    message: 'You Have Downvoted this Recipe',
+                  }));
               } else if (votes.vote === 0) {
                 votes.destroy()
-                  .then(() => {
-                    return response.status(200).json({
-                      status: 'Successful',
-                      message: 'Your Vote was Deleted',
-                    });
-                  });
+                  .then(() => response.status(204).json({
+                    status: 'Successful',
+                    message: 'Your Vote was Deleted',
+                  }));
               }
             } else {
               Rating.create({
@@ -131,16 +117,12 @@ const ratings = {
                 userId: request.decoded.id,
                 recipeId: recipe.id,
               })
-                .then((rated) => {
-                  return response.status(201).json({
-                    status: 'Successful',
-                    vote: rated,
-                  });
-                })
-                .catch(error => response.status(500).send(error));
+                .then(rated => response.status(201).json({
+                  status: 'Successful',
+                  vote: rated,
+                }));
             }
-          })
-          .catch(error => response.status(500).send(error));
+          });
       })
       .catch(error => response.status(500).send(error));
   },
@@ -157,10 +139,10 @@ const ratings = {
         message: 'Recipe Must Be A Number',
       });
     }
-    const recipeid = parseInt(request.params.recipeId, 10);
+    const recipeId = parseInt(request.params.recipeId, 10);
     Rating.findAndCountAll({
       where: {
-        recipeId: recipeid,
+        recipeId,
         vote: 1,
       },
     })
@@ -170,7 +152,7 @@ const ratings = {
           votes: upvotes,
         });
       })
-      .catch(error => response.status(400).send(error));
+      .catch(error => response.status(500).send(error));
   },
 
   /** gets the total downvotes for a recipe
@@ -185,10 +167,10 @@ const ratings = {
         message: 'Recipe Must Be A Number',
       });
     }
-    const recipeid = parseInt(request.params.recipeId, 10);
+    const recipeId = parseInt(request.params.recipeId, 10);
     Rating.findAndCountAll({
       where: {
-        recipeId: recipeid,
+        recipeId,
         vote: 0,
       },
     })
@@ -198,7 +180,7 @@ const ratings = {
           votes: downvotes,
         });
       })
-      .catch(error => response.status(400).send(error));
+      .catch(error => response.status(500).send(error));
   },
 
 };
