@@ -8,20 +8,84 @@ import confirmAuth from '../middleware/index';
 
 const router = express.Router();
 
-router.post('/', confirmAuth.authenticate, recipe.addRecipe);
-router.get('/', recipe.getAllRecipes);
-router.get('/:recipeId', recipe.getRecipe);
-router.delete('/:recipeId', confirmAuth.authenticate, recipe.deleteRecipe);
-router.put('/:recipeId', confirmAuth.authenticate, recipe.updateRecipe);
-router.post('/:recipeId/favorite', confirmAuth.authenticate, favorite.faveRecipe);
-router.delete('/:recipeId/recipe', confirmAuth.authenticate, favorite.deleteFavorite);
-router.get('/:recipeId/upvotes', rating.getUpvotes);
-router.get('/:recipeId/downvotes', rating.getDownvotes);
-router.post('/:recipeId/upvote', confirmAuth.authenticate, rating.upvote);
-router.post('/:recipeId/downvote', confirmAuth.authenticate, rating.downvote);
-router.post('/:recipeId/review', confirmAuth.authenticate, review.reviewRecipe);
-router.delete('/:reviewId/review', confirmAuth.authenticate, review.deletReview);
-router.get('/:recipeId/reviews', review.getReviews);
+router.post(
+  '/',
+  confirmAuth.authenticate,
+  recipe.create
+);
+
+router.get(
+  '/',
+  recipe.getAll
+);
+
+router.get(
+  '/:recipeId',
+  recipe.getDetails
+);
+
+router.delete(
+  '/:recipeId',
+  confirmAuth.authenticate,
+  recipe.delete
+);
+
+router.put(
+  '/:recipeId',
+  confirmAuth.authenticate,
+  recipe.update
+);
+
+router.post(
+  '/:recipeId/favorite',
+  confirmAuth.authenticate,
+  favorite.favoriteRecipe
+);
+
+router.delete(
+  '/:recipeId/recipe',
+  confirmAuth.authenticate,
+  favorite.delete
+);
+
+router.get(
+  '/:recipeId/upvotes',
+  rating.getUpvotes
+);
+
+router.get(
+  '/:recipeId/downvotes',
+  rating.getDownvotes
+);
+
+router.post(
+  '/:recipeId/upvote',
+  confirmAuth.authenticate,
+  rating.upvote
+);
+
+router.post(
+  '/:recipeId/downvote',
+  confirmAuth.authenticate,
+  rating.downvote
+);
+
+router.post(
+  '/:recipeId/review',
+  confirmAuth.authenticate,
+  review.reviewRecipe
+);
+
+router.delete(
+  '/:reviewId/review',
+  confirmAuth.authenticate,
+  review.delete
+);
+
+router.get(
+  '/:recipeId/reviews',
+  review.getAll
+);
 // router.get('/category/', recipe.getCategory);
 
 /*

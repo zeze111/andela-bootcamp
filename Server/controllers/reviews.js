@@ -1,6 +1,8 @@
 import Validator from 'validatorjs';
+
 import { Recipe, Review, User } from '../models';
 import validations from '../shared/validations';
+import { isNum } from '../shared/helper';
 
 
 const reviews = {
@@ -17,16 +19,19 @@ const reviews = {
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const recipeid = parseInt(request.params.recipeId, 10);
-      Recipe.findById(recipeid)
+      const findRecipeId = parseInt(request.params.recipeId, 10);
+      Recipe.findById(findRecipeId)
         .then((recipe) => {
           if (recipe) {
-            const validator = new Validator(request.body, validations.reviewRules);
+            const validator = new Validator(
+              request.body,
+              validations.reviewRules
+            );
             if (validator.passes()) {
               Review.create({
                 title: request.body.title,
                 comment: request.body.comment,
-                recipeId: recipeid,
+                recipeId: findRecipeId,
                 userId: request.decoded.id,
               })
                 .then((review) => {
@@ -52,7 +57,7 @@ const reviews = {
                     });
                 });
             } else {
-              response.status(406).json({
+              response.status(422).json({
                 status: 'Unsuccessful',
                 message: 'Invalid data input',
                 errors: validator.errors.all(),
@@ -74,17 +79,17 @@ const reviews = {
   * @param {Object} response - response object
   * @returns {Object} response object
   */
-  getReviews(request, response) {
+  getAll(request, response) {
     if (Number.isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const recipeid = parseInt(request.params.recipeId, 10);
+      const recipeId = parseInt(request.params.recipeId, 10);
       Review.findAll({
         where: {
-          recipeId: recipeid,
+          recipeId,
         },
         include: [{
           model: User,
@@ -96,7 +101,7 @@ const reviews = {
       })
         .then((reviewsFound) => {
           if (reviewsFound.length === 0) {
-            response.status(200).json({
+            response.status(204).json({
               status: 'Successful',
               message: 'No Reviews Posted Yet',
               reviews: []
@@ -117,17 +122,17 @@ const reviews = {
   * @param {Object} response - response object
   * @returns {Object} response object
   */
-  deletReview(request, response) {
+  delete(request, response) {
     if (Number.isNaN(request.params.reviewId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Review ID Must Be A Number',
       });
     } else {
-      const reviewid = parseInt(request.params.reviewId, 10);
+      const reviewId = parseInt(request.params.reviewId, 10);
       Review.findOne({
         where: {
-          id: reviewid,
+          id: reviewId,
         },
       })
         .then((reviewFound) => {
@@ -139,16 +144,15 @@ const reviews = {
           } else if (reviewFound.userId === request.decoded.id) {
             reviewFound.destroy()
               .then(() => {
-                response.status(200).json({
+                response.status(204).json({
                   status: 'Successful',
                   message: 'Review has been removed',
                 });
-              })
-              .catch(error => response.status(500).send(error));
+              });
           } else {
             response.status(403).json({
               status: 'Unsuccessful',
-              message: 'You are Not Aauthorized to Remove This Review',
+              message: 'You are Not Authorized to Remove This Review',
             });
           }
         })

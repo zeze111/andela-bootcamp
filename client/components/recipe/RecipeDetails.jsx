@@ -33,6 +33,7 @@ class RecipeDetails extends Component {
       creator: {},
       upvotes: 0,
       downvotes: 0,
+      isLoading: false
     };
 
     this.onClickFave = this.onClickFave.bind(this);
@@ -87,10 +88,11 @@ class RecipeDetails extends Component {
     const $toastContent = $('<span>Are you sure you want to delete this recipe</span>')
       .add($('<button class="btn-flat toast-action" on>Yes</button>')
         .click(() => {
+          this.setState({ isLoading: true });
           this.props.deleteRecipe(this.props.recipe.id)
             .then(() => {
               Materialize.Toast.removeAll();
-              return this.setState({ redirect: true });
+              this.setState({ redirect: true, isLoading: false });
             });
         }))
       .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
@@ -146,6 +148,7 @@ class RecipeDetails extends Component {
    * @return {void}
    */
   render() {
+    const { redirect } = this.state;
     if (redirect) {
       return <Redirect to='/user' />;
     }
@@ -160,7 +163,6 @@ class RecipeDetails extends Component {
       deleteReview
     } = this.props;
 
-    const { redirect } = this.state;
     const { id } = this.props.user;
     let ingredients = [];
 
@@ -184,7 +186,7 @@ class RecipeDetails extends Component {
           <Link to={`/updateRecipe/${recipe.id}`}
             className="waves-effect waves-light text-color">
             Edit this recipe</Link>
-          <div className=" waves-effect waves-light text-color right div-pointer text-style"
+          <div className=" waves-effect waves-light text-color right div-pointer delete-text text-style"
             onClick={this.clickEvent}>Delete this recipe</div>
         </div>
       </div>
@@ -269,6 +271,11 @@ class RecipeDetails extends Component {
                 </div>
               }
               {(id === recipe.userId) ? creatorUser : guestUser}
+              {this.state.isLoading &&
+                <div className="right-align delete">
+                  <PreLoader />
+                </div>
+              }
             </div>
           </div> <br />
 
