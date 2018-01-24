@@ -131,7 +131,7 @@ const favorites = {
       })
         .then((faveRecipes) => {
           if (faveRecipes.length === 0) {
-            response.status(204).json({
+            response.status(200).json({
               status: 'Successful',
               message: 'You Currently Have No Favorite Recipes',
               favorites: []

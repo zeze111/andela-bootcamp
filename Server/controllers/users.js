@@ -180,24 +180,28 @@ const users = {
   * @returns {Object} response object
   */
   getDetails(request, response) {
-    if (!isNum(request.params.recipeId, response, 'User')) {
-      const userId = parseInt(request.params.userId, 10);
-      User.findById(userId)
-        .then((userFound) => {
-          if (!userFound) {
-            response.status(404).json({
-              status: 'Unsuccessful',
-              message: 'User Not Found',
-            });
-          } else {
-            response.status(200).json({
-              status: 'Successful',
-              user: userFound,
-            });
-          }
-        })
-        .catch(error => response.status(500).send(error));
+    if (Number.isNaN(request.params.userId)) {
+      return response.status(406).json({
+        status: 'Unsuccessful',
+        message: 'User ID Must Be A Number',
+      });
     }
+    const userId = parseInt(request.params.userId, 10);
+    User.findById(userId)
+      .then((userFound) => {
+        if (!userFound) {
+          response.status(404).json({
+            status: 'Unsuccessful',
+            message: 'User Not Found',
+          });
+        } else {
+          response.status(200).json({
+            status: 'Successful',
+            user: userFound,
+          });
+        }
+      })
+      .catch(error => response.status(500).send(error));
   },
 };
 

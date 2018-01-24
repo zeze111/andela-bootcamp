@@ -25,9 +25,6 @@ class SigninForm extends React.Component {
       errors: {},
       isLoading: false
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   /**
@@ -35,7 +32,7 @@ class SigninForm extends React.Component {
    * @memberof Home
    * @return {void}
    */
-  onChange(event) {
+  onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -44,7 +41,7 @@ class SigninForm extends React.Component {
    * @memberof Home
    * @return {void}
    */
-  onSubmit(event) {
+  onSubmit = (event) => {
     this.setState({ errors: {}, isLoading: true });
     event.preventDefault();
 
@@ -91,14 +88,14 @@ class SigninForm extends React.Component {
             {
               (this.state.isLoading) &&
               <div className="center-align loader-style">
-              <PreLoader />
-            </div>
+                <PreLoader />
+              </div>
             }
-              <input
-                className="btn grey white-text right-align"
-                type="submit"
-                value="Sign in"
-              />
+            <input
+              className="btn grey white-text right-align"
+              type="submit"
+              value="Sign in"
+            />
           </div> <br />
           {errors &&
           <span className="red-text error-text">

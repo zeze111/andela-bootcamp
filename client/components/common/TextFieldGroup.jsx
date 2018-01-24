@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export const TextFieldGroup = ({
@@ -14,11 +15,14 @@ export const TextFieldGroup = ({
       className="validate"
       name={name}
     />
-    {error && <span className="help-block red-text" style={{ fontSize: `${13}px` }}>{error}</span>}
-  </div>);
+    {error &&
+    <span className="help-block red-text error-text-field">{error}
+    </span>}
+  </div>
+);
 
 export const TextFieldGroup2 = ({
-  value, onChange, id, type, classname, name, label, error
+  value, onChange, id, type, name, label, error
 }) => (
   <div className="input-field">
     <label htmlFor={id}>{label}</label>
@@ -26,11 +30,15 @@ export const TextFieldGroup2 = ({
       value={value}
       onChange={onChange}
       id={id}
+      type={type}
       className="materialize-textarea"
       name={name}
     />
-    {error && <span className="help-block red-text" style={{ fontSize: `${13}px` }}>{error}</span>}
-  </div>);
+    {error &&
+    <span className="help-block red-text error-text-field">{error}
+    </span>}
+  </div>
+);
 
 export const TextFieldGroup3 = ({
   value, onChange, id, type, name, label, icon
@@ -47,7 +55,44 @@ export const TextFieldGroup3 = ({
       className="validate"
       name={name}
     />
-  </div>);
+  </div>
+);
+
+export const LinkFieldGroup = ({
+  to, href, dataTool, icon
+}) => (
+  <li>
+    <Link
+      to={to}
+      href={href}
+      className="btn-floating
+      btn-medium
+      tooltipped
+      waves-effect
+      waves-light
+      grey lighten-1"
+      data-position="bottom"
+      data-tooltip={dataTool}
+    >
+      <i className="material-icons">{icon}</i>
+    </Link>
+  </li>
+);
+
+export const LinkFieldGroup2 = ({
+  to, href, item, icon, onClick
+}) => (
+  <li className="nav-list">
+    <i className="material-icons">{icon}</i>
+    <Link
+      to={to}
+      href={href}
+      className="white-text list-item"
+      onClick={onClick}
+    >{item}
+    </Link>
+  </li>
+);
 
 TextFieldGroup.propTypes = {
   value: PropTypes.string.isRequired,
@@ -56,7 +101,7 @@ TextFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  error: PropTypes.array,
+  error: PropTypes.arrayOf(PropTypes.any),
 };
 
 TextFieldGroup2.propTypes = {
@@ -66,7 +111,7 @@ TextFieldGroup2.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  error: PropTypes.array,
+  error: PropTypes.arrayOf(PropTypes.any),
 };
 
 TextFieldGroup3.propTypes = {
@@ -79,10 +124,25 @@ TextFieldGroup3.propTypes = {
   icon: PropTypes.string.isRequired,
 };
 
-TextFieldGroup2.defaultProps = {
-  type: 'text'
+LinkFieldGroup.propTypes = {
+  to: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
+  dataTool: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
 };
 
-TextFieldGroup3.defaultProps = {
-  type: 'text'
+LinkFieldGroup2.propTypes = {
+  to: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
+  item: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  onClick: PropTypes.func
+};
+
+TextFieldGroup.defaultProps = {
+  error: []
+};
+
+TextFieldGroup2.defaultProps = {
+  error: []
 };

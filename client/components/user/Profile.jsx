@@ -3,15 +3,19 @@ import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { getUserRecipes, deleteRecipe } from '../../actions/recipeActions';
 import { updateUser, getUser } from '../../actions/userActions';
-import { getFavoriteRecipes, deleteFavorite } from '../../actions/favoriteActions';
-import PreLoader from '../common/PreLoader';
+import {
+  getFavoriteRecipes,
+  deleteFavorite
+} from '../../actions/favoriteActions';
 import uploadImageToCloud from '../../utils/image';
 import Details from './Details';
 import PasswordForm from './PasswordForm';
 import Recipes from './Recipes';
 import Favorites from './Favorites';
+import Information from './Information';
 
 /**
  * @class Profile
@@ -35,9 +39,7 @@ class Profile extends Component {
       image: '',
       isLoading: true,
       isPicLoading: false
-    }
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    };
   }
 
   /**
@@ -45,10 +47,13 @@ class Profile extends Component {
    * @return {void}
    */
   componentWillMount() {
-    $(document).ready(() => {
-      Materialize.updateTextFields();
-      $('.materialboxed').materialbox();
-    });
+    const user = localStorage.getItem('user');
+    this.props.getUser(JSON.parse(user).id)
+      .then(() => {
+        this.setState({
+          isLoading: false
+        });
+      });
   }
 
   /**
@@ -56,15 +61,10 @@ class Profile extends Component {
    * @return {void}
    */
   componentDidMount() {
+    $('.materialboxed').materialbox();
     const user = localStorage.getItem('user');
     this.props.getUserRecipes(JSON.parse(user).id);
     this.props.getFavoriteRecipes(JSON.parse(user).id);
-    this.props.getUser(JSON.parse(user).id)
-      .then(() => {
-        this.setState({
-          isLoading: false
-        });
-      });
   }
 
   /**
@@ -86,7 +86,7 @@ class Profile extends Component {
    * @memberof Home
    * @return {void}
    */
-  onChange(event) {
+  onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -95,12 +95,12 @@ class Profile extends Component {
    * @memberof Home
    * @return {void}
    */
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
 
     this.props.updateUser(this.props.user.id, this.state)
       .then(() => {
-        const $toastContent = $(`<span>${this.props.userMessage}</span>`)
+        const $toastContent = $(`<span>${this.props.userMessage}</span>`);
         Materialize.toast($toastContent, 2000);
       });
   }
@@ -123,11 +123,11 @@ class Profile extends Component {
           this.props.updateUser(this.props.user.id, this.state);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         this.setState({
           isLoading: false
         });
-      })
+      });
   }
 
   /**
@@ -163,119 +163,101 @@ class Profile extends Component {
         <main>
           <div className="container full-container two-down">
             <br /> <br />
-            <div className="row">
-              <div className="col s3 offset-s2">
-                <img className="materialboxed responsive-img circle img-style" width="200px"
-                  src={profile.image || this.state.image || "/images/profilepic.png"} />
-                {this.state.isPicLoading &&
-                  <PreLoader />
-                }
-              </div>
-              <div className="col s7 pull-s1 grey-text text-lighten-2">
-                <br /> <br /> <br />
-                <p className="caps error-text"> {profile.firstName} {profile.surname} </p>
-                <p id="Bio" className="error-text"> {profile.bio || "Add a bio"} </p>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col s3 offset-s2">
-                <div className="file-field input-field">
-                  <div className="btn waves-effect waves-light grey">
-                    <span> Upload Photo
-                      <i className="material-icons left">photo</i> </span>
-                    <input type="file" onChange={this.uploadImage} />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div className="container z-depth-1 white" >
-              <div className="row remove-margin-bottom" >
-                <div className="col s12" >
-                  <Tabs defaultIndex={0} className='z-depth-1'>
-                    <TabList>
-                      <Tab >
-                        MY DETAILS
-                      </Tab>
-                      <Tab >
-                        CHANGE PASSWORD
-                      </Tab>
-                      <Tab >
-                        MY RECIPES
-                      </Tab>
-                      <Tab id="faves">
-                        FAVORITES
-                      </Tab>
-                    </TabList>
+            <Information
+              profile={profile}
+              isPicLoading={this.state.isPicLoading}
+            />
+          </div>
+          <br />
+          <div className="container z-depth-1 white" >
+            <div className="row remove-margin-bottom" >
+              <div className="col s12" >
+                <Tabs defaultIndex={0} className="z-depth-1">
+                  <TabList>
+                    <Tab >
+                      MY DETAILS
+                    </Tab>
+                    <Tab >
+                      CHANGE PASSWORD
+                    </Tab>
+                    <Tab >
+                      MY RECIPES
+                    </Tab>
+                    <Tab id="faves">
+                      FAVORITES
+                    </Tab>
+                  </TabList>
 
-                    <TabPanel>
-                      <Details
-                        isLoading={this.state.isLoading}
-                        onSubmit={this.onSubmit}
-                        onChange={this.onChange}
-                        firstName={this.state.firstName}
-                        surname={this.state.surname}
-                        email={this.state.email}
-                        bio={this.state.bio} />
-                    </TabPanel>
-                    <TabPanel>
-                      <PasswordForm />
-                    </TabPanel>
-                    <TabPanel>
-                      <div id="recipe" className="col s10 offest-s2 form-style">
-                        <div className="col s6 offset-s2">
-                          <Link to="/addRecipe" className="btn waves-effect waves-light grey"> Add A Recipe
-                          <i className="material-icons left">add</i></Link>
-                        </div>
-                        <div className="col s12 offest-s4">
-                          <br />
-                          <div className="divider"></div>
-                        </div>
-                        <div id="myrecipe" className="col s9 offset-s2">
-                          <br />
-                          <div className="col s12">
-                            {(recipeList.length === 0) ? noRecipes :
-                              <ul id="userlist" className="collection bottom-style">
-                                {
-                                  recipeList.map((recipe, index) => {
-                                    return (
-                                      <Recipes
-                                        recipe={recipe}
-                                        key={index}
-                                        deleteRecipe={deleteRecipe}
-                                      />)
-                                  })
-                                }
-                              </ul>
-                            }
-                          </div>
+                  <TabPanel>
+                    <Details
+                      isLoading={this.state.isLoading}
+                      onSubmit={this.onSubmit}
+                      onChange={this.onChange}
+                      firstName={this.state.firstName}
+                      surname={this.state.surname}
+                      email={this.state.email}
+                      bio={this.state.bio}
+                    />
+                  </TabPanel>
+                  <TabPanel>
+                    <PasswordForm />
+                  </TabPanel>
+                  <TabPanel>
+                    <div id="recipe" className="col s10 offest-s2 form-style">
+                      <div className="col s6 offset-s2">
+                        <Link
+                          to="/addRecipe"
+                          href="/addRecipe"
+                          className="btn waves-effect waves-light grey"
+                        > Add A Recipe
+                          <i className="material-icons left">add</i>
+                        </Link>
+                      </div>
+                      <div className="col s12 offest-s4">
+                        <br />
+                        <div className="divider" />
+                      </div>
+                      <div id="myrecipe" className="col s9 offset-s2">
+                        <br />
+                        <div className="col s12">
+                          {(recipeList.length === 0) ? noRecipes :
+                          <ul id="userlist" className="collection bottom-style">
+                            {
+                              recipeList.map((recipe, index) => (
+                                <Recipes
+                                  recipe={recipe}
+                                  key={index}
+                                  deleteRecipe={deleteRecipe}
+                                />))
+                              }
+                          </ul>
+                          }
                         </div>
                       </div>
-                    </TabPanel>
-                    <TabPanel><div id="myrecipe" className="col s9 offset-s1">
+                    </div>
+                  </TabPanel>
+                  <TabPanel>
+                    <div id="myrecipe" className="col s9 offset-s1">
                       <br />
                       <div className="col s12">
                         {(faves.length === 0) ? noFaves :
-                          <ul id="userlist" className="collection bottom-style">
-                            {
-                              faves.map((favorite, index) => {
-                                return (
-                                  <Favorites
-                                    favorites={this.props.favorites}
-                                    favorite={favorite}
-                                    key={index}
-                                    deleteFavorite={deleteFavorite}
-                                  />)
-                              })
+                        <ul id="userlist" className="collection bottom-style">
+                          {
+                            faves.map((favorite, index) => (
+                              <Favorites
+                                favorites={this.props.favorites}
+                                favorite={favorite}
+                                key={index}
+                                deleteFavorite={deleteFavorite}
+                              />))
                             }
-                          </ul>
+                        </ul>
                         }
                       </div>
                     </div>
-                    </TabPanel>
-                  </Tabs>
-                </div> <br /> <br />
-              </div>
+                  </TabPanel>
+                </Tabs>
+              </div> <br /> <br />
             </div>
           </div>
         </main>
@@ -283,13 +265,17 @@ class Profile extends Component {
     );
   }
 }
+
 Profile.defaultProps = {
   profile: {
     firstName: '',
     surname: '',
     email: ''
-  }
+  },
+  recipes: [],
+  favorites: []
 };
+
 Profile.propTypes = {
   getUserRecipes: PropTypes.func.isRequired,
   deleteRecipe: PropTypes.func.isRequired,
@@ -297,8 +283,10 @@ Profile.propTypes = {
   deleteFavorite: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
-  profile: PropTypes.object
-}
+  profile: PropTypes.objectOf(PropTypes.any),
+  recipes: PropTypes.arrayOf(PropTypes.any),
+  favorites: PropTypes.arrayOf(PropTypes.any)
+};
 
 const mapStateToProps = state => ({
   recipes: state.recipeReducer.recipes,
@@ -311,12 +299,11 @@ const mapStateToProps = state => ({
   delMessage: state.favoriteReducer.delMessage
 });
 
-export default connect(
-  mapStateToProps, {
-    getUserRecipes,
-    deleteRecipe,
-    getFavoriteRecipes,
-    deleteFavorite,
-    updateUser,
-    getUser
-  })(Profile);
+export default connect(mapStateToProps, {
+  getUserRecipes,
+  deleteRecipe,
+  getFavoriteRecipes,
+  deleteFavorite,
+  updateUser,
+  getUser
+})(Profile);

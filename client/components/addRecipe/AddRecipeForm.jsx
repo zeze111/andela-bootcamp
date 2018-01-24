@@ -35,11 +35,6 @@ class AddRecipeForm extends React.Component {
       errors: {},
       isLoading: false
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onSelectChange = this.onSelectChange.bind(this);
-    this.uploadImage = this.uploadImage.bind(this);
   }
 
   /**
@@ -56,7 +51,7 @@ class AddRecipeForm extends React.Component {
    * @memberof Home
    * @return {void}
    */
-  onChange(event) {
+  onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -65,7 +60,7 @@ class AddRecipeForm extends React.Component {
    * @memberof Home
    * @return {void}
    */
-  onSelectChange(event) {
+  onSelectChange = (event) => {
     const { value } = event.target;
     this.setState({
       type: value
@@ -77,7 +72,7 @@ class AddRecipeForm extends React.Component {
    * @memberof Home
    * @return {void}
    */
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
 
     const recipe = pick(this.state, ['name', 'prepTime', 'description', 'type',
@@ -87,7 +82,9 @@ class AddRecipeForm extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.addRecipeRequest(recipe)
         .then(() => this.setState({ redirect: true }))
-        .catch(error => this.setState({ errors: error.response.data, isLoading: false }));
+        .catch(error => this.setState({
+          errors: error.response.data, isLoading: false
+        }));
     }
   }
 
@@ -97,7 +94,7 @@ class AddRecipeForm extends React.Component {
    * @memberof Home
    * @return {void}
    */
-  uploadImage(event) {
+  uploadImage = (event) => {
     if (event.target.files && event.target.files[0]) {
       this.setState({ imageFile: event.target.files[0] });
       const reader = new FileReader();
@@ -149,7 +146,14 @@ class AddRecipeForm extends React.Component {
                     className="recipe-image"
                   />
                 </div>
-                <div className="btn-floating btn-small waves-effect waves-light blue right-align">
+                <div
+                  className="btn-floating
+                btn-small
+                waves-effect
+                waves-light
+                blue
+                right-align"
+                >
                   <i className="material-icons">photo</i>
                   <input type="file" onChange={this.uploadImage} />
                 </div>

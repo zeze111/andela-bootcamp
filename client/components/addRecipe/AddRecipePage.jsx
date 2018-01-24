@@ -5,41 +5,29 @@ import AddRecipeForm from './AddRecipeForm';
 import { addRecipeRequest } from '../../actions/recipeActions';
 
 /**
- *
- *
- * @class AddRecipePage
- * @extends {React.Component}
+ * @param {any} props
+ * @const AddRecipePage
+ * @returns {any} void
  */
-class AddRecipePage extends React.Component {
-
-  /**
-   * @param {any} props
-   * @memberof Home
-   * @return {void}
-   */
-  render() {
-    const { addRecipeRequest } = this.props;
-    return (
-      <div id="addRecipebody">
-        <main id="wrapper">
-          <div className="container full-container">
-            <div className="row remove-margin-bottom">
-              <div className="col s8 offset-s2 form-padding">
-                <div className="card z-depth-2">
-                  <span
-                    className="card-title col s5 offset-s4 text-color inner"
-                  > SUBMIT A RECIPE
+const AddRecipePage = props => (
+  <div id="addRecipebody">
+    <main id="wrapper">
+      <div className="container full-container">
+        <div className="row remove-margin-bottom">
+          <div className="col s8 offset-s2 form-padding">
+            <div className="card z-depth-2">
+              <span
+                className="card-title col s5 offset-s4 text-color inner"
+              > SUBMIT A RECIPE
               </span>
-                  <AddRecipeForm addRecipeRequest={addRecipeRequest} />
-                </div>
-              </div>
+              <AddRecipeForm addRecipeRequest={props.addRecipeRequest} />
             </div>
           </div>
-        </main>
-      </div >
-    );
-  }
-}
+        </div>
+      </div>
+    </main>
+  </div >
+);
 
 AddRecipePage.propTypes = {
   addRecipeRequest: PropTypes.func.isRequired,

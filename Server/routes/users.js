@@ -20,7 +20,7 @@ router.get(
 );
 
 router.get(
-  '/:userId/',
+  '/:userId',
   confirmAuth.authenticate,
   user.getDetails
 );

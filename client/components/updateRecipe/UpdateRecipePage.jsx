@@ -26,7 +26,6 @@ class UpdateRecipePage extends Component {
    * @return {void}
    */
   render() {
-    const { updateRecipe, recipe } = this.props;
     return (
       <div id="addRecipebody">
         <main id="wrapper">
@@ -39,8 +38,8 @@ class UpdateRecipePage extends Component {
                   > UPDATE RECIPE
                   </span>
                   <UpdateRecipeForm
-                    recipe={recipe}
-                    updateRecipe={updateRecipe}
+                    recipe={this.props.recipe}
+                    updateRecipe={this.props.updateRecipe}
                   />
                 </div>
               </div>
@@ -55,7 +54,12 @@ class UpdateRecipePage extends Component {
 UpdateRecipePage.propTypes = {
   updateRecipe: PropTypes.func.isRequired,
   getARecipe: PropTypes.func.isRequired,
-  match: PropTypes.objectOf(PropTypes.any).isRequired
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+  recipe: PropTypes.objectOf(PropTypes.any)
+};
+
+UpdateRecipePage.defaultProps = {
+  recipe: {}
 };
 
 const mapStateToProps = state => ({

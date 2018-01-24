@@ -1,6 +1,7 @@
 import axios from 'axios';
-import uploadImageToCloud from '../utils/image';
 
+import setAuthorizationToken from '../utils/setAuthorizationToken';
+import uploadImageToCloud from '../utils/image';
 import {
   CREATE_RECIPE,
   GET_USER_RECIPES,
@@ -21,7 +22,7 @@ import {
  */
 export function addRecipe(recipeData, imageUrl) {
   return (dispatch) => {
-    axios.defaults.headers.common['x-token'] = window.localStorage.jwtToken;
+    setAuthorizationToken(window.localStorage.jwtToken);
     const {
       name, prepTime, description, type, ingredients, instructions,
     } = recipeData;
@@ -42,9 +43,7 @@ export function addRecipe(recipeData, imageUrl) {
           payload: response.data,
         });
       })
-      .catch((error) => {
-        return error;
-      });
+      .catch(error => error);
   };
 }
 
@@ -62,9 +61,7 @@ export function addRecipeRequest(recipeData) {
           const imageUrl = response.data.secure_url;
           dispatch(addRecipe(recipeData, imageUrl));
         })
-        .catch((error) => {
-          return error;
-        });
+        .catch(error => error);
     }
     return dispatch(addRecipe(recipeData, cloudUrl));
   };
@@ -86,11 +83,10 @@ export function getAllRecipes() {
 
 /**
  * @export {function}
- * @param {any} userId
  * @returns {object} any
  */
-export function getUserRecipes(userId) {
-  return dispatch => axios.get(`/api/v1/user/${userId}/recipes`)
+export function getUserRecipes() {
+  return dispatch => axios.get('/api/v1/user/recipes')
     .then((response) => {
       dispatch({
         type: GET_USER_RECIPES,
@@ -177,7 +173,6 @@ export function searchRecipe(word) {
 
 /**
  * @export {function}
- * @param {any} word
  * @returns {object} any
  */
 export function getMostUpvotedRecipe() {
