@@ -83,17 +83,16 @@ const recipes = {
       })
         .then((popularRecipes) => {
           if (popularRecipes.length === 0) {
-            response.status(204).json({
+            return response.status(200).json({
               status: 'Successful',
               message: 'There Are Currently No Popular Recipes',
               recipes: []
             });
-          } else {
-            response.status(200).json({
-              status: 'Successful',
-              recipes: popularRecipes,
-            });
           }
+          return response.status(200).json({
+            status: 'Successful',
+            recipes: popularRecipes,
+          });
         });
     } else if (request.query.limit && request.query.offset) {
       if (Number.isNaN(request.query.page)) {
@@ -130,7 +129,7 @@ const recipes = {
 
         }));
     } else if (request.query.type) {
-      Recipe.findAll({
+      return Recipe.findAll({
         where: {
           type: {
             $ilike: `%${request.query.type}%`,
@@ -142,7 +141,7 @@ const recipes = {
       })
         .then((recipesFound) => {
           if (recipesFound.length === 0) {
-            return response.status(204).json({
+            return response.status(200).json({
               status: 'Successful',
               message: 'No Recipes In That Category Yet',
               recipes: []
@@ -154,7 +153,7 @@ const recipes = {
           });
         });
     } else if (request.query.search) {
-      Recipe.findAll({
+      return Recipe.findAll({
         where: {
           $or: [{
             name: {
@@ -170,7 +169,7 @@ const recipes = {
       })
         .then((searchFound) => {
           if (searchFound.length === 0) {
-            return response.status(204).json({
+            return response.status(200).json({
               status: 'Unsuccessful',
               message: 'Recipe(s) Not Found',
               recipes: []
@@ -198,16 +197,15 @@ const recipes = {
       ],
     }).then((allRecipes) => {
       if (allRecipes.length === 0) {
-        response.status(204).json({
+        return response.status(200).json({
           status: 'Successful',
           message: 'There Are Currently No Recipes',
         });
-      } else {
-        response.status(200).json({
-          status: 'Successful',
-          recipes: allRecipes,
-        });
       }
+      return response.status(200).json({
+        status: 'Successful',
+        recipes: allRecipes,
+      });
     })
       .catch(error => response.status(500).send(error));
   },
@@ -386,7 +384,7 @@ const recipes = {
     })
       .then((userRecipes) => {
         if (userRecipes.length === 0) { // checks if list is empty
-          response.status(204).json({
+          response.status(200).json({
             status: 'Successsful',
             message: 'You Currently Have No Recipes',
             recipes: []

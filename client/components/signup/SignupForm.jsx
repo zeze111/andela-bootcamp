@@ -30,9 +30,6 @@ class SignupForm extends React.Component {
       errors: {},
       isLoading: false
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   /**
@@ -40,7 +37,7 @@ class SignupForm extends React.Component {
    * @memberof Home
    * @return {void}
    */
-  onChange(event) {
+  onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -49,7 +46,7 @@ class SignupForm extends React.Component {
    * @memberof Home
    * @return {void}
    */
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Homepage from './homepage/Homepage';
 import SignupPage from './signup/Signuppage';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './navBar/NavigationBar';
 import Footer from './Footer';
 import AddRecipePage from './addRecipe/AddRecipePage';
 import UpdateRecipePage from './updateRecipe/UpdateRecipePage';
@@ -14,33 +14,25 @@ import '../assets/init';
 /**
  *
  *
- * @class App
- * @extends {React.Component}
+ * @const App
+ * @returns {any} routes
  */
-class App extends Component {
-  /**
-   * @memberof Home
-   * @return {void}
-   */
-  render() {
-    return (
-      <Router>
-        <div id="wrap">
-          <NavigationBar />
-          <Switch>
-            <Route path="/" exact component={Homepage} />
-            <Route path="/signup" component={SignupPage} />
-            <Route path="/addRecipe" component={AddRecipePage} />
-            <Route path="/user" component={Profile} />
-            <Route path="/updateRecipe/:recipeId" component={UpdateRecipePage} />
-            <Route path="/userRecipe/:recipeId" component={RecipeDetails} />
-            <Route path="/recipe/:recipeId" component={RecipeDetails} />
-            <Route path='/allRecipes' component={AllRecipes}/>
-          </Switch>
-          <Footer />
-        </div>
-      </Router>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <div id="wrap">
+      <NavigationBar />
+      <Switch>
+        <Route path="/" exact component={Homepage} />
+        <Route path="/signup" component={SignupPage} />
+        <Route path="/addRecipe" component={AddRecipePage} />
+        <Route path="/user" component={Profile} />
+        <Route path="/updateRecipe/:recipeId" component={UpdateRecipePage} />
+        <Route path="/userRecipe/:recipeId" component={RecipeDetails} />
+        <Route path="/recipe/:recipeId" component={RecipeDetails} />
+        <Route path="/allRecipes" component={AllRecipes} />
+      </Switch>
+      <Footer />
+    </div>
+  </Router>
+);
 export default App;

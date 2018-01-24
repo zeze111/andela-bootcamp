@@ -101,7 +101,7 @@ const reviews = {
       })
         .then((reviewsFound) => {
           if (reviewsFound.length === 0) {
-            response.status(204).json({
+            response.status(200).json({
               status: 'Successful',
               message: 'No Reviews Posted Yet',
               reviews: []

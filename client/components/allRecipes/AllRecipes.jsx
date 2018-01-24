@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
-import { Dropdown, NavItem } from 'react-materialize';
+
 import RecipeCard from './RecipeCard';
-import { getAllRecipes, getRecipeCategory, searchRecipe } from '../../actions/recipeActions';
+import {
+  getAllRecipes,
+  getRecipeCategory,
+  searchRecipe
+} from '../../actions/recipeActions';
 import PreLoader from '../common/PreLoader';
 import '../../assets/style.scss';
 import '../../assets/init';
+import Categories from './Categories';
+import Search from './Search';
 
 /**
  *
@@ -37,24 +42,14 @@ class AllRecipes extends Component {
    * @return {void}
    */
   componentWillMount() {
-    $('.dropown-button').dropdown();
-    $('.tooltip').tooltip({ delay: 20 });
-    $('select').material_select();
-  }
-
-  /**
-   * @memberof Home
-   * @return {void}
-   */
-  componentDidMount() {
     this.props.getAllRecipes()
       .then(() => {
-        this.setState({ isLoading: false })
+        this.setState({ isLoading: false });
       });
   }
 
   /**
-   * @param event
+   * @param {any} event
    * @memberof Home
    * @return {void}
    */
@@ -62,11 +57,12 @@ class AllRecipes extends Component {
     this.setState({ isLoading: true });
     this.props.getRecipeCategory(event)
       .then(() => {
-        this.setState({ dropdown: event, isLoading: false })
+        this.setState({ dropdown: event, isLoading: false });
       });
   }
 
   /**
+   * @param {any} event
    * @memberof Home
    * @return {void}
    */
@@ -74,11 +70,12 @@ class AllRecipes extends Component {
     this.setState({ isLoading: true });
     this.props.getAllRecipes()
       .then(() => {
-        this.setState({ dropdown: event, isLoading: false })
+        this.setState({ dropdown: event, isLoading: false });
       });
   }
 
   /**
+   * @param {any} event
    * @memberof Home
    * @return {void}
    */
@@ -92,99 +89,40 @@ class AllRecipes extends Component {
    * @return {void}
    */
   render() {
-
     const allRecipes = (this.props.recipes) ? (this.props.recipes) : [];
-    const appetizer = "Appetizer";
-    const main = "Main";
-    const dessert = "Dessert";
-    const drinks = "Drinks";
-    const all = "All Recipes"
 
     const noRecipes = (
-      <div className="col s12 bottom-style center-align error-message"> {this.props.message} </div>
+      <div className="col s12 bottom-style center-align error-message">
+        {this.props.message}
+      </div>
     );
+
     return (
       <main >
         <div className="container full-container">
           <div className="row">
             <div className="col s3">
-              <Dropdown className="content-recipes"
-                trigger={
-                  <div className="div-pointer">
-                    <h5 className="light top caps2"> {this.state.dropdown || all}
-                      <i className="material-icons">arrow_drop_down</i>
-                    </h5>
-                  </div>
-                }>
-                <ul>
-                  <li className="grey-text default-droplist">
-                    <div>Select Category</div>
-                  </li>
-                  <li>
-                    <div
-                      className="dropdown-btn"
-                      onClick={() => this.onSelectAllRecipes(all)}>All Recipes
-                  </div>
-                  </li>
-                  <li>
-                    <div
-                      className="dropdown-btn"
-                      onClick={() => this.onSelectCategory(appetizer)}>{appetizer}
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      className="dropdown-btn"
-                      onClick={() => this.onSelectCategory(main)}>{main}
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      className="dropdown-btn"
-                      onClick={() => this.onSelectCategory(dessert)}>{dessert}
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      className="dropdown-btn"
-                      onClick={() => this.onSelectCategory(drinks)}>{drinks}
-                    </div>
-                  </li>
-                </ul>
-              </Dropdown>
+              <Categories
+                dropdown={this.state.dropdown}
+                onSelectAllRecipes={this.onSelectAllRecipes}
+                onSelectCategory={this.onSelectCategory}
+              />
             </div>
-            <form className="col s7 offset-s4">
-              <div className="row">
-                <div className="input-field col s6">
-                  <label htmlFor="search"> </label>
-                  <input
-                    placeholder="Search for Recipes"
-                    type="text"
-                    id="search"
-                    value={this.state.search}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="col s6">
-                  <button
-                    className="btn grey top"
-                    type="button">
-                    <i className="material-icons">search</i>
-                  </button>
-                </div>
-              </div>
-            </form>
+            <Search
+              search={this.state.search}
+              onChange={this.onChange}
+            />
           </div>
         </div >
 
         <div className="row remove-margin-bottom reviews-style text3">
           {
-            (this.state.isLoading) &&
+            this.state.isLoading &&
             <div className="center-align loader-style min-preloader">
               <PreLoader />
             </div>
           }
-          {(!this.state.isLoading) &&
+          {!this.state.isLoading &&
             (allRecipes.length === 0) ? noRecipes :
             <ul className="categories flex-container-homepage">
               {
@@ -199,14 +137,20 @@ class AllRecipes extends Component {
         </div>
       </main >
     );
-  };
+  }
 }
 
 AllRecipes.propTypes = {
   getAllRecipes: PropTypes.func.isRequired,
   getRecipeCategory: PropTypes.func.isRequired,
   searchRecipe: PropTypes.func.isRequired,
-  recipes: PropTypes.arrayOf(PropTypes.any).isRequired
+  recipes: PropTypes.arrayOf(PropTypes.any),
+  message: PropTypes.string
+};
+
+AllRecipes.defaultProps = {
+  message: '',
+  recipes: []
 };
 
 const mapStateToProps = state => ({

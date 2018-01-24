@@ -19,11 +19,10 @@ export function favoriteRecipe(recipeId) {
 
 /**
  *  @export {function}
- * @param {any} userId
  * @returns {object} any
  */
-export function getFavoriteRecipes(userId) {
-  return dispatch => axios.get(`/api/v1/user/${userId}/favorites`)
+export function getFavoriteRecipes() {
+  return dispatch => axios.get('/api/v1/user/favorites')
     .then((response) => {
       dispatch({
         type: GET_FAVORITE_RECIPE,

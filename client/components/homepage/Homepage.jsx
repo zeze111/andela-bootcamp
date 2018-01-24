@@ -40,10 +40,6 @@ class Homepage extends Component {
    * @return {void}
    */
   componentWillMount() {
-    $('.dropown-button').dropdown();
-    $('.materialboxed').materialbox();
-    $('.tooltip').tooltip({ delay: 20 });
-    $('select').material_select();
     this.props.getAllRecipes()
       .then(() => {
         this.setState({ isLoading: false });
@@ -61,22 +57,25 @@ class Homepage extends Component {
    */
   render() {
     const allRecipes = (this.props.recipes) ? (this.props.recipes) : [];
-    const upvoted = (this.props.upvotedRecipes) ? (this.props.upvotedRecipes) : [];
+    const upvoted = (this.props.upvotedRecipes) ?
+      (this.props.upvotedRecipes) : [];
     return (
       <div id="homepageBody">
         <main>
           <Slide />
           <div className="container full-container">
             <br /> <br />
-            <h5 className="light black-text lighten-3"> MOST UPVOTED RECIPES </h5>
+            <h5 className="light black-text lighten-3">
+              MOST UPVOTED RECIPES
+            </h5>
             <div className="row">
               {
-                (this.state.isLoading) &&
+                this.state.isLoading &&
                 <div className="center-align loader-style min-preloader">
                   <PreLoader />
                 </div>
               }
-              {(!this.state.isLoading) &&
+              {!this.state.isLoading &&
                 <ul className="categories flex-container-homepage">
                   {
                     upvoted.map((recipe, index) => (
@@ -104,7 +103,7 @@ class Homepage extends Component {
                   <PreLoader />
                 </div>
               }
-              {(!this.state.isLoading) &&
+              {!this.state.isLoading &&
                 <ul className="categories flex-container-homepage">
                   {
                     allRecipes.slice(0, 5).map((recipe, index) => (

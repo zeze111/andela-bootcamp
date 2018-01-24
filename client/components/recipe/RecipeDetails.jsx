@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import ReviewForm from './ReviewForm';
 import Reviews from './Reviews';
-import PreLoader from '../common/PreLoader';
 import { deleteRecipe, getARecipe } from '../../actions/recipeActions';
 import { favoriteRecipe } from '../../actions/favoriteActions';
-import { reviewRecipe, getReviews, deleteReview } from '../../actions/reviewActions';
-import { upvoteRecipe, downvoteRecipe, getDownvotes, getUpvotes } from '../../actions/ratingActions';
+import {
+  reviewRecipe,
+  getReviews,
+  deleteReview
+} from '../../actions/reviewActions';
+import {
+  upvoteRecipe,
+  downvoteRecipe,
+  getDownvotes,
+  getUpvotes
+} from '../../actions/ratingActions';
+import Recipe from './Recipe';
+import Details from './Details';
 
 /**
  *
@@ -35,21 +45,18 @@ class RecipeDetails extends Component {
       downvotes: 0,
       isLoading: false
     };
-
-    this.onClickFave = this.onClickFave.bind(this);
-    this.onUpvote = this.onUpvote.bind(this);
-    this.onDownvote = this.onDownvote.bind(this);
   }
 
   /**
    * @memberof Home
    * @return {void}
    */
-  componentWillMount() {
-    $(document).ready(() => {
-      $('.tooltip').tooltip('remove')
-      $('.materialboxed').materialbox();
-    });
+  componentDidMount() {
+    $('.materialboxed').materialbox();
+    this.props.getARecipe(this.props.match.params.recipeId);
+    this.props.getUpvotes(this.props.match.params.recipeId);
+    this.props.getDownvotes(this.props.match.params.recipeId);
+    this.props.getReviews(this.props.match.params.recipeId);
   }
 
   /**
@@ -69,46 +76,15 @@ class RecipeDetails extends Component {
   }
 
   /**
-   * @memberof Home
-   * @return {void}
-   */
-  componentDidMount() {
-    this.props.getARecipe(this.props.match.params.recipeId);
-    this.props.getUpvotes(this.props.match.params.recipeId);
-    this.props.getDownvotes(this.props.match.params.recipeId);
-    this.props.getReviews(this.props.match.params.recipeId);
-  }
-
-  /**
    * @param {any} event
    * @memberof Home
    * @return {void}
    */
-  clickEvent = (event) => {
-    const $toastContent = $('<span>Are you sure you want to delete this recipe</span>')
-      .add($('<button class="btn-flat toast-action" on>Yes</button>')
-        .click(() => {
-          this.setState({ isLoading: true });
-          this.props.deleteRecipe(this.props.recipe.id)
-            .then(() => {
-              Materialize.Toast.removeAll();
-              this.setState({ redirect: true, isLoading: false });
-            });
-        }))
-      .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
-    Materialize.toast($toastContent);
-  }
-
-  /**
-   * @param {any} event
-   * @memberof Home
-   * @return {void}
-   */
-  onClickFave(event) {
+  onClickFave = () => {
     this.props.favoriteRecipe(this.props.recipe.id)
       .then(() => {
-        const $toastContent = $(`<span>${this.props.message}</span>`)
-        Materialize.toast($toastContent, 2000);
+        const toastContent = $(`<span>${this.props.message}</span>`);
+        Materialize.toast(toastContent, 2000);
         if (this.props.message.includes('added')) {
           this.setState({ icon: 'star' });
         } else {
@@ -122,7 +98,7 @@ class RecipeDetails extends Component {
    * @memberof Home
    * @return {void}
    */
-  onUpvote(event) {
+  onUpvote = () => {
     this.props.upvoteRecipe(this.props.recipe.id)
       .then(() => {
         this.props.getUpvotes(this.props.recipe.id);
@@ -135,12 +111,36 @@ class RecipeDetails extends Component {
    * @memberof Home
    * @return {void}
    */
-  onDownvote(event) {
+  onDownvote = () => {
     this.props.downvoteRecipe(this.props.recipe.id)
       .then(() => {
         this.props.getDownvotes(this.props.recipe.id);
         this.props.getUpvotes(this.props.recipe.id);
       });
+  }
+
+  /**
+   * @param {any} event
+   * @memberof Home
+   * @return {void}
+   */
+  clickEvent = () => {
+    const toastContent =
+      $('<span>Are you sure you want to delete this recipe</span>')
+        .add($('<button class="btn-flat toast-action" on>Yes</button>')
+          .click(() => {
+            this.setState({ isLoading: true });
+            this.props.deleteRecipe(this.props.recipe.id)
+              .then(() => {
+                Materialize.Toast.removeAll();
+                this.setState({ redirect: true, isLoading: false });
+              });
+          }))
+        .add($(
+          '<button class="btn-flat toast-action"',
+          'onClick=Materialize.Toast.removeAll(); on>No</button>'
+        ));
+    Materialize.toast(toastContent);
   }
 
   /**
@@ -150,7 +150,7 @@ class RecipeDetails extends Component {
   render() {
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to='/user' />;
+      return <Redirect to="/user" />;
     }
 
     const {
@@ -163,121 +163,44 @@ class RecipeDetails extends Component {
       deleteReview
     } = this.props;
 
-    const { id } = this.props.user;
     let ingredients = [];
 
     if (!this.state.ingredients) {
       ingredients = [];
     } else {
       ingredients = this.state.ingredients.split(',').map((item, i) => (
-        <p style={{ marginTop: "0px", marginBottom: "0px" }} key={`${i}`}> - {item} </p>
+        <p className="no-style" key={`${i}`}> - {item} </p>
       ));
     }
 
-    const reviewsList = (reviews) ? (reviews) : [];
+    const reviewsList = (reviews) || [];
 
     const noReviews = (
       <div className="col s6 bottom-style"> No Reviews Posted Yet </div>
     );
 
-    const creatorUser = (
-      <div >
-        <div className="col s4 offset-s7 creator">
-          <Link to={`/updateRecipe/${recipe.id}`}
-            className="waves-effect waves-light text-color">
-            Edit this recipe</Link>
-          <div className=" waves-effect waves-light text-color right div-pointer delete-text text-style"
-            onClick={this.clickEvent}>Delete this recipe</div>
-        </div>
-      </div>
-    );
-
-    const guestUser = (
-      <div> </div>
-    );
-
     return (
       <div >
         <main>
-          <div className="row flex-container">
-            <div className="col s5">
-              <div className="card right" >
-                <div className="card-image">
-                  <img src={recipe.image || '/images/noimg.png'}
-                    className="materialboxed responsive-img pic-style" />
-                </div>
-                <div className="card-action card-buttons action-icons">
-                  <div className="div-pointer" onClick={this.onUpvote}>
-                    <i className="col s2 material-icons icon-color right-align">thumb_up</i></div>
-                  <p className="col s1 vote-up-style icon upvotes-text" > {this.state.upvotes} </p>
-                  <div className="div-pointer" onClick={this.onDownvote}>
-                    <i className="col s2 push-s1 material-icons icon-color downvote right-align">thumb_down</i></div>
-                  <p className="col s1 icon downvote downvote2" > {this.state.downvotes} </p>
-                  <div className="col s2 push-s2 right-align div-pointer" onClick={this.onClickFave}>
-                    <i className="material-icons small icon-color favorite">{this.state.icon}</i></div>
-                </div>
-              </div>
-            </div>
-            <div className="col s7">
-              <div className="row text-flex" >
-                <div className="col s12">
-                  <h5 className="title-details remove-margin-bottom">
-                    {recipe.name} </h5>
-                </div>
-                <div className="col s12 ">
-                  {this.state.creator &&
-                    <p className="title-details top-style"> Posted by <a className="text-color title-details" href="user-recipe.html">
-                      {this.state.creator.firstName} </a> </p>
-                  }
-                </div>
-                <div className="col s12">
-                  <p id="desc" className="title-details">{recipe.description || 'Try out this recipe'} </p>
-                </div>
-                <div className="col s12">
-                  <p className="remove-margin-bottom"> Like this Recipe? Add to your favourites
-                  </p> <br />
-                </div>
-                <div className="col s12">
-                  <a href="#rev" className="scrollspy text-color remove-margin-bottom"> Reviews </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Recipe
+            recipe={recipe}
+            onClickFave={this.onClickFave}
+            onUpvote={this.onUpvote}
+            onDownvote={this.onDownvote}
+            upvotes={this.state.upvotes}
+            downvotes={this.state.downvotes}
+            creator={this.state.creator}
+            icon={this.state.icon}
+          />
 
-
-          <div className="row">
-            <div className="col s8 offset-s1">
-              <h5 className="center-align text-recipe title" > Recipe </h5>
-              {(ingredients.length <= 0) &&
-                <div className="center-align loader-style">
-                  <PreLoader />
-                </div>
-              }
-              {(ingredients.length > 0) &&
-                <div>
-                  <div id="time" className="col s4 ">
-                    <p className="recipe"> Prep Time: {recipe.prepTime} </p>
-                  </div>
-                  <div id="Ing" className="col s4 r-ingredients">
-
-                    <p className="recipe"> Ingredients: </p>
-                    {ingredients}
-
-                  </div>
-                  <div id="Ins" className="col s4">
-                    <p className="recipe"> Instructions: </p>
-                    <p id="instruct" className="no-top"> {recipe.instructions} </p>
-                  </div>
-                </div>
-              }
-              {(id === recipe.userId) ? creatorUser : guestUser}
-              {this.state.isLoading &&
-                <div className="right-align delete">
-                  <PreLoader />
-                </div>
-              }
-            </div>
-          </div> <br />
+          <Details
+            recipe={recipe}
+            clickEvent={this.clickEvent}
+            id={this.props.user.id}
+            ingredients={ingredients}
+            isLoading={this.state.isLoading}
+          />
+          <br />
 
           <div className="row remove-margin-bottom">
             <br /> <br />
@@ -289,20 +212,19 @@ class RecipeDetails extends Component {
             <div className="row">
               <div className="col s6 review-section">
                 {(reviewsList.length === 0) ? noReviews :
-                  <ul className="collection" >
-                    {
-                      reviewsList.map((review, index) => {
-                        return (
-                          <Reviews
-                            key={index}
-                            review={review}
-                            user={user}
-                            deleteReview={deleteReview}
-                            message={reviewMessage}
-                          />)
-                      })
+                <ul className="collection" >
+                  {
+                      reviewsList.map((review, index) => (
+                        <Reviews
+                          key={index}
+                          review={review}
+                          user={user}
+                          deleteReview={deleteReview}
+                          message={reviewMessage}
+                        />
+                      ))
                     }
-                  </ul>
+                </ul>
                 }
               </div >
             </div>
@@ -312,7 +234,6 @@ class RecipeDetails extends Component {
     );
   }
 }
-// }
 
 RecipeDetails.propTypes = {
   deleteRecipe: PropTypes.func.isRequired,
@@ -324,18 +245,30 @@ RecipeDetails.propTypes = {
   getDownvotes: PropTypes.func.isRequired,
   reviewRecipe: PropTypes.func.isRequired,
   getReviews: PropTypes.func.isRequired,
-  deleteReview: PropTypes.func.isRequired
+  deleteReview: PropTypes.func.isRequired,
+  recipe: PropTypes.objectOf(PropTypes.any),
+  upvotes: PropTypes.objectOf(PropTypes.any),
+  downvotes: PropTypes.objectOf(PropTypes.any),
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+  message: PropTypes.string,
+  user: PropTypes.objectOf(PropTypes.any)
 };
+
 RecipeDetails.defaultProps = {
   recipe: {
     User: {
       firstName: ''
     }
-  }
+  },
+  message: '',
+  upvotes: {},
+  downvotes: {},
+  user: {}
 };
 
 const mapStateToProps = state => ({
-  recipe: (state.recipeReducer.currentRecipe) ? state.recipeReducer.currentRecipe : {},
+  recipe: (state.recipeReducer.currentRecipe) ?
+    state.recipeReducer.currentRecipe : {},
   user: state.auth.user,
   message: state.favoriteReducer.message,
   upvotes: state.ratingsReducer.upvotes,
@@ -345,6 +278,14 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getARecipe, deleteRecipe, favoriteRecipe, upvoteRecipe, downvoteRecipe,
-  getDownvotes, getUpvotes, reviewRecipe, getReviews, deleteReview
+  getARecipe,
+  deleteRecipe,
+  favoriteRecipe,
+  upvoteRecipe,
+  downvoteRecipe,
+  getDownvotes,
+  getUpvotes,
+  reviewRecipe,
+  getReviews,
+  deleteReview
 })(RecipeDetails);
