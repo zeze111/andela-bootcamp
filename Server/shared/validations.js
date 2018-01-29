@@ -7,12 +7,12 @@ const userRules = {
 };
 
 const recipeRules = {
-  name: 'required|alpha|between:2,90',
-  description: 'alpha|between:2,140',
-  prepTime: 'required|alpha_num|min:5',
+  name: 'required|between:2,90',
+  description: 'between:2,140',
+  prepTime: 'required|min:5',
   type: 'required',
-  ingredients: 'required|alpha_dash|min:5',
-  instructions: 'required|alpha_dash|min:10',
+  ingredients: 'required|min:5',
+  instructions: 'required|min:10',
 };
 
 const reviewRules = {
@@ -21,12 +21,12 @@ const reviewRules = {
 };
 
 const updateRecipeRules = {
-  name: 'alpha|between:2,90',
-  description: 'alpha|between:3,140',
-  prepTime: 'alpha_num|between:2,90',
+  name: 'between:2,90',
+  description: 'between:3,140',
+  prepTime: 'between:2,90',
   type: 'between:4,90',
-  ingredients: 'alpha_dash|between:5,1200',
-  instructions: 'alpha_dash|between:10,1200',
+  ingredients: 'between:5,1200',
+  instructions: 'between:10,1200',
 };
 
 const updateUserRules = {
