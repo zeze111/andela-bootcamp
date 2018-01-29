@@ -94,7 +94,7 @@ const users = {
             status: 'Unsuccessful',
             message: 'User not found',
           });
-        }) // if unsuccessful
+        })
         .catch(error => response.status(500).send(error));
     } else {
       return response.status(406).json({

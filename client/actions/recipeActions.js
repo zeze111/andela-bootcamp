@@ -11,6 +11,7 @@ import {
   GET_RECIPE,
   GET_RECIPES_CATEGORY,
   SEARCH_RECIPE,
+  GET_PAGED_RECIPES,
   MOST_UPVOTED_RECIPES
 } from './types';
 
@@ -82,11 +83,29 @@ export function getAllRecipes() {
 }
 
 /**
+ * @param {any} limit
+ * @param {any} offset
  * @export {function}
  * @returns {object} any
  */
-export function getUserRecipes() {
-  return dispatch => axios.get('/api/v1/user/recipes')
+export function getPaginatedRecipes(limit, offset) {
+  return dispatch => axios.get(`/api/v1/recipes/?limit=${limit}&offset=${offset}`)
+    .then((response) => {
+      dispatch({
+        type: GET_PAGED_RECIPES,
+        payload: response.data,
+      });
+    });
+}
+
+/**
+ * @param {any} limit
+ * @param {any} offset
+ * @export {function}
+ * @returns {object} any
+ */
+export function getUserRecipes(limit, offset) {
+  return dispatch => axios.get(`/api/v1/user/recipes?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch({
         type: GET_USER_RECIPES,
@@ -144,10 +163,12 @@ export function deleteRecipe(recipeId) {
 /**
  * @export {function}
  * @param {any} type
+ * @param {any} limit
+ * @param {any} offset
  * @returns {object} any
  */
-export function getRecipeCategory(type) {
-  return dispatch => axios.get(`/api/v1/recipes/?type=${type}`)
+export function getRecipeCategory(type, limit, offset) {
+  return dispatch => axios.get(`/api/v1/recipes/categories/${type}?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch({
         type: GET_RECIPES_CATEGORY,
@@ -159,10 +180,12 @@ export function getRecipeCategory(type) {
 /**
  * @export {function}
  * @param {any} word
+ * @param {any} limit
+ * @param {any} offset
  * @returns {object} any
  */
-export function searchRecipe(word) {
-  return dispatch => axios.get(`/api/v1/recipes/?search=${word}`)
+export function searchRecipe(word, limit, offset) {
+  return dispatch => axios.get(`/api/v1/recipes/search/${word}?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch({
         type: SEARCH_RECIPE,

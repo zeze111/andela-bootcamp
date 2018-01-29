@@ -1,6 +1,6 @@
 import { REVIEW_RECIPE, GET_REVIEWS, DELETE_REVIEW } from '../actions/types';
 
-const initialState = { reviews: [], message: '' };
+const initialState = { reviews: [], message: '', pagination: {} };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
@@ -13,6 +13,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         reviews: action.payload.reviews,
+        pagination: action.payload.pagination,
         message: action.payload.message,
       };
     case DELETE_REVIEW:

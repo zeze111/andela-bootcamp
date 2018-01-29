@@ -11,11 +11,10 @@ import PreLoader from '../common/PreLoader';
  */
 class Reviews extends Component {
   /**
-   * @param {any} event
    * @memberof Home
    * @return {void}
    */
-  reviewClickEvent = (event) => {
+  reviewClickEvent = () => {
     this.props.deleteReview(this.props.review.id);
   }
 

@@ -34,7 +34,7 @@ class Favorites extends Component {
             className="caps text-color"
           >
             {favorite.name}
-            <span className="black-text" >
+            <span className="black-text text-space">
               posted by {favorite.User.firstName} {favorite.User.surname}
             </span>
           </Link>
