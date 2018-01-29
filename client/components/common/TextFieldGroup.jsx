@@ -22,7 +22,7 @@ export const TextFieldGroup = ({
 );
 
 export const TextFieldGroup2 = ({
-  value, onChange, id, name, label, error
+  value, onChange, id, type, name, label, error
 }) => (
   <div className="input-field">
     <label htmlFor={id}>{label}</label>
@@ -30,7 +30,7 @@ export const TextFieldGroup2 = ({
       value={value}
       onChange={onChange}
       id={id}
-      type="text"
+      type={type}
       className="materialize-textarea"
       name={name}
     />
@@ -51,7 +51,7 @@ export const TextFieldGroup3 = ({
       value={value}
       onChange={onChange}
       id={id}
-      type="text"
+      type={type}
       className="validate"
       name={name}
     />
@@ -110,6 +110,7 @@ TextFieldGroup2.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   error: PropTypes.arrayOf(PropTypes.any),
 };
 

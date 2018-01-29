@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Pagination } from 'react-materialize';
 
 import { getUserRecipes, deleteRecipe } from '../../actions/recipeActions';
 import { updateUser, getUser } from '../../actions/userActions';
@@ -38,7 +37,6 @@ class Profile extends Component {
       email: '',
       bio: '',
       image: '',
-      limit: 3,
       isLoading: true,
       isPicLoading: false
     };
@@ -64,11 +62,9 @@ class Profile extends Component {
    */
   componentDidMount() {
     $('.materialboxed').materialbox();
-    const offset = 0;
-    const { limit } = this.state;
-
-    this.props.getUserRecipes(limit, offset);
-    this.props.getFavoriteRecipes(limit, offset);
+    const user = localStorage.getItem('user');
+    this.props.getUserRecipes(JSON.parse(user).id);
+    this.props.getFavoriteRecipes(JSON.parse(user).id);
   }
 
   /**
@@ -104,40 +100,8 @@ class Profile extends Component {
 
     this.props.updateUser(this.props.user.id, this.state)
       .then(() => {
-        const toastContent = $(`<span>${this.props.userMessage}</span>`);
-        Materialize.toast(toastContent, 2000);
-      });
-  }
-
-  /**
-   * @param {any} event
-   * @memberof Home
-   * @return {void}
-   */
-  onNextPage = (event) => {
-    const { limit } = this.state;
-    const offset = (limit * event) - limit;
-    this.setState({ isLoading: true });
-
-    this.props.getUserRecipes(limit, offset)
-      .then(() => {
-        this.setState({ isLoading: false });
-      });
-  }
-
-  /**
-   * @param {any} event
-   * @memberof Home
-   * @return {void}
-   */
-  onNextFavePage = (event) => {
-    const { limit } = this.state;
-    const offset = (limit * event) - limit;
-    this.setState({ isLoading: true });
-
-    this.props.getFavoriteRecipes(limit, offset)
-      .then(() => {
-        this.setState({ isLoading: false });
+        const $toastContent = $(`<span>${this.props.userMessage}</span>`);
+        Materialize.toast($toastContent, 2000);
       });
   }
 
@@ -172,25 +136,26 @@ class Profile extends Component {
    */
   render() {
     const {
+      getUserRecipes,
+      deleteRecipe,
+      getFavoriteRecipes,
+      deleteFavorite,
+      faveMessage,
       profile,
-      pagination,
-      pagination2,
+      user,
+      updateUser,
+      getUser
     } = this.props;
-
 
     const faves = (this.props.favorites) ? (this.props.favorites) : [];
     const recipeList = (this.props.recipes) ? (this.props.recipes) : [];
 
     const noFaves = (
-      <div className="col s11 offset-s1 bottom-style">
-        You Currently Have No Favorite Recipes
-      </div>
+      <div className="col s11 offset-s1 bottom-style"> You Currently Have No Favorite Recipes </div>
     );
 
     const noRecipes = (
-      <div className="col s11 offset-s1 bottom-style">
-        {this.props.message}
-      </div>
+      <div className="col s11 offset-s1 bottom-style"> {this.props.message} </div>
     );
 
     return (
@@ -200,13 +165,12 @@ class Profile extends Component {
             <br /> <br />
             <Information
               profile={profile}
-              image={this.state.image}
-              uploadImage={this.uploadImage}
               isPicLoading={this.state.isPicLoading}
             />
           </div>
+          <br />
           <div className="container z-depth-1 white" >
-            <div className="row" >
+            <div className="row remove-margin-bottom" >
               <div className="col s12" >
                 <Tabs defaultIndex={0} className="z-depth-1">
                   <TabList>
@@ -259,23 +223,15 @@ class Profile extends Component {
                           {(recipeList.length === 0) ? noRecipes :
                           <ul id="userlist" className="collection bottom-style">
                             {
-                                recipeList.map(recipe => (
-                                  <Recipes
-                                    recipe={recipe}
-                                    key={recipe.id}
-                                    deleteRecipe={this.props.deleteRecipe}
-                                  />))
+                              recipeList.map((recipe, index) => (
+                                <Recipes
+                                  recipe={recipe}
+                                  key={index}
+                                  deleteRecipe={deleteRecipe}
+                                />))
                               }
                           </ul>
                           }
-                        </div>
-                        <div className="center-align">
-                          <Pagination
-                            items={pagination.pageCount || 0}
-                            activePage={pagination.page}
-                            maxButtons={pagination.pageCount}
-                            onSelect={this.onNextPage}
-                          />
                         </div>
                       </div>
                     </div>
@@ -287,24 +243,16 @@ class Profile extends Component {
                         {(faves.length === 0) ? noFaves :
                         <ul id="userlist" className="collection bottom-style">
                           {
-                              faves.map(favorite => (
-                                <Favorites
-                                  favorites={this.props.favorites}
-                                  favorite={favorite}
-                                  key={favorite.id}
-                                  deleteFavorite={this.props.deleteFavorite}
-                                />))
+                            faves.map((favorite, index) => (
+                              <Favorites
+                                favorites={this.props.favorites}
+                                favorite={favorite}
+                                key={index}
+                                deleteFavorite={deleteFavorite}
+                              />))
                             }
                         </ul>
                         }
-                      </div>
-                      <div className="center-align">
-                        <Pagination
-                          items={pagination2.pageCount || 0}
-                          activePage={pagination2.page}
-                          maxButtons={pagination2.pageCount}
-                          onSelect={this.onNextFavePage}
-                        />
                       </div>
                     </div>
                   </TabPanel>
@@ -324,13 +272,8 @@ Profile.defaultProps = {
     surname: '',
     email: ''
   },
-  user: {},
   recipes: [],
-  favorites: [],
-  pagination: {},
-  pagination2: {},
-  message: '',
-  userMessage: ''
+  favorites: []
 };
 
 Profile.propTypes = {
@@ -340,13 +283,8 @@ Profile.propTypes = {
   deleteFavorite: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
-  message: PropTypes.string,
-  userMessage: PropTypes.string,
-  user: PropTypes.objectOf(PropTypes.any),
   profile: PropTypes.objectOf(PropTypes.any),
   recipes: PropTypes.arrayOf(PropTypes.any),
-  pagination: PropTypes.objectOf(PropTypes.any),
-  pagination2: PropTypes.objectOf(PropTypes.any),
   favorites: PropTypes.arrayOf(PropTypes.any)
 };
 
@@ -358,8 +296,6 @@ const mapStateToProps = state => ({
   message: state.recipeReducer.message,
   profile: state.auth.profile,
   userMessage: state.auth.message,
-  pagination: state.recipeReducer.pagination,
-  pagination2: state.favoriteReducer.pagination,
   delMessage: state.favoriteReducer.delMessage
 });
 

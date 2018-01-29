@@ -5,7 +5,6 @@ import {
   DELETE_RECIPE,
   UPDATE_RECIPE,
   GET_RECIPE,
-  GET_PAGED_RECIPES,
   GET_RECIPES_CATEGORY,
   MOST_UPVOTED_RECIPES,
   SEARCH_RECIPE
@@ -16,7 +15,6 @@ const initialState = {
   upvotedRecipes: [],
   currentRecipe: {},
   message: '',
-  pagination: {}
 };
 
 export default (state = initialState, action = {}) => {
@@ -30,7 +28,6 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         recipes: action.payload.recipes,
-        pagination: action.payload.pagination,
         message: action.payload.message,
       };
     case GET_ALL_RECIPES:
@@ -39,18 +36,11 @@ export default (state = initialState, action = {}) => {
         recipes: action.payload.recipes,
         message: action.payload.message
       };
-    case GET_PAGED_RECIPES:
-      return {
-        ...state,
-        recipes: action.payload.recipes,
-        pagination: action.payload.pagination
-      };
     case GET_RECIPES_CATEGORY:
       return {
         ...state,
         recipes: action.payload.recipes,
-        pagination: action.payload.pagination,
-        message: action.payload.message
+        message: action.payload.message,
       };
     case MOST_UPVOTED_RECIPES:
       return {
@@ -62,7 +52,6 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         recipes: action.payload.recipes,
-        pagination: action.payload.pagination,
         message: action.payload.message
       };
     case GET_RECIPE:

@@ -198,14 +198,9 @@ main {
     height: 180px;
   }
   .home-text-style {
-    margin-right: 3px !important;
     font-size: 14px;
     color: rgb(184, 84, 2) !important;
   }
-}
-
-.pagination li.active {
-  background-color: #FFB63D !important;
 }
 
 #r-cmt {
@@ -234,11 +229,7 @@ main {
 }
 
 .caps {
-  text-transform: capitalize !important;
-}
-
-a {
-  text-decoration: none;
+  text-transform: capitalize;
 }
 
 .caps2 {
@@ -261,7 +252,7 @@ a {
 
 .icon-button {
   border: 0;
-  background-color:  rgba(0, 0, 0, 0.0) !important;
+  background-color:  rgba(0, 0, 0, 0.0);
 }
 
 .card-buttons {
@@ -415,10 +406,6 @@ a {
   margin-left: 2em;
 }
 
-.text-space {
-  padding-left: 6px;
-}
-
 .error-text-field {
   font-size: 13px;
 }
@@ -438,10 +425,6 @@ a {
   padding-top: 1em;
 }
 
-.two-top {
-  margin-top: 2em;
-}
-
 .two-down {
   padding-bottom: 2em;
 }
@@ -449,9 +432,6 @@ a {
 .title-details {
   margin-top: 0 !important;
   text-transform: capitalize !important;
-  .user {
-    padding-left: 10px;
-  }
 }
 
 .slide-pad{

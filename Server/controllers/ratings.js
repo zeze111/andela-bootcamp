@@ -43,7 +43,7 @@ const ratings = {
                   }));
               } else if (votes.vote === 1) {
                 votes.destroy()
-                  .then(() => response.status(200).json({
+                  .then(() => response.status(204).json({
                     status: 'Successful',
                     message: 'Your Vote was Deleted',
                   }));
@@ -106,7 +106,7 @@ const ratings = {
                   }));
               } else if (votes.vote === 0) {
                 votes.destroy()
-                  .then(() => response.status(200).json({
+                  .then(() => response.status(204).json({
                     status: 'Successful',
                     message: 'Your Vote was Deleted',
                   }));

@@ -2,7 +2,7 @@ import Validator from 'validatorjs';
 
 import { Recipe, Review, User } from '../models';
 import validations from '../shared/validations';
-import { isNum, paginationData } from '../shared/helper';
+import { isNum } from '../shared/helper';
 
 
 const reviews = {
@@ -87,7 +87,7 @@ const reviews = {
       });
     } else {
       const recipeId = parseInt(request.params.recipeId, 10);
-      Review.findAndCountAll({
+      Review.findAll({
         where: {
           recipeId,
         },
@@ -98,11 +98,9 @@ const reviews = {
         order: [
           ['createdAt', 'DESC'],
         ],
-        limit: request.query.limit,
-        offset: request.query.offset,
       })
-        .then(({ rows, count }) => {
-          if (count === 0) {
+        .then((reviewsFound) => {
+          if (reviewsFound.length === 0) {
             response.status(200).json({
               status: 'Successful',
               message: 'No Reviews Posted Yet',
@@ -111,12 +109,7 @@ const reviews = {
           } else {
             response.status(200).json({
               status: 'Successful',
-              reviews: rows,
-              pagination: paginationData(
-                count,
-                request.query.limit,
-                request.query.offset,
-              )
+              reviews: reviewsFound,
             });
           }
         })
@@ -151,7 +144,7 @@ const reviews = {
           } else if (reviewFound.userId === request.decoded.id) {
             reviewFound.destroy()
               .then(() => {
-                response.status(200).json({
+                response.status(204).json({
                   status: 'Successful',
                   message: 'Review has been removed',
                 });

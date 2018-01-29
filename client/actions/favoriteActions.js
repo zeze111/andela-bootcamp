@@ -7,7 +7,7 @@ import { FAVORITE_RECIPE, GET_FAVORITE_RECIPE, DELETE_FAVORITE } from './types';
  * @returns {object} any
  */
 export function favoriteRecipe(recipeId) {
-  return dispatch => axios.post(`/api/v1/recipe/${recipeId}/favorite`)
+  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/favorite`)
     .then((response) => {
       dispatch({
         type: FAVORITE_RECIPE,
@@ -18,13 +18,11 @@ export function favoriteRecipe(recipeId) {
 }
 
 /**
- * @param {any} limit
- * @param {any} offset
- * @export {function}
+ *  @export {function}
  * @returns {object} any
  */
-export function getFavoriteRecipes(limit, offset) {
-  return dispatch => axios.get(`/api/v1/user/favorites?limit=${limit}&offset=${offset}`)
+export function getFavoriteRecipes() {
+  return dispatch => axios.get('/api/v1/user/favorites')
     .then((response) => {
       dispatch({
         type: GET_FAVORITE_RECIPE,

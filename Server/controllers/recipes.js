@@ -95,6 +95,13 @@ const recipes = {
           });
         });
     } else if (request.query.limit && request.query.offset) {
+      if (Number.isNaN(request.query.page)) {
+        return response.status(406).json({
+          status: 'Unsuccessful',
+          message: 'Page Must Be A Number',
+        });
+      }
+
       return Recipe.findAndCountAll({
         attributes: [
           'id',
@@ -113,7 +120,7 @@ const recipes = {
       })
         .then(({ rows, count }) => response.status(200).json({
           status: 'Successful',
-          recipes: rows,
+          rows,
           pagination: paginationData(
             count,
             request.query.limit,
@@ -121,6 +128,58 @@ const recipes = {
           )
 
         }));
+    } else if (request.query.type) {
+      return Recipe.findAll({
+        where: {
+          type: {
+            $ilike: `%${request.query.type}%`,
+          },
+        },
+        order: [
+          ['createdAt', 'DESC'],
+        ],
+      })
+        .then((recipesFound) => {
+          if (recipesFound.length === 0) {
+            return response.status(200).json({
+              status: 'Successful',
+              message: 'No Recipes In That Category Yet',
+              recipes: []
+            });
+          }
+          return response.status(200).json({
+            status: 'Successful',
+            recipes: recipesFound,
+          });
+        });
+    } else if (request.query.search) {
+      return Recipe.findAll({
+        where: {
+          $or: [{
+            name: {
+              $ilike: `%${request.query.search}%`,
+            },
+          },
+          {
+            ingredients: {
+              $ilike: `%${request.query.search}%`,
+            },
+          }],
+        },
+      })
+        .then((searchFound) => {
+          if (searchFound.length === 0) {
+            return response.status(200).json({
+              status: 'Unsuccessful',
+              message: 'Recipe(s) Not Found',
+              recipes: []
+            });
+          }
+          return response.status(200).json({
+            status: 'Successful',
+            recipes: searchFound,
+          });
+        });
     }
 
     return Recipe.findAll({
@@ -247,7 +306,7 @@ const recipes = {
         message: 'Recipe ID Must Be A Number',
       });
     } else {
-      const recipeId = parseInt(request.params.recipeId, 10);
+      const recipeId = parseInt(request.params.I, 10);
       Recipe.findById(recipeId)
         .then((recipe) => {
           if (!recipe) {
@@ -258,7 +317,7 @@ const recipes = {
           } else if (recipe.userId === request.decoded.id) {
             recipe.destroy()
               .then(() => {
-                response.status(200).json({
+                response.status(204).json({
                   status: 'Successful',
                   message: `${recipe.name} has been deleted`,
                 });
@@ -317,16 +376,14 @@ const recipes = {
   * @returns {Object} response object
   */
   getUserRecipes(request, response) {
-    Recipe.findAndCountAll({
+    Recipe.findAll({
       where: { userId: request.decoded.id },
       order: [
         ['createdAt', 'DESC'],
       ],
-      limit: request.query.limit,
-      offset: request.query.offset,
     })
-      .then(({ rows, count }) => {
-        if (count === 0) { // checks if list is empty
+      .then((userRecipes) => {
+        if (userRecipes.length === 0) { // checks if list is empty
           response.status(200).json({
             status: 'Successsful',
             message: 'You Currently Have No Recipes',
@@ -335,91 +392,11 @@ const recipes = {
         } else {
           response.status(200).json({
             status: 'Successful',
-            recipes: rows,
-            pagination: paginationData(
-              count,
-              request.query.limit,
-              request.query.offset,
-            )
+            recipes: userRecipes,
           });
         }
       })
       .catch(error => response.status(500).send(error));
-  },
-
-  /** Search for a recipe by user's input
-  * @param {Object} request - request object
-  * @param {Object} response - response object
-  * @returns {Object} response object
-  */
-  search(request, response) {
-    Recipe.findAndCountAll({
-      where: {
-        $or: [{
-          name: {
-            $ilike: `%${request.params.search}%`,
-          },
-        },
-        {
-          ingredients: {
-            $ilike: `%${request.params.search}%`,
-          },
-        }],
-      },
-      limit: request.query.limit,
-      offset: request.query.offset,
-    })
-      .then(({ rows, count }) => {
-        if (count === 0) {
-          return response.status(200).json({
-            status: 'Unsuccessful',
-            message: 'Recipe(s) Not Found',
-            recipes: []
-          });
-        }
-        return response.status(200).json({
-          status: 'Successful',
-          recipes: rows,
-          pagination: paginationData(
-            count,
-            request.query.limit,
-            request.query.offset,
-          )
-        });
-      });
-  },
-
-  getCategory(request, response) {
-    Recipe.findAndCountAll({
-      where: {
-        type: {
-          $ilike: `%${request.params.type}%`,
-        },
-      },
-      order: [
-        ['createdAt', 'DESC'],
-      ],
-      limit: request.query.limit,
-      offset: request.query.offset,
-    })
-      .then(({ rows, count }) => {
-        if (count === 0) {
-          return response.status(200).json({
-            status: 'Successful',
-            message: 'No Recipes In That Category Yet',
-            recipes: []
-          });
-        }
-        return response.status(200).json({
-          status: 'Successful',
-          recipes: rows,
-          pagination: paginationData(
-            count,
-            request.query.limit,
-            request.query.offset,
-          )
-        });
-      });
   },
 
 };

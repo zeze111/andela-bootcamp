@@ -9,7 +9,7 @@ import {
  * @returns {object} any
  */
 export function upvoteRecipe(recipeId) {
-  return dispatch => axios.post(`/api/v1/recipe/${recipeId}/upvote`)
+  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/upvote`)
     .then((response) => {
       dispatch({
         type: UPVOTE_RECIPE,
@@ -24,7 +24,7 @@ export function upvoteRecipe(recipeId) {
  * @returns {object} any
  */
 export function downvoteRecipe(recipeId) {
-  return dispatch => axios.post(`/api/v1/recipe/${recipeId}/downvote`)
+  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/downvote`)
     .then((response) => {
       dispatch({
         type: DOWNVOTE_RECIPE,
@@ -39,7 +39,7 @@ export function downvoteRecipe(recipeId) {
  * @returns {object} any
  */
 export function getUpvotes(recipeId) {
-  return dispatch => axios.get(`/api/v1/recipe/${recipeId}/upvotes`)
+  return dispatch => axios.get(`/api/v1/recipes/${recipeId}/upvotes`)
     .then((response) => {
       dispatch({
         type: GET_UPVOTES,
@@ -54,7 +54,7 @@ export function getUpvotes(recipeId) {
  * @returns {object} any
  */
 export function getDownvotes(recipeId) {
-  return dispatch => axios.get(`/api/v1/recipe/${recipeId}/downvotes`)
+  return dispatch => axios.get(`/api/v1/recipes/${recipeId}/downvotes`)
     .then((response) => {
       dispatch({
         type: GET_DOWNVOTES,

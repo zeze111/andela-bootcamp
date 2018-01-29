@@ -1,5 +1,4 @@
 import { Recipe, Favorite, User } from '../models';
-import { paginationData } from '../shared/helper';
 
 const favorites = {
 
@@ -88,7 +87,7 @@ const favorites = {
           } else if (fave.userId === request.decoded.id) {
             fave.destroy()
               .then(() => {
-                response.status(200).json({
+                response.status(204).json({
                   status: 'Successful',
                   message: 'Recipe has been removed from your Favorites',
                 });
@@ -120,7 +119,7 @@ const favorites = {
       faves.map(data =>
         recipeIds.push(data.dataValues.recipeId));
 
-      Recipe.findAndCountAll({
+      Recipe.findAll({
         where: {
           id: recipeIds,
         },
@@ -129,11 +128,9 @@ const favorites = {
           model: User,
           attributes: ['firstName', 'surname'],
         }],
-        limit: request.query.limit,
-        offset: request.query.offset,
       })
-        .then(({ rows, count }) => {
-          if (count === 0) {
+        .then((faveRecipes) => {
+          if (faveRecipes.length === 0) {
             response.status(200).json({
               status: 'Successful',
               message: 'You Currently Have No Favorite Recipes',
@@ -142,12 +139,7 @@ const favorites = {
           } else {
             response.status(200).json({
               status: 'Successful',
-              favorites: rows,
-              pagination: paginationData(
-                count,
-                request.query.limit,
-                request.query.offset,
-              )
+              favorites: faveRecipes,
             });
           }
         });

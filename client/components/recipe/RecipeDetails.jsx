@@ -43,8 +43,6 @@ class RecipeDetails extends Component {
       creator: {},
       upvotes: 0,
       downvotes: 0,
-      offset: 0,
-      limit: 3,
       isLoading: false
     };
   }
@@ -55,12 +53,10 @@ class RecipeDetails extends Component {
    */
   componentDidMount() {
     $('.materialboxed').materialbox();
-    const limit = 3;
-    const { recipeId } = this.props.match.params;
-    this.props.getARecipe(recipeId);
-    this.props.getUpvotes(recipeId);
-    this.props.getDownvotes(recipeId);
-    this.props.getReviews(recipeId, limit, this.state.offset);
+    this.props.getARecipe(this.props.match.params.recipeId);
+    this.props.getUpvotes(this.props.match.params.recipeId);
+    this.props.getDownvotes(this.props.match.params.recipeId);
+    this.props.getReviews(this.props.match.params.recipeId);
   }
 
   /**
@@ -97,33 +93,16 @@ class RecipeDetails extends Component {
       });
   }
 
-  onNextSet = () => {
-    const limit = this.state.limit + 3;
-    this.props.getReviews(this.props.recipe.id, limit, this.state.offset)
-      .then(() => {
-        this.setState({ limit });
-      });
-  }
-
-  onPreviousSet = () => {
-    const limit = this.state.limit - 3;
-    this.props.getReviews(this.props.recipe.id, limit, this.state.offset)
-      .then(() => {
-        this.setState({ limit });
-      });
-  }
-
   /**
    * @param {any} event
    * @memberof Home
    * @return {void}
    */
   onUpvote = () => {
-    const { id } = this.props.recipe;
-    this.props.upvoteRecipe(id)
+    this.props.upvoteRecipe(this.props.recipe.id)
       .then(() => {
-        this.props.getUpvotes(id);
-        this.props.getDownvotes(id);
+        this.props.getUpvotes(this.props.recipe.id);
+        this.props.getDownvotes(this.props.recipe.id);
       });
   }
 
@@ -133,11 +112,10 @@ class RecipeDetails extends Component {
    * @return {void}
    */
   onDownvote = () => {
-    const { id } = this.props.recipe;
-    this.props.downvoteRecipe(id)
+    this.props.downvoteRecipe(this.props.recipe.id)
       .then(() => {
-        this.props.getDownvotes(id);
-        this.props.getUpvotes(id);
+        this.props.getDownvotes(this.props.recipe.id);
+        this.props.getUpvotes(this.props.recipe.id);
       });
   }
 
@@ -158,7 +136,10 @@ class RecipeDetails extends Component {
                 this.setState({ redirect: true, isLoading: false });
               });
           }))
-        .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
+        .add($(
+          '<button class="btn-flat toast-action"',
+          'onClick=Materialize.Toast.removeAll(); on>No</button>'
+        ));
     Materialize.toast(toastContent);
   }
 
@@ -227,17 +208,15 @@ class RecipeDetails extends Component {
               recipe={recipe}
               reviewRecipe={reviewRecipe}
               getReviews={getReviews}
-              limit={this.state.limit}
-              offset={this.state.offset}
             />
             <div className="row">
-              <div className="col l6 m10 s12 review-section">
+              <div className="col s6 review-section">
                 {(reviewsList.length === 0) ? noReviews :
                 <ul className="collection" >
                   {
-                      reviewsList.map(review => (
+                      reviewsList.map((review, index) => (
                         <Reviews
-                          key={review.id}
+                          key={index}
                           review={review}
                           user={user}
                           deleteReview={deleteReview}
@@ -246,37 +225,6 @@ class RecipeDetails extends Component {
                       ))
                     }
                 </ul>
-                }
-                {
-                  (this.props.pagination.pageSize > 3) ?
-                    <button
-                      className="creator-button
-                    text-color
-                    left
-                    delete-text
-                    white
-                    two-top"
-                      onClick={() => { this.onPreviousSet(); }}
-                    >Fewer posts
-                    </button>
-                :
-                    <div />
-                }
-                {
-                  (reviewsList.length !== 0) ?
-                    <button
-                      className="creator-button
-                      text-color
-                      right
-                      delete-text
-                      text-style
-                      white
-                      two-top"
-                      onClick={() => { this.onNextSet(); }}
-                    >Older posts
-                    </button>
-                :
-                    <div />
                 }
               </div >
             </div>
@@ -303,7 +251,6 @@ RecipeDetails.propTypes = {
   downvotes: PropTypes.objectOf(PropTypes.any),
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   message: PropTypes.string,
-  pagination: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any)
 };
 
@@ -316,8 +263,7 @@ RecipeDetails.defaultProps = {
   message: '',
   upvotes: {},
   downvotes: {},
-  user: {},
-  pagination: {}
+  user: {}
 };
 
 const mapStateToProps = state => ({
@@ -327,7 +273,6 @@ const mapStateToProps = state => ({
   message: state.favoriteReducer.message,
   upvotes: state.ratingsReducer.upvotes,
   downvotes: state.ratingsReducer.downvotes,
-  pagination: state.reviewReducer.pagination,
   reviews: state.reviewReducer.reviews,
   reviewMessage: state.reviewReducer.message
 });

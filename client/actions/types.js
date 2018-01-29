@@ -22,4 +22,3 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const GET_USER = 'GET_USER';
 export const SEARCH_RECIPE = 'SEARCH_RECIPE';
 export const MOST_UPVOTED_RECIPES = 'MOST_UPVOTED_RECIPES';
-export const GET_PAGED_RECIPES = 'GET_PAGED_RECIPES';
