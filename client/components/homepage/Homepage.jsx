@@ -78,10 +78,10 @@ class Homepage extends Component {
               {!this.state.isLoading &&
                 <ul className="categories flex-container-homepage">
                   {
-                    upvoted.map((recipe, index) => (
+                    upvoted.map(recipe => (
                       <UpvotedContent
                         recipe={recipe}
-                        key={index}
+                        key={recipe.recipeId}
                       />))
                   }
                 </ul>
@@ -106,10 +106,10 @@ class Homepage extends Component {
               {!this.state.isLoading &&
                 <ul className="categories flex-container-homepage">
                   {
-                    allRecipes.slice(0, 5).map((recipe, index) => (
+                    allRecipes.slice(0, 5).map(recipe => (
                       <AllContent
                         recipe={recipe}
-                        key={index}
+                        key={recipe.id}
                       />))
                   }
                 </ul>
@@ -125,8 +125,12 @@ class Homepage extends Component {
 Homepage.propTypes = {
   getAllRecipes: PropTypes.func.isRequired,
   getMostUpvotedRecipe: PropTypes.func.isRequired,
-  recipes: PropTypes.arrayOf(PropTypes.any).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.any),
   upvotedRecipes: PropTypes.arrayOf(PropTypes.any).isRequired
+};
+
+Homepage.defaultProps = {
+  recipes: []
 };
 
 const mapStateToProps = state => ({

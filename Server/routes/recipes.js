@@ -20,6 +20,16 @@ router.get(
 );
 
 router.get(
+  '/search/:search',
+  recipe.search
+);
+
+router.get(
+  '/categories/:type',
+  recipe.getCategory
+);
+
+router.get(
   '/:recipeId',
   recipe.getDetails
 );

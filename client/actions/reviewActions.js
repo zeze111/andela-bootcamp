@@ -8,7 +8,7 @@ import { REVIEW_RECIPE, GET_REVIEWS, DELETE_REVIEW } from './types';
  * @returns {object} any
  */
 export function reviewRecipe(recipeId, review) {
-  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/review`, review)
+  return dispatch => axios.post(`/api/v1/recipe/${recipeId}/review`, review)
     .then((response) => {
       dispatch({
         type: REVIEW_RECIPE,
@@ -21,10 +21,12 @@ export function reviewRecipe(recipeId, review) {
 /**
  * @export {function}
  * @param {any} recipeId
+ * @param {any} limit
+ * @param {any} offset
  * @returns {object} any
  */
-export function getReviews(recipeId) {
-  return dispatch => axios.get(`/api/v1/recipes/${recipeId}/reviews`)
+export function getReviews(recipeId, limit, offset) {
+  return dispatch => axios.get(`/api/v1/recipe/${recipeId}/reviews?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch({
         type: GET_REVIEWS,
@@ -39,7 +41,7 @@ export function getReviews(recipeId) {
  * @returns {object} any
  */
 export function deleteReview(reviewId) {
-  return dispatch => axios.delete(`/api/v1/recipes/${reviewId}/review`)
+  return dispatch => axios.delete(`/api/v1/recipe/${reviewId}/review`)
     .then((response) => {
       Materialize.toast(`<span> ${response.data.message}</span>`, 2000);
 

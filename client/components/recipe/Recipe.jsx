@@ -51,7 +51,7 @@ const Recipe = props => (
         <div className="col s12 ">
           {props.creator &&
             <p className="title-details top-style"> Posted by
-              <a className="text-color title-details caps" href="user-recipe.html">
+              <a className="text-color user" href="user-recipe.html">
                 {props.creator.firstName}
               </a>
             </p>

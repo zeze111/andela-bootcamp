@@ -1,6 +1,11 @@
-import { UPVOTE_RECIPE, DOWNVOTE_RECIPE, GET_UPVOTES, GET_DOWNVOTES } from '../actions/types';
+import {
+  UPVOTE_RECIPE,
+  DOWNVOTE_RECIPE,
+  GET_UPVOTES,
+  GET_DOWNVOTES
+} from '../actions/types';
 
-const initialState = { upvotes: [], downvotes: [] };
+const initialState = { upvotes: {}, downvotes: {} };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {

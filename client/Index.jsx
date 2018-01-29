@@ -11,7 +11,7 @@ import { setCurrentUser } from './actions/signupActions';
 import './assets/style.scss';
 import './assets/init';
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunk),

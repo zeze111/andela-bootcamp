@@ -12,7 +12,7 @@ const Information = props => (
           className="materialboxed responsive-img circle img-style"
           width="200px"
           src={props.profile.image ||
-            this.state.image ||
+            props.image ||
             '/images/profilepic.png'}
         />
         {props.isPicLoading &&
@@ -36,7 +36,7 @@ const Information = props => (
             <span> Upload Photo
               <i className="material-icons left">photo</i>
             </span>
-            <input type="file" onChange={this.uploadImage} />
+            <input type="file" onChange={props.uploadImage} />
           </div>
         </div>
       </div>
@@ -46,7 +46,9 @@ const Information = props => (
 
 Information.propTypes = {
   profile: PropTypes.objectOf(PropTypes.any),
-  isPicLoading: PropTypes.bool.isRequired
+  isPicLoading: PropTypes.bool.isRequired,
+  image: PropTypes.string.isRequired,
+  uploadImage: PropTypes.func.isRequired
 };
 
 Information.defaultProps = {

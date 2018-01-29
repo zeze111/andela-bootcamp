@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { Recipe } from '../models';
 
 export const paginationData = (count, limit, offset) => ({
-  pageSize: limit,
+  pageSize: parseInt(limit, 10),
   totalCount: count,
   page: Math.ceil(offset / limit) + 1,
   pageCount: Math.ceil(count / limit),

@@ -19,7 +19,8 @@ const Details = (props) => {
           text-color
           right
           delete-text
-          text-style"
+          text-style
+          white"
           onClick={props.clickEvent}
         >Delete this recipe
         </button>
@@ -42,14 +43,14 @@ const Details = (props) => {
         }
         {(props.ingredients.length > 0) &&
         <div>
-          <div id="time" className="col s4 ">
+          <div id="time" className="col l4 m4 s12 ">
             <p className="recipe"> Prep Time: {props.recipe.prepTime} </p>
           </div>
-          <div id="Ing" className="col s4 r-ingredients">
+          <div id="Ing" className="col l4 m4 s12 r-ingredients">
             <p className="recipe"> Ingredients: </p>
             {props.ingredients}
           </div>
-          <div id="Ins" className="col s4">
+          <div id="Ins" className="col l4 m4 s12">
             <p className="recipe"> Instructions: </p>
             <p id="instruct" className="no-top"> {props.recipe.instructions} </p>
           </div>
@@ -71,13 +72,14 @@ Details.propTypes = {
   clickEvent: PropTypes.func.isRequired,
   recipe: PropTypes.objectOf(PropTypes.any),
   ingredients: PropTypes.arrayOf(PropTypes.any),
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
   isLoading: PropTypes.bool.isRequired
 };
 
 Details.defaultProps = {
   recipe: {},
-  ingredients: []
+  ingredients: [],
+  id: 0
 };
 
 export default Details;

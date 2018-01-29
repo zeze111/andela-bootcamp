@@ -41,6 +41,7 @@
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "dotenv": "^4.0.0",
+    "dotenv-webpack": "^1.5.4",
     "es-feature-tests": "^0.3.0",
     "eslint": "^4.15.0",
     "eslint-config-airbnb": "^16.1.0",
