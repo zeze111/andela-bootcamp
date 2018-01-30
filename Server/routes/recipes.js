@@ -52,12 +52,6 @@ router.post(
   favorite.favoriteRecipe
 );
 
-router.delete(
-  '/:recipeId/recipe',
-  confirmAuth.authenticate,
-  favorite.delete
-);
-
 router.get(
   '/:recipeId/upvotes',
   rating.getUpvotes

@@ -40,7 +40,6 @@ app.use('/api/v1/users', users);
 app.use('/api/v1/user', users);
 app.use('/api/v1/recipes', recipes);
 app.use('/api/v1/recipe', recipes);
-app.use('/api/v1/favorites', recipes);
 
 
 app.use('*', express.static('build'));

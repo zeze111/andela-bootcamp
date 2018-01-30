@@ -1,5 +1,5 @@
 export const createUser1 = {
-  firstName: 'user1',
+  firstName: 'user',
   surname: 'user',
   email: 'user1@gmail.com',
   password: 'testpassword',
@@ -15,7 +15,7 @@ export const createUser2 = {
 };
 
 export const createUser3 = {
-  firstName: 'user1',
+  firstName: 'user',
   surname: 'user',
   email: 'user1@gmail.com',
   password: 'test',

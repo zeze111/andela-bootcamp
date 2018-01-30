@@ -13,7 +13,7 @@ const reviews = {
   * @returns {Object} response object
   */
   reviewRecipe(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
@@ -80,7 +80,7 @@ const reviews = {
   * @returns {Object} response object
   */
   getAll(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
@@ -130,7 +130,7 @@ const reviews = {
   * @returns {Object} response object
   */
   delete(request, response) {
-    if (Number.isNaN(request.params.reviewId)) {
+    if (isNaN(request.params.reviewId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Review ID Must Be A Number',

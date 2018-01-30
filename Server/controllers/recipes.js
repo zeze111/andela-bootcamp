@@ -157,7 +157,7 @@ const recipes = {
   * @returns {Object} response object
   */
   update(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
@@ -241,7 +241,7 @@ const recipes = {
   * @returns {Object} response object
   */
   delete(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
@@ -281,7 +281,7 @@ const recipes = {
   * @returns {Object} response object
   */
   getDetails(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe ID Must Be A Number',
@@ -328,7 +328,7 @@ const recipes = {
       .then(({ rows, count }) => {
         if (count === 0) { // checks if list is empty
           response.status(200).json({
-            status: 'Successsful',
+            status: 'Successful',
             message: 'You Currently Have No Recipes',
             recipes: []
           });

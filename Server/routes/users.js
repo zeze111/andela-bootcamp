@@ -41,4 +41,10 @@ router.put(
   user.update
 );
 
+router.delete(
+  '/favorites/:recipeId',
+  confirmAuth.authenticate,
+  favorite.delete
+);
+
 export default router;

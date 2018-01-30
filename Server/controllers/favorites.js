@@ -9,7 +9,7 @@ const favorites = {
   * @returns {Object} response object
   */
   favoriteRecipe(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Id Must Be A Number',
@@ -66,7 +66,7 @@ const favorites = {
   * @returns {Object} response object
   */
   delete(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Id Must Be A Number',
