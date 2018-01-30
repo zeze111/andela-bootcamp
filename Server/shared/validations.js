@@ -33,7 +33,7 @@ const updateUserRules = {
   firstName: 'alpha|between:2,35',
   surname: 'alpha|between:2,50',
   email: 'email',
-  password: ['confirmed|min:6', 'regex:/\s/']
+  password: 'min:6|alpha_num'
 };
 
 export default {

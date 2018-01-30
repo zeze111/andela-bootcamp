@@ -12,30 +12,51 @@ export let recipeId;
 export let recipeId2;
 
 
-describe('Errors for get all recipes', () => {
-  it('it should return an empty list with an error', (done) => {
+describe('Empty data for get all recipes', () => {
+  it('it should return an empty list', (done) => {
     chai.request(app)
       .get('/api/v1/recipes')
       .end((err, res) => {
-        should.exist(err);
-        res.status.should.equal(422);
-        res.body.status.should.equal('Unprocessable');
-        res.body.message.should.equal('Currently No Recipes');
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        res.body.message.should.equal('There Are Currently No Recipes');
         done();
       });
   });
-  it('it should return an empty list for popular recipes with an error', (done) => {
+  it('it should return an empty list for popular recipes', (done) => {
     chai.request(app)
       .get('/api/v1/recipes?sort=upvotes&order=des')
       .end((err, res) => {
-        should.exist(err);
-        res.status.should.equal(422);
-        res.body.status.should.equal('Unprocessable');
-        res.body.message.should.equal('There are no Popular Recipes');
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        res.body.message.should.equal('There Are Currently No Popular Recipes');
         done();
       });
   });
-
+  it('it should return an empty list for searched recipes', (done) => {
+    chai.request(app)
+      .get('/api/v1/recipes/search/house')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe(s) Not Found');
+        done();
+      });
+  });
+  it('it should return an empty list for recipe category', (done) => {
+    chai.request(app)
+      .get('/api/v1/recipes/categories/main')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        res.body.message.should.equal('No Recipes In That Category Yet');
+        done();
+      });
+  });
 });
 
 
@@ -46,7 +67,7 @@ describe('Submit a Recipe', () => {
       .set('x-token', token)
       .send(recipe1)
       .end((err, res) => {
-        recipeId = res.body.recipeId;
+        recipeId = res.body.recipe.id;
         should.not.exist(err);
         res.status.should.equal(201);
         res.body.status.should.equal('Success');
@@ -59,7 +80,7 @@ describe('Submit a Recipe', () => {
       .set('x-token', token)
       .send(recipe2)
       .end((err, res) => {
-        recipeId2 = res.body.recipeId;
+        recipeId2 = res.body.recipe.id;
         should.not.exist(err);
         res.status.should.equal(201);
         res.body.status.should.equal('Success');
@@ -102,7 +123,7 @@ describe('Errors for submitting a recipe', () => {
       .send(errorRecipe)
       .end((err, res) => {
         should.exist(err);
-        res.status.should.equal(406);
+        res.status.should.equal(422);
         res.body.status.should.equal('Unsuccessful');
         res.body.message.should.equal('Invalid data input');
         done();
@@ -114,7 +135,7 @@ describe('Errors for submitting a recipe', () => {
 describe('Get all recipes', () => {
   it('list of recipes should be returned', (done) => {
     chai.request(app)
-      .get('/api/v1/recipes/?page=1')
+      .get('/api/v1/recipes')
       .end((err, res) => {
         should.not.exist(err);
         res.status.should.equal(200);
@@ -124,6 +145,28 @@ describe('Get all recipes', () => {
   });
 });
 
+describe('Search for a recipe', () => {
+  it('Recipe(s) matching the search should be returned', (done) => {
+    chai.request(app)
+      .get('/api/v1/recipes/search/amala')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        done();
+      });
+  });
+  it('Recipe(s) matching the category should be returned', (done) => {
+    chai.request(app)
+      .get('/api/v1/recipes/categories/dessert')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        done();
+      });
+  });
+});
 
 describe('Updating a recipe', () => {
   it('Recipe should be updated', (done) => {
@@ -144,19 +187,20 @@ describe('Updating a recipe', () => {
 
 
 describe('Errors for updating a recipe', () => {
-  it('it should only accept a number for recipe id', (done) => {
-    chai.request(app)
-      .put('/api/v1/recipes/recipeId')
-      .set('x-token', token)
-      .send(update)
-      .end((err, res) => {
-        should.exist(err);
-        res.status.should.equal(406);
-        res.body.status.should.equal('Unsuccessful');
-        res.body.message.should.equal('Recipe ID Must Be A Number');
-        done();
-      });
-  });
+  // it('it should only accept a number for recipe id', (done) => {
+  //   chai.request(app)
+  //     .put('/api/v1/recipes/recipeId')
+  //     .set('x-token', token)
+  //     .send(update)
+  //     .end((err, res) => {
+  //       console.log(err);
+  //       should.exist(err);
+  //       res.status.should.equal(406);
+  //       res.body.status.should.equal('Unsuccessful');
+  //       res.body.message.should.equal('Recipe ID Must Be A Number');
+  //       done();
+  //     });
+  // });
   it('it should reject an invalid token', (done) => {
     chai.request(app)
       .put(`/api/v1/recipes/${recipeId}`)
@@ -192,7 +236,7 @@ describe('Errors for updating a recipe', () => {
       })
       .end((err, res) => {
         should.exist(err);
-        res.status.should.equal(406);
+        res.status.should.equal(422);
         res.body.status.should.equal('Unsuccessful');
         res.body.message.should.equal('Invalid data input');
         done();
@@ -206,7 +250,7 @@ describe('Errors for updating a recipe', () => {
         should.exist(err);
         res.status.should.equal(403);
         res.body.status.should.equal('Unsuccessful');
-        res.body.message.should.equal('You are Not Aauthorized to Update This Recipe');
+        res.body.message.should.equal('You are Not Authorized to Update This Recipe');
         done();
       });
   });
@@ -226,6 +270,22 @@ describe('Delete a recipe', () => {
       });
   });
 });
+
+describe('Submit a Recipe', () => {
+  it('Recipe should be created', (done) => {
+    chai.request(app)
+      .post('/api/v1/recipes')
+      .set('x-token', token)
+      .send(recipe1)
+      .end((err, res) => {
+        recipeId = res.body.recipe.id;
+        should.not.exist(err);
+        res.status.should.equal(201);
+        res.body.status.should.equal('Success');
+        done();
+      });
+  });
+})
 
 
 describe('Errors for deleting a recipe', () => {
@@ -249,7 +309,7 @@ describe('Errors for deleting a recipe', () => {
         should.exist(err);
         res.status.should.equal(403);
         res.body.status.should.equal('Unsuccessful');
-        res.body.message.should.equal('You are Not Aauthorized to Delete This Recipe');
+        res.body.message.should.equal('You are Not Authorized to Delete This Recipe');
         done();
       });
   });
@@ -288,7 +348,7 @@ describe('Error for getting one recipe', () => {
 describe('Get all recipes for a user', () => {
   it('should return all the recipes submitted by a user', (done) => {
     chai.request(app)
-      .get(`/api/v1/user/${userId}/recipes`)
+      .get(`/api/v1/user/recipes`)
       .set('x-token', token)
       .end((err, res) => {
         should.not.exist(err);
@@ -300,28 +360,16 @@ describe('Get all recipes for a user', () => {
 });
 
 
-describe('Errors for getting all recipes of user', () => {
-  it('it should only accept a number for user id', (done) => {
-    chai.request(app)
-      .get('/api/v1/user/userId/recipes')
-      .set('x-token', token)
-      .end((err, res) => {
-        should.exist(err);
-        res.status.should.equal(406);
-        res.body.status.should.equal('Unsuccessful');
-        res.body.message.should.equal('User ID Must Be A Number');
-        done();
-      });
-  });
+describe('Empty return for getting all recipes of user', () => {
   it('it should return an error for no submitted recipes', (done) => {
     chai.request(app)
-      .get(`/api/v1/user/${userId2}/recipes`)
+      .get(`/api/v1/user/recipes`)
       .set('x-token', token2)
       .end((err, res) => {
-        should.exist(err);
-        res.status.should.equal(422);
-        res.body.status.should.equal('Unprocessable');
-        res.body.message.should.equal('You currently have no recipes');
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        res.body.message.should.equal('You Currently Have No Recipes');
         done();
       });
   });

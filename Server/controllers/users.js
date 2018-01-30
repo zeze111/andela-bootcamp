@@ -112,12 +112,7 @@ const users = {
   update(request, response) {
     User.findById(request.decoded.id)
       .then((userFound) => {
-        if (!userFound) {
-          response.status(404).json({
-            status: 'Unsuccessful',
-            message: 'User Not Found',
-          });
-        } else {
+        if (userFound) {
           const {
             firstName,
             surname,
@@ -180,7 +175,7 @@ const users = {
   * @returns {Object} response object
   */
   getDetails(request, response) {
-    if (Number.isNaN(request.params.userId)) {
+    if (isNaN(request.params.userId)) {
       return response.status(406).json({
         status: 'Unsuccessful',
         message: 'User ID Must Be A Number',

@@ -8,10 +8,10 @@ const ratings = {
   * @returns {Object} response object
   */
   upvote(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       return response.status(406).json({
         status: 'Unsuccessful',
-        message: 'Recipe Must Be A Number',
+        message: 'Recipe ID Must Be A Number',
       });
     }
     const recipeId = parseInt(request.params.recipeId, 10);
@@ -71,7 +71,7 @@ const ratings = {
   * @returns {Object} response object
   */
   downvote(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       return response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',
@@ -133,7 +133,7 @@ const ratings = {
   * @returns {Object} response object
   */
   getUpvotes(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',
@@ -161,7 +161,7 @@ const ratings = {
   * @returns {Object} response object
   */
   getDownvotes(request, response) {
-    if (Number.isNaN(request.params.recipeId)) {
+    if (isNaN(request.params.recipeId)) {
       response.status(406).json({
         status: 'Unsuccessful',
         message: 'Recipe Must Be A Number',

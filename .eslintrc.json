@@ -19,6 +19,7 @@
     "no-param-reassign": 0,
     "no-useless-escape": 0,
     "no-case-declarations": 0,
+    "no-restricted-globals": ["error", "isFinite"],
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],
