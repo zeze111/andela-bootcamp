@@ -5,6 +5,12 @@ import slide2 from '../../assets/images/food.jpg';
 import slide3 from '../../assets/images/food2.jpg';
 import slide4 from '../../assets/images/des.jpg';
 
+/** Stateless component to render pictures for homepgae slider
+ *
+ * @export {function} Slide
+ *
+ * @returns {null} null
+ */
 export default () => (
   <div className="container">
     <div className="row no-top one-top">

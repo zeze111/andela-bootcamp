@@ -4,17 +4,20 @@ import PropTypes from 'prop-types';
 import { TextFieldGroup } from '../common/TextFieldGroup';
 import PreLoader from '../common/PreLoader';
 
-/**
- *
+/** Renders form to allow users sign in
  *
  * @class SigninForm
+ *
  * @extends {React.Component}
  */
 class SigninForm extends React.Component {
   /**
    * @description Constructor Function
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
@@ -27,18 +30,24 @@ class SigninForm extends React.Component {
     };
   }
 
-  /**
-   * @param {any} event
+  /** sets state on form input change
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to sign user in
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSubmit = (event) => {
@@ -47,15 +56,17 @@ class SigninForm extends React.Component {
 
     this.props.userSigninRequest(this.state)
       .then(() => {
-        this.setState({ redirect: true });
+        this.setState({ redirect: true, isLoading: false });
       })
       .catch((error) => {
         this.setState({ errors: error.response.data, isLoading: false });
       });
   }
 
-  /**
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -67,7 +78,7 @@ class SigninForm extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="col s5 offset-s4"> <br />
+        <form onSubmit={this.onSubmit} className="col s10 m7 l6 push-s1 push-m2 push-l3"> <br />
           <TextFieldGroup
             label="Email"
             value={this.state.email}
@@ -95,6 +106,7 @@ class SigninForm extends React.Component {
               className="btn grey white-text right-align"
               type="submit"
               value="Sign in"
+              disabled={this.state.isLoading}
             />
           </div> <br />
           {errors &&

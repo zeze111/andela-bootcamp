@@ -3,13 +3,21 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import PreLoader from '../common/PreLoader';
 
+/** Stateless component to render recipe details
+ *
+ * @export {function} Details
+ *
+ * @param {object} props
+ *
+ * @returns {null} null
+ */
 const Details = (props) => {
   const creatorUser = (
-    <div >
-      <div className="col s4 offset-s7 creator">
+    <div className="row right-align" >
+      <div className="col s12 m6 l5 push-l4 push-m4 creator edit-text">
         <Link
-          to={`/updateRecipe/${props.recipe.id}`}
-          href={`/updateRecipe/${props.recipe.id}`}
+          to={`/update-recipe/${props.recipe.id}`}
+          href={`/update-recipe/${props.recipe.id}`}
           className="text-color"
         >
           Edit this recipe
@@ -35,7 +43,7 @@ const Details = (props) => {
   return (
     <div className="row">
       <div className="col s8 offset-s1">
-        <h5 className="center-align text-recipe title" > Recipe </h5>
+        <h5 className="center-align title" > Recipe </h5>
         {(props.ingredients.length <= 0) &&
         <div className="center-align loader-style">
           <PreLoader />
@@ -44,7 +52,7 @@ const Details = (props) => {
         {(props.ingredients.length > 0) &&
         <div>
           <div id="time" className="col l4 m4 s12 ">
-            <p className="recipe"> Prep Time: {props.recipe.prepTime} </p>
+            <p className="recipe"> Prep Time: {props.recipe.preparationTime} </p>
           </div>
           <div id="Ing" className="col l4 m4 s12 r-ingredients">
             <p className="recipe"> Ingredients: </p>

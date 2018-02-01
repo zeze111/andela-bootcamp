@@ -9,13 +9,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    prepTime: {
+    preparationTime: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     type: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.ENUM,
+      values: ['Appetizer', 'Main', 'Dessert', 'Drinks'],
+      allowNull: false
     },
     ingredients: {
       type: DataTypes.STRING(1234),

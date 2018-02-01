@@ -1,33 +1,65 @@
 import axios from 'axios';
-import { UPDATE_USER, GET_USER } from './types';
+import jwt from 'jsonwebtoken';
 
-/**
+import {
+  UPDATE_USER,
+  GET_USER,
+  GET_USER_FAILURE,
+  UPDATE_USER_FAILURE
+} from './types';
+import setAuthorizationToken from '../utils/setAuthorizationToken';
+import { setCurrentUser } from './signupActions';
+
+/** makes api call to update a user's details
+ *
  * @export {function}
- * @param {any} user
+ *
+ * @param {object} user
+ *
  * @returns {object} any
  */
 export function updateUser(user) {
-  axios.defaults.headers.common['x-token'] = window.localStorage.jwtToken;
+  setAuthorizationToken(window.localStorage.jwtToken);
   return dispatch => axios.put('/api/v1/user/', user)
     .then((response) => {
+      const { token } = response.data;
+      localStorage.setItem('jwtToken', token);
+      dispatch(setCurrentUser(jwt.decode(token)));
       dispatch({
         type: UPDATE_USER,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: UPDATE_USER_FAILURE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
+/** makes api call to get user's detail from database
+ *
  * @export {function}
- * @param {any} userId
+ *
+ * @param {number} userId
+ *
  * @returns {object} any
  */
 export function getUser(userId) {
   return dispatch => axios.get(`/api/v1/user/${userId}`)
     .then((response) => {
+      const { id, email, firstName } = response.data.user;
+      dispatch(setCurrentUser({ id, email, firstName }));
       dispatch({
         type: GET_USER,
         payload: response.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_USER_FAILURE,
+        payload: error.response.data,
       });
     });
 }

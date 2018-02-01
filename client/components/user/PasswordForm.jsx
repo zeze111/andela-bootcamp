@@ -36,8 +36,8 @@ class PasswordForm extends Component {
    */
   render() {
     return (
-      <div id="chpwd" className="col s10 offest-s2 form-style">
-        <form className="col s6 offset-s2">
+      <div id="chpwd" className="col s12 m8 l7 push-l1 push-m1 form-style">
+        <form className="col s10 push-s1">
           <TextFieldGroup3
             label="Old Password:"
             value={this.state.oldPassword}

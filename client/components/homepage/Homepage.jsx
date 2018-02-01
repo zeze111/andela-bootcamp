@@ -14,17 +14,20 @@ import PreLoader from '../common/PreLoader';
 import '../../assets/style.scss';
 import '../../assets/init';
 
-/**
- *
+/** Landing page for when the app is visited
  *
  * @class Homepage
+ *
  * @extends {React.Component}
  */
 class Homepage extends Component {
   /**
    * @description Constructor Function
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
@@ -35,8 +38,10 @@ class Homepage extends Component {
     };
   }
 
-  /**
+  /** actions to be called before component is mounted
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentWillMount() {
@@ -50,9 +55,10 @@ class Homepage extends Component {
       });
   }
 
-  /**
-   * @param {any} props
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -63,7 +69,7 @@ class Homepage extends Component {
       <div id="homepageBody">
         <main>
           <Slide />
-          <div className="container full-container">
+          <div className="container full-container home-width">
             <br /> <br />
             <h5 className="light black-text lighten-3">
               MOST UPVOTED RECIPES
@@ -88,11 +94,11 @@ class Homepage extends Component {
               }
             </div>
           </div>
-          <div className="container full-container">
+          <div className="container full-container home-width">
             <br /> <br />
             <Link
-              to="/allRecipes"
-              href="/allRecipe"
+              to="/all-recipes"
+              href="/all-recipes"
             >
               <h5 className="light text-color"> ALL RECIPES </h5>
             </Link>

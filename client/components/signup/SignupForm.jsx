@@ -6,17 +6,20 @@ import validations from '../../../Server/shared/validations';
 import { TextFieldGroup } from '../common/TextFieldGroup';
 import PreLoader from '../common/PreLoader';
 
-/**
- *
+/** Renders form to allow users sign up
  *
  * @class SignupForm
+ *
  * @extends {React.Component}
  */
 class SignupForm extends React.Component {
   /**
    * @description Constructor Function
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
@@ -32,18 +35,24 @@ class SignupForm extends React.Component {
     };
   }
 
-  /**
-   * @param {any} event
+  /** sets state on form input change
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to signup user
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSubmit = (event) => {
@@ -53,16 +62,18 @@ class SignupForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state)
-        .then(() => this.setState({ redirect: true }))
+        .then(() => this.setState({ redirect: true, isLoading: false }))
         .catch((error) => {
           this.setState({ errors: error.response.data, isLoading: false });
         });
     }
   }
 
-  /**
+  /** checks if form data passes or fails
+   *
    * @memberof Home
-   * @return {void}
+   *
+   * @return {boolean} validator
    */
   isValid() {
     const validator = new Validator(this.state, validations.userRules);
@@ -74,8 +85,10 @@ class SignupForm extends React.Component {
     return validator.passes();
   }
 
-  /**
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -87,7 +100,7 @@ class SignupForm extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="col s5 offset-s4"> <br />
+        <form onSubmit={this.onSubmit} className="col s10 m7 l6 push-s1 push-m2 push-l3"> <br />
           {errors &&
             <span className="red-text error-text">
               {errors.message}
@@ -148,6 +161,7 @@ class SignupForm extends React.Component {
               className="btn grey white-text"
               type="submit"
               value="Register"
+              disabled={this.state.isLoading}
             />
           </div> <br />
         </form>

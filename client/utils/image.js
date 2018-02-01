@@ -1,9 +1,11 @@
 import axios from 'axios';
 import FormData from 'form-data';
 
-/**
+/** uploads an image to cloudinary
  * @export {function}
- * @param {any} imageFile
+ *
+ * @param {string} imageFile
+ *
  * @returns {object} any
  */
 function uploadImageToCloud(imageFile) {

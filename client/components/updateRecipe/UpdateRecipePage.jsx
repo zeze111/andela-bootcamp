@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import UpdateRecipeForm from './UpdateRecipeForm';
 import { updateRecipe, getARecipe } from '../../actions/recipeActions';
 
-/**
- *
+/** Passes the necessary props to update form
  *
  * @class UpdateRecipePage
+ *
  * @extends {React.Component}
  */
 class UpdateRecipePage extends Component {
-  /**
-   * @description Constructor Function
-   * @param {any} props
+  /** calls action to get recipe details when compoment has mounted
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentDidMount() {
     this.props.getARecipe(this.props.match.params.recipeId);
   }
 
-  /**
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -30,11 +33,11 @@ class UpdateRecipePage extends Component {
       <div id="addRecipebody">
         <main id="wrapper">
           <div className="container full-container">
-            <div className="row remove-margin-bottom">
-              <div className="col s8 offset-s2 form-padding">
+            <div className="row remove-margin-bottom card-width">
+              <div className="col s12 m10 l8 push-l2 push-m1 form-padding">
                 <div className="card z-depth-2" >
                   <span
-                    className="card-title col s3 offset-s5 text-color inner"
+                    className="card-title col s12 m12 l12 center-align text-color inner"
                   > UPDATE RECIPE
                   </span>
                   <UpdateRecipeForm

@@ -34,6 +34,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHotMiddleware(compiler));
 }
 
+app.use('/api-docs', express.static('api-docs'));
 app.use('/', publicPath);
 
 app.use('/api/v1/users', users);

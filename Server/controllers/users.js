@@ -6,14 +6,20 @@ import validations from '../shared/validations';
 
 require('dotenv').config();
 
-const users = {
-
+/**
+ *
+ * @class Users
+ */
+class Users {
   /** Creates new User and storesin the User table
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  signUp(request, response) {
+  static signUp(request, response) {
     const validator = new Validator(request.body, validations.userRules);
     if (validator.passes()) {
       User.findOne({
@@ -26,7 +32,6 @@ const users = {
               surname: request.body.surname.trim(),
               email: request.body.email.toLowerCase().trim(),
               password: request.body.password,
-              password_confirmation: request.body.password_confirmation,
               image: request.body.image,
               bio: request.body.bio,
             }).then((userCreated) => {
@@ -36,7 +41,10 @@ const users = {
                 email: userCreated.email,
               };
 
-              const payload = { id: userCreated.id };
+              const payload = {
+                id: userCreated.id,
+                firstName: userCreated.firstName
+              };
               const token = createToken(payload);
               return response.status(201).json({
                 status: 'Success',
@@ -60,14 +68,17 @@ const users = {
         errors,
       });
     }
-  },
+  }
 
   /** Authenticate and signs in user
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  signIn(request, response) {
+  static signIn(request, response) {
     const { email, password } = request.body;
     if (email && password) {
       User.findOne({
@@ -76,7 +87,7 @@ const users = {
         .then((user) => {
           if (user) {
             if (user.comparePassword(password, user)) {
-              const payload = { id: user.id };
+              const payload = { id: user.id, firstName: user.firstName };
               const token = createToken(payload);
               return response.status(200).json({
                 status: 'Success',
@@ -85,31 +96,34 @@ const users = {
                 user,
               });
             }
-            return response.status(400).json({
+            return response.status(401).json({
               status: 'Unsuccessful',
               message: 'Sign in failed, Wrong email/password',
             });
           }
-          return response.status(404).json({
+          return response.status(401).json({
             status: 'Unsuccessful',
-            message: 'User not found',
+            message: 'Invalid Credentials, you are unauthorized',
           });
         })
         .catch(error => response.status(500).send(error));
     } else {
-      return response.status(406).json({
+      return response.status(422).json({
         status: 'Unsuccessful',
         message: 'Missing data input',
       });
     }
-  },
+  }
 
   /** Updates a User's details
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  update(request, response) {
+  static update(request, response) {
     User.findById(request.decoded.id)
       .then((userFound) => {
         if (userFound) {
@@ -121,30 +135,37 @@ const users = {
             image,
             bio
           } = request.body;
+
           if (firstName || surname || email ||
             password || image || bio) {
-            const validator = new Validator(request.body, validations.updateUserRules);
+            const validator = new Validator(
+              request.body,
+              validations.updateUserRules
+            );
             if (validator.passes()) {
               userFound.update({
                 firstName: firstName || userFound.firstName,
                 surname: surname || userFound.surname,
-                email: email || userFound.email,
+                email: userFound.email,
                 password: password || userFound.password,
-                password_confirmation: password ||
-                  userFound.password_confirmation,
                 image: image || userFound.image,
                 bio: bio || userFound.bio,
               })
                 .then((updatedUser) => {
+                  const payload = {
+                    id: updatedUser.id,
+                    firstName: updatedUser.firstName
+                  };
+                  const token = createToken(payload);
+
                   response.status(200).json({
                     status: 'Successful',
                     message: 'Your account has been updated',
+                    token,
                     user: {
                       firstName: updatedUser.firstName,
                       surname: updatedUser.surname,
                       email: updatedUser.email,
-                      password: updatedUser.password,
-                      password_confirmation: updatedUser.password,
                       image: updatedUser.image,
                       bio: request.body.bio,
                     },
@@ -167,37 +188,35 @@ const users = {
         }
       })
       .catch(error => response.status(500).send(error));
-  },
+  }
 
   /** Gets a User's details
+   * 
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  getDetails(request, response) {
-    if (isNaN(request.params.userId)) {
-      return response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'User ID Must Be A Number',
-      });
-    }
-    const userId = parseInt(request.params.userId, 10);
-    User.findById(userId)
-      .then((userFound) => {
-        if (!userFound) {
-          response.status(404).json({
-            status: 'Unsuccessful',
-            message: 'User Not Found',
-          });
-        } else {
-          response.status(200).json({
+  static getDetails(request, response) {
+    if (!isNum(request.params.userId, response, 'User')) {
+      const userId = parseInt(request.params.userId, 10);
+      User.findById(userId)
+        .then((userFound) => {
+          if (!userFound) {
+            return response.status(404).json({
+              status: 'Unsuccessful',
+              message: 'User Not Found',
+            });
+          }
+          return response.status(200).json({
             status: 'Successful',
             user: userFound,
           });
-        }
-      })
-      .catch(error => response.status(500).send(error));
-  },
-};
+        })
+        .catch(error => response.status(500).send(error));
+    }
+  }
+}
 
-export default users;
+export default Users;

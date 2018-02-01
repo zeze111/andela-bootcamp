@@ -37,6 +37,9 @@ main {
 .icon-block .material-icons {
 	font-size: inherit;
 }
+.home-width {
+  width: 90% !important;
+}
 
 #addRecipebody {
   background: url("./images/bgd3.jpg");
@@ -85,6 +88,10 @@ main {
 
 .creator-button {
   border: 0
+}
+
+.all-style {
+  padding-left: 4em;
 }
 
 .dropdown-btn {
@@ -147,7 +154,7 @@ main {
   height: 3em;
   .list-item {
     position: relative;
-    bottom: 3.5em;
+    bottom: 3.7em;
   }
   .list-item2 {
     position: relative;
@@ -155,10 +162,27 @@ main {
   }
 }
 
+.nav-style {
+  padding-right: 2.5em;
+  .username {
+    padding-left: 1em;
+  }
+}
+
 .home-icon {
   position: relative;
   color: gold;
   top: 5px;
+}
+
+.search-icon {
+  position: relative;
+  top: 1.6em;
+  color: rgb(158, 158, 158);
+}
+
+.search-input {
+  padding-left: 2em !important;
 }
 
 .text-color {
@@ -190,6 +214,10 @@ main {
     bottom: 3px;
   }
 
+.profile-load {
+  padding-left: 5em;
+  padding-top: 3em;
+}
 
 .home-cards{
   height: 250px;
@@ -245,9 +273,34 @@ a {
   text-transform: uppercase;
 }
 
+@media (max-width: 600px ) {
 .delete-text{
   position: relative;
-  bottom: 23px;
+  bottom: 22px;
+  left: 3em;
+}
+}
+
+@media (max-width: 600px ) {
+  .edit-text {
+    text-align: left !important;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1200px) {
+  .delete-text{
+    position: relative;
+    bottom: 22px;
+    left: 12em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .delete-text{
+    position: relative;
+    bottom: 2px;
+    left: 4em;
+  }
 }
 
 .delete {
@@ -285,20 +338,55 @@ a {
   height: 3.2em !important
 }
 
+@media (max-width: 600px ) {
 .reviews-style {
-  padding-left: 5em !important;
+  padding-left: 1em !important;
   .text2 {
-    padding-left: 3em !important;
+    padding-left: 1.5em !important;
   }
   .text3 {
     padding-left: 2em;
   }
 }
-
-.text1 {
-  padding-left: 4.5em !important;
 }
 
+@media (min-width: 600px) and (max-width: 1600px) {
+  .reviews-style {
+    padding-left: 2em !important;
+    .text2 {
+      padding-left: 2.5em !important;
+    }
+    .text3 {
+      padding-left: 2em;
+    }
+  }
+}
+
+@media (max-width: 600px ) {
+.text1 {
+  padding-left: 0.8em !important;
+}
+}
+
+@media (min-width: 600px) and (max-width: 1600px) {
+.text1 {
+  padding-left: 2.2em !important;
+}
+}
+
+@media (max-width: 600px ) {
+  .review-section {
+    padding-left: 1.5em !important;
+    padding-top: 1em !important;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1600px) {
+  .review-section {
+    padding-left: 4em !important;
+    padding-top: 1em !important;
+  }
+}
 
 .text-recipe {
   padding-top: 5em;
@@ -307,9 +395,19 @@ a {
 .flex-container {
   display: flex;
   padding-top: 4em;
-  .text-flex {
-    padding-top: 2em;
-  }
+
+}
+
+.text-flex {
+  margin-top: 3em;
+}
+
+.card-width {
+  width: 100% !important;
+}
+
+.text-flex2 {
+  margin-top: 5em;
 }
 
 .review-list {
@@ -334,6 +432,17 @@ a {
 
 #instruct {
   word-wrap: break-word;
+}
+
+.break {
+  word-wrap: break-word !important;
+  padding-bottom: 5px !important;
+  display: inline-block;
+  max-width: 25em;
+}
+
+.name {
+  padding-left: 0 !important;
 }
 
 .flex-container-homepage {
@@ -370,7 +479,7 @@ a {
 }
 
 .title {
-  padding-top: 4em !important;
+  padding-top: 3em !important;
 }
 .creator {
   padding-top: 3em !important;
@@ -386,11 +495,6 @@ a {
 
 .half-top {
   padding-top: 0.5em;
-}
-
-.review-section {
-  padding-left: 7em !important;
-  padding-top: 1em !important;
 }
 
 .add-padding {
@@ -428,10 +532,51 @@ a {
   margin-left: 1em
 }
 
+@media (min-width: 600px) and (max-width: 1200px) {
+.full-add-container {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 18em !important;
+  padding-left: 4em;
+}
+}
+
+@media (min-width: 1600px) {
+  .full-add-container {
+    width: 100%;
+    margin: 0 auto;
+    min-height: 18em !important;
+    padding-left: 5px;
+  }
+  }
+
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .get-pic-btn {
+    padding-right: 4em !important;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1000px) {
+  .get-pic-btn {
+    padding-right: 9em !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .get-pic-btn {
+    padding-right: 10em !important;
+  }
+}
+
 .full-container {
   width: 100%;
   margin: 0 auto;
   min-height: 18em !important;
+  padding-left: 20px;
+}
+
+.paginate {
+  width: 80% !important;
 }
 
 .one-top {

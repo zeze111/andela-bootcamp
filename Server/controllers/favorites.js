@@ -1,77 +1,66 @@
 import { Recipe, Favorite, User } from '../models';
-import { paginationData } from '../shared/helper';
+import { paginationData, isNum } from '../shared/helper';
 
-const favorites = {
-
+/**
+ *
+ * @class Favorites
+ */
+class Favorites {
   /** Adds a Recipe to favorites and stores in the Favorites table
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  favoriteRecipe(request, response) {
-    if (isNaN(request.params.recipeId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Recipe Id Must Be A Number',
-      });
-    } else {
+  static favoriteRecipe(request, response) {
+    if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
-      Recipe.findOne({
-        where: { id: recipeId },
+
+      Favorite.findOne({
+        where: {
+          userId: request.decoded.id,
+          recipeId,
+        },
       })
-        .then((recipe) => {
-          if (!recipe) {
-            return response.status(404).json({
-              status: 'Unsuccessful',
-              message: 'Recipe Not Found',
-            });
-          }
-          Favorite.findOne({
-            where: {
+        .then((fave) => {
+          if (fave) {
+            fave.destroy()
+              .then(() => {
+                response.status(200).json({
+                  status: 'Successful',
+                  message: 'Recipe has been removed from your Favorites',
+                });
+              });
+          } else {
+            Favorite.create({
               userId: request.decoded.id,
               recipeId,
-            },
-          })
-            .then((fave) => {
-              if (fave) {
-                fave.destroy()
-                  .then(() => {
-                    response.status(200).json({
-                      status: 'Successful',
-                      message: 'Recipe has been removed from your Favorites',
-                    });
-                  });
-              } else {
-                Favorite.create({
-                  userId: request.decoded.id,
-                  recipeId: recipe.id,
-                })
-                  .then((favorited) => {
-                    response.status(201).json({
-                      status: 'Successful',
-                      message: 'Recipe has been added to your Favorites',
-                      favorite: favorited,
-                    });
-                  });
-              }
-            });
+            })
+              .then((favorited) => {
+                response.status(201).json({
+                  status: 'Successful',
+                  message: 'Recipe has been added to your Favorites',
+                  favorite: favorited,
+                });
+              });
+          }
         })
         .catch(error => response.status(500).send(error));
     }
-  },
+  }
 
   /** Deletes a Recipe from favorites list
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  delete(request, response) {
-    if (isNaN(request.params.recipeId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Recipe Id Must Be A Number',
-      });
-    } else {
+  static delete(request, response) {
+    if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
       Favorite.findOne({
         where: {
@@ -102,14 +91,17 @@ const favorites = {
         })
         .catch(error => response.status(500).send(error));
     }
-  },
+  }
 
   /** Retrieves all Recipes a user has favorited
+   * 
   * @param {Object} request - request object
+  *
   * @param {Object} response - Response object
+  *
   * @returns {Object} Response object
   */
-  getAll(request, response) {
+  static getAll(request, response) {
     Favorite.findAll({
       where: {
         userId: request.decoded.id,
@@ -124,7 +116,7 @@ const favorites = {
         where: {
           id: recipeIds,
         },
-        attributes: ['id', 'name', 'type', 'prepTime'],
+        attributes: ['id', 'name', 'type', 'preparationTime'],
         include: [{
           model: User,
           attributes: ['firstName', 'surname'],
@@ -153,7 +145,7 @@ const favorites = {
         });
     })
       .catch(error => response.status(500).send(error));
-  },
-};
+  }
+}
 
-export default favorites;
+export default Favorites;

@@ -1,20 +1,18 @@
 import jwt from 'jsonwebtoken';
+import isEmpty from 'lodash/isEmpty';
+
+const token = localStorage.getItem('jwtToken');
+// let decoded;
 
 const decodeToken = () => {
-  const userToken = localStorage.getItem('jwtToken');
-  if (userToken) {
-    return jwt.verify(userToken, process.env.SECRET_KEY, ((error) => {
-      console.log('error 1', error);
-      if (!error) {
-        console.log('some value');
+  if (!isEmpty(token)) {
+    jwt.verify(token, process.env.SECRET_KEY, ((error, decoded) => {
+      if (decoded) {
         return true;
       }
-      console.log('error', error);
-      localStorage.removeItem('jwtToken');
       return false;
     }));
   }
-  console.log(false);
 };
 
 export default decodeToken;

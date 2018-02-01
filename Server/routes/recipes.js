@@ -5,6 +5,7 @@ import review from '../controllers/reviews';
 import rating from '../controllers/ratings';
 import favorite from '../controllers/favorites';
 import confirmAuth from '../middleware/index';
+import findRecipe from '../middleware/helper';
 
 const router = express.Router();
 
@@ -49,6 +50,7 @@ router.put(
 router.post(
   '/:recipeId/favorite',
   confirmAuth.authenticate,
+  findRecipe,
   favorite.favoriteRecipe
 );
 
@@ -65,12 +67,14 @@ router.get(
 router.post(
   '/:recipeId/upvote',
   confirmAuth.authenticate,
+  findRecipe,
   rating.upvote
 );
 
 router.post(
   '/:recipeId/downvote',
   confirmAuth.authenticate,
+  findRecipe,
   rating.downvote
 );
 
@@ -81,7 +85,7 @@ router.post(
 );
 
 router.delete(
-  '/:reviewId/review',
+  '/reviews/:reviewId',
   confirmAuth.authenticate,
   review.delete
 );

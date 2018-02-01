@@ -12,24 +12,36 @@ import {
   GET_RECIPES_CATEGORY,
   SEARCH_RECIPE,
   GET_PAGED_RECIPES,
-  MOST_UPVOTED_RECIPES
+  MOST_UPVOTED_RECIPES,
+  GET_ALL_RECIPES_FAILURE,
+  GET_PAGED_RECIPES_FAILURE,
+  GET_USER_RECIPES_FAILURE,
+  GET_RECIPE_FAILURE,
+  UPDATE_RECIPE_FAILURE,
+  GET_RECIPES_CATEGORY_FAILURE,
+  SEARCH_RECIPE_FAILURE,
+  MOST_UPVOTED_RECIPES_FAILURE
 } from './types';
 
-/**
+/** makes api call to add a new recipe
+ *
  * @export {function}
- * @param {any} recipeData
- * @param {any} imageUrl
+ *
+ * @param {object} recipeData form data
+ *
+ * @param {string} imageUrl
+ *
  * @returns {object} any
  */
 export function addRecipe(recipeData, imageUrl) {
   return (dispatch) => {
     setAuthorizationToken(window.localStorage.jwtToken);
     const {
-      name, prepTime, description, type, ingredients, instructions,
+      name, preparationTime, description, type, ingredients, instructions,
     } = recipeData;
     const recipe = {
       name,
-      prepTime,
+      preparationTime,
       description,
       type,
       ingredients,
@@ -44,13 +56,21 @@ export function addRecipe(recipeData, imageUrl) {
           payload: response.data,
         });
       })
-      .catch(error => error);
+      .catch((error) => {
+        dispatch({
+          type: CREATE_RECIPE,
+          payload: error.response.data,
+        });
+      });
   };
 }
 
-/**
+/** uploads recipe image to cloudinary and calls addRecipe function
+ *
  * @export {function}
- * @param {any} recipeData
+ *
+ * @param {object} recipeData form data
+ *
  * @returns {object} any
  */
 export function addRecipeRequest(recipeData) {
@@ -68,8 +88,10 @@ export function addRecipeRequest(recipeData) {
   };
 }
 
-/**
+/** makes api call to get all recipes from the database
+ *
  * @export {function}
+ *
  * @returns {object} any
  */
 export function getAllRecipes() {
@@ -79,13 +101,23 @@ export function getAllRecipes() {
         type: GET_ALL_RECIPES,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_ALL_RECIPES_FAILURE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
- * @param {any} limit
- * @param {any} offset
+/** makes makes api call to get all recipes with pagination from the database
+ *
  * @export {function}
+ *
+ * @param {number} limit
+ *
+ * @param {number} offset
+ *
  * @returns {object} any
  */
 export function getPaginatedRecipes(limit, offset) {
@@ -95,13 +127,23 @@ export function getPaginatedRecipes(limit, offset) {
         type: GET_PAGED_RECIPES,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_PAGED_RECIPES_FAILURE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
- * @param {any} limit
- * @param {any} offset
+/** makes api call to get all recipes submitted by a user
+ *
+ * @param {number} limit
+ *
+ * @param {number} offset
+ *
  * @export {function}
+ *
  * @returns {object} any
  */
 export function getUserRecipes(limit, offset) {
@@ -111,12 +153,20 @@ export function getUserRecipes(limit, offset) {
         type: GET_USER_RECIPES,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_USER_RECIPES_FAILURE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
+/** makes api call to get a single recipe
  * @export {function}
- * @param {any} recipeId
+ *
+ * @param {number} recipeId
+ *
  * @returns {object} any
  */
 export function getARecipe(recipeId) {
@@ -126,13 +176,23 @@ export function getARecipe(recipeId) {
         type: GET_RECIPE,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_RECIPE_FAILURE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
+/** makes api call to update a recipe
+ *
  * @export {function}
- * @param {any} recipeId
- * @param {any} recipeData
+ *
+ * @param {number} recipeId
+ *
+ * @param {object} recipeData form data
+ *
  * @returns {object} any
  */
 export function updateRecipe(recipeId, recipeData) {
@@ -142,12 +202,21 @@ export function updateRecipe(recipeId, recipeData) {
         type: UPDATE_RECIPE,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: UPDATE_RECIPE_FAILURE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
+/** makes api call to delete a user's recipe
+ *
  * @export {function}
- * @param {any} recipeId
+ *
+ * @param {number} recipeId
+ *
  * @returns {object} any
  */
 export function deleteRecipe(recipeId) {
@@ -157,14 +226,25 @@ export function deleteRecipe(recipeId) {
         type: DELETE_RECIPE,
         payload: recipeId,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: DELETE_RECIPE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
+/** makes api call to get all recipes matching a category type
+ *
  * @export {function}
- * @param {any} type
- * @param {any} limit
- * @param {any} offset
+ *
+ * @param {string} type category type
+ *
+ * @param {number} limit
+ *
+ * @param {number} offset
+ *
  * @returns {object} any
  */
 export function getRecipeCategory(type, limit, offset) {
@@ -174,14 +254,25 @@ export function getRecipeCategory(type, limit, offset) {
         type: GET_RECIPES_CATEGORY,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: GET_RECIPES_CATEGORY_FAILURE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
+/** makes api call to search for a recipe match
+ *
  * @export {function}
- * @param {any} word
- * @param {any} limit
- * @param {any} offset
+ *
+ * @param {string} word search word
+ *
+ * @param {number} limit
+ *
+ * @param {number} offset
+ *
  * @returns {object} any
  */
 export function searchRecipe(word, limit, offset) {
@@ -191,11 +282,19 @@ export function searchRecipe(word, limit, offset) {
         type: SEARCH_RECIPE,
         payload: response.data,
       });
+    })
+    .catch((error) => {
+      dispatch({
+        type: SEARCH_RECIPE_FAILURE,
+        payload: error.response.data,
+      });
     });
 }
 
-/**
+/** makes api call to get most upvoted recipes
+ *
  * @export {function}
+ *
  * @returns {object} any
  */
 export function getMostUpvotedRecipe() {
@@ -204,6 +303,12 @@ export function getMostUpvotedRecipe() {
       dispatch({
         type: MOST_UPVOTED_RECIPES,
         payload: response.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: MOST_UPVOTED_RECIPES_FAILURE,
+        payload: error.response.data,
       });
     });
 }

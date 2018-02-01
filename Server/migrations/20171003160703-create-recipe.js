@@ -14,11 +14,12 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      prepTime: {
+      preparationTime: {
         type: Sequelize.STRING
       },
       type: {
-        type: Sequelize.STRING
+        type: Sequelize.ENUM,
+        values: ['Appetizer', 'Main', 'Dessert', 'Drinks'],
       },
       ingredients: {
         type: Sequelize.STRING(1234)

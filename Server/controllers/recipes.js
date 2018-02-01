@@ -3,16 +3,22 @@ import Sequelize from 'sequelize';
 
 import { Recipe, Rating, User } from '../models';
 import validations from '../shared/validations';
-import { paginationData } from '../shared/helper';
+import { paginationData, isNum } from '../shared/helper';
 
-const recipes = {
-
+/**
+ *
+ * @class Recipes
+ */
+class Recipes {
   /** Creates new Recipe and stores in the Recipes table
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  create(request, response) {
+  static create(request, response) {
     const validator = new Validator(request.body, validations.recipeRules);
     if (validator.passes()) {
       Recipe.findOne({
@@ -29,14 +35,24 @@ const recipes = {
             });
           }
 
+          const {
+            name,
+            description,
+            preparationTime,
+            type,
+            ingredients,
+            instructions,
+            image
+          } = request.body;
+
           Recipe.create({
-            name: request.body.name.toLowerCase().trim(),
-            description: request.body.description.trim(),
-            prepTime: request.body.prepTime.trim(),
-            type: request.body.type,
-            ingredients: request.body.ingredients,
-            instructions: request.body.instructions,
-            image: request.body.image,
+            name: name.toLowerCase().trim(),
+            description: description.trim(),
+            preparationTime: preparationTime.trim(),
+            type,
+            ingredients,
+            instructions,
+            image,
             userId: request.decoded.id,
           })
             .then(recipe => response.status(201).json({
@@ -51,17 +67,18 @@ const recipes = {
         errors: validator.errors.all(),
       });
     }
-  },
+  }
 
   /** Retrieves Popular Recipes /
-   * paginated all Recipes /
-   * searched recipes by search input /
-   * by searched categories in the database
+   * paginated all Recipes / and all recipes
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  getAll(request, response) {
+  static getAll(request, response) {
     if (request.query.sort) {
       return Rating.findAll({
         where: {
@@ -73,7 +90,7 @@ const recipes = {
         ],
         include: [{
           model: Recipe,
-          attributes: ['name', 'type', 'prepTime', 'image'],
+          attributes: ['name', 'type', 'preparationTime', 'image'],
         }],
         order: [
           [Sequelize.literal('upvotes'), 'DESC'],
@@ -100,7 +117,7 @@ const recipes = {
           'id',
           'name',
           'description',
-          'prepTime',
+          'preparationTime',
           'type',
           'ingredients',
           'image'
@@ -128,7 +145,7 @@ const recipes = {
         'id',
         'name',
         'description',
-        'prepTime',
+        'preparationTime',
         'type',
         'ingredients',
         'image'
@@ -149,20 +166,18 @@ const recipes = {
       });
     })
       .catch(error => response.status(500).send(error));
-  },
+  }
 
   /** Updates a recipe according to User's input
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  update(request, response) {
-    if (isNaN(request.params.recipeId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Recipe ID Must Be A Number',
-      });
-    } else {
+  static update(request, response) {
+    if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
       Recipe.findById(recipeId)
         .then((recipe) => {
@@ -175,13 +190,13 @@ const recipes = {
             const {
               name,
               description,
-              prepTime,
+              preparationTime,
               image,
               type,
               ingredients,
               instructions
             } = request.body;
-            if (name || description || prepTime || image
+            if (name || description || preparationTime || image
               || type || ingredients || instructions) {
               const validator = new Validator(
                 request.body,
@@ -191,7 +206,7 @@ const recipes = {
                 recipe.update({
                   name: name || recipe.name,
                   description: description || recipe.description,
-                  prepTime: prepTime || recipe.prepTime,
+                  preparationTime: preparationTime || recipe.preparationTime,
                   type: type || recipe.type,
                   ingredients: ingredients || recipe.ingredients,
                   instructions: instructions || recipe.instructions,
@@ -203,7 +218,7 @@ const recipes = {
                       recipe: {
                         name: updatedRecipe.name,
                         description: updatedRecipe.description,
-                        prepTime: updatedRecipe.prepTime,
+                        preparationTime: updatedRecipe.preparationTime,
                         type: updatedRecipe.type,
                         ingredients: updatedRecipe.ingredients,
                         instructions: updatedRecipe.instructions,
@@ -233,20 +248,18 @@ const recipes = {
         })
         .catch(error => response.status(500).send(error));
     }
-  },
+  }
 
   /** Deletes a Recipe from the database table
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  delete(request, response) {
-    if (isNaN(request.params.recipeId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Recipe ID Must Be A Number',
-      });
-    } else {
+  static delete(request, response) {
+    if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
       Recipe.findById(recipeId)
         .then((recipe) => {
@@ -273,20 +286,18 @@ const recipes = {
         })
         .catch(error => response.status(500).send(error));
     }
-  },
+  }
 
   /** Gets a Recipe from the database table
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  getDetails(request, response) {
-    if (isNaN(request.params.recipeId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Recipe ID Must Be A Number',
-      });
-    } else {
+  static getDetails(request, response) {
+    if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
       Recipe.findOne({
         where: { id: recipeId },
@@ -309,14 +320,17 @@ const recipes = {
         })
         .catch(error => response.status(500).send(error));
     }
-  },
+  }
 
   /** Gets all the Recipes a User has submitted
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  getUserRecipes(request, response) {
+  static getUserRecipes(request, response) {
     Recipe.findAndCountAll({
       where: { userId: request.decoded.id },
       order: [
@@ -326,7 +340,7 @@ const recipes = {
       offset: request.query.offset,
     })
       .then(({ rows, count }) => {
-        if (count === 0) { // checks if list is empty
+        if (count === 0) {
           response.status(200).json({
             status: 'Successful',
             message: 'You Currently Have No Recipes',
@@ -345,14 +359,17 @@ const recipes = {
         }
       })
       .catch(error => response.status(500).send(error));
-  },
+  }
 
   /** Search for a recipe by user's input
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  search(request, response) {
+  static search(request, response) {
     Recipe.findAndCountAll({
       where: {
         $or: [{
@@ -387,14 +404,20 @@ const recipes = {
           )
         });
       });
-  },
+  }
 
-  getCategory(request, response) {
+  /** Search for a recipe by category
+   * 
+  * @param {Object} request - request object
+  *
+  * @param {Object} response - response object
+  *
+  * @returns {Object} response object
+  */
+  static getCategory(request, response) {
     Recipe.findAndCountAll({
       where: {
-        type: {
-          $ilike: `%${request.params.type}%`,
-        },
+        type: request.params.type
       },
       order: [
         ['createdAt', 'DESC'],
@@ -420,8 +443,7 @@ const recipes = {
           )
         });
       });
-  },
+  }
+}
 
-};
-
-export default recipes;
+export default Recipes;
