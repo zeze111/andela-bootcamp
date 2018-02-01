@@ -1,209 +1,143 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
-import db from '../models';
-import { createUser1, createUser2, createUser3, fakeUser, errorUser, user1 } from './mockdata';
-
+import { token, token2 } from './users';
+import { recipeId2 } from './recipes';
+import { review, update } from './mockdata';
 
 const should = chai.should();
-
-export let token;
-export let userId;
-export let token2;
-export let userId2;
+let reviewId;
 
 chai.use(chaiHttp);
 
-describe('Users', () => {
-  db
-    .User
-    .destroy({
-      cascade: true,
-      truncate: true,
-    });
-  describe('Create User', () => {
-    it('it should sign up user successfuly', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signup')
-        .send(createUser1)
-        .end((err, res) => {
-          should.not.exist(err);
-          token = res.body.token;
-          userId = res.body.user.id;
-          res.status.should.equal(201);
-          res.body.status.should.equal('Success');
-          done();
-        });
-    });
-    it('it should sign up user2 successfuly', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signup')
-        .send(createUser2)
-        .end((err, res) => {
-          should.not.exist(err);
-          token2 = res.body.token;
-          userId2 = res.body.user.id;
-          res.status.should.equal(201);
-          res.body.status.should.equal('Success');
-          done();
-        });
-    });
+describe('Empty data for get all reviews', () => {
+  it('it should return an empty list', (done) => {
+    chai.request(app)
+      .get(`/api/v1/recipe/${recipeId2}/reviews`)
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        res.body.message.should.equal('No Reviews Posted Yet');
+        done();
+      });
   });
+});
 
-
-  describe('User Sign In', () => {
-    it('it should sign user in successfuly', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signin')
-        .send(user1)
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.body.status.should.equal('Success');
-          res.body.message.should.equal('You are now signed in');
-          done();
-        });
-    });
+describe('Review a recipe', () => {
+  it('successfuly post a review', (done) => {
+    chai.request(app)
+      .post(`/api/v1/recipe/${recipeId2}/review`)
+      .set('x-token', token)
+      .send({
+        title: 'Amazing',
+        comment: 'love this recipe'
+      })
+      .end((err, res) => {
+        reviewId = res.body.review.id;
+        should.not.exist(err);
+        res.status.should.equal(201);
+        res.body.status.should.equal('Successful');
+        done();
+      });
   });
+});
 
-  describe('Update user', () => {
-    it('it should update user\'s details successfuly', (done) => {
-      chai.request(app)
-        .put('/api/v1/user/')
-        .set('x-token', token)
-        .send({
-          surname: 'Ajanla'
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.body.status.should.equal('Successful');
-          res.body.message.should.equal('Your account has been updated');
-          done();
-        });
-    });
+describe('Errors for reviewing a recipe', () => {
+  it('it should not find recipe', (done) => {
+    chai.request(app)
+      .post('/api/v1/recipe/7/review')
+      .set('x-token', token)
+      .send(review)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(404);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe Not Found');
+        done();
+      });
   });
-
-  describe('Get user details', () => {
-    it('it should return all details', (done) => {
-      chai.request(app)
-        .get(`/api/v1/user/${userId2}`)
-        .set('x-token', token)
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.body.status.should.equal('Successful');
-          done();
-        });
-    });
+  it('it should reject wrong input data format', (done) => {
+    chai.request(app)
+      .post(`/api/v1/recipe/${recipeId2}/review`)
+      .set('x-token', token)
+      .send({
+        comment: 'love',
+      })
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(422);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Invalid data input');
+        done();
+      });
   });
-
-  describe('Errors for Updating Users', () => {
-    it('it should prompt an invalid data input message', (done) => {
-      chai.request(app)
-        .put('/api/v1/users/')
-        .set('x-token', token)
-        .send({
-          surname: 'a'
-        })
-        .end((err, res) => {
-          should.exist(err);
-          res.status.should.equal(422);
-          res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('Invalid data input');
-          done();
-        });
-    });
-    it('it should prompt a must input data message', (done) => {
-      chai.request(app)
-        .put('/api/v1/users/')
-        .set('x-token', token)
-        .send({})
-        .end((err, res) => {
-          should.exist(err);
-          res.status.should.equal(422);
-          res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('Must input data');
-          done();
-        });
-    });
+  it('it should only accept a number for recipe id', (done) => {
+    chai.request(app)
+      .post('/api/v1/recipe/recipeid/review')
+      .set('x-token', token)
+      .send(update)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(406);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe ID Must Be A Number');
+        done();
+      });
   });
+});
 
-  describe('Errors for Getting User\'s details', () => {
-    it('it should not find user in the database', (done) => {
-      chai.request(app)
-        .get('/api/v1/users/276')
-        .set('x-token', token)
-        .end((err, res) => {
-          should.exist(err);
-          res.status.should.equal(404);
-          res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('User Not Found');
-          done();
-        });
-    });
-    // it('it should prompt wrong param input', (done) => {
-    //   chai.request(app)
-    //     .put('/api/v1/users/')
-    //     .set('x-token', token)
-    //     .send({})
-    //     .end((err, res) => {
-    //       should.exist(err);
-    //       res.status.should.equal(422);
-    //       res.body.status.should.equal('Unsuccessful');
-    //       res.body.message.should.equal('Must input data');
-    //       done();
-    //     });
-    // });
+describe('Get all reviews', () => {
+  it('list of reviews should be returned', (done) => {
+    chai.request(app)
+      .get(`/api/v1/recipe/${recipeId2}/reviews`)
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        done();
+      });
   });
+});
 
-  describe('Errors for User Sign up', () => {
-    it('it should prompt an invalid data input message', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signup')
-        .send(createUser3)
-        .end((err, res) => {
-          res.status.should.equal(422);
-          res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('Invalid data input');
-          done();
-        });
-    });
-    it('it should prompt an email already exists message', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signup')
-        .send(createUser1)
-        .end((err, res) => {
-          res.status.should.equal(409);
-          res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('Email already exist');
-          done();
-        });
-    });
+describe('Errors for deleting a review', () => {
+  it('it should not find review', (done) => {
+    chai.request(app)
+      .delete('/api/v1/recipe/reviews/500')
+      .set('x-token', token)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(404);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Review Not Found');
+        done();
+      });
   });
+  it('User should not be able to delete another user\'s review', (done) => {
+    chai.request(app)
+      .delete(`/api/v1/recipe/reviews/${reviewId}`)
+      .set('x-token', token2)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(403);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('You are Not Authorized to Remove This Review');
+        done();
+      });
+  });
+});
 
-  describe('Errors for Users Sign in', () => {
-    it('it should not find user in the database', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signin')
-        .send(fakeUser)
-        .end((err, res) => {
-          res.status.should.equal(404);
-          res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('User not found');
-          done();
-        });
-    });
-    it('it should prompt a wrong password message', (done) => {
-      chai.request(app)
-        .post('/api/v1/users/signin')
-        .send(errorUser)
-        .end((err, res) => {
-          res.status.should.equal(400);
-          res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('Sign in failed, Wrong email/password');
-          done();
-        });
-    });
+describe('Delete a review', () => {
+  it('review should be deleted', (done) => {
+    chai.request(app)
+      .delete(`/api/v1/recipe/reviews/${reviewId}`)
+      .set('x-token', token)
+      .end((err, res) => {
+        should.not.exist(err);
+        res.status.should.equal(200);
+        res.body.status.should.equal('Successful');
+        res.body.message.should.equal('Review has been removed');
+        done();
+      });
   });
 });

@@ -41,7 +41,7 @@ export const recipe1 = {
   name: 'Amala and Ewedu',
   description: 'Yummy amala for everyday consumption',
   preparationTime: '40 mins',
-  type: 'dessert',
+  type: 'Dessert',
   ingredients: 'amala powder, ewedu leaf, stew',
   instructions: 'turn amala in pot, mix ewedu and stew',
 };
@@ -50,7 +50,7 @@ export const recipe2 = {
   name: 'name',
   description: 'description',
   preparationTime: 'time time',
-  type: 'dessert',
+  type: 'Dessert',
   ingredients: 'ingredients, ingredients, ingredients',
   instructions: 'instructions',
 };
@@ -59,13 +59,13 @@ export const errorRecipe = {
   name: 'Amala and Ewedu',
   description: '',
   preparationTime: '40 mins',
-  type: 'dessert',
+  type: 'Dessert',
   ingredients: '',
   instructions: 'turn amala in pot, mix ewedu and stew',
 };
 
 export const update = {
-  type: 'main',
+  type: 'Main',
 };
 
 export const review = {

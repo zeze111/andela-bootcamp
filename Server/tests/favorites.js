@@ -107,18 +107,6 @@ describe('Error for deleting a recipe from favorites', () => {
         done();
       });
   });
-  // it('it should not allow a user to delete another user\'s favorite', (done) => {
-  //   chai.request(app)
-  //     .delete(`/api/v1/user/favorites/${recipeId}`)
-  //     .set('x-token', token)
-  //     .end((err, res) => {
-  //       should.exist(err);
-  //       res.status.should.equal(403);
-  //       res.body.status.should.equal('Unsuccessful');
-  //       res.body.message.should.equal('You are Not Authorized to Remove This Recipe from Favorite')
-  //       done();
-  //     });
-  // });
 });
 
 describe('Errors for geting a user\'s favorites', () => {

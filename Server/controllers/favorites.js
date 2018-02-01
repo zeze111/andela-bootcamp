@@ -17,6 +17,17 @@ class Favorites {
   static favoriteRecipe(request, response) {
     if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
+      Recipe.findOne({
+        where: { id: recipeId },
+      })
+        .then((recipe) => {
+          if (!recipe) {
+            return response.status(404).json({
+              status: 'Unsuccessful',
+              message: 'Recipe Not Found',
+            });
+          }
+        });
 
       Favorite.findOne({
         where: {
@@ -82,11 +93,6 @@ class Favorites {
                   message: 'Recipe has been removed from your Favorites',
                 });
               });
-          } else {
-            response.status(403).json({
-              status: 'Unsuccessful',
-              message: 'You are Not Authorized to Remove This Recipe from Favorite',
-            });
           }
         })
         .catch(error => response.status(500).send(error));
@@ -94,7 +100,7 @@ class Favorites {
   }
 
   /** Retrieves all Recipes a user has favorited
-   * 
+   *
   * @param {Object} request - request object
   *
   * @param {Object} response - Response object

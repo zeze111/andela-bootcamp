@@ -48,7 +48,7 @@ describe('Empty data for get all recipes', () => {
   });
   it('it should return an empty list for recipe category', (done) => {
     chai.request(app)
-      .get('/api/v1/recipes/categories/main')
+      .get('/api/v1/recipes/categories/Main')
       .end((err, res) => {
         should.not.exist(err);
         res.status.should.equal(200);
@@ -99,7 +99,7 @@ describe('Errors for submitting a recipe', () => {
         should.exist(err);
         res.status.should.equal(401);
         res.body.status.should.equal('Unsuccessful');
-        res.body.message.should.equal('Unauthorised User');
+        res.body.message.should.equal('Please sign up to perform this action');
         done();
       });
   });
@@ -158,7 +158,7 @@ describe('Search for a recipe', () => {
   });
   it('Recipe(s) matching the category should be returned', (done) => {
     chai.request(app)
-      .get('/api/v1/recipes/categories/dessert')
+      .get('/api/v1/recipes/categories/Dessert')
       .end((err, res) => {
         should.not.exist(err);
         res.status.should.equal(200);
@@ -174,7 +174,7 @@ describe('Updating a recipe', () => {
       .put(`/api/v1/recipes/${recipeId}`)
       .set('x-token', token)
       .send({
-        type: 'main',
+        type: 'Main',
       })
       .end((err, res) => {
         should.not.exist(err);
@@ -187,20 +187,19 @@ describe('Updating a recipe', () => {
 
 
 describe('Errors for updating a recipe', () => {
-  // it('it should only accept a number for recipe id', (done) => {
-  //   chai.request(app)
-  //     .put('/api/v1/recipes/recipeId')
-  //     .set('x-token', token)
-  //     .send(update)
-  //     .end((err, res) => {
-  //       console.log(err);
-  //       should.exist(err);
-  //       res.status.should.equal(406);
-  //       res.body.status.should.equal('Unsuccessful');
-  //       res.body.message.should.equal('Recipe ID Must Be A Number');
-  //       done();
-  //     });
-  // });
+  it('it should only accept a number for recipe id', (done) => {
+    chai.request(app)
+      .put('/api/v1/recipes/recipeId')
+      .set('x-token', token)
+      .send(update)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(406);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe ID Must Be A Number');
+        done();
+      });
+  });
   it('it should reject an invalid token', (done) => {
     chai.request(app)
       .put(`/api/v1/recipes/${recipeId}`)
@@ -232,7 +231,7 @@ describe('Errors for updating a recipe', () => {
       .put(`/api/v1/recipes/${recipeId}`)
       .set('x-token', token)
       .send({
-        type: 'ma',
+        name: 'm',
       })
       .end((err, res) => {
         should.exist(err);

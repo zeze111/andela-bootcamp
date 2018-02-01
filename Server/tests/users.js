@@ -15,12 +15,6 @@ export let userId2;
 chai.use(chaiHttp);
 
 describe('Users', () => {
-  db
-    .User
-    .destroy({
-      cascade: true,
-      truncate: true,
-    });
   describe('Create User', () => {
     it('it should sign up user successfuly', (done) => {
       chai.request(app)
@@ -142,19 +136,19 @@ describe('Users', () => {
           done();
         });
     });
-    // it('it should prompt wrong param input', (done) => {
-    //   chai.request(app)
-    //     .put('/api/v1/users/')
-    //     .set('x-token', token)
-    //     .send({})
-    //     .end((err, res) => {
-    //       should.exist(err);
-    //       res.status.should.equal(422);
-    //       res.body.status.should.equal('Unsuccessful');
-    //       res.body.message.should.equal('Must input data');
-    //       done();
-    //     });
-    // });
+    it('it should prompt wrong param input', (done) => {
+      chai.request(app)
+        .put('/api/v1/users/')
+        .set('x-token', token)
+        .send({})
+        .end((err, res) => {
+          should.exist(err);
+          res.status.should.equal(422);
+          res.body.status.should.equal('Unsuccessful');
+          res.body.message.should.equal('Must input data');
+          done();
+        });
+    });
   });
 
   describe('Errors for User Sign up', () => {
@@ -188,9 +182,9 @@ describe('Users', () => {
         .post('/api/v1/users/signin')
         .send(fakeUser)
         .end((err, res) => {
-          res.status.should.equal(404);
+          res.status.should.equal(401);
           res.body.status.should.equal('Unsuccessful');
-          res.body.message.should.equal('User not found');
+          res.body.message.should.equal('Invalid Credentials, you are unauthorized');
           done();
         });
     });
@@ -199,7 +193,7 @@ describe('Users', () => {
         .post('/api/v1/users/signin')
         .send(errorUser)
         .end((err, res) => {
-          res.status.should.equal(400);
+          res.status.should.equal(401);
           res.body.status.should.equal('Unsuccessful');
           res.body.message.should.equal('Sign in failed, Wrong email/password');
           done();
