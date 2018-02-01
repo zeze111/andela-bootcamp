@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>191/191</span>
+        <span class='fraction'>198/198</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>64/64</span>
+        <span class='fraction'>66/66</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>191/191</span>
+        <span class='fraction'>198/198</span>
       </div>
     </div>
   </div>
@@ -418,8 +418,7 @@
 373
 374
 375
-376
-377</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+376</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -608,18 +607,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -845,7 +843,7 @@ describe('Empty data for get all recipes', () =&gt; {
   });
   it('it should return an empty list for recipe category', (done) =&gt; {
     chai.request(app)
-      .get('/api/v1/recipes/categories/main')
+      .get('/api/v1/recipes/categories/Main')
       .end((err, res) =&gt; {
         should.not.exist(err);
         res.status.should.equal(200);
@@ -896,7 +894,7 @@ describe('Errors for submitting a recipe', () =&gt; {
         should.exist(err);
         res.status.should.equal(401);
         res.body.status.should.equal('Unsuccessful');
-        res.body.message.should.equal('Unauthorised User');
+        res.body.message.should.equal('Please sign up to perform this action');
         done();
       });
   });
@@ -955,7 +953,7 @@ describe('Search for a recipe', () =&gt; {
   });
   it('Recipe(s) matching the category should be returned', (done) =&gt; {
     chai.request(app)
-      .get('/api/v1/recipes/categories/dessert')
+      .get('/api/v1/recipes/categories/Dessert')
       .end((err, res) =&gt; {
         should.not.exist(err);
         res.status.should.equal(200);
@@ -971,7 +969,7 @@ describe('Updating a recipe', () =&gt; {
       .put(`/api/v1/recipes/${recipeId}`)
       .set('x-token', token)
       .send({
-        type: 'main',
+        type: 'Main',
       })
       .end((err, res) =&gt; {
         should.not.exist(err);
@@ -984,20 +982,19 @@ describe('Updating a recipe', () =&gt; {
 &nbsp;
 &nbsp;
 describe('Errors for updating a recipe', () =&gt; {
-  // it('it should only accept a number for recipe id', (done) =&gt; {
-  //   chai.request(app)
-  //     .put('/api/v1/recipes/recipeId')
-  //     .set('x-token', token)
-  //     .send(update)
-  //     .end((err, res) =&gt; {
-  //       console.log(err);
-  //       should.exist(err);
-  //       res.status.should.equal(406);
-  //       res.body.status.should.equal('Unsuccessful');
-  //       res.body.message.should.equal('Recipe ID Must Be A Number');
-  //       done();
-  //     });
-  // });
+  it('it should only accept a number for recipe id', (done) =&gt; {
+    chai.request(app)
+      .put('/api/v1/recipes/recipeId')
+      .set('x-token', token)
+      .send(update)
+      .end((err, res) =&gt; {
+        should.exist(err);
+        res.status.should.equal(406);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe ID Must Be A Number');
+        done();
+      });
+  });
   it('it should reject an invalid token', (done) =&gt; {
     chai.request(app)
       .put(`/api/v1/recipes/${recipeId}`)
@@ -1029,7 +1026,7 @@ describe('Errors for updating a recipe', () =&gt; {
       .put(`/api/v1/recipes/${recipeId}`)
       .set('x-token', token)
       .send({
-        type: 'ma',
+        name: 'm',
       })
       .end((err, res) =&gt; {
         should.exist(err);
@@ -1177,7 +1174,7 @@ describe('Empty return for getting all recipes of user', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jan 30 2018 10:37:58 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 02 2018 00:27:45 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

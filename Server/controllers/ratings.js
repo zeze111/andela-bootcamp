@@ -1,4 +1,4 @@
-import { Rating } from '../models';
+import { Rating, Recipe } from '../models';
 import { isNum } from '../shared/helper';
 
 /**
@@ -7,7 +7,7 @@ import { isNum } from '../shared/helper';
  */
 class Ratings {
   /** Upvotes a Recipe and stores in the Ratings table
-   * 
+   *
   * @param {Object} request - request object
   *
   * @param {Object} response - response object
@@ -17,6 +17,18 @@ class Ratings {
   static upvote(request, response) {
     if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
+      Recipe.findOne({
+        where: { id: recipeId },
+      })
+        .then((recipe) => {
+          if (!recipe) {
+            return response.status(404).json({
+              status: 'Unsuccessful',
+              message: 'Recipe Not Found',
+            });
+          }
+        });
+
       Rating.findOne({
         where: {
           userId: request.decoded.id,
@@ -67,7 +79,18 @@ class Ratings {
   static downvote(request, response) {
     if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
-
+      Recipe.findOne({
+        where: { id: recipeId },
+      })
+        .then((recipe) => {
+          if (!recipe) {
+            return response.status(404).json({
+              status: 'Unsuccessful',
+              message: 'Recipe Not Found',
+            });
+          }
+        });
+        
       Rating.findOne({
         where: {
           userId: request.decoded.id,

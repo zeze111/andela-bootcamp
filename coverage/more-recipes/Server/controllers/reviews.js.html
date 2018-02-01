@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85.37% </span>
+        <span class="strong">91.89% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>35/41</span>
+        <span class='fraction'>34/37</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">81.25% </span>
+        <span class="strong">87.5% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>13/16</span>
+        <span class='fraction'>14/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>9/12</span>
+        <span class='fraction'>6/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85.37% </span>
+        <span class="strong">91.89% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>35/41</span>
+        <span class='fraction'>34/37</span>
       </div>
     </div>
   </div>
@@ -210,18 +210,13 @@
 165
 166
 167
-168
-169
-170
-171
-172</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+168</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,12 +224,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -296,12 +292,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -346,12 +340,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,21 +383,21 @@ import { Recipe, Review, User } from '../models';
 import validations from '../shared/validations';
 import { isNum, paginationData } from '../shared/helper';
 &nbsp;
-&nbsp;
-const reviews = {
-&nbsp;
+/**
+ *
+ * @class Reviews
+ */
+class Reviews {
   /** Creates new Review for a Recipe and stores in the Reviews table
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  reviewRecipe(request, response) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isNaN(request.params.recipeId)) {
-<span class="cstat-no" title="statement not covered" >      response.status(406).json({</span>
-        status: 'Unsuccessful',
-        message: 'Recipe ID Must Be A Number',
-      });
-    } else {
+  static reviewRecipe(request, response) {
+    if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const findRecipeId = parseInt(request.params.recipeId, 10);
       Recipe.findById(findRecipeId)
         .then((recipe) =&gt; {
@@ -459,20 +451,18 @@ const reviews = {
         })
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; response.status(500).send(error));</span></span>
     }
-  },
+  }
 &nbsp;
   /** Gets all the Reviews for a Recipe
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  getAll(request, response) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isNaN(request.params.recipeId)) {
-<span class="cstat-no" title="statement not covered" >      response.status(406).json({</span>
-        status: 'Unsuccessful',
-        message: 'Recipe ID Must Be A Number',
-      });
-    } else {
+  static getAll(request, response) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
       Review.findAndCountAll({
         where: {
@@ -509,20 +499,18 @@ const reviews = {
         })
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; response.status(500).send(error));</span></span>
     }
-  },
+  }
 &nbsp;
-  /** Creates new Recipe and stores in the Recipes table
+  /** Deletes the user's review
+   * 
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  delete(request, response) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isNaN(request.params.reviewId)) {
-<span class="cstat-no" title="statement not covered" >      response.status(406).json({</span>
-        status: 'Unsuccessful',
-        message: 'Review ID Must Be A Number',
-      });
-    } else {
+  static delete(request, response) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!isNum(request.params.reviewId, response, 'Review')) {
       const reviewId = parseInt(request.params.reviewId, 10);
       Review.findOne({
         where: {
@@ -552,17 +540,17 @@ const reviews = {
         })
         .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; response.status(500).send(error));</span></span>
     }
-  },
-};
+  }
+}
 &nbsp;
-export default reviews;
+export default Reviews;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jan 30 2018 10:37:58 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 02 2018 00:27:45 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
