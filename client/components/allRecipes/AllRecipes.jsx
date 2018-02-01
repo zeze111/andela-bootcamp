@@ -15,17 +15,22 @@ import '../../assets/init';
 import Categories from './Categories';
 import Search from './Search';
 
-/**
+/** display all recipes in the app,
+ * allows users to serach for recipes by input,
+ * allows users to get recipes by category
  *
+ * @class AllRecipes
  *
- * @class RecipeDetails
  * @extends {React.Component}
  */
 class AllRecipes extends Component {
   /**
    * @description Constructor Function
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
@@ -39,8 +44,10 @@ class AllRecipes extends Component {
     };
   }
 
-  /**
+  /** calls action to display all recipes with pagination
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentWillMount() {
@@ -52,9 +59,12 @@ class AllRecipes extends Component {
       });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to get the next / previous set of paginated recipes
+   *
+   * @param {number} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onNextPage = (event) => {
@@ -82,9 +92,12 @@ class AllRecipes extends Component {
     }
   }
 
-  /**
-   * @param {any} event
+  /** calls action to get all recipes by selected category type
+   *
+   * @param {string} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSelectCategory = (event) => {
@@ -98,9 +111,12 @@ class AllRecipes extends Component {
       });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to display all recipes with pagination
+   *
+   * @param {string} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSelectAllRecipes = (event) => {
@@ -114,9 +130,12 @@ class AllRecipes extends Component {
       });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to get all recipes by search input
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onChange = (event) => {
@@ -133,8 +152,10 @@ class AllRecipes extends Component {
     }
   }
 
-  /**
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -142,16 +163,22 @@ class AllRecipes extends Component {
     const { pagination } = this.props;
 
     const noRecipes = (
-      <div className="col s12 bottom-style center-align error-message">
-        {this.props.message}
+      <div className="row paginate">
+        <div className="col l12 m12 s10
+        bottom-style
+        center-align
+        error-message"
+        >
+          {this.props.message}
+        </div>
       </div>
     );
 
     return (
       <main >
         <div className="container full-container">
-          <div className="row">
-            <div className="col s3">
+          <div className="row paginate">
+            <div className="col l5 m7 s10">
               <Categories
                 dropdown={this.state.dropdown}
                 onSelectAllRecipes={this.onSelectAllRecipes}
@@ -165,7 +192,7 @@ class AllRecipes extends Component {
           </div>
         </div >
 
-        <div className="row remove-margin-bottom reviews-style text3">
+        <div className="row remove-margin-bottom all-style home-width text3">
           {
             this.state.isLoading &&
             <div className="center-align loader-style min-preloader">
@@ -184,13 +211,15 @@ class AllRecipes extends Component {
               }
             </ul>
           }
-          <div className="center-align">
-            <Pagination
-              items={pagination.pageCount || 0}
-              activePage={pagination.page}
-              maxButtons={pagination.pageCount}
-              onSelect={this.onNextPage}
-            />
+          <div className="row paginate">
+            <div className="center-align">
+              <Pagination
+                items={pagination.pageCount || 0}
+                activePage={pagination.page}
+                maxButtons={pagination.pageCount}
+                onSelect={this.onNextPage}
+              />
+            </div>
           </div>
         </div>
       </main >

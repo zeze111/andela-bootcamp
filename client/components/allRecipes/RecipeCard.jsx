@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
+/** Stateless component to render details of a recipe card
+ *
+ * @export {function} AllContent
+ *
+ * @param {object} recipe
+ *
+ * @returns {null} null
+ */
 const RecipeCard = ({
   recipe: {
-    id, name, prepTime, image
+    id, name, preparationTime, image
   }
 }) => {
   const show = `${name.substring(0, 10)}...`;
@@ -27,7 +35,7 @@ const RecipeCard = ({
                 data-tip={name}
               > {show}
                 <ReactTooltip />
-              </Link> {prepTime}
+              </Link> {preparationTime}
             </div>
           </div>
         </div>

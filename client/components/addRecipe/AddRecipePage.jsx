@@ -1,23 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import AddRecipeForm from './AddRecipeForm';
 import { addRecipeRequest } from '../../actions/recipeActions';
 
-/**
- * @param {any} props
- * @const AddRecipePage
- * @returns {any} void
- */
+/** Stateless component to render recipe's form
+*
+* @export {function} AddRecipePage
+*
+* @param {object} props
+*
+* @returns {null} null
+*/
 const AddRecipePage = props => (
   <div id="addRecipebody">
     <main id="wrapper">
       <div className="container full-container">
-        <div className="row remove-margin-bottom">
-          <div className="col s8 offset-s2 form-padding">
-            <div className="card z-depth-2">
+        <div className="row remove-margin-bottom card-width">
+          <div className="col s12 m10 l8 push-l2 push-m1 form-padding">
+            <div className="card z-depth-2" >
               <span
-                className="card-title col s5 offset-s4 text-color inner"
+                className="card-title col s12 m12 l12 center-align text-color inner"
               > SUBMIT A RECIPE
               </span>
               <AddRecipeForm addRecipeRequest={props.addRecipeRequest} />

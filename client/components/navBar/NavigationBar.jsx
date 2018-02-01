@@ -6,15 +6,20 @@ import PropTypes from 'prop-types';
 import AuthUser from './AuthUser';
 import { signout } from '../../actions/signinActions';
 
-/**
- * @class Profile
+/** shows navigation bar for all users
+ *
+ * @class NavigationBar
+ *
  * @extends {Component}
  */
 class NavigationBar extends Component {
   /**
    * @description Constructor Function
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
@@ -27,8 +32,10 @@ class NavigationBar extends Component {
     this.signout = this.signout.bind(this);
   }
 
-  /**
+  /** css initialisation when component is mounted
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentDidMount() {
@@ -36,9 +43,12 @@ class NavigationBar extends Component {
     $('.tooltipped').tooltip({ delay: 50 });
   }
 
-  /**
-   * @param {any} nextProps
+  /** props to receive when the component is mounted
+   *
+   * @param {object} nextProps
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -47,9 +57,12 @@ class NavigationBar extends Component {
     });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to sign user out
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   signout = (event) => {
@@ -59,8 +72,10 @@ class NavigationBar extends Component {
     this.context.router.history.push('/');
   }
 
-  /**
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -68,12 +83,12 @@ class NavigationBar extends Component {
 
     const guestLinks = (
       <div>
-        <ul className="right hide-on-med-and-down">
+        <ul className="right hide-on-med-and-down nav-style">
           <li>
             <Link
               to="/signup"
               href="/signup"
-            >Sign In
+            >Sign Up / In
             </Link >
           </li>
         </ul>

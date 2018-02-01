@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export const TextFieldGroup = ({
-  value, onChange, id, type, name, label, error
+  value, onChange, id, type, name, label, error, active
 }) => (
   <div className="input-field">
-    <label htmlFor={id}>{label}</label>
+    <label className={active} htmlFor={id}>{label}
+    </label>
     <input
       value={value}
       onChange={onChange}
@@ -25,7 +26,8 @@ export const TextFieldGroup2 = ({
   value, onChange, id, name, label, error
 }) => (
   <div className="input-field">
-    <label htmlFor={id}>{label}</label>
+    <label className="active" htmlFor={id}>{label}
+    </label>
     <textarea
       value={value}
       onChange={onChange}
@@ -41,10 +43,10 @@ export const TextFieldGroup2 = ({
 );
 
 export const TextFieldGroup3 = ({
-  value, onChange, id, type, name, label, icon
+  value, onChange, id, name, label, icon, isDisabled
 }) => (
   <div className="input-field">
-    <label htmlFor={id}>{label}
+    <label className="active" htmlFor={id}>{label}
       <i className="material-icons left">{icon}</i>
     </label>
     <input
@@ -54,6 +56,7 @@ export const TextFieldGroup3 = ({
       type="text"
       className="validate"
       name={name}
+      disabled={isDisabled}
     />
   </div>
 );
@@ -98,6 +101,7 @@ TextFieldGroup.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  active: PropTypes.string,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -119,7 +123,7 @@ TextFieldGroup3.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  isDisabled: PropTypes.bool,
   icon: PropTypes.string.isRequired,
 };
 
@@ -139,9 +143,14 @@ LinkFieldGroup2.propTypes = {
 };
 
 TextFieldGroup.defaultProps = {
-  error: []
+  error: [],
+  active: ''
 };
 
 TextFieldGroup2.defaultProps = {
   error: []
+};
+
+TextFieldGroup3.defaultProps = {
+  isDisabled: false
 };

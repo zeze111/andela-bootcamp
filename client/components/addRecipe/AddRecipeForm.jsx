@@ -8,24 +8,27 @@ import validations from '../../../Server/shared/validations';
 import { TextFieldGroup, TextFieldGroup2 } from '../common/TextFieldGroup';
 import PreLoader from '../common/PreLoader';
 
-/**
+/** Form to allow users create s recipe
  *
+ * @class AddRecipeForm
  *
- * @class AddRecipePage
  * @extends {React.Component}
  */
 class AddRecipeForm extends React.Component {
   /**
    * @description Constructor Function
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
     super(props);
     this.state = {
       name: '',
-      prepTime: '',
+      preparationTime: '',
       description: '',
       type: '',
       ingredients: '',
@@ -37,27 +40,34 @@ class AddRecipeForm extends React.Component {
     };
   }
 
-  /**
-   * @param {any} props
+  /** css initialisation for when a component is mounted
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentDidMount() {
     $(this.refs.selectType).material_select(this.onSelectChange.bind(this));
   }
 
-  /**
-   * @param {any} event
+  /** sets state when form input is changed
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * @param {any} event
+  /** sets state when a type field is selected
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSelectChange = (event) => {
@@ -67,15 +77,18 @@ class AddRecipeForm extends React.Component {
     });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to add user's recipe to the app
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSubmit = (event) => {
     event.preventDefault();
 
-    const recipe = pick(this.state, ['name', 'prepTime', 'description', 'type',
+    const recipe = pick(this.state, ['name', 'preparationTime', 'description', 'type',
       'ingredients', 'instructions', 'imageFile']);
 
     if (this.isValid()) {
@@ -89,9 +102,12 @@ class AddRecipeForm extends React.Component {
   }
 
 
-  /**
-   * @param {any} event
+  /** ets state of imageFile and changes recipe image display
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   uploadImage = (event) => {
@@ -107,9 +123,11 @@ class AddRecipeForm extends React.Component {
     }
   }
 
-  /**
+  /** checks if form validation passes or fails
+   *
    * @memberof Home
-   * @return {object} any
+   *
+   * @return {boolean} validator
    */
   isValid() {
     const validator = new Validator(this.state, validations.recipeRules);
@@ -121,24 +139,25 @@ class AddRecipeForm extends React.Component {
     return validator.passes();
   }
 
-  /**
-     * @param {any} event
-     * @memberof Home
-     * @return {void}
-     */
+  /** html component to render
+   *
+   * @memberof Home
+   *
+   * @return {void}
+   */
   render() {
     const { errors } = this.state;
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to="/user" />;
+      return <Redirect to="/user/2/recipes" />;
     }
 
     return (
       <div className="row">
-        <div className="card-content col s6 offset-s3">
+        <div className="card-content col s10 m8 l6 push-s1 push-m2 push-l3">
           <form onSubmit={this.onSubmit}>
             <div className="row add-padding">
-              <div className="file-field input-field col s12 center-align" >
+              <div className="file-field input-field col s12 right-align get-pic-btn" >
                 <div className="image-placeholder">
                   <img
                     src={this.state.imageSrc}
@@ -151,15 +170,14 @@ class AddRecipeForm extends React.Component {
                 btn-small
                 waves-effect
                 waves-light
-                blue
-                right-align"
+                blue"
                 >
                   <i className="material-icons">photo</i>
                   <input type="file" onChange={this.uploadImage} />
                 </div>
               </div>
             </div>
-            <div style={{ paddingTop: '0.5em' }}>
+            <div className="half-top">
               {errors &&
                 <span className="red-text error-text" >
                   {errors.message}
@@ -175,12 +193,12 @@ class AddRecipeForm extends React.Component {
               />
               <TextFieldGroup
                 label="Recipe Time"
-                value={this.state.prepTime}
+                value={this.state.preparationTime}
                 onChange={this.onChange}
                 id="time"
                 type="text"
-                name="prepTime"
-                error={errors.prepTime}
+                name="preparationTime"
+                error={errors.preparationTime}
               />
               <TextFieldGroup
                 label="Description"
@@ -238,6 +256,7 @@ class AddRecipeForm extends React.Component {
                   className="btn grey"
                   type="submit"
                   value="Submit"
+                  disabled={this.state.isLoading}
                 />
               </div> <br />
             </div>

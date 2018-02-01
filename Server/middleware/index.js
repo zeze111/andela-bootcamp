@@ -6,7 +6,7 @@ const confirmAuth = {
   authenticate(req, res, next) {
     const token = req.body.token || req.query.token || req.header('x-token');
     if (token) {
-      jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+      return jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
           return res.status(401).json({
             status: 'Unsuccessful',
@@ -26,12 +26,11 @@ const confirmAuth = {
         })
           .catch(error => res.status(500).send(error));
       });
-    } else {
-      return res.status(401).json({
-        status: 'Unsuccessful',
-        message: 'Unauthorised User',
-      });
     }
+    return res.status(401).json({
+      status: 'Unsuccessful',
+      message: 'Please sign up to perform this action',
+    });
   },
 };
 export default confirmAuth;

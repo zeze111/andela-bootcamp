@@ -2,12 +2,20 @@ import React from 'react';
 import { Tabs, Tab } from 'react-materialize';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
 import { userSignupRequest } from '../../actions/signupActions';
 import { userSigninRequest } from '../../actions/signinActions';
 
-
+/** Stateless component to render signup and signin form
+ *
+ * @export {function} SignupPage
+ *
+ * @param {object} props
+ *
+ * @returns {null} null
+ */
 const SignupPage = props => (
   <div id="signup-body">
     <main>
@@ -42,4 +50,7 @@ SignupPage.propTypes = {
 };
 
 
-export default connect(null, { userSignupRequest, userSigninRequest })(SignupPage);
+export default connect(
+  null,
+  { userSignupRequest, userSigninRequest }
+)(SignupPage);

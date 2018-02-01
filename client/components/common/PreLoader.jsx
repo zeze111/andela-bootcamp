@@ -1,7 +1,9 @@
 import React from 'react';
 
-/**
+/** loader component
+ *
    * @memberof Home
+   * 
    * @return {void}
    */
 function PreLoader() {

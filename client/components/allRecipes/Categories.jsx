@@ -2,6 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-materialize';
 
+/** Stateless component to render details of Categories dropdown
+ *
+ * @export {function} Categories
+ *
+ * @param {object} props
+ *
+ * @returns {null} null
+ */
 const Categories = (props) => {
   const appetizer = 'Appetizer';
   const main = 'Main';

@@ -21,17 +21,21 @@ import {
 import Recipe from './Recipe';
 import Details from './Details';
 
-/**
- *
+/** shows all the details of a recipe including reviews,
+ * upvotes, downvotes, and favorite
  *
  * @class RecipeDetails
+ *
  * @extends {React.Component}
  */
 class RecipeDetails extends Component {
   /**
    * @description Constructor Function
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
@@ -49,8 +53,10 @@ class RecipeDetails extends Component {
     };
   }
 
-  /**
+  /** actions to be called when component is mounted
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentDidMount() {
@@ -63,9 +69,12 @@ class RecipeDetails extends Component {
     this.props.getReviews(recipeId, limit, this.state.offset);
   }
 
-  /**
-   * @param {any} nextProps
+  /** props to be received when component is mounted
+   *
+   * @param {object} nextProps
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
@@ -79,16 +88,17 @@ class RecipeDetails extends Component {
     });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to add recipe to a user's favorite
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onClickFave = () => {
     this.props.favoriteRecipe(this.props.recipe.id)
       .then(() => {
         const toastContent = $(`<span>${this.props.message}</span>`);
-        Materialize.toast(toastContent, 2000);
+        Materialize.toast(toastContent, 3000, 'green');
         if (this.props.message.includes('added')) {
           this.setState({ icon: 'star' });
         } else {
@@ -97,6 +107,12 @@ class RecipeDetails extends Component {
       });
   }
 
+  /** calls action to view next set of reviews
+   *
+   * @memberof Home
+   *
+   * @return {void}
+   */
   onNextSet = () => {
     const limit = this.state.limit + 3;
     this.props.getReviews(this.props.recipe.id, limit, this.state.offset)
@@ -105,6 +121,12 @@ class RecipeDetails extends Component {
       });
   }
 
+  /** calls action to view less reviews
+   *
+   * @memberof Home
+   *
+   * @return {void}
+   */
   onPreviousSet = () => {
     const limit = this.state.limit - 3;
     this.props.getReviews(this.props.recipe.id, limit, this.state.offset)
@@ -113,9 +135,10 @@ class RecipeDetails extends Component {
       });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to upvote a recipe
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onUpvote = () => {
@@ -127,9 +150,10 @@ class RecipeDetails extends Component {
       });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to downvote recipe
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onDownvote = () => {
@@ -141,9 +165,10 @@ class RecipeDetails extends Component {
       });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to delete recipe
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   clickEvent = () => {
@@ -162,8 +187,10 @@ class RecipeDetails extends Component {
     Materialize.toast(toastContent);
   }
 
-  /**
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -231,7 +258,7 @@ class RecipeDetails extends Component {
               offset={this.state.offset}
             />
             <div className="row">
-              <div className="col l6 m10 s12 review-section">
+              <div className="col l7 m10 s12 review-section">
                 {(reviewsList.length === 0) ? noReviews :
                 <ul className="collection" >
                   {
@@ -240,6 +267,7 @@ class RecipeDetails extends Component {
                           key={review.id}
                           review={review}
                           user={user}
+                          isLoading={this.state.isLoading}
                           deleteReview={deleteReview}
                           message={reviewMessage}
                         />
@@ -253,9 +281,8 @@ class RecipeDetails extends Component {
                       className="creator-button
                     text-color
                     left
-                    delete-text
                     white
-                    two-top"
+                    one-top"
                       onClick={() => { this.onPreviousSet(); }}
                     >Fewer posts
                     </button>
@@ -268,10 +295,8 @@ class RecipeDetails extends Component {
                       className="creator-button
                       text-color
                       right
-                      delete-text
-                      text-style
                       white
-                      two-top"
+                      one-top"
                       onClick={() => { this.onNextSet(); }}
                     >Older posts
                     </button>
@@ -325,6 +350,7 @@ const mapStateToProps = state => ({
     state.recipeReducer.currentRecipe : {},
   user: state.auth.user,
   message: state.favoriteReducer.message,
+  color: state.favoriteReducer.color,
   upvotes: state.ratingsReducer.upvotes,
   downvotes: state.ratingsReducer.downvotes,
   pagination: state.reviewReducer.pagination,

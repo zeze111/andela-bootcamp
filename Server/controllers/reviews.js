@@ -4,21 +4,21 @@ import { Recipe, Review, User } from '../models';
 import validations from '../shared/validations';
 import { isNum, paginationData } from '../shared/helper';
 
-
-const reviews = {
-
+/**
+ *
+ * @class Reviews
+ */
+class Reviews {
   /** Creates new Review for a Recipe and stores in the Reviews table
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  reviewRecipe(request, response) {
-    if (isNaN(request.params.recipeId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Recipe ID Must Be A Number',
-      });
-    } else {
+  static reviewRecipe(request, response) {
+    if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const findRecipeId = parseInt(request.params.recipeId, 10);
       Recipe.findById(findRecipeId)
         .then((recipe) => {
@@ -72,20 +72,18 @@ const reviews = {
         })
         .catch(error => response.status(500).send(error));
     }
-  },
+  }
 
   /** Gets all the Reviews for a Recipe
+   *
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  getAll(request, response) {
-    if (isNaN(request.params.recipeId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Recipe ID Must Be A Number',
-      });
-    } else {
+  static getAll(request, response) {
+    if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
       Review.findAndCountAll({
         where: {
@@ -122,20 +120,18 @@ const reviews = {
         })
         .catch(error => response.status(500).send(error));
     }
-  },
+  }
 
-  /** Creates new Recipe and stores in the Recipes table
+  /** Deletes the user's review
+   * 
   * @param {Object} request - request object
+  *
   * @param {Object} response - response object
+  *
   * @returns {Object} response object
   */
-  delete(request, response) {
-    if (isNaN(request.params.reviewId)) {
-      response.status(406).json({
-        status: 'Unsuccessful',
-        message: 'Review ID Must Be A Number',
-      });
-    } else {
+  static delete(request, response) {
+    if (!isNum(request.params.reviewId, response, 'Review')) {
       const reviewId = parseInt(request.params.reviewId, 10);
       Review.findOne({
         where: {
@@ -165,7 +161,7 @@ const reviews = {
         })
         .catch(error => response.status(500).send(error));
     }
-  },
-};
+  }
+}
 
-export default reviews;
+export default Reviews;

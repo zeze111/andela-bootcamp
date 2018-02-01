@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/** Stateless component to render search bar
+ *
+ * @export {function} Search
+ *
+ * @param {object} props
+ *
+ * @returns {null} null
+ */
 const Search = props => (
-  <form className="col s7 offset-s4">
+  <form className="col s12 offset-s1 offset-m3 offset-l5 paginate">
     <div className="row">
-      <div className="input-field col s6">
-        <label htmlFor="search" />
+      <div className="input-field col l6 m9 s12">
+        <i className="material-icons search-icon">
+        search
+        </i>
         <input
-          placeholder="Search for Recipes"
+          className="search-input"
+          placeholder="Search for recipes"
           type="text"
           id="search"
           value={props.search}
           onChange={props.onChange}
         />
-      </div>
-      <div className="col s6">
-        <button
-          className="btn grey top"
-          type="button"
-        >
-          <i className="material-icons">search</i>
-        </button>
       </div>
     </div>
   </form>

@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import PreLoader from '../common/PreLoader';
 
-/**
- *
+/** Recipes class contains the list item for a single recipe
  *
  * @class Recipes
+ *
  * @extends {React.Component}
  */
 class Recipes extends Component {
   /**
    * @memberof Home
+   *
    * @return {void}
    */
   clickEvent = () => {
@@ -27,17 +29,27 @@ class Recipes extends Component {
     Materialize.toast(toastContent);
   }
 
-  /**
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
+    if (this.props.isLoading) {
+      return (
+        <div className="center-align loader-style">
+          <PreLoader />
+        </div>
+      );
+    }
+
     return (
       <li className="collection-item">
         <Link
-          to={`/userRecipe/${this.props.recipe.id}`}
-          href={`/userRecipe/${this.props.recipe.id}`}
-          className="text-color caps"
+          to={`/recipe/${this.props.recipe.id}`}
+          href={`/recipe/${this.props.recipe.id}`}
+          className="text-color break caps"
         > {this.props.recipe.name}
         </Link>
         <div className="secondary-content div-pointer2">
@@ -51,8 +63,8 @@ class Recipes extends Component {
           </i>
         </div>
         <Link
-          to={`/updateRecipe/${this.props.recipe.id}`}
-          href={`/updateRecipe/${this.props.recipe.id}`}
+          to={`/update-recipe/${this.props.recipe.id}`}
+          href={`/update-recipe/${this.props.recipe.id}`}
           className="secondary-content"
         >
           <i className="material-icons icon-color" >mode_edit</i>
@@ -64,7 +76,8 @@ class Recipes extends Component {
 
 Recipes.propTypes = {
   deleteRecipe: PropTypes.func.isRequired,
-  recipe: PropTypes.objectOf(PropTypes.any)
+  recipe: PropTypes.objectOf(PropTypes.any),
+  isLoading: PropTypes.bool.isRequired,
 };
 
 Recipes.defaultProps = {

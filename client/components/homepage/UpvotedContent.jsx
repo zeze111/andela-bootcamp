@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
+/** Stateless component to render details of a recipe card
+ *
+ * @export {function} UpvotedContent
+ *
+ * @param {object} recipe
+ *
+ * @returns {null} null
+ */
 const UpvotedContent = ({
   recipe: {
     recipeId, upvotes, Recipe

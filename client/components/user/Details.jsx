@@ -1,8 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import PreLoader from '../common/PreLoader';
 import { TextFieldGroup3 } from '../common/TextFieldGroup';
 
+/** Stateless component to render user's form and details
+ *
+ * @export {function} Details
+ *
+ * @param {object} props
+ *
+ * @returns {null} null
+ */
 const Details = (props) => {
   if (props.isLoading) {
     return (
@@ -12,8 +21,8 @@ const Details = (props) => {
     );
   }
   return (
-    <div id="detail" className="col s10 offest-s2 form-style">
-      <form onSubmit={props.onSubmit} className="col s6 offset-s2">
+    <div id="detail" className="col s12 m8 l7 push-l1 push-m1 form-style">
+      <form onSubmit={props.onSubmit} className="col s10 push-s1">
         <TextFieldGroup3
           label="First Name"
           value={props.firstName}
@@ -40,6 +49,7 @@ const Details = (props) => {
           type="email"
           name="email"
           icon="email"
+          isDisabled
         />
         <TextFieldGroup3
           label="Bio:"

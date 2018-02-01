@@ -4,21 +4,25 @@ import Validator from 'validatorjs';
 import { pick } from 'lodash';
 import { Input, Row } from 'react-materialize';
 import { Redirect } from 'react-router-dom';
+
 import validations from '../../../Server/shared/validations';
 import PreLoader from '../common/PreLoader';
 import { TextFieldGroup, TextFieldGroup2 } from '../common/TextFieldGroup';
 
-/**
- *
+/** Form to allow users update their recipe
  *
  * @class UpdateRecipeForm
+ *
  * @extends {React.Component}
  */
 class UpdateRecipeForm extends React.Component {
   /**
    * @description Constructor Function
-   * @param {any} props
+   *
+   * @param {object} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
@@ -26,7 +30,7 @@ class UpdateRecipeForm extends React.Component {
 
     this.state = {
       name: '',
-      prepTime: '',
+      preparationTime: '',
       description: '',
       type: '',
       ingredients: '',
@@ -35,27 +39,32 @@ class UpdateRecipeForm extends React.Component {
       imageFile: '',
       errors: {},
       isLoading: false
-    }; 
+    };
   }
 
-  /**
+  /** function to call when component has mounted
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentDidMount() {
     $(this.refs.selectType).material_select(this.onSelectChange.bind(this));
   }
 
-  /**
-   * @param {any} nextProps
+  /** props to receive when component is mounted
+   *
+   * @param {object} nextProps
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
     const { recipe } = nextProps;
     this.setState({
       name: recipe.name,
-      prepTime: recipe.prepTime,
+      preparationTime: recipe.preparationTime,
       description: recipe.description,
       imageSrc: recipe.image,
       type: recipe.type,
@@ -64,18 +73,24 @@ class UpdateRecipeForm extends React.Component {
     });
   }
 
-  /**
-   * @param {any} event
+  /** sets state on form input change
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to update recipe when form data is submitted
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSubmit = (event) => {
@@ -86,7 +101,7 @@ class UpdateRecipeForm extends React.Component {
       this.state,
       [
         'name',
-        'prepTime',
+        'preparationTime',
         'description',
         'type',
         'ingredients',
@@ -105,9 +120,12 @@ class UpdateRecipeForm extends React.Component {
     }
   }
 
-  /**
-   * @param {any} event
+  /** sets state when a type is selected
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSelectChange = (event) => {
@@ -117,9 +135,12 @@ class UpdateRecipeForm extends React.Component {
     });
   }
 
-  /**
-   * @param {any} event
+  /** sets state of imageFile and changes recipe image display
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   uploadImage = (event) => {
@@ -135,9 +156,11 @@ class UpdateRecipeForm extends React.Component {
     }
   }
 
-  /**
+  /** checks if form validation passes or fails
+   *
    * @memberof Home
-   * @return {any} errors
+   *
+   * @return {boolean} validator
    */
   isValid() {
     const validator = new Validator(this.state, validations.updateRecipeRules);
@@ -149,9 +172,10 @@ class UpdateRecipeForm extends React.Component {
     return validator.passes();
   }
 
-  /**
-   * @param {any} event
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -160,15 +184,15 @@ class UpdateRecipeForm extends React.Component {
     const { recipe } = this.props;
 
     if (redirect) {
-      return <Redirect to={`/userRecipe/${recipe.id}`} />;
+      return <Redirect to={`/recipe/${recipe.id}`} />;
     }
 
     return (
       <div className="row">
-        <div className="card-content col s6 offset-s3">
+        <div className="card-content col s10 m8 l6 push-s1 push-m2 push-l3">
           <form onSubmit={this.onSubmit}>
             <div className="row add-padding">
-              <div className="file-field input-field col s12 center-align" >
+              <div className="file-field input-field col s12 right-align get-pic-btn" >
                 <div className="image-placeholder">
                   <img
                     src={this.state.imageSrc}
@@ -181,8 +205,7 @@ class UpdateRecipeForm extends React.Component {
                 btn-small
                 waves-effect
                 waves-light
-                blue
-                right-align"
+                blue"
                 >
                   <i className="material-icons">photo</i>
                   <input type="file" onChange={this.uploadImage} />
@@ -201,16 +224,18 @@ class UpdateRecipeForm extends React.Component {
                 id="name"
                 type="text"
                 name="name"
+                active="active"
                 error={errors.name}
               />
               <TextFieldGroup
                 label="Recipe Time"
-                value={this.state.prepTime}
+                value={this.state.preparationTime}
                 onChange={this.onChange}
                 id="time"
                 type="text"
-                name="prepTime"
-                error={errors.prepTime}
+                name="preparationTime"
+                active="active"
+                error={errors.preparationTime}
               />
               <TextFieldGroup
                 label="Description"
@@ -219,6 +244,7 @@ class UpdateRecipeForm extends React.Component {
                 id="desc"
                 type="text"
                 name="description"
+                active="active"
                 error={errors.description}
               />
               <Row>
@@ -268,6 +294,7 @@ class UpdateRecipeForm extends React.Component {
                   className="btn grey"
                   type="submit"
                   value="Submit"
+                  disabled={this.state.isLoading}
                 />
               </div> <br />
             </div>

@@ -1,20 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/** Stateless component to render recipe image and actions
+ *
+ * @export {function} Recipe
+ *
+ * @param {object} props
+ *
+ * @returns {null} null
+ */
 const Recipe = props => (
-  <div className="row flex-container">
-    <div className="col s5">
-      <div className="card right" >
+  <div className="row">
+    <div className="col s12 m6 l5 push-m1 push-l1 text-flex">
+      <div className="card right card-width" >
         <div className="card-image">
           <img
             alt="Recipe"
-            src={props.recipe.image}
+            src={props.recipe.image || '/images/noimg.png'}
             className="materialboxed responsive-img pic-style"
           />
         </div>
         <div className="card-action card-buttons">
           <div className="row reduce-row">
-            <div className="col s2 push-s1">
+            <div className="col s4 m4 l2 push-l1">
               <button className="icon-button" onClick={props.onUpvote}>
                 <i className="material-icons icon-color right-align">
                 thumb_up
@@ -22,7 +30,7 @@ const Recipe = props => (
               </button >
               <p className="votes" > {props.upvotes} </p>
             </div>
-            <div className="col s2 push-s2">
+            <div className="col s4 m4 l2 push-l2">
               <button className="icon-button" onClick={props.onDownvote}>
                 <i className="material-icons icon-color down right-align">
                 thumb_down
@@ -30,7 +38,7 @@ const Recipe = props => (
               </button>
               <p className="votes down-text" > {props.downvotes} </p>
             </div>
-            <div className="col s2 push-s4 right-align">
+            <div className="col s4 m4 l2 push-l4 right-align">
               <button className="icon-button" onClick={props.onClickFave}>
                 <i className="material-icons small icon-color favorite">{
                   props.icon}
@@ -41,10 +49,10 @@ const Recipe = props => (
         </div>
       </div>
     </div>
-    <div className="col s7">
-      <div className="row text-flex" >
+    <div className="col s12 m5 l6 push-m1 push-l1 text-flex2">
+      <div className="row" >
         <div className="col s12">
-          <h5 className="title-details remove-margin-bottom">
+          <h5 className="title-details break name col s10 l10 remove-margin-bottom">
             {props.recipe.name}
           </h5>
         </div>

@@ -10,13 +10,12 @@ import UpdateRecipePage from './updateRecipe/UpdateRecipePage';
 import RecipeDetails from './recipe/RecipeDetails';
 import Profile from './user/Profile';
 import AllRecipes from './allRecipes/AllRecipes';
-import confirmAuth from './confirmAuth';
+import ConfirmAuth from './ConfirmAuth';
 import '../assets/init';
 
 /**
- *
- *
  * @const App
+ *
  * @returns {any} routes
  */
 const App = () => (
@@ -26,12 +25,13 @@ const App = () => (
       <Switch>
         <Route path="/" exact component={Homepage} />
         <Route path="/signup" component={SignupPage} />
-        <Route path="/addRecipe" component={confirmAuth(AddRecipePage)} />
-        <Route path="/user" component={confirmAuth(Profile)} />
-        <Route path="/updateRecipe/:recipeId" component={confirmAuth(UpdateRecipePage)} />
-        <Route path="/userRecipe/:recipeId" component={confirmAuth(RecipeDetails)} />
+        <Route path="/add-recipe" component={ConfirmAuth(AddRecipePage)} />
+        <Route path="/profile" component={ConfirmAuth(Profile)} />
+        <Route path="/user/:index" component={ConfirmAuth(Profile)} />
+        <Route path="/update-recipe/:recipeId" component={ConfirmAuth(UpdateRecipePage)} />
+        <Route path="/user-recipes/:recipeId" component={ConfirmAuth(RecipeDetails)} />
         <Route path="/recipe/:recipeId" component={RecipeDetails} />
-        <Route path="/allRecipes" component={AllRecipes} />
+        <Route path="/all-recipes" component={AllRecipes} />
       </Switch>
       <Footer />
     </div>

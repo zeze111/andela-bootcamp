@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-/**
+/** sets the header value of x-token to token
  * @export {function}
- * @param {any} token
+ *
+ * @param {string} token
+ *
  * @returns {object} any
  */
 export default function setAuthorizationToken(token) {

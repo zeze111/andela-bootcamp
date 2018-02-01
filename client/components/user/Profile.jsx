@@ -18,15 +18,23 @@ import Recipes from './Recipes';
 import Favorites from './Favorites';
 import Information from './Information';
 
-/**
+/** Profile entails of user's details, recipes and favorites
+ * allows a user update their details,
+ * submit a recipe and view all recipes submitted,
+ * view all recipes the user has favorited
+ *
  * @class Profile
+ *
  * @extends {Component}
  */
 class Profile extends Component {
   /**
    * @description Constructor Function
+   *
    * @param {any} props
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   constructor(props) {
@@ -39,18 +47,20 @@ class Profile extends Component {
       bio: '',
       image: '',
       limit: 3,
+      index: 0,
       isLoading: true,
       isPicLoading: false
     };
   }
 
-  /**
+  /** gets user details before component is mounted
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentWillMount() {
-    const user = localStorage.getItem('user');
-    this.props.getUser(JSON.parse(user).id)
+    this.props.getUser(this.props.user.id)
       .then(() => {
         this.setState({
           isLoading: false
@@ -58,8 +68,10 @@ class Profile extends Component {
       });
   }
 
-  /**
+  /** gets user's recipe and favorites when the component is mounted
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentDidMount() {
@@ -71,12 +83,17 @@ class Profile extends Component {
     this.props.getFavoriteRecipes(limit, offset);
   }
 
-  /**
+  /** receives properties from the store when component is mounted
+   *
    * @param {any} nextProps
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
+    const indexNo = parseInt(this.props.match.params.index, 10);
+    this.setState({ index: indexNo });
     const { profile } = nextProps;
     this.setState({
       firstName: profile.firstName,
@@ -85,33 +102,42 @@ class Profile extends Component {
     });
   }
 
-  /**
-   * @param {any} event
+  /** sets state on form input
+   *
+   * @param {string} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to update user when form data is submitted
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onSubmit = (event) => {
     event.preventDefault();
 
-    this.props.updateUser(this.props.user.id, this.state)
+    this.props.updateUser(this.state)
       .then(() => {
         const toastContent = $(`<span>${this.props.userMessage}</span>`);
         Materialize.toast(toastContent, 2000);
       });
   }
 
-  /**
-   * @param {any} event
+  /** gets recipe on next /previous page
+   *
+   * @param {number} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onNextPage = (event) => {
@@ -125,9 +151,12 @@ class Profile extends Component {
       });
   }
 
-  /**
-   * @param {any} event
+  /** gets recipe on next /previous page for favorites
+   *
+   * @param {number} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   onNextFavePage = (event) => {
@@ -141,9 +170,12 @@ class Profile extends Component {
       });
   }
 
-  /**
-   * @param {any} event
+  /** calls action to upload user image to cloudinary
+   *
+   * @param {object} event
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   uploadImage = (event) => {
@@ -166,8 +198,10 @@ class Profile extends Component {
       });
   }
 
-  /**
+  /** html component to render
+   *
    * @memberof Home
+   *
    * @return {void}
    */
   render() {
@@ -176,7 +210,6 @@ class Profile extends Component {
       pagination,
       pagination2,
     } = this.props;
-
 
     const faves = (this.props.favorites) ? (this.props.favorites) : [];
     const recipeList = (this.props.recipes) ? (this.props.recipes) : [];
@@ -203,23 +236,25 @@ class Profile extends Component {
               image={this.state.image}
               uploadImage={this.uploadImage}
               isPicLoading={this.state.isPicLoading}
+              isLoading={this.state.isLoading}
             />
           </div>
           <div className="container z-depth-1 white" >
             <div className="row" >
-              <div className="col s12" >
-                <Tabs defaultIndex={0} className="z-depth-1">
+              <div className="col s12 m12 l12" >
+                {!this.state.isLoading &&
+                <Tabs defaultIndex={this.state.index} className="z-depth-1">
                   <TabList>
                     <Tab >
                       MY DETAILS
                     </Tab>
                     <Tab >
                       CHANGE PASSWORD
-                    </Tab>
+                    </Tab >
                     <Tab >
                       MY RECIPES
                     </Tab>
-                    <Tab id="faves">
+                    <Tab >
                       FAVORITES
                     </Tab>
                   </TabList>
@@ -239,76 +274,80 @@ class Profile extends Component {
                     <PasswordForm />
                   </TabPanel>
                   <TabPanel>
-                    <div id="recipe" className="col s10 offest-s2 form-style">
-                      <div className="col s6 offset-s2">
+                    <div id="recipe" className="col s12 form-style">
+                      <div className="col s10 push-s1">
                         <Link
-                          to="/addRecipe"
-                          href="/addRecipe"
+                          to="/add-recipe"
+                          href="/add-recipe"
                           className="btn waves-effect waves-light grey"
                         > Add A Recipe
                           <i className="material-icons left">add</i>
                         </Link>
                       </div>
-                      <div className="col s12 offest-s4">
+                      <div className="col s12">
                         <br />
                         <div className="divider" />
                       </div>
-                      <div id="myrecipe" className="col s9 offset-s2">
+                      <div className="row">
                         <br />
-                        <div className="col s12">
+                        <div className="col s12 m8 l8 push-l2 push-m2">
                           {(recipeList.length === 0) ? noRecipes :
-                          <ul id="userlist" className="collection bottom-style">
+                          <ul id="userlist" className="collection two-top bottom-style">
                             {
                                 recipeList.map(recipe => (
                                   <Recipes
                                     recipe={recipe}
                                     key={recipe.id}
+                                    isLoading={this.state.isLoading}
                                     deleteRecipe={this.props.deleteRecipe}
                                   />))
                               }
                           </ul>
                           }
                         </div>
-                        <div className="center-align">
-                          <Pagination
-                            items={pagination.pageCount || 0}
-                            activePage={pagination.page}
-                            maxButtons={pagination.pageCount}
-                            onSelect={this.onNextPage}
-                          />
-                        </div>
+                      </div>
+                      <div className="center-align">
+                        <Pagination
+                          items={pagination.pageCount || 0}
+                          activePage={pagination.page}
+                          maxButtons={pagination.pageCount}
+                          onSelect={this.onNextPage}
+                        />
                       </div>
                     </div>
                   </TabPanel>
                   <TabPanel>
-                    <div id="myrecipe" className="col s9 offset-s1">
+                    <div id="myrecipe" className="col s12">
                       <br />
-                      <div className="col s12">
+                      <div className="col s12 m10 l8 push-l2 push-m1">
                         {(faves.length === 0) ? noFaves :
-                        <ul id="userlist" className="collection bottom-style">
+                        <ul className="collection bottom-style">
                           {
                               faves.map(favorite => (
                                 <Favorites
                                   favorites={this.props.favorites}
                                   favorite={favorite}
                                   key={favorite.id}
+                                  isLoading={this.state.isLoading}
                                   deleteFavorite={this.props.deleteFavorite}
                                 />))
                             }
                         </ul>
                         }
                       </div>
-                      <div className="center-align">
-                        <Pagination
-                          items={pagination2.pageCount || 0}
-                          activePage={pagination2.page}
-                          maxButtons={pagination2.pageCount}
-                          onSelect={this.onNextFavePage}
-                        />
-                      </div>
+                    </div>
+                    <div className="center-align two-down">
+                      <Pagination
+                        className="remove-margin-bottom"
+                        items={pagination2.pageCount || 0}
+                        activePage={pagination2.page}
+                        maxButtons={pagination2.pageCount}
+                        onSelect={this.onNextFavePage}
+                      />
                     </div>
                   </TabPanel>
                 </Tabs>
+              }
               </div> <br /> <br />
             </div>
           </div>
@@ -325,6 +364,7 @@ Profile.defaultProps = {
     email: ''
   },
   user: {},
+  match: {},
   recipes: [],
   favorites: [],
   pagination: {},
@@ -344,6 +384,7 @@ Profile.propTypes = {
   userMessage: PropTypes.string,
   user: PropTypes.objectOf(PropTypes.any),
   profile: PropTypes.objectOf(PropTypes.any),
+  match: PropTypes.objectOf(PropTypes.any),
   recipes: PropTypes.arrayOf(PropTypes.any),
   pagination: PropTypes.objectOf(PropTypes.any),
   pagination2: PropTypes.objectOf(PropTypes.any),

@@ -8,3 +8,9 @@ dist/
 .travis/
 build/
 package-lock.json/
+coverage/
+Templates/
+out/
+.eslintrc.json
+api-docs/
+Server/*

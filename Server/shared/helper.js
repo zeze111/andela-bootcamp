@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { Recipe } from '../models';
 
 export const paginationData = (count, limit, offset) => ({
   pageSize: parseInt(limit, 10),
@@ -21,26 +20,10 @@ export const createToken = (payload) => {
 };
 
 export const isNum = (number, response, modelType) => {
-  if (!Number.isNaN(number)) {
+  if (isNaN(number)) {
     return response.status(406).json({
       status: 'Unsuccessful',
       message: `${modelType} ID Must Be A Number`,
     });
   }
-};
-
-export const findRecipe = (recipeId, response) => {
-  Recipe.findOne({
-    where: { id: recipeId },
-  })
-    .then((recipe) => {
-      if (!recipe) {
-        return response.status(404).json({
-          status: 'Unsuccessful',
-          message: 'Recipe Not Found',
-        });
-      }
-      return true;
-    })
-    .catch(error => response.status(500).send(error));
 };
