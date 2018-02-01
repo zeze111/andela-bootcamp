@@ -4,13 +4,11 @@ node_modules/
 dist/
 .env
 .nyc_output
-.coveralls/
+.coveralls
 .travis/
 build/
 package-lock.json/
 coverage/
 Templates/
 out/
-.eslintrc.json
-api-docs/
-Server/*
+.eslintrc
