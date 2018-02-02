@@ -242,7 +242,7 @@ class Profile extends Component {
           <div className="container z-depth-1 white" >
             <div className="row" >
               <div className="col s12 m12 l12" >
-                {!this.state.isLoading &&
+
                 <Tabs defaultIndex={this.state.index} className="z-depth-1">
                   <TabList>
                     <Tab >
@@ -292,7 +292,7 @@ class Profile extends Component {
                         <br />
                         <div className="col s12 m8 l8 push-l2 push-m2">
                           {(recipeList.length === 0) ? noRecipes :
-                          <ul id="userlist" className="collection two-top bottom-style">
+                          <ul className="collection two-top bottom-style">
                             {
                                 recipeList.map(recipe => (
                                   <Recipes
@@ -317,7 +317,7 @@ class Profile extends Component {
                     </div>
                   </TabPanel>
                   <TabPanel>
-                    <div id="myrecipe" className="col s12">
+                    <div className="col s12">
                       <br />
                       <div className="col s12 m10 l8 push-l2 push-m1">
                         {(faves.length === 0) ? noFaves :
@@ -347,7 +347,7 @@ class Profile extends Component {
                     </div>
                   </TabPanel>
                 </Tabs>
-              }
+              
               </div> <br /> <br />
             </div>
           </div>

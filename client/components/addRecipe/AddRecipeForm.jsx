@@ -94,10 +94,12 @@ class AddRecipeForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.addRecipeRequest(recipe)
-        .then(() => this.setState({ redirect: true }))
-        .catch(error => this.setState({
-          errors: error.response.data, isLoading: false
-        }));
+        .then(() =>
+          this.setState({ redirect: true }))
+        .catch(error =>
+          this.setState({
+            errors: error.response.data, isLoading: false
+          }));
     }
   }
 
@@ -167,10 +169,10 @@ class AddRecipeForm extends React.Component {
                 </div>
                 <div
                   className="btn-floating
-                btn-small
-                waves-effect
-                waves-light
-                blue"
+                  btn-small
+                  waves-effect
+                  waves-light
+                  blue"
                 >
                   <i className="material-icons">photo</i>
                   <input type="file" onChange={this.uploadImage} />
@@ -179,9 +181,9 @@ class AddRecipeForm extends React.Component {
             </div>
             <div className="half-top">
               {errors &&
-                <span className="red-text error-text" >
-                  {errors.message}
-                </span>}
+              <span className="red-text error-text" >
+                {errors.message}
+              </span>}
               <TextFieldGroup
                 label="Recipe Name"
                 value={this.state.name}
@@ -225,9 +227,9 @@ class AddRecipeForm extends React.Component {
                   <option value="Drink" >Drink</option>
                 </Input>
                 {errors &&
-                  <span className="help-block red-text error-text2">
-                    {errors.type}
-                  </span>}
+                <span className="help-block red-text error-text2">
+                  {errors.type}
+                </span>}
               </Row>
               <TextFieldGroup2
                 label="Ingredients"
@@ -247,11 +249,11 @@ class AddRecipeForm extends React.Component {
               />
               <div className="right-align">
                 {
-                  (this.state.isLoading) &&
-                  <div className="center-align loader-style">
-                    <PreLoader />
-                  </div>
-                }
+                (this.state.isLoading) &&
+                <div className="center-align loader-style">
+                  <PreLoader />
+                </div>
+              }
                 <input
                   className="btn grey"
                   type="submit"
@@ -262,7 +264,7 @@ class AddRecipeForm extends React.Component {
             </div>
           </form>
         </div>
-      </div>
+      </div >
     );
   }
 }
