@@ -242,7 +242,7 @@ class Profile extends Component {
           <div className="container z-depth-1 white" >
             <div className="row" >
               <div className="col s12 m12 l12" >
-
+                {!this.state.isLoading &&
                 <Tabs defaultIndex={this.state.index} className="z-depth-1">
                   <TabList>
                     <Tab >
@@ -347,7 +347,7 @@ class Profile extends Component {
                     </div>
                   </TabPanel>
                 </Tabs>
-              
+              }
               </div> <br /> <br />
             </div>
           </div>
