@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
-import PreLoader from '../common/PreLoader';
-
 /** Recipes class contains the list item for a single recipe
  *
  * @class Recipes
@@ -41,14 +39,6 @@ class Recipes extends Component {
    * @return {void}
    */
   render() {
-    if (this.props.isLoading) {
-      return (
-        <div className="center-align loader-style">
-          <PreLoader />
-        </div>
-      );
-    }
-
     return (
       <li className="collection-item">
         <Link
@@ -82,7 +72,6 @@ class Recipes extends Component {
 Recipes.propTypes = {
   deleteRecipe: PropTypes.func.isRequired,
   recipe: PropTypes.objectOf(PropTypes.any),
-  isLoading: PropTypes.bool.isRequired,
 };
 
 Recipes.defaultProps = {

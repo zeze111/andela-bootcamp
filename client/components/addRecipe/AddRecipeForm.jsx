@@ -230,7 +230,7 @@ class AddRecipeForm extends React.Component {
                   <option value="Appetizer">Appetizer</option>
                   <option value="Main" >Main</option>
                   <option value="Dessert" >Dessert</option>
-                  <option value="Drink" >Drink</option>
+                  <option value="Drinks" >Drinks</option>
                 </Input>
                 {errors &&
                 <span className="help-block red-text error-text2">
