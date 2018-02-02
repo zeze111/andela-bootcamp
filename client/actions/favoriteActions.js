@@ -73,7 +73,7 @@ export function getFavoriteRecipes(limit, offset) {
 export function deleteFavorite(recipeId) {
   return dispatch => axios.delete(`/api/v1/user/favorites/${recipeId}`)
     .then((response) => {
-      Materialize.toast(`<span> ${response.data.message}</span>`, 2000);
+      Materialize.toast(`<span> ${response.data.message}</span>`, 2000, 'green');
       response.data.recipeId = recipeId;
 
       dispatch({

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import swal from 'sweetalert';
 
 import ReviewForm from './ReviewForm';
 import Reviews from './Reviews';
@@ -170,19 +171,20 @@ class RecipeDetails extends Component {
    * @return {void}
    */
   clickEvent = () => {
-    const toastContent =
-      $('<span>Are you sure you want to delete this recipe</span>')
-        .add($('<button class="btn-flat toast-action" on>Yes</button>')
-          .click(() => {
-            this.setState({ isLoading: true });
-            this.props.deleteRecipe(this.props.recipe.id)
-              .then(() => {
-                Materialize.Toast.removeAll();
-                this.setState({ redirect: true, isLoading: false });
-              });
-          }))
-        .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
-    Materialize.toast(toastContent);
+    swal({
+      text: 'Are you sure you want to delete this recipe',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.props.deleteRecipe(this.props.recipe.id);
+          swal('Poof! Your recipe has been deleted!', {
+            icon: 'success',
+          });
+        }
+      });
   }
 
   /** html component to render

@@ -221,13 +221,13 @@ class Profile extends Component {
     const recipeList = (this.props.recipes) ? (this.props.recipes) : [];
 
     const noFaves = (
-      <div className="col s11 offset-s1 bottom-style">
+      <div className="col s11 offset-s1 two-top no-message bottom-style">
         You Currently Have No Favorite Recipes
       </div>
     );
 
     const noRecipes = (
-      <div className="col s11 offset-s1 bottom-style">
+      <div className="col s11 offset-s1 two-top no-message bottom-style">
         {this.props.message}
       </div>
     );
@@ -245,11 +245,11 @@ class Profile extends Component {
               isLoading={this.state.isLoading}
             />
           </div>
-          <div className="container z-depth-1 white" >
-            <div className="row" >
+          <div className="container z-depth-1 white " >
+            <div className="row two-down" >
               <div className="col s12 m12 l12" >
                 {!this.state.isLoading &&
-                <Tabs defaultIndex={this.state.index} className="z-depth-1">
+                <Tabs defaultIndex={this.state.index}>
                   <TabList>
                     <Tab >
                       MY DETAILS
@@ -313,12 +313,12 @@ class Profile extends Component {
                         </div>
                       </div>
                       <div className="center-align">
-                        <Pagination
+                        {recipeList.length > 0 && <Pagination
                           items={pagination.pageCount || 0}
                           activePage={pagination.page}
                           maxButtons={pagination.pageCount}
                           onSelect={this.onNextPage}
-                        />
+                        />}
                       </div>
                     </div>
                   </TabPanel>
@@ -343,13 +343,13 @@ class Profile extends Component {
                       </div>
                     </div>
                     <div className="center-align two-down">
-                      <Pagination
+                      {faves.length > 0 && <Pagination
                         className="remove-margin-bottom"
                         items={pagination2.pageCount || 0}
                         activePage={pagination2.page}
                         maxButtons={pagination2.pageCount}
                         onSelect={this.onNextFavePage}
-                      />
+                      />}
                     </div>
                   </TabPanel>
                 </Tabs>

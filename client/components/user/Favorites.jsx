@@ -39,11 +39,11 @@ class Favorites extends Component {
 
     return (
       <div>
-        <li className="collection-item">
+        <li className="collection-item list">
           <Link
             to={`/recipe/${favorite.id}`}
             href={`/recipe/${favorite.id}`}
-            className="caps text-color "
+            className="caps text-color break"
           >
             {favorite.name}
             <span className="black-text text-space">

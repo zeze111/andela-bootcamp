@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 import PreLoader from '../common/PreLoader';
 
@@ -17,16 +18,20 @@ class Recipes extends Component {
    * @return {void}
    */
   clickEvent = () => {
-    const toastContent = $('<span>Are you sure you want to delete this recipe</span>')
-      .add($('<button class="btn-flat toast-action" on>Yes</button>')
-        .click(() => {
-          this.props.deleteRecipe(this.props.recipe.id)
-            .then(() => {
-              Materialize.Toast.removeAll();
-            });
-        }))
-      .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
-    Materialize.toast(toastContent);
+    swal({
+      text: 'Are you sure you want to delete this recipe',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.props.deleteRecipe(this.props.recipe.id);
+          swal('Poof! Your recipe has been deleted!', {
+            icon: 'success',
+          });
+        }
+      });
   }
 
   /** html component to render

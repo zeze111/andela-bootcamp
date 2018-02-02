@@ -95,7 +95,7 @@ class SigninForm extends React.Component {
             type="password"
             name="password"
           />
-          <div>
+          <div className="right-align">
             {
               (this.state.isLoading) &&
               <div className="center-align loader-style">
@@ -103,7 +103,7 @@ class SigninForm extends React.Component {
               </div>
             }
             <input
-              className="btn grey white-text right-align"
+              className="btn grey white-text"
               type="submit"
               value="Sign in"
               disabled={this.state.isLoading}

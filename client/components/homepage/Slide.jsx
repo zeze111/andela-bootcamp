@@ -20,7 +20,7 @@ export default () => (
           className="responive-img"
           placement="left"
         >
-          <p className="blue-text slide-pad slide-text"> Sign Up For Free! </p>
+          <p className="red-text slide-pad slide-text"> Sign Up For Free! </p>
         </Slide>
         <Slide
           src={slide2}
@@ -41,7 +41,7 @@ export default () => (
           className="responive-img"
           placement="right"
         >
-          <p className="light blue-text slide-text"> Yummy treats for your meets </p>
+          <p className="light grey-text text-lighten-5 slide-text"> Yummy treats for your meets </p>
         </Slide>
       </Slider>
     </div>
