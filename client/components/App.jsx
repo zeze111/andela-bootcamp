@@ -10,7 +10,7 @@ import UpdateRecipePage from './updateRecipe/UpdateRecipePage';
 import RecipeDetails from './recipe/RecipeDetails';
 import Profile from './user/Profile';
 import AllRecipes from './allRecipes/AllRecipes';
-import ConfirmAuth from './ConfirmAuth';
+import ConfirmAuth from './confirmAuth';
 import '../assets/init';
 
 /**
