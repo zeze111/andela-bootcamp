@@ -26,8 +26,7 @@ const App = () => (
         <Route path="/" exact component={Homepage} />
         <Route path="/signup" component={SignupPage} />
         <Route path="/add-recipe" component={ConfirmAuth(AddRecipePage)} />
-        <Route path="/profile" component={ConfirmAuth(Profile)} />
-        <Route path="/user/:index" component={ConfirmAuth(Profile)} />
+        <Route path="/user/:tab" component={ConfirmAuth(Profile)} />
         <Route path="/update-recipe/:recipeId" component={ConfirmAuth(UpdateRecipePage)} />
         <Route path="/user-recipes/:recipeId" component={ConfirmAuth(RecipeDetails)} />
         <Route path="/recipe/:recipeId" component={RecipeDetails} />

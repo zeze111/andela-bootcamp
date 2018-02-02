@@ -24,7 +24,7 @@ class Reviews extends Component {
   /** html component to render
    *
    * @memberof Home
-   * 
+   *
    * @return {void}
    */
   render() {
@@ -42,8 +42,8 @@ class Reviews extends Component {
         <i
           role="button"
           tabIndex="0"
-          onKeyDown={this.handleKeyDown}
-          onClick={this.clickEvent}
+          onKeyPress={this.handleKeyPress}
+          onClick={this.reviewClickEvent}
           className="material-icons icon-color"
         >delete
         </i>

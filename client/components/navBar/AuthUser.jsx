@@ -22,14 +22,14 @@ const AuthUser = props => (
         icon="add"
       />
       <LinkFieldGroup
-        to="/user/3/favorites"
-        href="/user/3/favorites"
+        to="/user/favorites"
+        href="/user/favorites"
         dataTool="Favorites"
         icon="star_border"
       />
       <LinkFieldGroup
-        to="/user/2/recipes"
-        href="/user/2/recipes"
+        to="/user/recipes"
+        href="/user/recipes"
         dataTool="My Recipes"
         icon="format_list_bulleted"
       />
@@ -41,8 +41,8 @@ const AuthUser = props => (
             </div>}
         >
           <NavItem
-            to="/profile"
-            href="/profile"
+            to="/user/profile"
+            href="/user/profile"
           >
             <div className="text-color"> Profile
             </div>
@@ -67,20 +67,20 @@ const AuthUser = props => (
         icon="add"
       />
       <LinkFieldGroup2
-        to="/user/3/favorites"
-        href="/user/3/favorites"
+        to="/user/favorites"
+        href="/user/favorites"
         item="Favourites"
         icon="star"
       />
       <LinkFieldGroup2
-        to="/user/2/recipes"
-        href="/user/2/recipes"
+        to="/user/recipes"
+        href="/user/recipes"
         item="My Recipes"
         icon="format_list_bulleted"
       />
       <LinkFieldGroup2
-        to="/profile"
-        href="/profile"
+        to="/user/profile"
+        href="/user/profile"
         item={props.firstName}
         icon="person"
       />

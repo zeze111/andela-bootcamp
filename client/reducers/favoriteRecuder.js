@@ -18,8 +18,7 @@ export default (state = initialState, action = {}) => {
     case FAVORITE_RECIPE_FAILURE:
       return {
         ...state,
-        message: action.payload.message,
-        color: 'red'
+        favorites: action.payload.favorites,
       };
     case GET_FAVORITE_RECIPE:
       return {

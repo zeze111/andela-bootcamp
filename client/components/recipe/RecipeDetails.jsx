@@ -97,8 +97,6 @@ class RecipeDetails extends Component {
   onClickFave = () => {
     this.props.favoriteRecipe(this.props.recipe.id)
       .then(() => {
-        const toastContent = $(`<span>${this.props.message}</span>`);
-        Materialize.toast(toastContent, 3000, 'green');
         if (this.props.message.includes('added')) {
           this.setState({ icon: 'star' });
         } else {

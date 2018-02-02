@@ -151,7 +151,7 @@ class AddRecipeForm extends React.Component {
     const { errors } = this.state;
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to="/user/2/recipes" />;
+      return <Redirect to="/user/recipes" />;
     }
 
     return (
@@ -191,14 +191,18 @@ class AddRecipeForm extends React.Component {
                 id="name"
                 type="text"
                 name="name"
+                req="*"
                 error={errors.name}
               />
               <TextFieldGroup
-                label="Recipe Time"
+                label="Preparation Time"
                 value={this.state.preparationTime}
                 onChange={this.onChange}
                 id="time"
                 type="text"
+                active="active"
+                req="*"
+                placeholder="e.g. 1 hour / 2hrs 30mins"
                 name="preparationTime"
                 error={errors.preparationTime}
               />
@@ -208,6 +212,8 @@ class AddRecipeForm extends React.Component {
                 onChange={this.onChange}
                 id="desc"
                 type="text"
+                active="active"
+                placeholder="e.g. Great for casual dinner parties"
                 name="description"
                 error={errors.description}
               />
@@ -236,6 +242,8 @@ class AddRecipeForm extends React.Component {
                 value={this.state.ingredients}
                 onChange={this.onChange}
                 id="ingred"
+                req="*"
+                placeholder="e.g. 2 cups of water, 1 tsp salt, tomatoes"
                 name="ingredients"
                 error={errors.ingredients}
               />
@@ -244,6 +252,7 @@ class AddRecipeForm extends React.Component {
                 value={this.state.instructions}
                 onChange={this.onChange}
                 id="instruct"
+                req="*"
                 name="instructions"
                 error={errors.instructions}
               />

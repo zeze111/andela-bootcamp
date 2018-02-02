@@ -92,8 +92,14 @@ class Profile extends Component {
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
-    const indexNo = parseInt(this.props.match.params.index, 10);
-    this.setState({ index: indexNo });
+    if (this.props.match.params.tab === 'favorites') {
+      this.setState({ index: 3 });
+    } else if (this.props.match.params.tab === 'recipes') {
+      this.setState({ index: 2 });
+    } else {
+      this.setState({ index: 0 });
+    }
+
     const { profile } = nextProps;
     this.setState({
       firstName: profile.firstName,
