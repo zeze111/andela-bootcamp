@@ -15,63 +15,45 @@ import { signout } from '../actions/signinActions';
    * @returns {React.Component} rendered component
    */
 export default function (ComposedComponent) {
-  /** shows all the details of a recipe including reviews,
-   * upvotes, downvotes, and favorite
+  /** High order component to protect routes
    *
-   * @class RecipeDetails
+   * @class Authorize
    *
    * @extends {React.Component}
    */
   class Authorize extends Component {
-    /** shows all the details of a recipe including reviews,
-   * upvotes, downvotes, and favorite
-   *
-   * @class RecipeDetails
-   *
-   * @extends {React.Component}
-   */
+    /** checks and validates user token
+     *
+     * @memberof Home
+     *
+     * @return {void}
+     */
     componentWillMount() {
       if (!this.props.auth.isAuthenticated) {
         this.context.router.history.push('/');
       }
-      if (!this.checkToken()) {
+      const token = localStorage.jwtToken;
+      if (token) {
+        jwt.verify(token, process.env.SECRET_KEY, (error) => {
+          if (error) {
+            $('.tooltipped').tooltip('remove');
+            this.context.router.history.push('/');
+            this.props.signout();
+          }
+        });
+      } else {
         $('.tooltipped').tooltip('remove');
         this.context.router.history.push('/');
         this.props.signout();
       }
     }
 
-    /** shows all the details of a recipe including reviews,
-   * upvotes, downvotes, and favorite
-   *
-   * @class RecipeDetails
-   *
-   * @extends {React.Component}
-   */
-    checkToken = () => {
-      const token = localStorage.jwtToken;
-      let tokenState;
-      if (token) {
-        jwt.verify(token, process.env.SECRET_KEY, (error) => {
-          if (error) {
-            tokenState = 0;
-          } else {
-            tokenState = 1;
-          }
-        });
-      } else {
-        tokenState = 0;
-      }
-      return tokenState;
-    };
-
-    /** shows all the details of a recipe including reviews,
-   * upvotes, downvotes, and favorite
-   *
-   * @class RecipeDetails
-   *
-   * @extends {React.Component}
-   */
+    /** html component to render
+     *
+     * @memberof Home
+     *
+     * @return {void}
+     */
     render() {
       return (
         <ComposedComponent {...this.props} />
