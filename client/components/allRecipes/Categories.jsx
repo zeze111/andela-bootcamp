@@ -21,7 +21,7 @@ const Categories = (props) => {
       className="content-recipes"
       trigger={
         <div className="div-pointer">
-          <h5 className="light top caps2">
+          <h5 className="light top text-headers caps2">
             {props.dropdown || all}
             <i className="material-icons">arrow_drop_down</i>
           </h5>

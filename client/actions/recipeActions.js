@@ -55,12 +55,6 @@ export function addRecipe(recipeData, imageUrl) {
           type: CREATE_RECIPE,
           payload: response.data,
         });
-      })
-      .catch((error) => {
-        dispatch({
-          type: CREATE_RECIPE,
-          payload: error.response.data,
-        });
       });
   };
 }

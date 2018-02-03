@@ -75,7 +75,7 @@ export function getReviews(recipeId, limit, offset) {
 export function deleteReview(reviewId) {
   return dispatch => axios.delete(`/api/v1/recipe/reviews/${reviewId}`)
     .then((response) => {
-      Materialize.toast(`<span> ${response.data.message}</span>`, 2000);
+      Materialize.toast(`<span> ${response.data.message}</span>`, 2000, 'green');
 
       dispatch({
         type: DELETE_REVIEW,

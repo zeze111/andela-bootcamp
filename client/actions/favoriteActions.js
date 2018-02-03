@@ -19,12 +19,16 @@ import {
 export function favoriteRecipe(recipeId) {
   return dispatch => axios.post(`/api/v1/recipes/${recipeId}/favorite`)
     .then((response) => {
+      const toastContent = $(`<span>${response.data.message}</span>`);
+      Materialize.toast(toastContent, 3000, 'green');
       dispatch({
         type: FAVORITE_RECIPE,
         payload: response.data,
       });
     })
     .catch((error) => {
+      const toastContent = $(`<span>${error.response.data.message}</span>`);
+      Materialize.toast(toastContent, 3000, 'red');
       dispatch({
         type: FAVORITE_RECIPE_FAILURE,
         payload: error.response.data,
@@ -59,7 +63,7 @@ export function getFavoriteRecipes(limit, offset) {
 }
 
 /** makes api call to delete a recipe from favorites list
- * 
+ *
  * @export {function}
  *
  * @param {number} recipeId
@@ -69,7 +73,7 @@ export function getFavoriteRecipes(limit, offset) {
 export function deleteFavorite(recipeId) {
   return dispatch => axios.delete(`/api/v1/user/favorites/${recipeId}`)
     .then((response) => {
-      Materialize.toast(`<span> ${response.data.message}</span>`, 2000);
+      Materialize.toast(`<span> ${response.data.message}</span>`, 2000, 'green');
       response.data.recipeId = recipeId;
 
       dispatch({

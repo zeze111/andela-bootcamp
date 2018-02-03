@@ -13,7 +13,7 @@ import PreLoader from '../common/PreLoader';
  */
 const Information = props => (
   <div>
-    <div className="row">
+    <div className="row info-row">
       <div className="col s8 m6 l3 push-m1 push-l2">
         {props.isLoading &&
         <div className="profile-load">
@@ -34,7 +34,7 @@ const Information = props => (
           <PreLoader />
         }
       </div>
-      <div className="col s4 m4 l4 push-l1 pull-s1 pull-m1  profile-text grey-text text-lighten-3">
+      <div className="col s4 m4 l4 push-l1 pull-s1 pull-m1 profile-text grey-text text-lighten-3">
         <br /> <br /> <br />
         <p className="caps error-text">
           {props.profile.firstName} {props.profile.surname}
@@ -44,7 +44,7 @@ const Information = props => (
         </p>
       </div>
     </div>
-    <div className="row">
+    <div className="row info-row">
       <div className="col s8 m6 l4 push-l2 push-m1">
         <div className="file-field input-field">
           <div className="btn waves-effect waves-light grey">

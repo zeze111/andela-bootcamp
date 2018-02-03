@@ -10,6 +10,7 @@ import UpdateRecipePage from './updateRecipe/UpdateRecipePage';
 import RecipeDetails from './recipe/RecipeDetails';
 import Profile from './user/Profile';
 import AllRecipes from './allRecipes/AllRecipes';
+import ConfirmAuth from './confirmAuth';
 import '../assets/init';
 
 /**
@@ -24,11 +25,10 @@ const App = () => (
       <Switch>
         <Route path="/" exact component={Homepage} />
         <Route path="/signup" component={SignupPage} />
-        <Route path="/add-recipe" component={AddRecipePage} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/user/:index" component={Profile} />
-        <Route path="/update-recipe/:recipeId" component={UpdateRecipePage} />
-        <Route path="/user-recipes/:recipeId" component={RecipeDetails} />
+        <Route path="/add-recipe" component={ConfirmAuth(AddRecipePage)} />
+        <Route path="/user/:tab" component={ConfirmAuth(Profile)} />
+        <Route path="/update-recipe/:recipeId" component={ConfirmAuth(UpdateRecipePage)} />
+        <Route path="/user-recipes/:recipeId" component={ConfirmAuth(RecipeDetails)} />
         <Route path="/recipe/:recipeId" component={RecipeDetails} />
         <Route path="/all-recipes" component={AllRecipes} />
       </Switch>

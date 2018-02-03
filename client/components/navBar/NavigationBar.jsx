@@ -114,8 +114,8 @@ class NavigationBar extends Component {
               to="/"
               href="/"
               id="logo"
-              className="left brand-logo logo-space"
-            >More-Recipes
+              className="left brand-logo logo-style"
+            >MoreRecipes
             </Link >
             <Link
               to="#!"

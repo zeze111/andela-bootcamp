@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export const TextFieldGroup = ({
-  value, onChange, id, type, name, label, error, active
+  value, onChange, id, type, name, req, label, error, active, placeholder
 }) => (
   <div className="input-field">
     <label className={active} htmlFor={id}>{label}
+      <span style={{ color: 'red' }} > {req} </span>
     </label>
     <input
       value={value}
       onChange={onChange}
       id={id}
+      placeholder={placeholder}
       type={type}
       className="validate"
       name={name}
@@ -23,16 +25,18 @@ export const TextFieldGroup = ({
 );
 
 export const TextFieldGroup2 = ({
-  value, onChange, id, name, label, error
+  value, onChange, id, name, req, label, error, placeholder
 }) => (
   <div className="input-field">
     <label className="active" htmlFor={id}>{label}
+      <span style={{ color: 'red' }} > {req} </span>
     </label>
     <textarea
       value={value}
       onChange={onChange}
       id={id}
       type="text"
+      placeholder={placeholder}
       className="materialize-textarea"
       name={name}
     />
@@ -102,6 +106,8 @@ TextFieldGroup.propTypes = {
   onChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   active: PropTypes.string,
+  req: PropTypes.string,
+  placeholder: PropTypes.string,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -112,6 +118,8 @@ TextFieldGroup2.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  req: PropTypes.string,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   error: PropTypes.arrayOf(PropTypes.any),
@@ -144,11 +152,15 @@ LinkFieldGroup2.propTypes = {
 
 TextFieldGroup.defaultProps = {
   error: [],
-  active: ''
+  active: '',
+  placeholder: '',
+  req: ''
 };
 
 TextFieldGroup2.defaultProps = {
-  error: []
+  error: [],
+  placeholder: '',
+  req: ''
 };
 
 TextFieldGroup3.defaultProps = {

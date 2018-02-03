@@ -71,7 +71,7 @@ class Homepage extends Component {
           <Slide />
           <div className="container full-container home-width">
             <br /> <br />
-            <h5 className="light black-text lighten-3">
+            <h5 className="light black-text text-headers lighten-3">
               MOST UPVOTED RECIPES
             </h5>
             <div className="row">
@@ -100,7 +100,7 @@ class Homepage extends Component {
               to="/all-recipes"
               href="/all-recipes"
             >
-              <h5 className="light text-color"> ALL RECIPES </h5>
+              <h5 className="light text-color text-headers"> ALL RECIPES </h5>
             </Link>
             <div className="row remove-margin-bottom">
               {

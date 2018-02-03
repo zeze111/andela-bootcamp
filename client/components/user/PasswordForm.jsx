@@ -43,7 +43,7 @@ class PasswordForm extends Component {
             value={this.state.oldPassword}
             onChange={this.onChange}
             id="old"
-            type="text"
+            type="password"
             name="oldPassword"
             icon="lock_outline"
           />
@@ -52,7 +52,7 @@ class PasswordForm extends Component {
             value={this.state.newPassword}
             onChange={this.onChange}
             id="new"
-            type="text"
+            type="password"
             name="newPassword"
             icon="lock_outline"
           />

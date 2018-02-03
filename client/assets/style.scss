@@ -8,6 +8,7 @@
 
 
   @import '../../node_modules/react-tabs/style/react-tabs.scss';
+  @import url('https://fonts.googleapis.com/css?family=Copse|Eagle+Lake|Marmelad|Merienda|Pacifico|Satisfy');
  // @import './react-tabs.scss';
 
 
@@ -24,6 +25,13 @@ main {
 #recipe-body {
   background-image: url("./images/bgd3.jpg");
   background-size: cover;
+}
+.text-headers {
+  font-family: 'Copse';
+}
+
+.list {
+  border-bottom: 1px solid #e0e0e0 !important;
 }
 
 #wrapper {
@@ -83,7 +91,8 @@ main {
 
 .error-message {
   min-height: 5.5em !important;
-  font-size: 35px;
+  font-size: 30px;
+  font-family: 'Eagle Lake', cursive;
 }
 
 .creator-button {
@@ -91,7 +100,7 @@ main {
 }
 
 .all-style {
-  padding-left: 4em;
+  padding-left: 2em !important;
 }
 
 .dropdown-btn {
@@ -426,6 +435,11 @@ a {
   height: 300px;
 }
 
+.no-message {
+  font-family: 'Eagle Lake', cursive;
+  font-size: 18px;
+}
+
 .text-style {
  margin-left: 5em
 }
@@ -438,7 +452,7 @@ a {
   word-wrap: break-word !important;
   padding-bottom: 5px !important;
   display: inline-block;
-  max-width: 25em;
+  max-width: 30em;
 }
 
 .name {
@@ -515,7 +529,8 @@ a {
   font-size: 16px;
 }
 
-.logo-space {
+.logo-style {
+  font-family: 'Pacifico', cursive;
   margin-left: 2em;
 }
 
@@ -532,6 +547,15 @@ a {
   margin-left: 1em
 }
 
+@media (min-width: 900px) and (max-width: 1200px) {
+  .profile-text {
+    padding-left: 3.5em !important;
+  }
+  .info-row {
+    width: 100%;
+  }
+}
+
 @media (min-width: 600px) and (max-width: 1200px) {
 .full-add-container {
   width: 100%;
@@ -541,7 +565,7 @@ a {
 }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1200px) {
   .full-add-container {
     width: 100%;
     margin: 0 auto;
@@ -605,6 +629,7 @@ a {
 
 .slide-text {
   font-size: 30px;
+  font-family: 'Merienda', cursive;
 }
 
 .loader-style {

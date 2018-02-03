@@ -192,7 +192,7 @@ class AllRecipes extends Component {
           </div>
         </div >
 
-        <div className="row remove-margin-bottom all-style home-width text3">
+        <div className="row remove-margin-bottom home-width text3">
           {
             this.state.isLoading &&
             <div className="center-align loader-style min-preloader">
@@ -201,7 +201,7 @@ class AllRecipes extends Component {
           }
           {!this.state.isLoading &&
             (allRecipes.length === 0) ? noRecipes :
-            <ul className="categories flex-container-homepage">
+            <ul className="categories all-style flex-container-homepage">
               {
                 allRecipes.map(recipe => (
                   <RecipeCard
@@ -213,12 +213,12 @@ class AllRecipes extends Component {
           }
           <div className="row paginate">
             <div className="center-align">
-              <Pagination
+              {allRecipes.length > 0 && <Pagination
                 items={pagination.pageCount || 0}
                 activePage={pagination.page}
                 maxButtons={pagination.pageCount}
                 onSelect={this.onNextPage}
-              />
+              />}
             </div>
           </div>
         </div>

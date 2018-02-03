@@ -111,6 +111,7 @@ class SignupForm extends React.Component {
             onChange={this.onChange}
             id="fname"
             type="text"
+            req="*"
             name="firstName"
             error={errors.firstName}
           />
@@ -120,6 +121,7 @@ class SignupForm extends React.Component {
             onChange={this.onChange}
             id="sname"
             type="text"
+            req="*"
             name="surname"
             error={errors.surname}
           />
@@ -129,6 +131,7 @@ class SignupForm extends React.Component {
             onChange={this.onChange}
             id="email"
             type="email"
+            req="*"
             name="email"
             error={errors.email}
           />
@@ -138,6 +141,7 @@ class SignupForm extends React.Component {
             onChange={this.onChange}
             id="pwd"
             type="password"
+            req="*"
             name="password"
             error={errors.password}
           />
@@ -147,6 +151,7 @@ class SignupForm extends React.Component {
             onChange={this.onChange}
             id="cf-pwd"
             type="password"
+            req="*"
             name="password_confirmation"
             error={errors.password_confirmation}
           />

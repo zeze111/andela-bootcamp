@@ -92,8 +92,14 @@ class Profile extends Component {
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
-    const indexNo = parseInt(this.props.match.params.index, 10);
-    this.setState({ index: indexNo });
+    if (this.props.match.params.tab === 'favorites') {
+      this.setState({ index: 3 });
+    } else if (this.props.match.params.tab === 'recipes') {
+      this.setState({ index: 2 });
+    } else {
+      this.setState({ index: 0 });
+    }
+
     const { profile } = nextProps;
     this.setState({
       firstName: profile.firstName,
@@ -215,13 +221,13 @@ class Profile extends Component {
     const recipeList = (this.props.recipes) ? (this.props.recipes) : [];
 
     const noFaves = (
-      <div className="col s11 offset-s1 bottom-style">
+      <div className="col s11 offset-s1 two-top no-message bottom-style">
         You Currently Have No Favorite Recipes
       </div>
     );
 
     const noRecipes = (
-      <div className="col s11 offset-s1 bottom-style">
+      <div className="col s11 offset-s1 two-top no-message bottom-style">
         {this.props.message}
       </div>
     );
@@ -239,11 +245,11 @@ class Profile extends Component {
               isLoading={this.state.isLoading}
             />
           </div>
-          <div className="container z-depth-1 white" >
-            <div className="row" >
+          <div className="container z-depth-1 white " >
+            <div className="row two-down" >
               <div className="col s12 m12 l12" >
                 {!this.state.isLoading &&
-                <Tabs defaultIndex={this.state.index} className="z-depth-1">
+                <Tabs defaultIndex={this.state.index}>
                   <TabList>
                     <Tab >
                       MY DETAILS
@@ -292,7 +298,7 @@ class Profile extends Component {
                         <br />
                         <div className="col s12 m8 l8 push-l2 push-m2">
                           {(recipeList.length === 0) ? noRecipes :
-                          <ul id="userlist" className="collection two-top bottom-style">
+                          <ul className="collection two-top bottom-style">
                             {
                                 recipeList.map(recipe => (
                                   <Recipes
@@ -307,17 +313,17 @@ class Profile extends Component {
                         </div>
                       </div>
                       <div className="center-align">
-                        <Pagination
+                        {recipeList.length > 0 && <Pagination
                           items={pagination.pageCount || 0}
                           activePage={pagination.page}
                           maxButtons={pagination.pageCount}
                           onSelect={this.onNextPage}
-                        />
+                        />}
                       </div>
                     </div>
                   </TabPanel>
                   <TabPanel>
-                    <div id="myrecipe" className="col s12">
+                    <div className="col s12">
                       <br />
                       <div className="col s12 m10 l8 push-l2 push-m1">
                         {(faves.length === 0) ? noFaves :
@@ -337,13 +343,13 @@ class Profile extends Component {
                       </div>
                     </div>
                     <div className="center-align two-down">
-                      <Pagination
+                      {faves.length > 0 && <Pagination
                         className="remove-margin-bottom"
                         items={pagination2.pageCount || 0}
                         activePage={pagination2.page}
                         maxButtons={pagination2.pageCount}
                         onSelect={this.onNextFavePage}
-                      />
+                      />}
                     </div>
                   </TabPanel>
                 </Tabs>

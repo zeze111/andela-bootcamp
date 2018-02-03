@@ -94,10 +94,12 @@ class AddRecipeForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.addRecipeRequest(recipe)
-        .then(() => this.setState({ redirect: true }))
-        .catch(error => this.setState({
-          errors: error.response.data, isLoading: false
-        }));
+        .then(() =>
+          this.setState({ redirect: true }))
+        .catch(error =>
+          this.setState({
+            errors: error.response.data, isLoading: false
+          }));
     }
   }
 
@@ -149,7 +151,7 @@ class AddRecipeForm extends React.Component {
     const { errors } = this.state;
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to="/user/2/recipes" />;
+      return <Redirect to="/user/recipes" />;
     }
 
     return (
@@ -167,10 +169,10 @@ class AddRecipeForm extends React.Component {
                 </div>
                 <div
                   className="btn-floating
-                btn-small
-                waves-effect
-                waves-light
-                blue"
+                  btn-small
+                  waves-effect
+                  waves-light
+                  blue"
                 >
                   <i className="material-icons">photo</i>
                   <input type="file" onChange={this.uploadImage} />
@@ -179,9 +181,9 @@ class AddRecipeForm extends React.Component {
             </div>
             <div className="half-top">
               {errors &&
-                <span className="red-text error-text" >
-                  {errors.message}
-                </span>}
+              <span className="red-text error-text" >
+                {errors.message}
+              </span>}
               <TextFieldGroup
                 label="Recipe Name"
                 value={this.state.name}
@@ -189,14 +191,18 @@ class AddRecipeForm extends React.Component {
                 id="name"
                 type="text"
                 name="name"
+                req="*"
                 error={errors.name}
               />
               <TextFieldGroup
-                label="Recipe Time"
+                label="Preparation Time"
                 value={this.state.preparationTime}
                 onChange={this.onChange}
                 id="time"
                 type="text"
+                active="active"
+                req="*"
+                placeholder="e.g. 1 hour / 2hrs 30mins"
                 name="preparationTime"
                 error={errors.preparationTime}
               />
@@ -206,6 +212,8 @@ class AddRecipeForm extends React.Component {
                 onChange={this.onChange}
                 id="desc"
                 type="text"
+                active="active"
+                placeholder="e.g. Great for casual dinner parties"
                 name="description"
                 error={errors.description}
               />
@@ -222,18 +230,20 @@ class AddRecipeForm extends React.Component {
                   <option value="Appetizer">Appetizer</option>
                   <option value="Main" >Main</option>
                   <option value="Dessert" >Dessert</option>
-                  <option value="Drink" >Drink</option>
+                  <option value="Drinks" >Drinks</option>
                 </Input>
                 {errors &&
-                  <span className="help-block red-text error-text2">
-                    {errors.type}
-                  </span>}
+                <span className="help-block red-text error-text2">
+                  {errors.type}
+                </span>}
               </Row>
               <TextFieldGroup2
                 label="Ingredients"
                 value={this.state.ingredients}
                 onChange={this.onChange}
                 id="ingred"
+                req="*"
+                placeholder="e.g. 2 cups of water, 1 tsp salt, tomatoes"
                 name="ingredients"
                 error={errors.ingredients}
               />
@@ -242,16 +252,17 @@ class AddRecipeForm extends React.Component {
                 value={this.state.instructions}
                 onChange={this.onChange}
                 id="instruct"
+                req="*"
                 name="instructions"
                 error={errors.instructions}
               />
               <div className="right-align">
                 {
-                  (this.state.isLoading) &&
-                  <div className="center-align loader-style">
-                    <PreLoader />
-                  </div>
-                }
+                (this.state.isLoading) &&
+                <div className="center-align loader-style">
+                  <PreLoader />
+                </div>
+              }
                 <input
                   className="btn grey"
                   type="submit"
@@ -262,7 +273,7 @@ class AddRecipeForm extends React.Component {
             </div>
           </form>
         </div>
-      </div>
+      </div >
     );
   }
 }

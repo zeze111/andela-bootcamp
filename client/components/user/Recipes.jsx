@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
-import PreLoader from '../common/PreLoader';
+import swal from 'sweetalert';
 
 /** Recipes class contains the list item for a single recipe
  *
@@ -17,16 +16,20 @@ class Recipes extends Component {
    * @return {void}
    */
   clickEvent = () => {
-    const toastContent = $('<span>Are you sure you want to delete this recipe</span>')
-      .add($('<button class="btn-flat toast-action" on>Yes</button>')
-        .click(() => {
-          this.props.deleteRecipe(this.props.recipe.id)
-            .then(() => {
-              Materialize.Toast.removeAll();
-            });
-        }))
-      .add($('<button class="btn-flat toast-action" onClick=Materialize.Toast.removeAll(); on>No</button>'));
-    Materialize.toast(toastContent);
+    swal({
+      text: 'Are you sure you want to delete this recipe',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.props.deleteRecipe(this.props.recipe.id);
+          swal('Poof! Your recipe has been deleted!', {
+            icon: 'success',
+          });
+        }
+      });
   }
 
   /** html component to render
@@ -36,14 +39,6 @@ class Recipes extends Component {
    * @return {void}
    */
   render() {
-    if (this.props.isLoading) {
-      return (
-        <div className="center-align loader-style">
-          <PreLoader />
-        </div>
-      );
-    }
-
     return (
       <li className="collection-item">
         <Link
@@ -77,7 +72,6 @@ class Recipes extends Component {
 Recipes.propTypes = {
   deleteRecipe: PropTypes.func.isRequired,
   recipe: PropTypes.objectOf(PropTypes.any),
-  isLoading: PropTypes.bool.isRequired,
 };
 
 Recipes.defaultProps = {
