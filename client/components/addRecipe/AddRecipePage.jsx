@@ -21,7 +21,12 @@ const AddRecipePage = props => (
           <div className="col s12 m10 l8 push-l2 push-m1 form-padding">
             <div className="card z-depth-2" >
               <span
-                className="card-title col s12 m12 l12 text-headers center-align text-color inner"
+                className="card-title
+                col s12 m12 l12
+                text-headers
+                center-align
+                text-color
+                inner"
               > SUBMIT A RECIPE
               </span>
               <AddRecipeForm addRecipeRequest={props.addRecipeRequest} />

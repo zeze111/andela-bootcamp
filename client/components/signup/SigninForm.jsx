@@ -54,7 +54,7 @@ class SigninForm extends React.Component {
     this.setState({ errors: {}, isLoading: true });
     event.preventDefault();
 
-    this.props.userSigninRequest(this.state)
+    this.props.signIn(this.state)
       .then(() => {
         this.setState({ redirect: true, isLoading: false });
       })
@@ -120,7 +120,7 @@ class SigninForm extends React.Component {
 }
 
 SigninForm.propTypes = {
-  userSigninRequest: PropTypes.func.isRequired
+  signIn: PropTypes.func.isRequired
 };
 
 

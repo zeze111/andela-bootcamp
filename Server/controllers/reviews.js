@@ -123,7 +123,7 @@ class Reviews {
   }
 
   /** Deletes the user's review
-   * 
+   *
   * @param {Object} request - request object
   *
   * @param {Object} response - response object

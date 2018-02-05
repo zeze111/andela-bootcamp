@@ -9,7 +9,6 @@
 
   @import '../../node_modules/react-tabs/style/react-tabs.scss';
   @import url('https://fonts.googleapis.com/css?family=Copse|Eagle+Lake|Marmelad|Merienda|Pacifico|Satisfy');
- // @import './react-tabs.scss';
 
 
 body {
@@ -27,7 +26,7 @@ main {
   background-size: cover;
 }
 .text-headers {
-  font-family: 'Copse';
+  font-family: "Copse";
 }
 
 .list {
@@ -52,7 +51,6 @@ main {
 #addRecipebody {
   background: url("./images/bgd3.jpg");
   background-repeat: no-repeat;
-  // background-position: 115px 0%;
   background-size: cover;
 }
 .remove-margin-bottom{
@@ -60,7 +58,6 @@ main {
 }
 
 #homepageBody {
-  // background-color: rgb(251, 252, 228);
 }
 
 #signup-body {
@@ -70,7 +67,6 @@ main {
 
 #profile-body {
   background: url("./images/bgd2.jpg");
-  // background-color: rgb(251, 252, 228);
   background-repeat: no-repeat;
   background-position: 0px 0%;
   background-size: 1500px 430px;
@@ -92,7 +88,7 @@ main {
 .error-message {
   min-height: 5.5em !important;
   font-size: 30px;
-  font-family: 'Eagle Lake', cursive;
+  font-family: "Eagle Lake", cursive;
 }
 
 .creator-button {
@@ -116,7 +112,6 @@ main {
 
 .min-preloader {
   padding-top: 2em !important;
-  // min-height: 30em !important;
 }
 
 .content-recipes {
@@ -283,6 +278,7 @@ a {
 }
 
 @media (max-width: 600px ) {
+
 .delete-text{
   position: relative;
   bottom: 22px;
@@ -291,12 +287,14 @@ a {
 }
 
 @media (max-width: 600px ) {
+
   .edit-text {
     text-align: left !important;
   }
 }
 
 @media (min-width: 600px) and (max-width: 1200px) {
+
   .delete-text{
     position: relative;
     bottom: 22px;
@@ -305,6 +303,7 @@ a {
 }
 
 @media (min-width: 1200px) {
+
   .delete-text{
     position: relative;
     bottom: 2px;
@@ -313,7 +312,6 @@ a {
 }
 
 .delete {
-  // padding-top: 1em;
   padding-right: 8em;
 }
 
@@ -348,6 +346,7 @@ a {
 }
 
 @media (max-width: 600px ) {
+
 .reviews-style {
   padding-left: 1em !important;
   .text2 {
@@ -360,6 +359,7 @@ a {
 }
 
 @media (min-width: 600px) and (max-width: 1600px) {
+
   .reviews-style {
     padding-left: 2em !important;
     .text2 {
@@ -372,18 +372,21 @@ a {
 }
 
 @media (max-width: 600px ) {
+
 .text1 {
   padding-left: 0.8em !important;
 }
 }
 
 @media (min-width: 600px) and (max-width: 1600px) {
+
 .text1 {
   padding-left: 2.2em !important;
 }
 }
 
 @media (max-width: 600px ) {
+
   .review-section {
     padding-left: 1.5em !important;
     padding-top: 1em !important;
@@ -391,6 +394,7 @@ a {
 }
 
 @media (min-width: 600px) and (max-width: 1600px) {
+
   .review-section {
     padding-left: 4em !important;
     padding-top: 1em !important;
@@ -436,7 +440,7 @@ a {
 }
 
 .no-message {
-  font-family: 'Eagle Lake', cursive;
+  font-family: "Eagle Lake", cursive;
   font-size: 18px;
 }
 
@@ -530,7 +534,7 @@ a {
 }
 
 .logo-style {
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   margin-left: 2em;
 }
 
@@ -548,6 +552,7 @@ a {
 }
 
 @media (min-width: 900px) and (max-width: 1200px) {
+
   .profile-text {
     padding-left: 3.5em !important;
   }
@@ -557,6 +562,7 @@ a {
 }
 
 @media (min-width: 600px) and (max-width: 1200px) {
+
 .full-add-container {
   width: 100%;
   margin: 0 auto;
@@ -566,6 +572,7 @@ a {
 }
 
 @media (min-width: 1200px) {
+
   .full-add-container {
     width: 100%;
     margin: 0 auto;
@@ -575,18 +582,21 @@ a {
   }
 
 @media (min-width: 1000px) and (max-width: 1200px) {
+
   .get-pic-btn {
     padding-right: 4em !important;
   }
 }
 
 @media (min-width: 600px) and (max-width: 1000px) {
+
   .get-pic-btn {
     padding-right: 9em !important;
   }
 }
 
 @media (min-width: 1200px) {
+
   .get-pic-btn {
     padding-right: 10em !important;
   }
@@ -629,7 +639,7 @@ a {
 
 .slide-text {
   font-size: 30px;
-  font-family: 'Merienda', cursive;
+  font-family: "Merienda", cursive;
 }
 
 .loader-style {
@@ -646,6 +656,3 @@ a {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-// .img-style {
-//   width: 200px !important;
-// }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import swal from 'sweetalert';
 
 /** Recipes class contains the list item for a single recipe

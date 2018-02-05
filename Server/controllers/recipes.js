@@ -57,6 +57,7 @@ class Recipes {
           })
             .then(recipe => response.status(201).json({
               status: 'Success',
+              message: `${recipe.name} has been added`,
               recipe,
             }));
         });
@@ -215,6 +216,7 @@ class Recipes {
                   .then((updatedRecipe) => {
                     response.status(200).json({
                       status: 'Successful',
+                      message: `${updatedRecipe.name} hace been updated`,
                       recipe: {
                         name: updatedRecipe.name,
                         description: updatedRecipe.description,
@@ -403,11 +405,12 @@ class Recipes {
             request.query.offset,
           )
         });
-      });
+      })
+      .catch(error => response.status(500).send(error));
   }
 
   /** Search for a recipe by category
-   * 
+   *
   * @param {Object} request - request object
   *
   * @param {Object} response - response object
@@ -442,7 +445,8 @@ class Recipes {
             request.query.offset,
           )
         });
-      });
+      })
+      .catch(error => response.status(500).send(error));
   }
 }
 
