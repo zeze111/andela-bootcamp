@@ -2,7 +2,6 @@ import {
   FAVORITE_RECIPE,
   GET_FAVORITE_RECIPE,
   DELETE_FAVORITE,
-  FAVORITE_RECIPE_FAILURE
 } from '../actions/types';
 
 const initialState = { message: '', favorites: [], pagination: {} };
@@ -14,11 +13,6 @@ export default (state = initialState, action = {}) => {
         ...state,
         favorites: [...state.favorites, action.payload.favorite],
         message: action.payload.message,
-      };
-    case FAVORITE_RECIPE_FAILURE:
-      return {
-        ...state,
-        favorites: action.payload.favorites,
       };
     case GET_FAVORITE_RECIPE:
       return {

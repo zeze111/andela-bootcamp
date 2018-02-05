@@ -1,9 +1,9 @@
-import mockData from './mocks/reviewData';
+import mockData from '../mocks/reviewData';
 import {
   reviewRecipe,
   getReviews,
   deleteReview
-} from '../actions/reviewActions';
+} from '../../actions/reviewActions';
 import {
   REVIEW_RECIPE,
   GET_REVIEWS,
@@ -11,8 +11,8 @@ import {
   REVIEW_RECIPE_FAILURE,
   GET_REVIEWS_FAILURE,
   DELETE_REVIEW_FAILURE
-} from '../actions/types';
-import mockLocalStorage from './mocks/localStorage';
+} from '../../actions/types';
+import mockLocalStorage from '../mocks/localStorage';
 
 
 window.localStorage = mockLocalStorage;

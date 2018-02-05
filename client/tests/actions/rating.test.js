@@ -1,10 +1,10 @@
-import mockData from './mocks/ratingsData';
+import mockData from '../mocks/ratingsData';
 import {
   upvoteRecipe,
   downvoteRecipe,
   getDownvotes,
   getUpvotes
-} from '../actions/ratingActions';
+} from '../../actions/ratingActions';
 import {
   UPVOTE_RECIPE,
   DOWNVOTE_RECIPE,
@@ -15,8 +15,8 @@ import {
   GET_UPVOTES_FAILURE,
   GET_DOWNVOTES_FAILURE,
   UPDATE_RECIPE
-} from '../actions/types';
-import mockLocalStorage from './mocks/localStorage';
+} from '../../actions/types';
+import mockLocalStorage from '../mocks/localStorage';
 
 
 window.localStorage = mockLocalStorage;

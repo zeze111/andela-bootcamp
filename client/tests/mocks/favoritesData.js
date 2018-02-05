@@ -26,7 +26,13 @@ const data = {
         firstName: 'Jane',
         surname: 'Doe'
       }
-    }]
+    }],
+    pagination: {
+      pageSize: 3,
+      totalCount: 2,
+      page: 1,
+      pageCount: 1
+    }
   },
 
   favoriteError: {

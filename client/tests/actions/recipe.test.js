@@ -1,4 +1,4 @@
-import mockData from './mocks/recipeData';
+import mockData from '../mocks/recipeData';
 import {
   addRecipeRequest,
   getAllRecipes,
@@ -10,7 +10,7 @@ import {
   updateRecipe,
   deleteRecipe,
   searchRecipe
-} from '../actions/recipeActions';
+} from '../../actions/recipeActions';
 import {
   CREATE_RECIPE,
   GET_USER_RECIPES,
@@ -31,8 +31,8 @@ import {
   GET_RECIPES_CATEGORY_FAILURE,
   SEARCH_RECIPE_FAILURE,
   MOST_UPVOTED_RECIPES_FAILURE
-} from '../actions/types';
-import mockLocalStorage from './mocks/localStorage';
+} from '../../actions/types';
+import mockLocalStorage from '../mocks/localStorage';
 
 
 window.localStorage = mockLocalStorage;

@@ -47,7 +47,7 @@ export function updateUser(user) {
  * @returns {object} any
  */
 export function getUser(userId) {
-  return dispatch => axios.get(`/api/v1/user/${userId}`)
+  return dispatch => axios.get(`/api/v1/users/${userId}`)
     .then((response) => {
       const { id, email, firstName } = response.data.user;
       dispatch(setCurrentUser({ id, email, firstName }));
