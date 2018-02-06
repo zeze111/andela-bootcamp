@@ -23,14 +23,39 @@ const App = () => (
     <div id="wrap">
       <NavigationBar />
       <Switch>
-        <Route path="/" exact component={Homepage} />
-        <Route path="/signup" component={SignupPage} />
-        <Route path="/add-recipe" component={ConfirmAuth(AddRecipePage)} />
-        <Route path="/user/:tab" component={ConfirmAuth(Profile)} />
-        <Route path="/update-recipe/:recipeId" component={ConfirmAuth(UpdateRecipePage)} />
-        <Route path="/user-recipes/:recipeId" component={ConfirmAuth(RecipeDetails)} />
-        <Route path="/recipe/:recipeId" component={RecipeDetails} />
-        <Route path="/all-recipes" component={AllRecipes} />
+        <Route
+          path="/"
+          exact
+          component={Homepage}
+        />
+        <Route
+          path="/signup"
+          component={SignupPage}
+        />
+        <Route
+          path="/add-recipe"
+          component={ConfirmAuth(AddRecipePage)}
+        />
+        <Route
+          path="/user/:tab"
+          component={ConfirmAuth(Profile)}
+        />
+        <Route
+          path="/update-recipe/:recipeId"
+          component={ConfirmAuth(UpdateRecipePage)}
+        />
+        <Route
+          path="/user-recipes/:recipeId"
+          component={ConfirmAuth(RecipeDetails)}
+        />
+        <Route
+          path="/recipe/:recipeId"
+          component={RecipeDetails}
+        />
+        <Route
+          path="/all-recipes"
+          component={AllRecipes}
+        />
       </Switch>
       <Footer />
     </div>

@@ -52,7 +52,10 @@ const Details = (props) => {
         {(props.ingredients.length > 0) &&
         <div>
           <div id="time" className="col l4 m4 s12 ">
-            <p className="recipe"> Prep Time: {props.recipe.preparationTime} </p>
+            <p
+              className="recipe"
+            > Prep Time: {props.recipe.preparationTime}
+            </p>
           </div>
           <div id="Ing" className="col l4 m4 s12 r-ingredients">
             <p className="recipe"> Ingredients: </p>
@@ -60,7 +63,11 @@ const Details = (props) => {
           </div>
           <div id="Ins" className="col l4 m4 s12">
             <p className="recipe"> Instructions: </p>
-            <p id="instruct" className="no-top"> {props.recipe.instructions} </p>
+            <p
+              id="instruct"
+              className="no-top"
+            > {props.recipe.instructions}
+            </p>
           </div>
         </div>
       }

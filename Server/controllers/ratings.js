@@ -90,7 +90,7 @@ class Ratings {
             });
           }
         });
-        
+
       Rating.findOne({
         where: {
           userId: request.decoded.id,
@@ -147,12 +147,10 @@ class Ratings {
           vote: 1,
         },
       })
-        .then((upvotes) => {
-          return response.status(200).json({
-            status: 'Successful',
-            votes: upvotes,
-          });
-        })
+        .then(upvotes => response.status(200).json({
+          status: 'Successful',
+          votes: upvotes,
+        }))
         .catch(error => response.status(500).send(error));
     }
   }
@@ -174,12 +172,10 @@ class Ratings {
           vote: 0,
         },
       })
-        .then((downvotes) => {
-          return response.status(200).json({
-            status: 'Successful',
-            votes: downvotes,
-          });
-        })
+        .then(downvotes => response.status(200).json({
+          status: 'Successful',
+          votes: downvotes,
+        }))
         .catch(error => response.status(500).send(error));
     }
   }

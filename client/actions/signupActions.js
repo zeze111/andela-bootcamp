@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
+
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import { SET_CURRENT_USER } from './types';
 
@@ -26,7 +26,7 @@ export function setCurrentUser(user) {
  *
  * @returns {object} any
  */
-export function userSignupRequest(userData) {
+export function signUp(userData) {
   return dispatch => axios.post('/api/v1/users/signup', userData)
     .then((res) => {
       const { token, user } = res.data;
