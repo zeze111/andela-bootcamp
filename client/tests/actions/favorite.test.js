@@ -1,9 +1,9 @@
-import mockData from './mocks/favoritesData';
+import mockData from '../mocks/favoritesData';
 import {
   favoriteRecipe,
   getFavoriteRecipes,
   deleteFavorite
-} from '../actions/favoriteActions';
+} from '../../actions/favoriteActions';
 import {
   FAVORITE_RECIPE,
   GET_FAVORITE_RECIPE,
@@ -11,8 +11,8 @@ import {
   FAVORITE_RECIPE_FAILURE,
   GET_FAVORITE_RECIPE_FAILURE,
   DELETE_FAVORITE_FAILURE
-} from '../actions/types';
-import mockLocalStorage from './mocks/localStorage';
+} from '../../actions/types';
+import mockLocalStorage from '../mocks/localStorage';
 
 
 window.localStorage = mockLocalStorage;

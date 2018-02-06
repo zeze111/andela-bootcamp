@@ -9,59 +9,6 @@ import {
   GET_UPVOTES_FAILURE,
   GET_DOWNVOTES_FAILURE
 } from './types';
-
-/** makes api call to upvote a recipe
- *
- * @export {function}
- *
- * @param {number} recipeId
- *
- * @returns {object} any
- */
-export function upvoteRecipe(recipeId) {
-  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/upvote`)
-    .then((response) => {
-      dispatch({
-        type: UPVOTE_RECIPE,
-        payload: response.data,
-      });
-    })
-    .catch((error) => {
-      const toastContent = $(`<span>${error.response.data.message}</span>`);
-      Materialize.toast(toastContent, 3000, 'red');
-      dispatch({
-        type: UPVOTE_RECIPE_FAILURE,
-        payload: error.response.data,
-      });
-    });
-}
-
-/** makes api call to downvote a recipe
- *
- * @export {function}
- *
- * @param {number} recipeId
- *
- * @returns {object} any
- */
-export function downvoteRecipe(recipeId) {
-  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/downvote`)
-    .then((response) => {
-      dispatch({
-        type: DOWNVOTE_RECIPE,
-        payload: response.data,
-      });
-    })
-    .catch((error) => {
-      const toastContent = $(`<span>${error.response.data.message}</span>`);
-      Materialize.toast(toastContent, 3000, 'red');
-      dispatch({
-        type: DOWNVOTE_RECIPE_FAILURE,
-        payload: error.response.data,
-      });
-    });
-}
-
 /** makes api call to get all upvotes for a recipe
  *
  * @export {function}
@@ -105,6 +52,62 @@ export function getDownvotes(recipeId) {
     .catch((error) => {
       dispatch({
         type: GET_DOWNVOTES_FAILURE,
+        payload: error.response.data,
+      });
+    });
+}
+
+/** makes api call to upvote a recipe
+ *
+ * @export {function}
+ *
+ * @param {number} recipeId
+ *
+ * @returns {object} any
+ */
+export function upvoteRecipe(recipeId) {
+  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/upvote`)
+    .then((response) => {
+      dispatch(getUpvotes(recipeId));
+      dispatch(getDownvotes(recipeId));
+      dispatch({
+        type: UPVOTE_RECIPE,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      const toastContent = $(`<span>${error.response.data.message}</span>`);
+      Materialize.toast(toastContent, 3000, 'red');
+      dispatch({
+        type: UPVOTE_RECIPE_FAILURE,
+        payload: error.response.data,
+      });
+    });
+}
+
+/** makes api call to downvote a recipe
+ *
+ * @export {function}
+ *
+ * @param {number} recipeId
+ *
+ * @returns {object} any
+ */
+export function downvoteRecipe(recipeId) {
+  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/downvote`)
+    .then((response) => {
+      dispatch(getUpvotes(recipeId));
+      dispatch(getDownvotes(recipeId));
+      dispatch({
+        type: DOWNVOTE_RECIPE,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      const toastContent = $(`<span>${error.response.data.message}</span>`);
+      Materialize.toast(toastContent, 3000, 'red');
+      dispatch({
+        type: DOWNVOTE_RECIPE_FAILURE,
         payload: error.response.data,
       });
     });

@@ -142,11 +142,7 @@ class RecipeDetails extends Component {
    */
   onUpvote = () => {
     const { id } = this.props.recipe;
-    this.props.upvoteRecipe(id)
-      .then(() => {
-        this.props.getUpvotes(id);
-        this.props.getDownvotes(id);
-      });
+    this.props.upvoteRecipe(id);
   }
 
   /** calls action to downvote recipe
@@ -157,11 +153,7 @@ class RecipeDetails extends Component {
    */
   onDownvote = () => {
     const { id } = this.props.recipe;
-    this.props.downvoteRecipe(id)
-      .then(() => {
-        this.props.getDownvotes(id);
-        this.props.getUpvotes(id);
-      });
+    this.props.downvoteRecipe(id);
   }
 
   /** calls action to delete recipe
