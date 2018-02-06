@@ -22,7 +22,8 @@ import {
   SEARCH_RECIPE_FAILURE,
   MOST_UPVOTED_RECIPES_FAILURE,
   POPULAR_RECIPES,
-  POPULAR_RECIPES_FAILURE
+  POPULAR_RECIPES_FAILURE,
+  DELETE_RECIPE_FAILURE
 } from './types';
 
 /** makes api call to add a new recipe
@@ -117,19 +118,20 @@ export function getAllRecipes() {
  * @returns {object} any
  */
 export function getPaginatedRecipes(limit, offset) {
-  return dispatch => axios.get(`/api/v1/recipes/?limit=${limit}&offset=${offset}`)
-    .then((response) => {
-      dispatch({
-        type: GET_PAGED_RECIPES,
-        payload: response.data,
+  return dispatch =>
+    axios.get(`/api/v1/recipes/?limit=${limit}&offset=${offset}`)
+      .then((response) => {
+        dispatch({
+          type: GET_PAGED_RECIPES,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_PAGED_RECIPES_FAILURE,
+          payload: error.response.data,
+        });
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: GET_PAGED_RECIPES_FAILURE,
-        payload: error.response.data,
-      });
-    });
 }
 
 /** makes api call to get all recipes submitted by a user
@@ -143,19 +145,20 @@ export function getPaginatedRecipes(limit, offset) {
  * @returns {object} any
  */
 export function getUserRecipes(limit, offset) {
-  return dispatch => axios.get(`/api/v1/user/recipes?limit=${limit}&offset=${offset}`)
-    .then((response) => {
-      dispatch({
-        type: GET_USER_RECIPES,
-        payload: response.data,
+  return dispatch =>
+    axios.get(`/api/v1/user/recipes?limit=${limit}&offset=${offset}`)
+      .then((response) => {
+        dispatch({
+          type: GET_USER_RECIPES,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_USER_RECIPES_FAILURE,
+          payload: error.response.data,
+        });
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: GET_USER_RECIPES_FAILURE,
-        payload: error.response.data,
-      });
-    });
 }
 
 /** makes api call to get a single recipe
@@ -268,7 +271,7 @@ export function deleteRecipe(recipeId) {
     })
     .catch((error) => {
       dispatch({
-        type: DELETE_RECIPE,
+        type: DELETE_RECIPE_FAILURE,
         payload: error.response.data,
       });
     });
@@ -287,19 +290,20 @@ export function deleteRecipe(recipeId) {
  * @returns {object} any
  */
 export function getRecipeCategory(type, limit, offset) {
-  return dispatch => axios.get(`/api/v1/recipes/categories/${type}?limit=${limit}&offset=${offset}`)
-    .then((response) => {
-      dispatch({
-        type: GET_RECIPES_CATEGORY,
-        payload: response.data,
+  return dispatch =>
+    axios.get(`/api/v1/recipes/categories/${type}?limit=${limit}&offset=${offset}`)
+      .then((response) => {
+        dispatch({
+          type: GET_RECIPES_CATEGORY,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_RECIPES_CATEGORY_FAILURE,
+          payload: error.response.data,
+        });
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: GET_RECIPES_CATEGORY_FAILURE,
-        payload: error.response.data,
-      });
-    });
 }
 
 /** makes api call to search for a recipe match
@@ -315,19 +319,20 @@ export function getRecipeCategory(type, limit, offset) {
  * @returns {object} any
  */
 export function searchRecipe(word, limit, offset) {
-  return dispatch => axios.get(`/api/v1/recipes/search/${word}?limit=${limit}&offset=${offset}`)
-    .then((response) => {
-      dispatch({
-        type: SEARCH_RECIPE,
-        payload: response.data,
+  return dispatch =>
+    axios.get(`/api/v1/recipes/search/${word}?limit=${limit}&offset=${offset}`)
+      .then((response) => {
+        dispatch({
+          type: SEARCH_RECIPE,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: SEARCH_RECIPE_FAILURE,
+          payload: error.response.data,
+        });
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: SEARCH_RECIPE_FAILURE,
-        payload: error.response.data,
-      });
-    });
 }
 
 /** makes api call to get most upvoted recipes

@@ -48,6 +48,7 @@ class Users {
               const token = createToken(payload);
               return response.status(201).json({
                 status: 'Success',
+                message: `Welcome ${userCreated.firstName}`,
                 user,
                 token,
               });

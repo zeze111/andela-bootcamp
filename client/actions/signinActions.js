@@ -19,14 +19,14 @@ export function signout() {
 }
 
 /** makes api call to sign user in and dispatch the response
- * 
+ *
  * @export {function}
  *
  * @param {object} userData form data
  *
  * @returns {object} any
  */
-export function userSigninRequest(userData) {
+export function signIn(userData) {
   return dispatch => axios.post('/api/v1/users/signin', userData)
     .then((response) => {
       const { token, user } = response.data;

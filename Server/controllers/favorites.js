@@ -103,7 +103,7 @@ class Favorites {
           if (!fave) {
             response.status(404).json({
               status: 'Unsuccessful',
-              message: 'Favorite Not Found',
+              message: 'Recipe Not Found',
             });
           } else if (fave.userId === request.decoded.id) {
             fave.destroy()

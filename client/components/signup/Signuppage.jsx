@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
-import { userSignupRequest } from '../../actions/signupActions';
-import { userSigninRequest } from '../../actions/signinActions';
+import { signUp } from '../../actions/signupActions';
+import { signIn } from '../../actions/signinActions';
 
 /** Stateless component to render signup and signin form
  *
@@ -30,10 +30,10 @@ const SignupPage = props => (
             <div className="col s12">
               <Tabs className="tab-demo z-depth-1">
                 <Tab className="col s6" title="Register User" active>
-                  <SignupForm userSignupRequest={props.userSignupRequest} />
+                  <SignupForm signUp={props.signUp} />
                 </Tab>
                 <Tab className="col s6" title="Sign In">
-                  <SigninForm userSigninRequest={props.userSigninRequest} />
+                  <SigninForm signIn={props.signIn} />
                 </Tab>
               </Tabs>
             </div>
@@ -45,12 +45,12 @@ const SignupPage = props => (
 );
 
 SignupPage.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired,
-  userSigninRequest: PropTypes.func.isRequired
+  signUp: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired
 };
 
 
 export default connect(
   null,
-  { userSignupRequest, userSigninRequest }
+  { signUp, signIn }
 )(SignupPage);

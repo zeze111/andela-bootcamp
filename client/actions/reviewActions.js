@@ -49,19 +49,20 @@ export function reviewRecipe(recipeId, review) {
  * @returns {object} any
  */
 export function getReviews(recipeId, limit, offset) {
-  return dispatch => axios.get(`/api/v1/recipes/${recipeId}/reviews?limit=${limit}&offset=${offset}`)
-    .then((response) => {
-      dispatch({
-        type: GET_REVIEWS,
-        payload: response.data,
+  return dispatch =>
+    axios.get(`/api/v1/recipes/${recipeId}/reviews?limit=${limit}&offset=${offset}`)
+      .then((response) => {
+        dispatch({
+          type: GET_REVIEWS,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: GET_REVIEWS_FAILURE,
+          payload: error.response.data,
+        });
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: GET_REVIEWS_FAILURE,
-        payload: error.response.data,
-      });
-    });
 }
 
 /** makes api call to delete a user's review
@@ -75,7 +76,11 @@ export function getReviews(recipeId, limit, offset) {
 export function deleteReview(reviewId) {
   return dispatch => axios.delete(`/api/v1/recipe/reviews/${reviewId}`)
     .then((response) => {
-      Materialize.toast(`<span> ${response.data.message}</span>`, 2000, 'green');
+      Materialize.toast(
+        `<span> ${response.data.message}</span>`,
+        2000,
+        'green'
+      );
 
       dispatch({
         type: DELETE_REVIEW,

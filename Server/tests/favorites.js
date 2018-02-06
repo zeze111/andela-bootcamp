@@ -111,15 +111,15 @@ describe('Favorite recipe 2 again', () => {
 describe('Error for deleting a recipe from favorites', () => {
   it('it should not find recipe in favorites list', (done) => {
     chai.request(app)
-    .delete('/api/v1/user/favorites/50')
-    .set('x-token', token2)
-    .end((err, res) => {
-      should.exist(err);
-      res.status.should.equal(404);
-      res.body.status.should.equal('Unsuccessful');
-      res.body.message.should.equal('Favorite Not Found')
-      done();
-    });
+      .delete('/api/v1/user/favorites/50')
+      .set('x-token', token2)
+      .end((err, res) => {
+        should.exist(err);
+        res.status.should.equal(404);
+        res.body.status.should.equal('Unsuccessful');
+        res.body.message.should.equal('Recipe Not Found')
+        done();
+      });
   });
 });
 

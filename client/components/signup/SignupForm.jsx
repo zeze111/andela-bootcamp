@@ -61,7 +61,7 @@ class SignupForm extends React.Component {
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.userSignupRequest(this.state)
+      this.props.signUp(this.state)
         .then(() => this.setState({ redirect: true, isLoading: false }))
         .catch((error) => {
           this.setState({ errors: error.response.data, isLoading: false });
@@ -176,7 +176,7 @@ class SignupForm extends React.Component {
 }
 
 SignupForm.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired
+  signUp: PropTypes.func.isRequired
 };
 
 
