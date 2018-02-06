@@ -17,8 +17,9 @@ const PopularContent = ({
   }
 }) => {
   const like = (
-    <span >
-      <i className="material-icons home-icon">star</i> {favorites}
+    <span className="home-text">
+      <i className="material-icons home-icon">star</i>
+      {favorites}
     </span>
   );
   const show = `${name.substring(0, 10)}...`;

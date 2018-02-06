@@ -17,7 +17,7 @@ const UpvotedContent = ({
   }
 }) => {
   const vote = (
-    <span >
+    <span className="home-text">
       <i className="material-icons home-icon">thumb_up</i> {upvotes}
     </span>
   );
