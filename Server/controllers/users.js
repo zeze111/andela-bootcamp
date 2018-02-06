@@ -148,7 +148,7 @@ class Users {
                 firstName: firstName || userFound.firstName,
                 surname: surname || userFound.surname,
                 email: userFound.email,
-                password,
+                password: userFound.password,
                 image: image || userFound.image,
                 bio: bio || userFound.bio,
               })

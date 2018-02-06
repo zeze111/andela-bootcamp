@@ -103,7 +103,7 @@ describe('Error for deleting a recipe from favorites', () => {
         should.exist(err);
         res.status.should.equal(404);
         res.body.status.should.equal('Unsuccessful');
-        res.body.message.should.equal('Favorite Not Found')
+        res.body.message.should.equal('Recipe Not Found')
         done();
       });
   });
