@@ -147,7 +147,7 @@ class Users {
                 firstName: firstName || userFound.firstName,
                 surname: surname || userFound.surname,
                 email: userFound.email,
-                password: password || userFound.password,
+                password: userFound.password,
                 image: image || userFound.image,
                 bio: bio || userFound.bio,
               })
@@ -191,7 +191,7 @@ class Users {
   }
 
   /** Gets a User's details
-   * 
+   *
   * @param {Object} request - request object
   *
   * @param {Object} response - response object

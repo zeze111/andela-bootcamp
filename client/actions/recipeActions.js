@@ -20,7 +20,9 @@ import {
   UPDATE_RECIPE_FAILURE,
   GET_RECIPES_CATEGORY_FAILURE,
   SEARCH_RECIPE_FAILURE,
-  MOST_UPVOTED_RECIPES_FAILURE
+  MOST_UPVOTED_RECIPES_FAILURE,
+  POPULAR_RECIPES,
+  POPULAR_RECIPES_FAILURE
 } from './types';
 
 /** makes api call to add a new recipe
@@ -179,6 +181,51 @@ export function getARecipe(recipeId) {
     });
 }
 
+/** makes api call to update recipe
+ *
+ * @export {function}
+ *
+ * @param {number} recipeId
+ *
+ * @param {object} recipeData form data
+ *
+ * @param {string} imageUrl
+ *
+ * @returns {object} any
+ */
+export function update(recipeId, recipeData, imageUrl) {
+  return (dispatch) => {
+    setAuthorizationToken(window.localStorage.jwtToken);
+    const {
+      name, preparationTime, description, type, ingredients, instructions,
+    } = recipeData;
+    const recipe = {
+      name,
+      preparationTime,
+      description,
+      type,
+      ingredients,
+      instructions,
+      image: imageUrl,
+    };
+
+    return axios.put(`/api/v1/recipes/${recipeId}`, recipe)
+      .then((response) => {
+        dispatch({
+          type: UPDATE_RECIPE,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: UPDATE_RECIPE_FAILURE,
+          payload: error.response.data,
+        });
+      });
+  };
+}
+
+
 /** makes api call to update a recipe
  *
  * @export {function}
@@ -190,19 +237,17 @@ export function getARecipe(recipeId) {
  * @returns {object} any
  */
 export function updateRecipe(recipeId, recipeData) {
-  return dispatch => axios.put(`/api/v1/recipes/${recipeId}`, recipeData)
-    .then((response) => {
-      dispatch({
-        type: UPDATE_RECIPE,
-        payload: response.data,
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: UPDATE_RECIPE_FAILURE,
-        payload: error.response.data,
-      });
-    });
+  return (dispatch) => {
+    if (recipeData.imageFile.name) {
+      return uploadImageToCloud(recipeData.imageFile)
+        .then((response) => {
+          const imageUrl = response.data.secure_url;
+          dispatch(update(recipeId, recipeData, imageUrl));
+        })
+        .catch(error => error);
+    }
+    return dispatch(update(recipeId, recipeData, recipeData.imageSrc));
+  };
 }
 
 /** makes api call to delete a user's recipe
@@ -302,6 +347,28 @@ export function getMostUpvotedRecipe() {
     .catch((error) => {
       dispatch({
         type: MOST_UPVOTED_RECIPES_FAILURE,
+        payload: error.response.data,
+      });
+    });
+}
+
+/** makes api call to get most popular recipes
+ *
+ * @export {function}
+ *
+ * @returns {object} any
+ */
+export function getPopularRecipes() {
+  return dispatch => axios.get('/api/v1/recipes/favorites/?sort=favorites&order=des')
+    .then((response) => {
+      dispatch({
+        type: POPULAR_RECIPES,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: POPULAR_RECIPES_FAILURE,
         payload: error.response.data,
       });
     });

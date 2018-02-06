@@ -30,6 +30,15 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
+      views: {
+        type: Sequelize.INTEGER
+      },
+      check: {
+        type: Sequelize.BOOLEAN
+      },
+      favorites: {
+        type: Sequelize.INTEGER
+      },
       userId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',

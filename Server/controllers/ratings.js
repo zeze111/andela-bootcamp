@@ -90,7 +90,7 @@ class Ratings {
             });
           }
         });
-        
+
       Rating.findOne({
         where: {
           userId: request.decoded.id,

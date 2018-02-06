@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 
 import {
   getAllRecipes,
-  getMostUpvotedRecipe
+  getMostUpvotedRecipe,
+  getPopularRecipes
 } from '../../actions/recipeActions';
 import Slide from './Slide';
 import UpvotedContent from './UpvotedContent';
+import PopularContent from './PopularContent';
 import AllContent from './AllContent';
 import PreLoader from '../common/PreLoader';
 import '../../assets/style.scss';
@@ -53,6 +55,10 @@ class Homepage extends Component {
       .then(() => {
         this.setState({ isLoading: false });
       });
+    this.props.getPopularRecipes()
+      .then(() => {
+        this.setState({ isLoading: false });
+      });
   }
 
   /** html component to render
@@ -65,6 +71,9 @@ class Homepage extends Component {
     const allRecipes = (this.props.recipes) ? (this.props.recipes) : [];
     const upvoted = (this.props.upvotedRecipes) ?
       (this.props.upvotedRecipes) : [];
+    const popular = (this.props.popularRecipes) ?
+      (this.props.popularRecipes) : [];
+
     return (
       <div id="homepageBody">
         <main>
@@ -72,7 +81,32 @@ class Homepage extends Component {
           <div className="container full-container home-width">
             <br /> <br />
             <h5 className="light black-text text-headers lighten-3">
-              MOST UPVOTED RECIPES
+              TRENDING RECIPES
+            </h5>
+            <div className="row">
+              {
+                this.state.isLoading &&
+                <div className="center-align loader-style min-preloader">
+                  <PreLoader />
+                </div>
+              }
+              {!this.state.isLoading &&
+                <ul className="categories flex-container-homepage">
+                  {
+                    popular.map(recipe => (
+                      <PopularContent
+                        recipe={recipe}
+                        key={recipe.id}
+                      />))
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+          <div className="container full-container home-width">
+            <br /> <br />
+            <h5 className="light black-text text-headers lighten-3">
+              POPULAR RECIPES
             </h5>
             <div className="row">
               {
@@ -131,8 +165,10 @@ class Homepage extends Component {
 Homepage.propTypes = {
   getAllRecipes: PropTypes.func.isRequired,
   getMostUpvotedRecipe: PropTypes.func.isRequired,
+  getPopularRecipes: PropTypes.func.isRequired,
   recipes: PropTypes.arrayOf(PropTypes.any),
-  upvotedRecipes: PropTypes.arrayOf(PropTypes.any).isRequired
+  upvotedRecipes: PropTypes.arrayOf(PropTypes.any).isRequired,
+  popularRecipes: PropTypes.arrayOf(PropTypes.any).isRequired
 };
 
 Homepage.defaultProps = {
@@ -141,10 +177,12 @@ Homepage.defaultProps = {
 
 const mapStateToProps = state => ({
   recipes: state.recipeReducer.recipes,
-  upvotedRecipes: state.recipeReducer.upvotedRecipes
+  upvotedRecipes: state.recipeReducer.upvotedRecipes,
+  popularRecipes: state.recipeReducer.popularRecipes
 });
 
 export default connect(mapStateToProps, {
   getAllRecipes,
-  getMostUpvotedRecipe
+  getMostUpvotedRecipe,
+  getPopularRecipes
 })(Homepage);

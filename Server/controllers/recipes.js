@@ -1,7 +1,7 @@
 import Validator from 'validatorjs';
 import Sequelize from 'sequelize';
 
-import { Recipe, Rating, User } from '../models';
+import { Recipe, Rating, User, Favorite } from '../models';
 import validations from '../shared/validations';
 import { paginationData, isNum } from '../shared/helper';
 
@@ -166,6 +166,39 @@ class Recipes {
       });
     })
       .catch(error => response.status(500).send(error));
+  }
+
+  /** Retrieves the most favorited recipes
+   *
+  * @param {Object} request - request object
+  *
+  * @param {Object} response - response object
+  *
+  * @returns {Object} response object
+  */
+  static getMostFavorited(request, response) {
+    return Recipe.findAll({
+      where: {
+        favorites: { $gt: 0 }
+      },
+      order: [
+        ['favorites', 'DESC']
+      ],
+      limit: 5
+    })
+      .then((popularRecipes) => {
+        if (popularRecipes.length === 0) {
+          return response.status(200).json({
+            status: 'Successful',
+            message: 'There Are Currently No Popular Recipes',
+            recipes: []
+          });
+        }
+        return response.status(200).json({
+          status: 'Successful',
+          recipes: popularRecipes,
+        });
+      });
   }
 
   /** Updates a recipe according to User's input
@@ -407,7 +440,7 @@ class Recipes {
   }
 
   /** Search for a recipe by category
-   * 
+   *
   * @param {Object} request - request object
   *
   * @param {Object} response - response object
