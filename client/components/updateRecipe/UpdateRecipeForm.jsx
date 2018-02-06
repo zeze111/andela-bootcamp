@@ -106,7 +106,8 @@ class UpdateRecipeForm extends React.Component {
         'type',
         'ingredients',
         'instructions',
-        'image'
+        'imageSrc',
+        'imageFile'
       ]
     );
 

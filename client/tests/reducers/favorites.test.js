@@ -1,4 +1,4 @@
-import favoriteReducer from '../../reducers/favoriteRecuder';
+import favoriteReducer from '../../reducers/favoriteReducer';
 import mockData from '../mocks/favoritesData';
 import {
   FAVORITE_RECIPE,

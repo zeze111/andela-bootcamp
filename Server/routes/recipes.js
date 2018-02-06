@@ -20,6 +20,11 @@ router.get(
 );
 
 router.get(
+  '/favorites',
+  recipe.getMostFavorited
+);
+
+router.get(
   '/search/:search',
   recipe.search
 );
@@ -90,13 +95,5 @@ router.get(
   '/:recipeId/reviews',
   review.getAll
 );
-// router.get('/category/', recipe.getCategory);
-
-/*
-// router.get('api/v1/recipes?sort=upvotes&order=des', handleCrudRecipe.allRecipes);
-// router.get('/?page=number', handleCrudRecipe.allRecipes);
-router.get('/?search=string', recipe.searchecipe);
-
- */
 
 export default router;

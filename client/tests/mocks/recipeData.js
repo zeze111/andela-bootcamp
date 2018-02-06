@@ -160,7 +160,8 @@ const data = {
   },
 
   updateRecipeData: {
-    preparationTime: '1hr 30 mins'
+    preparationTime: '1hr 30 mins',
+    imageFile: ''
   },
 
   searchResponse: {

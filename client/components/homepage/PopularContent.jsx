@@ -5,42 +5,43 @@ import ReactTooltip from 'react-tooltip';
 
 /** Stateless component to render details of a recipe card
  *
- * @export {function} UpvotedContent
+ * @export {function} PopularContent
  *
  * @param {object} recipe
  *
  * @returns {null} null
  */
-const UpvotedContent = ({
+const PopularContent = ({
   recipe: {
-    recipeId, upvotes, Recipe
+    id, name, image, favorites
   }
 }) => {
-  const vote = (
+  const like = (
     <span className="home-text">
-      <i className="material-icons home-icon">thumb_up</i> {upvotes}
+      <i className="material-icons home-icon">star</i>
+      {favorites}
     </span>
   );
-  const show = `${Recipe.name.substring(0, 10)}...`;
+  const show = `${name.substring(0, 10)}...`;
   return (
     <li >
       <div className="col s2 offset-1">
         <div className="card hoverable grey lighten-4 home-cards">
           <div className="card-image">
             <img
-              src={Recipe.image || '/images/noimg.png'}
+              src={image || '/images/noimg.png'}
               alt="recipe"
               className="responsive-img image-style"
             />
             <div className="card-action">
               <Link
-                to={`/recipe/${recipeId}`}
-                href={`/recipe/${recipeId}`}
+                to={`/recipe/${id}`}
+                href={`/recipe/${id}`}
                 className="home-text-style"
-                data-tip={Recipe.name}
+                data-tip={name}
               > {show}
                 <ReactTooltip />
-              </Link> {vote}
+              </Link> {like}
             </div>
           </div>
         </div>
@@ -50,8 +51,8 @@ const UpvotedContent = ({
   );
 };
 
-UpvotedContent.propTypes = {
+PopularContent.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default UpvotedContent;
+export default PopularContent;

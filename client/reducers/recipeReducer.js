@@ -8,12 +8,14 @@ import {
   GET_PAGED_RECIPES,
   GET_RECIPES_CATEGORY,
   MOST_UPVOTED_RECIPES,
-  SEARCH_RECIPE
+  SEARCH_RECIPE,
+  POPULAR_RECIPES
 } from '../actions/types';
 
 const initialState = {
   recipes: [],
   upvotedRecipes: [],
+  popularRecipes: [],
   currentRecipe: {},
   message: '',
   pagination: {}
@@ -56,6 +58,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         upvotedRecipes: action.payload.recipes,
+        message: action.payload.message,
+      };
+    case POPULAR_RECIPES:
+      return {
+        ...state,
+        popularRecipes: action.payload.recipes,
         message: action.payload.message,
       };
     case SEARCH_RECIPE:

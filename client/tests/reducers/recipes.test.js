@@ -10,7 +10,8 @@ import {
   GET_PAGED_RECIPES,
   GET_RECIPES_CATEGORY,
   MOST_UPVOTED_RECIPES,
-  SEARCH_RECIPE
+  SEARCH_RECIPE,
+  POPULAR_RECIPES
 } from '../../actions/types';
 
 describe('Recipes reducer', () => {
@@ -183,6 +184,30 @@ describe('Recipes reducer', () => {
 
     const newState = recipeReducer(initialState, action);
     expect(newState.upvotedRecipes).toEqual(
+      expect.arrayContaining(action.payload.recipes)
+    );
+    expect(newState.message).toEqual(action.payload.message);
+  });
+
+  it('stores current recipes with the most favorites in popular recipes list', () => {
+    const { mostUpvotedResponse } = mockData;
+    const initialState = {
+      popularRecipes: [],
+      message: ''
+    }
+
+    const payload = {
+      recipes: mostUpvotedResponse.recipes,
+      message: mostUpvotedResponse.message
+    }
+
+    const action = {
+      type: POPULAR_RECIPES,
+      payload
+    };
+
+    const newState = recipeReducer(initialState, action);
+    expect(newState.popularRecipes).toEqual(
       expect.arrayContaining(action.payload.recipes)
     );
     expect(newState.message).toEqual(action.payload.message);

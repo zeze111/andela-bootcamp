@@ -39,6 +39,16 @@ class Favorites {
           if (fave) {
             fave.destroy()
               .then(() => {
+                Recipe.findOne({
+                  where: {
+                    id: recipeId
+                  }
+                })
+                  .then((recipe) => {
+                    recipe.decrement('favorites').then(() => {
+                      recipe.reload();
+                    });
+                  });
                 response.status(200).json({
                   status: 'Successful',
                   message: 'Recipe has been removed from your Favorites',
@@ -50,6 +60,16 @@ class Favorites {
               recipeId,
             })
               .then((favorited) => {
+                Recipe.findOne({
+                  where: {
+                    id: recipeId
+                  }
+                })
+                  .then((recipe) => {
+                    recipe.increment('favorites').then(() => {
+                      recipe.reload();
+                    });
+                  });
                 response.status(201).json({
                   status: 'Successful',
                   message: 'Recipe has been added to your Favorites',

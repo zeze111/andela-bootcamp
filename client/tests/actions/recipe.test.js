@@ -9,7 +9,8 @@ import {
   getUserRecipes,
   updateRecipe,
   deleteRecipe,
-  searchRecipe
+  searchRecipe,
+  getPopularRecipes
 } from '../../actions/recipeActions';
 import {
   CREATE_RECIPE,
@@ -30,7 +31,8 @@ import {
   UPDATE_RECIPE_FAILURE,
   GET_RECIPES_CATEGORY_FAILURE,
   SEARCH_RECIPE_FAILURE,
-  MOST_UPVOTED_RECIPES_FAILURE
+  MOST_UPVOTED_RECIPES_FAILURE,
+  POPULAR_RECIPES
 } from '../../actions/types';
 import mockLocalStorage from '../mocks/localStorage';
 
@@ -133,7 +135,7 @@ describe('Recipes actions', () => {
       });
   });
 
-  it('gets all upvoted recipes', async (done) => {
+  it('gets most upvoted recipes', async (done) => {
     const { mostUpvotedResponse } = mockData;
     moxios.stubRequest('/api/v1/recipes/?sort=upvotes&order=des', {
       status: 200,
@@ -145,6 +147,24 @@ describe('Recipes actions', () => {
     }];
     const store = mockStore({});
     await store.dispatch(getMostUpvotedRecipe())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('gets most favorited recipes', async (done) => {
+    const { mostUpvotedResponse } = mockData;
+    moxios.stubRequest('/api/v1/recipes/favorites/?sort=favorites&order=des', {
+      status: 200,
+      response: mostUpvotedResponse
+    });
+    const expectedActions = [{
+      type: POPULAR_RECIPES,
+      payload: mostUpvotedResponse
+    }];
+    const store = mockStore({});
+    await store.dispatch(getPopularRecipes())
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
@@ -206,7 +226,7 @@ describe('Recipes actions', () => {
   });
 
   it('catches an error for updating a recipe', async (done) => {
-    const { viewRecipeError } = mockData;
+    const { updateRecipeData, viewRecipeError } = mockData;
     moxios.stubRequest(`/api/v1/recipes/${4}`, {
       status: 404,
       response: viewRecipeError
@@ -216,7 +236,7 @@ describe('Recipes actions', () => {
       payload: viewRecipeError
     }];
     const store = mockStore({});
-    await store.dispatch(updateRecipe(4))
+    await store.dispatch(updateRecipe(4, updateRecipeData))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
