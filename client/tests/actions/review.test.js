@@ -111,4 +111,22 @@ describe('Voting actions', () => {
         done();
       });
   });
+
+  it('catches a server error', async (done) => {
+    const { reviewServerError } = mockData;
+    moxios.stubRequest('/api/v1/recipes/3/reviews?limit=5&offset=0', {
+      status: 500,
+      response: reviewServerError.message
+    });
+    const expectedActions = [{
+      type: GET_REVIEWS_FAILURE,
+      payload: reviewServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getReviews(3, 5, 0))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
 });

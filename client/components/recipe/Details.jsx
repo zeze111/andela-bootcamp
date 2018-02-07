@@ -43,7 +43,7 @@ const Details = (props) => {
   return (
     <div className="row">
       <div className="col s8 offset-s1">
-        <h5 className="center-align title" > Recipe </h5>
+        <h5 className="center-align title text-headers" > Recipe </h5>
         {(props.ingredients.length <= 0) &&
         <div className="center-align loader-style">
           <PreLoader />
@@ -54,8 +54,9 @@ const Details = (props) => {
           <div id="time" className="col l4 m4 s12 ">
             <p
               className="recipe"
-            > Prep Time: {props.recipe.preparationTime}
+            > Preparation Time:
             </p>
+            {props.recipe.preparationTime}
           </div>
           <div id="Ing" className="col l4 m4 s12 r-ingredients">
             <p className="recipe"> Ingredients: </p>

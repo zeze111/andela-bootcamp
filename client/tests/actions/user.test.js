@@ -29,7 +29,7 @@ describe('Authentication actions', () => {
   it('signs up a new user', async (done) => {
     const { signUpData, signUpresponse } = mockData;
     moxios.stubRequest('/api/v1/users/signup', {
-      status: 200,
+      status: 201,
       response: signUpresponse
     });
     const { email, id, firstName } = signUpresponse.user;

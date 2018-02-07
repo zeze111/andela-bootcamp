@@ -5,6 +5,7 @@ import review from '../controllers/reviews';
 import rating from '../controllers/ratings';
 import favorite from '../controllers/favorites';
 import confirmAuth from '../middleware/index';
+import checkToken from '../middleware/checkToken';
 
 const router = express.Router();
 
@@ -36,6 +37,7 @@ router.get(
 
 router.get(
   '/:recipeId',
+  checkToken.authenticate,
   recipe.getDetails
 );
 

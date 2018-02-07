@@ -214,7 +214,7 @@ class RecipeDetails extends Component {
     const reviewsList = (reviews) || [];
 
     const noReviews = (
-      <div className="col s6 bottom-style"> No Reviews Posted Yet </div>
+      <div className="col s6 bottom-style no-message"> No Reviews Posted Yet </div>
     );
 
     return (

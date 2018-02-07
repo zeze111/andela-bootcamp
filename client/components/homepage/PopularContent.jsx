@@ -13,13 +13,19 @@ import ReactTooltip from 'react-tooltip';
  */
 const PopularContent = ({
   recipe: {
-    id, name, image, favorites
+    id, name, image, favorites, views
   }
 }) => {
   const like = (
     <span className="home-text">
       <i className="material-icons home-icon">star</i>
       {favorites}
+    </span>
+  );
+  const view = (
+    <span className="pop-text">
+      <i className="material-icons home-icon2">visibility</i>
+      {views}
     </span>
   );
   const show = `${name.substring(0, 10)}...`;
@@ -42,6 +48,7 @@ const PopularContent = ({
               > {show}
                 <ReactTooltip />
               </Link> {like}
+              {view}
             </div>
           </div>
         </div>

@@ -21,6 +21,12 @@ const UpvotedContent = ({
       <i className="material-icons home-icon">thumb_up</i> {upvotes}
     </span>
   );
+  const view = (
+    <span className="pop-text">
+      <i className="material-icons home-icon2">visibility</i>
+      {Recipe.views}
+    </span>
+  );
   const show = `${Recipe.name.substring(0, 10)}...`;
   return (
     <li >
@@ -41,6 +47,7 @@ const UpvotedContent = ({
               > {show}
                 <ReactTooltip />
               </Link> {vote}
+              {view}
             </div>
           </div>
         </div>

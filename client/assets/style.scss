@@ -25,6 +25,7 @@ main {
   background-image: url("./images/bgd3.jpg");
   background-size: cover;
 }
+
 .text-headers {
   font-family: "Copse";
 }
@@ -179,8 +180,22 @@ main {
   top: 5px;
 }
 
+.home-icon2 {
+  position: relative;
+  color: rgb(56, 165, 5);
+  top: 6px;
+}
+
 .home-text {
-  padding-left: 2em !important;
+  padding-left: 1em !important;
+}
+
+.pop-text {
+  padding-left: 8px !important;
+}
+
+.home-text2 {
+  padding-left: 1em !important;
 }
 
 .search-icon {
@@ -229,7 +244,7 @@ main {
 
 .home-cards{
   height: 250px;
-  width: 230px;
+  width: 250px;
   .image-style {
     height: 180px;
   }
@@ -342,6 +357,20 @@ a {
   .down {
     padding-left: 15px !important;
   }
+}
+
+.votes2 {
+  margin: 0 !important;
+  padding-left: 0 !important;
+  position: relative;
+  left: 3em;
+}
+
+.views {
+  position: relative;
+  bottom: 5px;
+  width: 1.6em !important;
+  padding-right: 0 !important;
 }
 
 .reduce-row {
@@ -515,6 +544,10 @@ a {
   margin-top: 0;
 }
 
+.margin-down {
+  margin-bottom: 10px !important;
+}
+
 .half-top {
   padding-top: 0.5em;
 }
@@ -610,7 +643,7 @@ a {
   width: 100%;
   margin: 0 auto;
   min-height: 18em !important;
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 .paginate {

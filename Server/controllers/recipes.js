@@ -91,7 +91,7 @@ class Recipes {
         ],
         include: [{
           model: Recipe,
-          attributes: ['name', 'type', 'preparationTime', 'image'],
+          attributes: ['name', 'type', 'preparationTime', 'image', 'views'],
         }],
         order: [
           [Sequelize.literal('upvotes'), 'DESC'],
@@ -121,7 +121,8 @@ class Recipes {
           'preparationTime',
           'type',
           'ingredients',
-          'image'
+          'image',
+          'views'
         ],
         order: [
           ['createdAt', 'DESC'],
@@ -149,7 +150,8 @@ class Recipes {
         'preparationTime',
         'type',
         'ingredients',
-        'image'
+        'image',
+        'views'
       ],
       order: [
         ['createdAt', 'DESC'],
@@ -348,7 +350,30 @@ class Recipes {
               message: 'Recipe Not Found',
             });
           }
-          response.status(200).json({
+
+          if (request.decoded) {
+            if (request.decoded.id === recipe.userId &&
+              recipe.check === false) {
+              recipe.updateAttributes({
+                check: true,
+              });
+              recipe.increment('views').then(() => {
+                recipe.reload();
+              });
+              return response.status(200).json({
+                status: 'Successful',
+                recipe,
+              });
+            }
+            return response.status(200).json({
+              status: 'Successful',
+              recipe,
+            });
+          }
+          recipe.increment('views').then(() => {
+            recipe.reload();
+          });
+          return response.status(200).json({
             status: 'Successful',
             recipe,
           });

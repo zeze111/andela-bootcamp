@@ -46,6 +46,10 @@ const data = {
   reviewError: {
     status: 'Unsuccessful',
     message: 'Recipe Not Found'
+  },
+
+  reviewServerError: {
+    message: 'Internal Server Error'
   }
 };
 
