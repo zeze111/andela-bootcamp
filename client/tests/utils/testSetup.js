@@ -3,9 +3,10 @@ import $ from 'jquery';
 import expect from 'expect';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
+import { configure, shallow, render, mount } from 'enzyme';
 
 import { LocalStorage } from '../mocks/localStorage';
-// import { configure, shallow, render, mount } from 'enzyme';
+
 // import MockAdapter from 'axios-mock-adapter';
 // import Adapter from 'enzyme-adapter-react-15';
 // import decode from 'jwt-decode';
@@ -39,6 +40,8 @@ require.extensions['.jpg'] = () => null;
 
 global.expect = expect;
 global.moxios = moxios;
+global.mount = mount;
+global.shallow = shallow;
 global.Materialize = window;
 global.Materialize = { toast: () => {} };
 global.mockStore = mockStore;
@@ -64,7 +67,6 @@ var documentRef = document;
 // const { document } = (new JSDOM(
 //   '<!doctype html><html><body></body></html>')).window;
 
-// global.shallow = shallow;
 // global.render = render;
 // global.mount = mount;
 // global.mock = mock;

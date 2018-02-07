@@ -137,18 +137,3 @@ describe('Errors for geting a user\'s favorites', () => {
     });
   });
 });
-
-describe('Error for adding a recipe to favorites', () => {
-  it('it should not find recipe', (done) => {
-    chai.request(app)
-      .post('/api/v1/recipes/50/favorite')
-      .set('x-token', token2)
-      .end((err, res) => {
-        should.exist(err);
-        res.status.should.equal(404);
-        res.body.status.should.equal('Unsuccessful');
-        res.body.message.should.equal('Recipe Not Found')
-        done();
-      });
-  });
-});

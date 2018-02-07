@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Pagination } from 'react-materialize';
 
 import { getUserRecipes, deleteRecipe } from '../../actions/recipeActions';
-import { updateUser, getUser } from '../../actions/userActions';
+import { updateUser, getUser, changePassword } from '../../actions/userActions';
 import {
   getFavoriteRecipes,
   deleteFavorite
@@ -277,7 +277,9 @@ class Profile extends Component {
                     />
                   </TabPanel>
                   <TabPanel>
-                    <PasswordForm />
+                    <PasswordForm
+                      changePassword={this.props.changePassword}
+                    />
                   </TabPanel>
                   <TabPanel>
                     <div id="recipe" className="col s12 form-style">
@@ -386,6 +388,7 @@ Profile.propTypes = {
   deleteFavorite: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired,
   message: PropTypes.string,
   userMessage: PropTypes.string,
   user: PropTypes.objectOf(PropTypes.any),
@@ -416,5 +419,6 @@ export default connect(mapStateToProps, {
   getFavoriteRecipes,
   deleteFavorite,
   updateUser,
-  getUser
+  getUser,
+  changePassword
 })(Profile);

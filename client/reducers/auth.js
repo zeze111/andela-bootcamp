@@ -1,5 +1,10 @@
 import isEmpty from 'lodash/isEmpty';
-import { SET_CURRENT_USER, UPDATE_USER, GET_USER } from '../actions/types';
+import {
+  SET_CURRENT_USER,
+  UPDATE_USER,
+  GET_USER,
+  CHANGE_PASSWORD
+} from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
@@ -17,6 +22,12 @@ export default (state = initialState, action = {}) => {
         user: action.user,
       };
     case UPDATE_USER:
+      return {
+        ...state,
+        message: action.payload.message,
+        profile: action.payload.user,
+      };
+    case CHANGE_PASSWORD:
       return {
         ...state,
         message: action.payload.message,

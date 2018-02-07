@@ -41,6 +41,12 @@ router.put(
   user.update
 );
 
+router.patch(
+  '/password',
+  confirmAuth.authenticate,
+  user.changePassword
+);
+
 router.delete(
   '/favorites/:recipeId',
   confirmAuth.authenticate,

@@ -17,7 +17,7 @@ import mockLocalStorage from '../mocks/localStorage';
 
 window.localStorage = mockLocalStorage;
 
-describe('Voting actions', () => {
+describe('Review actions', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
