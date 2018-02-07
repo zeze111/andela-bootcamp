@@ -3,12 +3,13 @@ import jwt from 'jsonwebtoken';
 import { User } from '../models';
 
 const confirmAuth = {
-  authenticate(req, res, next) {
-    const token = req.body.token || req.query.token || req.header('x-token');
+  authenticate(request, response, next) {
+    const token = request.body.token ||
+    request.query.token || request.header('x-token');
     if (token) {
       return jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
-          return res.status(401).json({
+          return response.status(401).json({
             status: 'Unsuccessful',
             message: 'Invalid token',
           });
@@ -18,16 +19,16 @@ const confirmAuth = {
           attributes: ['id', 'email'],
         }).then((user) => {
           if (!user) {
-            return res.status(404).json({ error: 'User Not Found' });
+            return response.status(404).json({ error: 'User Not Found' });
           }
-          req.currentUser = user;
-          req.decoded = decoded;
+          request.currentUser = user;
+          request.decoded = decoded;
           next();
         })
-          .catch(error => res.status(500).send(error));
+          .catch(error => response.status(500).send(error));
       });
     }
-    return res.status(401).json({
+    return response.status(401).json({
       status: 'Unsuccessful',
       message: 'Please sign up to perform this action',
     });

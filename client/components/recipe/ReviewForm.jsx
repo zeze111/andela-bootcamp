@@ -73,7 +73,7 @@ class ReviewForm extends Component {
     return (
       <div>
         <div className="col m9 l8">
-          <h5 className="text1" id="rev"> Reviews </h5>
+          <h5 className="text1 text-headers" id="rev"> Reviews </h5>
           <div className="col s12 reviews-style">
             <p className="text2" > Add a comment to review this recipe </p>
           </div>

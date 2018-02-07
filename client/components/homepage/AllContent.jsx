@@ -13,9 +13,15 @@ import ReactTooltip from 'react-tooltip';
  */
 const AllContent = ({
   recipe: {
-    id, name, preparationTime, image
+    id, name, preparationTime, image, views
   }
 }) => {
+  const view = (
+    <span className="home-text2">
+      <i className="material-icons home-icon2">visibility</i>
+      {views}
+    </span>
+  );
   const show = `${name.substring(0, 10)}...`;
   return (
     <li >
@@ -36,6 +42,7 @@ const AllContent = ({
               > {show}
                 <ReactTooltip />
               </Link> {preparationTime}
+              {view}
             </div>
           </div>
         </div>

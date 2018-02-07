@@ -52,7 +52,10 @@ const Recipe = props => (
     <div className="col s12 m5 l6 push-m1 push-l1 text-flex2">
       <div className="row" >
         <div className="col s12">
-          <h5 className="title-details break name col s10 l10 remove-margin-bottom">
+          <h5 className="title-details break name
+          col s10 l10 text-headers
+          remove-margin-bottom"
+          >
             {props.recipe.name}
           </h5>
         </div>
@@ -64,6 +67,12 @@ const Recipe = props => (
               </a>
             </p>
           }
+        </div>
+        <div className="row margin-down">
+          <i className="col s6 m3 l1 material-icons small icon-color views">
+                  visibility
+          </i>
+          <p className="col s6 m3 l3 votes2"> {props.recipe.views} {' views'} </p>
         </div>
         <div className="col s12">
           <p
