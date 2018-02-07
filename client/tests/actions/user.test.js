@@ -8,21 +8,23 @@ import {
 import { signUp } from '../../actions/signupActions';
 import {
   getUser,
-  updateUser
+  updateUser,
+  changePassword
 } from '../../actions/userActions';
 import {
   SET_CURRENT_USER,
   GET_USER,
   GET_USER_FAILURE,
   UPDATE_USER,
-  UPDATE_USER_FAILURE
+  UPDATE_USER_FAILURE,
+  CHANGE_PASSWORD
 } from '../../actions/types';
 import mockLocalStorage from '../mocks/localStorage';
 
 
 window.localStorage = mockLocalStorage;
 
-describe('Authentication actions', () => {
+describe('User actions', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
@@ -146,6 +148,27 @@ describe('Authentication actions', () => {
     ];
     const store = mockStore({});
     await store.dispatch(updateUser(data))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    done();
+  });
+
+  it('updates user password', async (done) => {
+    const { updatePassword, passwordResponse } = mockData;
+    moxios.stubRequest('/api/v1/user/password', {
+      status: 200,
+      response: passwordResponse
+    });
+
+    const expectedActions = [
+      {
+        type: CHANGE_PASSWORD,
+        payload: passwordResponse
+      }
+    ];
+    const store = mockStore({});
+    await store.dispatch(changePassword(updatePassword))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });

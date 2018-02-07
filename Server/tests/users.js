@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
 import db from '../models';
-import { createUser1, createUser2, createUser3, fakeUser, errorUser, user1 } from './mockdata';
+import { createUser1, createUser2, createUser3, fakeUser, errorUser, user1, updatePassword } from './mockdata';
 
 
 const should = chai.should();
@@ -25,7 +25,7 @@ describe('Users', () => {
           token = res.body.token;
           userId = res.body.user.id;
           res.status.should.equal(201);
-          res.body.status.should.equal('Success');
+          res.body.status.should.equal('Successful');
           done();
         });
     });
@@ -38,7 +38,7 @@ describe('Users', () => {
           token2 = res.body.token;
           userId2 = res.body.user.id;
           res.status.should.equal(201);
-          res.body.status.should.equal('Success');
+          res.body.status.should.equal('Successful');
           done();
         });
     });
@@ -53,7 +53,7 @@ describe('Users', () => {
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(200);
-          res.body.status.should.equal('Success');
+          res.body.status.should.equal('Successful');
           res.body.message.should.equal('You are now signed in');
           done();
         });
@@ -73,6 +73,20 @@ describe('Users', () => {
           res.status.should.equal(200);
           res.body.status.should.equal('Successful');
           res.body.message.should.equal('Your account has been updated');
+          done();
+        });
+    });
+
+    it('it should update user\'s password successfuly', (done) => {
+      chai.request(app)
+        .patch('/api/v1/user/password')
+        .set('x-token', token)
+        .send(updatePassword)
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.body.status.should.equal('Successful');
+          res.body.message.should.equal('Your password has been updated');
           done();
         });
     });

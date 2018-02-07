@@ -20,6 +20,12 @@ const data = {
     password_confirmation: 'abcdefg',
   },
 
+  updatePassword: {
+    oldPassword: "abcdefg",
+    newPassword: "testpassword2",
+    newPassword_confirmation: "testpassword2"
+  },
+
   updateResponse:{
     status: 'Successful',
     message: 'Your account has been updated',
@@ -33,6 +39,19 @@ const data = {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZml' +
       'yc3ROYW1lIjoiSmFuZSIsImlhdCI6MTUxNzc1MjIwMH0.X1VpXqy' +
       '8rFvn56e6waBx6BAcjowkXryTbrXCNR3Z0DY'
+  },
+
+  passwordResponse:{
+    status: 'Successful',
+    message: 'Your password has been updated',
+    user: {
+      id: 3,
+      firstName: 'Jane',
+      email: 'jane@yahoo.com',
+      password: 'mshdbhf1b2334mnfvbmvbmdvb',
+      image: '',
+      bio: ''
+    }
   },
 
   userProfileResponse: {

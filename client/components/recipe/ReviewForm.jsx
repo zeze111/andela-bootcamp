@@ -23,9 +23,6 @@ class ReviewForm extends Component {
       title: '',
       comment: '',
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   /** sets state on form input change
@@ -36,7 +33,7 @@ class ReviewForm extends Component {
    *
    * @return {void}
    */
-  onChange(event) {
+  onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -48,7 +45,7 @@ class ReviewForm extends Component {
    *
    * @return {void}
    */
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
 
     const { recipe, limit, offset } = this.props;

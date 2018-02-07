@@ -5,7 +5,9 @@ import {
   UPDATE_USER,
   GET_USER,
   GET_USER_FAILURE,
-  UPDATE_USER_FAILURE
+  UPDATE_USER_FAILURE,
+  CHANGE_PASSWORD,
+  CHANGE_PASSWORD_FAILURE
 } from './types';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import { setCurrentUser } from './signupActions';
@@ -34,6 +36,24 @@ export function updateUser(user) {
       dispatch({
         type: UPDATE_USER_FAILURE,
         payload: error.response.data,
+      });
+    });
+}
+
+/** makes api call to change user's password
+ *
+ * @export {function}
+ *
+ * @param {object} passwordData
+ *
+ * @returns {object} any
+ */
+export function changePassword(passwordData) {
+  return dispatch => axios.patch('/api/v1/user/password', passwordData)
+    .then((response) => {
+      dispatch({
+        type: CHANGE_PASSWORD,
+        payload: response.data,
       });
     });
 }

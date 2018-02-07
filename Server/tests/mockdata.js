@@ -64,6 +64,12 @@ export const errorRecipe = {
   instructions: 'turn amala in pot, mix ewedu and stew',
 };
 
+export const updatePassword = {
+  oldPassword: "testpassword",
+	newPassword: "testpassword2",
+	newPassword_confirmation: "testpassword2"
+}
+
 export const update = {
   type: 'Main',
 };

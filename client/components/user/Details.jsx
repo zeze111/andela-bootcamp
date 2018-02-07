@@ -61,7 +61,12 @@ const Details = (props) => {
           icon="mode_edit"
         />
         <div className="right-align">
-          <button className="btn grey" type="submit"> Update </button>
+          <button
+            disabled={props.isLoading}
+            className="btn grey"
+            type="submit"
+          > Update
+          </button>
         </div >
       </form>
     </div>

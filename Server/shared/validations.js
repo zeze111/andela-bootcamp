@@ -21,6 +21,12 @@ const reviewRules = {
   comment: 'required',
 };
 
+const passwordRules = {
+  oldPassword: 'required',
+  newPassword: 'required|confirmed|min:6|alpha_num',
+  newPassword_confirmation: 'required',
+};
+
 const updateRecipeRules = {
   name: 'between:2,90',
   description: 'between:3,140',
@@ -42,5 +48,6 @@ export default {
   recipeRules,
   reviewRules,
   updateRecipeRules,
-  updateUserRules
+  updateUserRules,
+  passwordRules
 };

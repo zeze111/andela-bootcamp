@@ -1,4 +1,5 @@
 import Validator from 'validatorjs';
+import bcrypt from 'bcrypt';
 
 import { User } from '../models';
 import { createToken, isNum } from '../shared/helper';
@@ -47,7 +48,7 @@ class Users {
               };
               const token = createToken(payload);
               return response.status(201).json({
-                status: 'Success',
+                status: 'Successful',
                 message: `Welcome ${userCreated.firstName}`,
                 user,
                 token,
@@ -91,7 +92,7 @@ class Users {
               const payload = { id: user.id, firstName: user.firstName };
               const token = createToken(payload);
               return response.status(200).json({
-                status: 'Success',
+                status: 'Successful',
                 message: 'You are now signed in',
                 token,
                 user,
@@ -184,6 +185,55 @@ class Users {
             response.status(422).json({
               status: 'Unsuccessful',
               message: 'Must input data',
+            });
+          }
+        }
+      })
+      .catch(error => response.status(500).send(error));
+  }
+
+  /** Updates a user's password
+   *
+  * @param {Object} request - request object
+  *
+  * @param {Object} response - response object
+  *
+  * @returns {Object} response object
+  */
+  static changePassword(request, response) {
+    User.findById(request.decoded.id)
+      .then((user) => {
+        if (user) {
+          const { oldPassword, newPassword } = request.body;
+          const validator = new Validator(
+            request.body,
+            validations.passwordRules
+          );
+
+          if (user.comparePassword(oldPassword, user)) {
+            if (validator.passes()) {
+              const salt = bcrypt.genSaltSync();
+              const hash = bcrypt.hashSync(newPassword, salt);
+              user.update({
+                password: hash
+              })
+                .then(newUser => response.status(200).json({
+                  status: 'Successful',
+                  message: 'Your password has been updated',
+                  user: newUser,
+                }));
+            } else {
+              const errors = validator.errors.all();
+              return response.status(422).json({
+                status: 'Unsuccessful',
+                message: 'Invalid data input',
+                errors,
+              });
+            }
+          } else {
+            response.status(403).json({
+              status: 'Unsuccessful',
+              message: 'Invalid Old Password',
             });
           }
         }

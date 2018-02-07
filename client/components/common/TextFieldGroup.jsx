@@ -47,7 +47,7 @@ export const TextFieldGroup2 = ({
 );
 
 export const TextFieldGroup3 = ({
-  value, onChange, id, name, label, icon, isDisabled
+  value, onChange, id, name, label, icon, error, isDisabled, type
 }) => (
   <div className="input-field">
     <label className="active" htmlFor={id}>{label}
@@ -57,11 +57,14 @@ export const TextFieldGroup3 = ({
       value={value}
       onChange={onChange}
       id={id}
-      type="text"
+      type={type}
       className="validate"
       name={name}
       disabled={isDisabled}
     />
+    {error &&
+    <span className="help-block red-text error-text-field">{error}
+    </span>}
   </div>
 );
 
@@ -131,8 +134,10 @@ TextFieldGroup3.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool,
   icon: PropTypes.string.isRequired,
+  error: PropTypes.arrayOf(PropTypes.any),
 };
 
 LinkFieldGroup.propTypes = {
@@ -164,5 +169,6 @@ TextFieldGroup2.defaultProps = {
 };
 
 TextFieldGroup3.defaultProps = {
+  error: [],
   isDisabled: false
 };
