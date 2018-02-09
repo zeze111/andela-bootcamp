@@ -49,37 +49,22 @@ The full documentation for all api end points can be found at [MoreRecipes Docs]
 ---
 Written following JavaScript ES6 Syntax and nodejs on the backend, using:
 
-Nodejs: a JavaScript runtime built on Chrome's V8 JavaScript engine.
-
-```Materialize: a flat-based framework for easy styling and designing of web pages.```
-
-Mocha: a feature-rich JavaScript test framework running on Node.js
-
-```Chai: a BDD / TDD assertion library for node and the browser that can be paired with any javascript testing framework.```
-
-Eslint: provides a pluggable linting utility for JavaScript
-
-```Hound CI: comments on style violations on GitHub pull requests.```
-
-Travis CI: a hosted continuous integration and delivery service for GitHub projects.
-
-```Express js: handles backend routing.```
-
-Coveralls: shows the parts of your code that are not covered by your test suites.
-
-```Sequelize: a promise-based ORM for Node.js and io.js.```
-
-PostgreSQL: a powerful, open source object-relational database system.
-
-```Postman:  a powerful HTTP client for testing web services.```
-
-React: a declarative, efficient, and flexible JavaScript library for building user interfaces.
-
-```Redux: a predictable state container for JavaScript apps.```
-
-Jest: a framework to test all JavaScript code including React applications
-
-```Webpack:  a build tool that puts all of your assets, including Javascript, images, fonts, and CSS, in a dependency graph.```
+* Nodejs: a JavaScript runtime built on Chrome's V8 JavaScript engine.
+* Materialize: a flat-based framework for easy styling and designing of web pages.
+* Mocha: a feature-rich JavaScript test framework running on Node.js
+* Chai: a BDD / TDD assertion library for node and the browser that can be paired with any javascript testing framework.
+* Eslint: provides a pluggable linting utility for JavaScript
+* Hound CI: comments on style violations on GitHub pull requests.
+* Travis CI: a hosted continuous integration and delivery service for GitHub projects.
+* Express js: handles backend routing.
+* Coveralls: shows the parts of your code that are not covered by your test suites.
+* Sequelize: a promise-based ORM for Node.js and io.js.
+* PostgreSQL: a powerful, open source object-relational database system.
+* Postman:  a powerful HTTP client for testing web services.
+* React: a declarative, efficient, and flexible JavaScript library for building user interfaces.
+* Redux: a predictable state container for JavaScript apps.
+* Jest: a framework to test all JavaScript code including React applications
+* Webpack:  a build tool that puts all of your assets, including Javascript, images, fonts, and CSS, in a dependency graph.
 
 ## Installation
 ---
