@@ -82,7 +82,7 @@ Written following JavaScript ES6 Syntax and nodejs on the backend, using:
 * For Back-end testing, run `npm test`
 * For Front-end testing, run `npm run jest`
 
-## Limitations of the application
+## Limitations of The Application
 ---
 * User token on sign in \ sign up expires after 48 hours of being signed in
 * User can change password but cannot reset password if forgotten
