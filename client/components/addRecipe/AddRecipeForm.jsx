@@ -172,7 +172,7 @@ class AddRecipeForm extends React.Component {
                   btn-small
                   waves-effect
                   waves-light
-                  blue"
+                  orange"
                 >
                   <i className="material-icons">photo</i>
                   <input type="file" onChange={this.uploadImage} />
@@ -253,9 +253,13 @@ class AddRecipeForm extends React.Component {
                 onChange={this.onChange}
                 id="instruct"
                 req="*"
+                placeholder="e.g. Preheat oven at 120 celcius. boil egg."
                 name="instructions"
                 error={errors.instructions}
               />
+              <span className="blue-text">
+               Seperate instructions by full stop (.)
+              </span>
               <div className="right-align">
                 {
                 (this.state.isLoading) &&

@@ -99,7 +99,7 @@ class NavigationBar extends Component {
               to="/signup"
               href="/signup"
               className="white-text list-item2"
-            >Sign In
+            >Sign Up / In
             </Link>
           </li>
         </ul>

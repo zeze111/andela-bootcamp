@@ -44,6 +44,7 @@
     "css-loader": "^0.28.7",
     "dotenv": "^4.0.0",
     "dotenv-webpack": "^1.5.4",
+    "enzyme-adapter-react-15": "^1.0.5",
     "enzyme-to-json": "^3.3.1",
     "es-feature-tests": "^0.3.0",
     "eslint": "^4.15.0",
@@ -79,6 +80,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-tabs": "^2.1.1",
+    "react-test-renderer": "^15.6.1",
     "react-tooltip": "^3.4.0",
     "react-validatorjs-strategy": "^0.2.1",
     "redux": "^3.7.2",
@@ -102,6 +104,7 @@
   "devDependencies": {
     "consign": "^0.1.6",
     "enzyme": "^3.3.0",
+    "identity-obj-proxy": "^3.0.0",
     "mocha": "^3.5.3",
     "nodemon": "^1.11.0",
     "nyc": "^11.2.1",

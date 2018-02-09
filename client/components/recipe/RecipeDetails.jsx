@@ -79,13 +79,19 @@ class RecipeDetails extends Component {
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
-    const { recipe, upvotes, downvotes } = nextProps;
+    const {
+      recipe, upvotes, downvotes, fave
+    } = nextProps;
+    if (fave === true) {
+      this.setState({ icon: 'star' });
+    } else {
+      this.setState({ icon: 'star_border' });
+    }
     this.setState({
       upvotes: upvotes.count,
       downvotes: downvotes.count,
       creator: recipe.User,
       ingredients: recipe.ingredients,
-
     });
   }
 
@@ -202,19 +208,30 @@ class RecipeDetails extends Component {
     } = this.props;
 
     let ingredients = [];
+    let instructions = {};
 
     if (!this.state.ingredients) {
       ingredients = [];
+      instructions = {};
     } else {
       ingredients = this.state.ingredients.split(',').map((item, i) => (
-        <p className="no-style" key={`${i}`}> - {item} </p>
+        <li className="no-style" key={`${i}`}> {item} </li>
       ));
+      instructions = (
+        <ol className="remove-padding">
+          {recipe.instructions.split('.').map((item, i) => (
+            <li className="no-style" key={`${i}`}> {item} </li>
+      ))}
+        </ol>
+      );
     }
 
     const reviewsList = (reviews) || [];
 
     const noReviews = (
-      <div className="col s6 bottom-style no-message"> No Reviews Posted Yet </div>
+      <div className="col s12 bottom-style no-message">
+      No Reviews Posted Yet
+      </div>
     );
 
     return (
@@ -236,6 +253,7 @@ class RecipeDetails extends Component {
             clickEvent={this.clickEvent}
             id={this.props.user.id}
             ingredients={ingredients}
+            instructions={instructions}
             isLoading={this.state.isLoading}
           />
           <br />
@@ -250,9 +268,9 @@ class RecipeDetails extends Component {
               offset={this.state.offset}
             />
             <div className="row">
-              <div className="col l7 m10 s12 review-section">
+              <div className="col l6 m10 s12 review-section">
                 {(reviewsList.length === 0) ? noReviews :
-                <ul className="collection" >
+                <ul className="collection rev-list" >
                   {
                       reviewsList.map(review => (
                         <Reviews
@@ -268,7 +286,7 @@ class RecipeDetails extends Component {
                 </ul>
                 }
                 {
-                  (this.props.pagination.pageSize > 3) ?
+                  (this.props.pagination.page > 1) ?
                     <button
                       className="creator-button
                     text-color
@@ -320,6 +338,7 @@ RecipeDetails.propTypes = {
   downvotes: PropTypes.objectOf(PropTypes.any),
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   message: PropTypes.string,
+  fave: PropTypes.bool,
   pagination: PropTypes.objectOf(PropTypes.any),
   user: PropTypes.objectOf(PropTypes.any)
 };
@@ -331,6 +350,7 @@ RecipeDetails.defaultProps = {
     }
   },
   message: '',
+  fave: false,
   upvotes: {},
   downvotes: {},
   user: {},
@@ -340,6 +360,7 @@ RecipeDetails.defaultProps = {
 const mapStateToProps = state => ({
   recipe: (state.recipeReducer.currentRecipe) ?
     state.recipeReducer.currentRecipe : {},
+  fave: state.recipeReducer.fave,
   user: state.auth.user,
   message: state.favoriteReducer.message,
   color: state.favoriteReducer.color,

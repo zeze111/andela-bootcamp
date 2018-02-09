@@ -30,7 +30,10 @@ const SignupPage = props => (
             <div className="col s12">
               <Tabs className="tab-demo z-depth-1">
                 <Tab className="col s6" title="Register User" active>
-                  <SignupForm signUp={props.signUp} />
+                  <SignupForm
+                    signUp={props.signUp}
+                    errors={props.errors}
+                  />
                 </Tab>
                 <Tab className="col s6" title="Sign In">
                   <SigninForm signIn={props.signIn} />
@@ -44,13 +47,21 @@ const SignupPage = props => (
   </div>
 );
 
-SignupPage.propTypes = {
-  signUp: PropTypes.func.isRequired,
-  signIn: PropTypes.func.isRequired
+SignupPage.defaultProps = {
+  errors: {}
 };
 
+SignupPage.propTypes = {
+  signUp: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(PropTypes.any)
+};
+
+const mapStateToProps = state => ({
+  errors: state.auth.errors
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   { signUp, signIn }
 )(SignupPage);

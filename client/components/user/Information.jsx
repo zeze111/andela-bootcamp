@@ -35,7 +35,7 @@ const Information = props => (
         }
       </div>
       <div className="col s4 m4 l4
-      push-l1 pull-s1 pull-m1
+      push-l1 pull-m1
       profile-text
       grey-text text-lighten-3"
       >

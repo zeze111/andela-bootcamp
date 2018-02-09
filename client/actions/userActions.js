@@ -6,8 +6,7 @@ import {
   GET_USER,
   GET_USER_FAILURE,
   UPDATE_USER_FAILURE,
-  CHANGE_PASSWORD,
-  CHANGE_PASSWORD_FAILURE
+  CHANGE_PASSWORD
 } from './types';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import { setCurrentUser } from './signupActions';
@@ -20,7 +19,7 @@ import { setCurrentUser } from './signupActions';
  *
  * @returns {object} any
  */
-export function updateUser(user) {
+export const updateUser = (user) => {
   setAuthorizationToken(window.localStorage.jwtToken);
   return dispatch => axios.put('/api/v1/user/', user)
     .then((response) => {
@@ -38,7 +37,7 @@ export function updateUser(user) {
         payload: error.response.data,
       });
     });
-}
+};
 
 /** makes api call to change user's password
  *
@@ -48,15 +47,14 @@ export function updateUser(user) {
  *
  * @returns {object} any
  */
-export function changePassword(passwordData) {
-  return dispatch => axios.patch('/api/v1/user/password', passwordData)
+export const changePassword = passwordData =>
+  dispatch => axios.patch('/api/v1/user/password', passwordData)
     .then((response) => {
       dispatch({
         type: CHANGE_PASSWORD,
         payload: response.data,
       });
     });
-}
 
 /** makes api call to get user's detail from database
  *
@@ -66,8 +64,8 @@ export function changePassword(passwordData) {
  *
  * @returns {object} any
  */
-export function getUser(userId) {
-  return dispatch => axios.get(`/api/v1/users/${userId}`)
+export const getUser = userId =>
+  dispatch => axios.get(`/api/v1/users/${userId}`)
     .then((response) => {
       const { id, email, firstName } = response.data.user;
       dispatch(setCurrentUser({ id, email, firstName }));
@@ -82,4 +80,3 @@ export function getUser(userId) {
         payload: error.response.data,
       });
     });
-}

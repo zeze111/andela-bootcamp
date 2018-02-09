@@ -8,7 +8,7 @@
 
 
   @import '../../node_modules/react-tabs/style/react-tabs.scss';
-  @import url('https://fonts.googleapis.com/css?family=Copse|Eagle+Lake|Marmelad|Merienda|Pacifico|Satisfy');
+  @import url('https://fonts.googleapis.com/css?family=Copse|Eagle+Lake|Poppins|Merienda|Merriweathe|Pacifico|Satisfy');
 
 
 body {
@@ -56,9 +56,6 @@ main {
 }
 .remove-margin-bottom{
   margin-bottom: 0;
-}
-
-#homepageBody {
 }
 
 #signup-body {
@@ -159,7 +156,7 @@ main {
   height: 3em;
   .list-item {
     position: relative;
-    bottom: 3.7em;
+    bottom: 3.9em;
   }
   .list-item2 {
     position: relative;
@@ -296,28 +293,9 @@ a {
   text-transform: uppercase;
 }
 
-@media (max-width: 600px ) {
-
-.delete-text{
-  position: relative;
-  bottom: 22px;
-  left: 3em;
-}
-}
-
-@media (max-width: 600px ) {
-
-  .edit-text {
-    text-align: left !important;
-  }
-}
-
-@media (min-width: 600px) and (max-width: 1200px) {
-
-  .delete-text{
-    position: relative;
-    bottom: 22px;
-    left: 12em;
+@media (min-width: 600px) and (max-width: 940px) {
+  .profile-text {
+    padding-left: 2em !important;
   }
 }
 
@@ -378,19 +356,6 @@ a {
   height: 3.2em !important
 }
 
-@media (max-width: 600px ) {
-
-.reviews-style {
-  padding-left: 1em !important;
-  .text2 {
-    padding-left: 1.5em !important;
-  }
-  .text3 {
-    padding-left: 2em;
-  }
-}
-}
-
 @media (min-width: 600px) and (max-width: 1600px) {
 
   .reviews-style {
@@ -402,13 +367,7 @@ a {
       padding-left: 2em;
     }
   }
-}
 
-@media (max-width: 600px ) {
-
-.text1 {
-  padding-left: 0.8em !important;
-}
 }
 
 @media (min-width: 600px) and (max-width: 1600px) {
@@ -418,18 +377,10 @@ a {
 }
 }
 
-@media (max-width: 600px ) {
-
-  .review-section {
-    padding-left: 1.5em !important;
-    padding-top: 1em !important;
-  }
-}
-
 @media (min-width: 600px) and (max-width: 1600px) {
 
   .review-section {
-    padding-left: 4em !important;
+    padding-left: 4.5em !important;
     padding-top: 1em !important;
   }
 }
@@ -525,12 +476,22 @@ a {
   margin-bottom: 0;
 }
 
+.recipe2 {
+  position: relative;
+  padding-left: 10px;
+  margin: 0;
+}
+
+.rev-list {
+  border-radius: 20px !important;
+}
+
 .r-ingredients {
   word-wrap: break-word;
 }
 
 .title {
-  padding-top: 3em !important;
+  padding-top: 4em !important;
 }
 .creator {
   padding-top: 3em !important;
@@ -538,6 +499,43 @@ a {
 
 .top {
   margin-top: 1.5em !important;
+}
+
+.nf-page {
+  padding-top: 1em;
+}
+
+.nf-text {
+  position: relative;
+  top: 2.5em !important;
+  font-family: 'Merriweather', serif;
+  left: 2em;
+}
+
+.nf-text2 {
+  position: relative;
+  bottom: 5.5em !important;
+  font-family: 'Poppins', sans-serif;
+  left: 2.3em;
+  width: 95%;
+}
+
+.nf-text3 {
+  position: relative;
+  bottom: 5.5em !important;
+  font-family: 'Poppins', sans-serif;
+  left: 3em;
+  width: 95%;
+}
+
+.nf-span {
+  font-size: 35px;
+  color: rgb(216, 216, 13);
+}
+
+.none {
+  margin-top: 0 !important;
+  padding-bottom: 1em;
 }
 
 .no-top {
@@ -591,11 +589,117 @@ a {
 @media (min-width: 900px) and (max-width: 1200px) {
 
   .profile-text {
-    padding-left: 3.5em !important;
+    padding-left: 4.5em !important;
   }
   .info-row {
-    width: 100%;
+    width: 100% !important;
   }
+
+}
+
+@media (min-width: 1200px) {
+  .profile-text {
+    padding-left: 1.8em !important;
+  }
+  .info-row {
+    width: 100% !important;
+  }
+}
+
+.footer-style {
+  font-family: "Pacifico", cursive;
+  font-size: 19px
+}
+
+.footer-style2 {
+  padding: 0 !important;
+}
+
+.footer-center {
+  padding-left: 30em !important;
+}
+
+@media (max-width: 600px) {
+.info-row {
+  width: 90%;
+}
+
+.footer-center {
+  padding-left: 5em !important;
+}
+
+.review-section {
+  padding-left: 1em !important;
+  padding-top: 1em !important;
+}
+
+.nav-list {
+  padding-left: 10px;
+  height: 3em;
+  .list-item {
+    position: relative;
+    bottom: 3.6em;
+  }
+  .list-item2 {
+    position: relative;
+    bottom: 3.8em;
+  }
+}
+
+.text1 {
+  padding-left: 0.8em !important;
+}
+
+.delete-text{
+  position: relative;
+  bottom: 22px;
+  left: 3em;
+}
+
+.nf-text {
+  position: relative;
+  top: 2em !important;
+  font-family: 'Merriweather', serif;
+  left: 25px;
+}
+
+.nf-text2 {
+  position: relative;
+  bottom: 5em !important;
+  font-family: 'Poppins', sans-serif;
+  left: .5em !important;
+}
+
+.nf-text3 {
+  position: relative;
+  bottom: 5.5em !important;
+  font-family: 'Poppins', sans-serif;
+  width: 80% !important;
+  left: 1.8em;
+}
+
+.edit-text {
+  text-align: left !important;
+}
+
+.reviews-style {
+padding-left: 1em !important;
+.text2 {
+  padding-left: 1.5em !important;
+}
+.text3 {
+  padding-left: 2em;
+}
+}
+
+.title {
+  padding-top: 0em !important;
+}
+}
+
+.remove-padding {
+  padding-left: 18px !important;
+  margin: 0 !important;
 }
 
 @media (min-width: 600px) and (max-width: 1200px) {
@@ -605,6 +709,39 @@ a {
   margin: 0 auto;
   min-height: 18em !important;
   padding-left: 4em;
+}
+
+.nf-text {
+  position: relative;
+  top: 3em !important;
+  font-family: 'Merriweather', serif;
+  left: 25px;
+  width: 95&;
+}
+
+.nf-text2 {
+  position: relative;
+  bottom: 5em !important;
+  font-family: 'Poppins', sans-serif;
+  left: 0 !important;
+}
+
+.nf-text3 {
+  position: relative;
+  bottom: 5.5em !important;
+  font-family: 'Poppins', sans-serif;
+  width: 90% !important;
+  left: 2.5em;
+}
+
+.footer-center {
+  padding-left: 13em !important;
+}
+
+.delete-text{
+  position: relative;
+  bottom: 22px;
+  left: 12em;
 }
 }
 
@@ -616,9 +753,14 @@ a {
     min-height: 18em !important;
     padding-left: 5px;
   }
+
   }
 
 @media (min-width: 1000px) and (max-width: 1200px) {
+
+  .footer-center {
+    padding-left: 20em !important;
+  }
 
   .get-pic-btn {
     padding-right: 4em !important;
@@ -667,6 +809,7 @@ a {
   text-transform: capitalize !important;
   .user {
     padding-left: 10px;
+    font-size: 16px;
   }
 }
 

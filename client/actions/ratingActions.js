@@ -17,8 +17,8 @@ import {
  *
  * @returns {object} any
  */
-export function getUpvotes(recipeId) {
-  return dispatch => axios.get(`/api/v1/recipes/${recipeId}/upvotes`)
+export const getUpvotes = recipeId =>
+  dispatch => axios.get(`/api/v1/recipes/${recipeId}/upvotes`)
     .then((response) => {
       dispatch({
         type: GET_UPVOTES,
@@ -31,7 +31,6 @@ export function getUpvotes(recipeId) {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to get all downvotes for a recipe
  *
@@ -41,8 +40,8 @@ export function getUpvotes(recipeId) {
  *
  * @returns {object} any
  */
-export function getDownvotes(recipeId) {
-  return dispatch => axios.get(`/api/v1/recipes/${recipeId}/downvotes`)
+export const getDownvotes = recipeId =>
+  dispatch => axios.get(`/api/v1/recipes/${recipeId}/downvotes`)
     .then((response) => {
       dispatch({
         type: GET_DOWNVOTES,
@@ -55,7 +54,6 @@ export function getDownvotes(recipeId) {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to upvote a recipe
  *
@@ -65,8 +63,8 @@ export function getDownvotes(recipeId) {
  *
  * @returns {object} any
  */
-export function upvoteRecipe(recipeId) {
-  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/upvote`)
+export const upvoteRecipe = recipeId =>
+  dispatch => axios.post(`/api/v1/recipes/${recipeId}/upvote`)
     .then((response) => {
       dispatch(getUpvotes(recipeId));
       dispatch(getDownvotes(recipeId));
@@ -83,7 +81,6 @@ export function upvoteRecipe(recipeId) {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to downvote a recipe
  *
@@ -93,8 +90,8 @@ export function upvoteRecipe(recipeId) {
  *
  * @returns {object} any
  */
-export function downvoteRecipe(recipeId) {
-  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/downvote`)
+export const downvoteRecipe = recipeId =>
+  dispatch => axios.post(`/api/v1/recipes/${recipeId}/downvote`)
     .then((response) => {
       dispatch(getUpvotes(recipeId));
       dispatch(getDownvotes(recipeId));
@@ -111,4 +108,3 @@ export function downvoteRecipe(recipeId) {
         payload: error.response.data,
       });
     });
-}

@@ -97,7 +97,7 @@ export const LinkFieldGroup2 = ({
     <Link
       to={to}
       href={href}
-      className="white-text list-item"
+      className="white-text list-item caps"
       onClick={onClick}
     >{item}
     </Link>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 
 import { signout } from '../actions/signinActions';
 
@@ -37,8 +38,14 @@ export default function (ComposedComponent) {
         jwt.verify(token, process.env.SECRET_KEY, (error) => {
           if (error) {
             $('.tooltipped').tooltip('remove');
-            this.context.router.history.push('/');
+            this.context.router.history.push('/signup');
             this.props.signout();
+            swal({
+              text: 'Your Session Expired, Please Sign In',
+              icon: 'error',
+              button: 'Got It!',
+              dangerMode: true,
+            });
           }
         });
       } else {

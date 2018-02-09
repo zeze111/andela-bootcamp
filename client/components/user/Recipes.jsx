@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
 import swal from 'sweetalert';
+import ReactTooltip from 'react-tooltip';
 
 /** Recipes class contains the list item for a single recipe
  *
@@ -48,7 +48,11 @@ class Recipes extends Component {
           className="text-color break caps"
         > {this.props.recipe.name}
         </Link>
-        <div className="secondary-content div-pointer2">
+        <div
+          className="secondary-content div-pointer2"
+          data-tip="delete"
+          data-place="bottom"
+        >
           <i
             role="button"
             tabIndex="0"
@@ -62,9 +66,12 @@ class Recipes extends Component {
           to={`/update-recipe/${this.props.recipe.id}`}
           href={`/update-recipe/${this.props.recipe.id}`}
           className="secondary-content"
+          data-tip="edit"
+          data-place="bottom"
         >
           <i className="material-icons icon-color" >mode_edit</i>
         </Link>
+        <ReactTooltip />
       </li>
     );
   }

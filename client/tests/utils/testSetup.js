@@ -4,14 +4,9 @@ import expect from 'expect';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { configure, shallow, render, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 
 import { LocalStorage } from '../mocks/localStorage';
-
-// import MockAdapter from 'axios-mock-adapter';
-// import Adapter from 'enzyme-adapter-react-15';
-// import decode from 'jwt-decode';
-// import axios from 'axios';
-
 
 // This file is written in ES5 since it's not transpiled by Babel.
 // This file does the following:
@@ -25,12 +20,8 @@ import { LocalStorage } from '../mocks/localStorage';
 process.env.NODE_ENV = 'test';
 
 // React 15 Enzyme adapter
-// configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() });
 
-// Mock redux store to test action creators
-// Configure mock adapter for axios request
-// Create mock store with redux-thunk middleware
-// const mock = new MockAdapter(axios);
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 

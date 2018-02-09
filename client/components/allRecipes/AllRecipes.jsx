@@ -11,7 +11,6 @@ import {
 } from '../../actions/recipeActions';
 import PreLoader from '../common/PreLoader';
 import '../../assets/style.scss';
-import '../../assets/init';
 import Categories from './Categories';
 import Search from './Search';
 

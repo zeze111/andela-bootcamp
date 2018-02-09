@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import PreLoader from '../common/PreLoader';
 
 /** Stateless component to render recipe details
@@ -42,7 +43,7 @@ const Details = (props) => {
 
   return (
     <div className="row">
-      <div className="col s8 offset-s1">
+      <div className="col s10 l9 m10 offset-s1 offset-l1 offset-m1">
         <h5 className="center-align title text-headers" > Recipe </h5>
         {(props.ingredients.length <= 0) &&
         <div className="center-align loader-style">
@@ -64,11 +65,7 @@ const Details = (props) => {
           </div>
           <div id="Ins" className="col l4 m4 s12">
             <p className="recipe"> Instructions: </p>
-            <p
-              id="instruct"
-              className="no-top"
-            > {props.recipe.instructions}
-            </p>
+            {props.instructions}
           </div>
         </div>
       }
@@ -88,6 +85,7 @@ Details.propTypes = {
   clickEvent: PropTypes.func.isRequired,
   recipe: PropTypes.objectOf(PropTypes.any),
   ingredients: PropTypes.arrayOf(PropTypes.any),
+  instructions: PropTypes.objectOf(PropTypes.any),
   id: PropTypes.number,
   isLoading: PropTypes.bool.isRequired
 };
@@ -95,6 +93,7 @@ Details.propTypes = {
 Details.defaultProps = {
   recipe: {},
   ingredients: [],
+  instructions: {},
   id: 0
 };
 

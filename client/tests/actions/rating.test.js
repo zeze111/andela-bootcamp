@@ -134,4 +134,40 @@ describe('Voting actions', () => {
         done();
       });
   });
+
+  it('catches a server error on getting upvotes', async (done) => {
+    const { ratingServerError } = mockData;
+    moxios.stubRequest(`/api/v1/recipes/${2}/upvotes`, {
+      status: 500,
+      response: ratingServerError.message
+    });
+    const expectedActions = [{
+      type: GET_UPVOTES_FAILURE,
+      payload: ratingServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getUpvotes(2))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('catches a server error on getting downvotes', async (done) => {
+    const { ratingServerError } = mockData;
+    moxios.stubRequest(`/api/v1/recipes/${2}/downvotes`, {
+      status: 500,
+      response: ratingServerError.message
+    });
+    const expectedActions = [{
+      type: GET_DOWNVOTES_FAILURE,
+      payload: ratingServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getDownvotes(2))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
 });

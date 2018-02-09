@@ -21,7 +21,7 @@ const initialState = {
   pagination: {}
 };
 
-export default (state = initialState, action = {}) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_RECIPE:
       return {
@@ -77,6 +77,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         currentRecipe: action.payload.recipe,
+        fave: action.payload.fave
       };
     case UPDATE_RECIPE:
       return {

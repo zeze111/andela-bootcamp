@@ -16,8 +16,8 @@ import {
  *
  * @returns {object} any
  */
-export function favoriteRecipe(recipeId) {
-  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/favorite`)
+export const favoriteRecipe = recipeId =>
+  dispatch => axios.post(`/api/v1/recipes/${recipeId}/favorite`)
     .then((response) => {
       const toastContent = $(`<span>${response.data.message}</span>`);
       Materialize.toast(toastContent, 3000, 'green');
@@ -34,7 +34,6 @@ export function favoriteRecipe(recipeId) {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to get all favorited recipes for a user
  *
@@ -46,8 +45,8 @@ export function favoriteRecipe(recipeId) {
  *
  * @returns {object} any
  */
-export function getFavoriteRecipes(limit, offset) {
-  return dispatch => axios.get(`/api/v1/user/favorites?limit=${limit}&offset=${offset}`)
+export const getFavoriteRecipes = (limit, offset) =>
+  dispatch => axios.get(`/api/v1/user/favorites?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch({
         type: GET_FAVORITE_RECIPE,
@@ -60,7 +59,6 @@ export function getFavoriteRecipes(limit, offset) {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to delete a recipe from favorites list
  *
@@ -70,10 +68,14 @@ export function getFavoriteRecipes(limit, offset) {
  *
  * @returns {object} any
  */
-export function deleteFavorite(recipeId) {
-  return dispatch => axios.delete(`/api/v1/user/favorites/${recipeId}`)
+export const deleteFavorite = recipeId =>
+  dispatch => axios.delete(`/api/v1/user/favorites/${recipeId}`)
     .then((response) => {
-      Materialize.toast(`<span> ${response.data.message}</span>`, 2000, 'green');
+      Materialize.toast(
+        `<span> ${response.data.message}</span>`,
+        2000,
+        'green'
+      );
       response.data.recipeId = recipeId;
 
       dispatch({
@@ -87,4 +89,3 @@ export function deleteFavorite(recipeId) {
         payload: error.response.data,
       });
     });
-}

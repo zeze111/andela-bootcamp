@@ -38,6 +38,10 @@ const data = {
   favoriteError: {
     status: 'Unsuccessful',
     message: 'Recipe Not Found',
+  },
+
+  favoriteServerError: {
+    message: 'Internal Server Error'
   }
 }
 

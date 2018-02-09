@@ -64,7 +64,9 @@ class Ratings {
               }));
           }
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 
@@ -126,7 +128,9 @@ class Ratings {
               }));
           }
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 
@@ -151,7 +155,9 @@ class Ratings {
           status: 'Successful',
           votes: upvotes,
         }))
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 
@@ -176,7 +182,9 @@ class Ratings {
           status: 'Successful',
           votes: downvotes,
         }))
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 }

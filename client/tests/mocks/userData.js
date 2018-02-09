@@ -97,6 +97,10 @@ const data = {
   userValidateError: {
     status: 'Unsuccessful',
     message: 'Must input data',
+  },
+
+  userServerError: {
+    message: 'Internal Server Error'
   }
 };
 

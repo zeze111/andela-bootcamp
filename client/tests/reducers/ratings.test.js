@@ -89,9 +89,30 @@ describe('Voting reducer', () => {
       upvotes: {}
     }
 
-    const action = {};
+    const action = {
+      type: 'NOTHING'
+    };
 
-    const newState = ratingsReducer();
+    const newState = ratingsReducer(initialState, action);
     expect(newState.upvotes).toEqual({});
+  });
+
+  it('return current state when there\'s no state', () => {
+    const { downvoteResponse } = mockData;
+    const initialState = {
+      downvotes: {}
+    }
+
+    const payload = {
+      vote: downvoteResponse.vote
+    }
+
+    const action = {
+      type: DOWNVOTE_RECIPE,
+      payload
+    };
+
+    const newState = ratingsReducer(undefined, action);
+    expect(newState.downvotes).toEqual(undefined);
   });
 });

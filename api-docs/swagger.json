@@ -260,6 +260,45 @@
         }
       }
     },
+    "/user/password": {
+      "patch": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Change the password of a user",
+        "description": "allows for user password to be changed and updated",
+        "operationId": "changePassword",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "description": "Authentication Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "default": {
+            "description": "Can't update user password"
+          }
+        }
+      }
+    },
     "/user/favorites/{recipeId}": {
       "delete": {
         "tags": [
@@ -689,6 +728,36 @@
         "summary": "Fetch at most 5 recipes with the highest upvotes",
         "description": "This method is called to fetch top recipe posts",
         "operationId": "getAll",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GetRecipes"
+              }
+            }
+          },
+          "default": {
+            "description": "Unable to fetch recipes"
+          }
+        }
+      }
+    },
+    "/recipes/favorites?sort=favorites&order=desc": {
+      "get": {
+        "tags": [
+          "/recipes"
+        ],
+        "summary": "Fetch at most 5 recipes with the highest favorited number",
+        "description": "This method is called to fetch top recipe posts",
+        "operationId": "getMostFavorited",
         "consumes": [
           "application/json"
         ],
@@ -1458,8 +1527,20 @@
           "example": "Pour and frisk egg with margarine"
         },
         "image": {
-          "type": "object",
+          "type": "string",
           "example": "Image chosen parameters"
+        },
+        "check": {
+          "type": "boolean",
+          "example": "false"
+        },
+        "views": {
+          "type": "integer",
+          "example": "145"
+        },
+        "favorites": {
+          "type": "number",
+          "example": "13"
         }
       }
     },

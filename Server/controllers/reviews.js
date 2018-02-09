@@ -70,7 +70,9 @@ class Reviews {
             });
           }
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 
@@ -118,7 +120,9 @@ class Reviews {
             });
           }
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 

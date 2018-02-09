@@ -10,13 +10,12 @@ import { setCurrentUser } from './signupActions';
  *
  * @returns {object} any
  */
-export function signout() {
-  return (dispatch) => {
-    localStorage.removeItem('jwtToken');
-    setAuthorizationToken(false);
-    dispatch(setCurrentUser(undefined, undefined));
-  };
-}
+export const signout = () => (dispatch) => {
+  localStorage.removeItem('jwtToken');
+  setAuthorizationToken(false);
+  dispatch(setCurrentUser(undefined, undefined));
+  window.location.reload();
+};
 
 /** makes api call to sign user in and dispatch the response
  *
@@ -26,8 +25,8 @@ export function signout() {
  *
  * @returns {object} any
  */
-export function signIn(userData) {
-  return dispatch => axios.post('/api/v1/users/signin', userData)
+export const signIn = userData =>
+  dispatch => axios.post('/api/v1/users/signin', userData)
     .then((response) => {
       const { token, user } = response.data;
       const { id, email, firstName } = user;
@@ -35,4 +34,3 @@ export function signIn(userData) {
       setAuthorizationToken(token);
       dispatch(setCurrentUser({ id, email, firstName }));
     });
-}
