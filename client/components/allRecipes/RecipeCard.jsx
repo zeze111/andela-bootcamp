@@ -13,10 +13,16 @@ import ReactTooltip from 'react-tooltip';
  */
 const RecipeCard = ({
   recipe: {
-    id, name, preparationTime, image
+    id, name, views, image
   }
 }) => {
-  const show = `${name.substring(0, 10)}...`;
+  const view = (
+    <span className="home-text2">
+      <i className="material-icons home-icon2">visibility</i>
+      {views}
+    </span>
+  );
+  const show = `${name.substring(0, 15)}...`;
   return (
     <li >
       <div className="col s2 offset-1">
@@ -35,7 +41,7 @@ const RecipeCard = ({
                 data-tip={name}
               > {show}
                 <ReactTooltip />
-              </Link> {preparationTime}
+              </Link> {view}
             </div>
           </div>
         </div>

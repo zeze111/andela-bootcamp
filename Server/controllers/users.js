@@ -61,7 +61,9 @@ class Users {
             });
           }
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     } else {
       const errors = validator.errors.all();
       return response.status(422).json({
@@ -108,7 +110,9 @@ class Users {
             message: 'Invalid Credentials, you are unauthorized',
           });
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     } else {
       return response.status(422).json({
         status: 'Unsuccessful',
@@ -189,7 +193,9 @@ class Users {
           }
         }
       })
-      .catch(error => response.status(500).send(error));
+      .catch(() => response.status(500).json({
+        message: 'Internal Server Error'
+      }));
   }
 
   /** Updates a user's password
@@ -238,7 +244,9 @@ class Users {
           }
         }
       })
-      .catch(error => response.status(500).send(error));
+      .catch(() => response.status(500).json({
+        message: 'Internal Server Error'
+      }));
   }
 
   /** Gets a User's details
@@ -265,7 +273,9 @@ class Users {
             user: userFound,
           });
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 }

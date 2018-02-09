@@ -81,9 +81,32 @@ describe('Reviews reducer', () => {
       reviews: []
     }
 
-    const action = {};
+    const action = {
+      type: 'NOTHING'
+    };
 
-    const newState = reviewReducer();
+    const newState = reviewReducer(initialState, action);
     expect(newState.reviews).toEqual([]);
+  });
+
+  it('return current state when there\'s no state', () => {
+    const { reviewResponse } = mockData;
+    const initialState = {
+      reviews: []
+    }
+
+    const payload = {
+      review: reviewResponse.review
+    }
+
+    const action = {
+      type: REVIEW_RECIPE,
+      payload
+    };
+
+    const newState = reviewReducer(undefined, action);
+    expect(newState.reviews).toEqual(
+      expect.arrayContaining([action.payload.review])
+    );
   });
 });

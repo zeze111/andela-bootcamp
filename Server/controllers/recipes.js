@@ -60,7 +60,10 @@ class Recipes {
               message: `${recipe.name} has been added`,
               recipe,
             }));
-        });
+        })
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     } else {
       return response.status(422).json({
         status: 'Unsuccessful',
@@ -168,7 +171,9 @@ class Recipes {
         recipes: allRecipes,
       });
     })
-      .catch(error => response.status(500).send(error));
+      .catch(() => response.status(500).json({
+        message: 'Internal Server Error'
+      }));
   }
 
   /** Retrieves the most favorited recipes
@@ -201,7 +206,10 @@ class Recipes {
           status: 'Successful',
           recipes: popularRecipes,
         });
-      });
+      })
+      .catch(() => response.status(500).json({
+        message: 'Internal Server Error'
+      }));
   }
 
   /** Updates a recipe according to User's input
@@ -283,7 +291,9 @@ class Recipes {
             });
           }
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 
@@ -321,7 +331,9 @@ class Recipes {
             });
           }
         })
-        .catch(error => response.status(500).send(error));
+        .catch(() => response.status(500).json({
+          message: 'Internal Server Error'
+        }));
     }
   }
 
@@ -336,6 +348,7 @@ class Recipes {
   static getDetails(request, response) {
     if (!isNum(request.params.recipeId, response, 'Recipe')) {
       const recipeId = parseInt(request.params.recipeId, 10);
+      let fave;
       Recipe.findOne({
         where: { id: recipeId },
         include: [{
@@ -356,29 +369,44 @@ class Recipes {
               recipe.check === false) {
               recipe.updateAttributes({
                 check: true,
+                views: recipe.views + 1
               });
-              recipe.increment('views').then(() => {
-                recipe.reload();
+            } else if (request.decoded.id !== recipe.userId) {
+              recipe.updateAttributes({
+                views: recipe.views + 1
               });
+            }
+
+            return Favorite.findOne({
+              where: {
+                recipeId,
+                userId: request.decoded.id
+              }
+            }).then((found) => {
+              if (found) {
+                fave = true;
+              } else {
+                fave = false;
+              }
+
               return response.status(200).json({
                 status: 'Successful',
                 recipe,
+                fave
               });
-            }
-            return response.status(200).json({
-              status: 'Successful',
-              recipe,
             });
           }
           recipe.increment('views').then(() => {
             recipe.reload();
-          });
-          return response.status(200).json({
-            status: 'Successful',
-            recipe,
+            return response.status(200).json({
+              status: 'Successful',
+              recipe
+            });
           });
         })
-        .catch(error => response.status(500).send(error));
+        .catch(error => response.status(500).json({
+          message: error.message
+        }));
     }
   }
 
@@ -418,7 +446,9 @@ class Recipes {
           });
         }
       })
-      .catch(error => response.status(500).send(error));
+      .catch(() => response.status(500).json({
+        message: 'Internal Server Error'
+      }));
   }
 
   /** Search for a recipe by user's input
@@ -464,7 +494,9 @@ class Recipes {
           )
         });
       })
-      .catch(error => response.status(500).send(error));
+      .catch(() => response.status(500).json({
+        message: 'Internal Server Error'
+      }));
   }
 
   /** Search for a recipe by category
@@ -504,7 +536,9 @@ class Recipes {
           )
         });
       })
-      .catch(error => response.status(500).send(error));
+      .catch(() => response.status(500).json({
+        message: 'Internal Server Error'
+      }));
   }
 }
 

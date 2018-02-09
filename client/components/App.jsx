@@ -11,7 +11,7 @@ import RecipeDetails from './recipe/RecipeDetails';
 import Profile from './user/Profile';
 import AllRecipes from './allRecipes/AllRecipes';
 import ConfirmAuth from './confirmAuth';
-import '../assets/init';
+import PageNotFound from './PageNotFound';
 
 /**
  * @const App
@@ -55,6 +55,10 @@ const App = () => (
         <Route
           path="/all-recipes"
           component={AllRecipes}
+        />
+        <Route
+          path="*"
+          component={PageNotFound}
         />
       </Switch>
       <Footer />

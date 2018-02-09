@@ -18,8 +18,8 @@ import {
  *
  * @returns {object} any
  */
-export function reviewRecipe(recipeId, review) {
-  return dispatch => axios.post(`/api/v1/recipes/${recipeId}/review`, review)
+export const reviewRecipe = (recipeId, review) =>
+  dispatch => axios.post(`/api/v1/recipes/${recipeId}/review`, review)
     .then((response) => {
       dispatch({
         type: REVIEW_RECIPE,
@@ -34,7 +34,6 @@ export function reviewRecipe(recipeId, review) {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to get all reviews for a recipe
  *
@@ -48,8 +47,8 @@ export function reviewRecipe(recipeId, review) {
  *
  * @returns {object} any
  */
-export function getReviews(recipeId, limit, offset) {
-  return dispatch =>
+export const getReviews = (recipeId, limit, offset) =>
+  dispatch =>
     axios.get(`/api/v1/recipes/${recipeId}/reviews?limit=${limit}&offset=${offset}`)
       .then((response) => {
         dispatch({
@@ -63,7 +62,6 @@ export function getReviews(recipeId, limit, offset) {
           payload: error.response.data,
         });
       });
-}
 
 /** makes api call to delete a user's review
  *
@@ -73,8 +71,8 @@ export function getReviews(recipeId, limit, offset) {
  *
  * @returns {object} any
  */
-export function deleteReview(reviewId) {
-  return dispatch => axios.delete(`/api/v1/recipe/reviews/${reviewId}`)
+export const deleteReview = reviewId =>
+  dispatch => axios.delete(`/api/v1/recipe/reviews/${reviewId}`)
     .then((response) => {
       Materialize.toast(
         `<span> ${response.data.message}</span>`,
@@ -93,4 +91,3 @@ export function deleteReview(reviewId) {
         payload: error.response.data,
       });
     });
-}

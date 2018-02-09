@@ -7,7 +7,7 @@ import {
 
 const initialState = { upvotes: {}, downvotes: {} };
 
-export default (state = initialState, action = {}) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case UPVOTE_RECIPE:
       return {

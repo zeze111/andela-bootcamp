@@ -32,7 +32,8 @@ import {
   GET_RECIPES_CATEGORY_FAILURE,
   SEARCH_RECIPE_FAILURE,
   MOST_UPVOTED_RECIPES_FAILURE,
-  POPULAR_RECIPES
+  POPULAR_RECIPES,
+  POPULAR_RECIPES_FAILURE
 } from '../../actions/types';
 import mockLocalStorage from '../mocks/localStorage';
 
@@ -137,7 +138,7 @@ describe('Recipes actions', () => {
 
   it('gets most upvoted recipes', async (done) => {
     const { mostUpvotedResponse } = mockData;
-    moxios.stubRequest('/api/v1/recipes/?sort=upvotes&order=des', {
+    moxios.stubRequest('/api/v1/recipes/?sort=upvotes&order=desc', {
       status: 200,
       response: mostUpvotedResponse
     });
@@ -155,7 +156,7 @@ describe('Recipes actions', () => {
 
   it('gets most favorited recipes', async (done) => {
     const { mostUpvotedResponse } = mockData;
-    moxios.stubRequest('/api/v1/recipes/favorites/?sort=favorites&order=des', {
+    moxios.stubRequest('/api/v1/recipes/favorites/?sort=favorites&order=desc', {
       status: 200,
       response: mostUpvotedResponse
     });
@@ -309,6 +310,133 @@ describe('Recipes actions', () => {
     }];
     const store = mockStore({});
     await store.dispatch(searchRecipe('Amala', 3, 0))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+
+  it('catches a server error on search recipe', async (done) => {
+    const { recipeServerError } = mockData;
+    moxios.stubRequest(`/api/v1/recipes/search/${'ice'}?limit=${6}&offset=${0}`, {
+      status: 500,
+      response: recipeServerError.message
+    });
+    const expectedActions = [{
+      type: SEARCH_RECIPE_FAILURE,
+      payload: recipeServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(searchRecipe("ice", 6, 0))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('catches a server error on getting all recipes', async (done) => {
+    const { recipeServerError } = mockData;
+    moxios.stubRequest('/api/v1/recipes', {
+      status: 500,
+      response: recipeServerError.message
+    });
+    const expectedActions = [{
+      type: GET_ALL_RECIPES_FAILURE,
+      payload: recipeServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getAllRecipes())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('catches a server error on getting all paginated recipes', async (done) => {
+    const { recipeServerError } = mockData;
+    moxios.stubRequest(`/api/v1/recipes/?limit=${6}&offset=${0}`, {
+      status: 500,
+      response: recipeServerError.message
+    });
+    const expectedActions = [{
+      type: GET_PAGED_RECIPES_FAILURE,
+      payload: recipeServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getPaginatedRecipes(6, 0))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('catches a server error on getting user\'s recipes', async (done) => {
+    const { recipeServerError } = mockData;
+    moxios.stubRequest(`/api/v1/user/recipes?limit=${6}&offset=${0}`, {
+      status: 500,
+      response: recipeServerError.message
+    });
+    const expectedActions = [{
+      type: GET_USER_RECIPES_FAILURE,
+      payload: recipeServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getUserRecipes(6, 0))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('catches a server error on search by category', async (done) => {
+    const { recipeServerError } = mockData;
+    moxios.stubRequest(`/api/v1/recipes/categories/${'Main'}?limit=${6}&offset=${0}`, {
+      status: 500,
+      response: recipeServerError.message
+    });
+    const expectedActions = [{
+      type: GET_RECIPES_CATEGORY_FAILURE,
+      payload: recipeServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getRecipeCategory('Main', 6, 0))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('catches a server error on most upvoted recipes', async (done) => {
+    const { recipeServerError } = mockData;
+    moxios.stubRequest('/api/v1/recipes/?sort=upvotes&order=desc', {
+      status: 500,
+      response: recipeServerError.message
+    });
+    const expectedActions = [{
+      type: MOST_UPVOTED_RECIPES_FAILURE,
+      payload: recipeServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getMostUpvotedRecipe())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('catches a server error on popular recipes', async (done) => {
+    const { recipeServerError } = mockData;
+    moxios.stubRequest('/api/v1/recipes/favorites/?sort=favorites&order=desc', {
+      status: 500,
+      response: recipeServerError.message
+    });
+    const expectedActions = [{
+      type: POPULAR_RECIPES_FAILURE,
+      payload: recipeServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getPopularRecipes())
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();

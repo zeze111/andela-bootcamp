@@ -11,12 +11,10 @@ import { SET_CURRENT_USER } from './types';
  *
  * @returns {object} any
  */
-export function setCurrentUser(user) {
-  return {
-    type: SET_CURRENT_USER,
-    user,
-  };
-}
+export const setCurrentUser = user => ({
+  type: SET_CURRENT_USER,
+  user,
+});
 
 /** makes api call to create a new user and dispatch the response
  *
@@ -26,8 +24,8 @@ export function setCurrentUser(user) {
  *
  * @returns {object} any
  */
-export function signUp(userData) {
-  return dispatch => axios.post('/api/v1/users/signup', userData)
+export const signUp = userData =>
+  dispatch => axios.post('/api/v1/users/signup', userData)
     .then((res) => {
       const { token, user } = res.data;
       const { id, email, firstName } = user;
@@ -35,4 +33,3 @@ export function signUp(userData) {
       setAuthorizationToken(token);
       dispatch(setCurrentUser({ id, email, firstName }));
     });
-}

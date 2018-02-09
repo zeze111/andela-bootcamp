@@ -111,4 +111,22 @@ describe('Favorites actions', () => {
         done();
       });
   });
+
+  it('catches a server error on getting favorites', async (done) => {
+    const { favoriteServerError } = mockData;
+    moxios.stubRequest(`/api/v1/user/favorites?limit=${6}&offset=${0}`, {
+      status: 500,
+      response: favoriteServerError.message
+    });
+    const expectedActions = [{
+      type: GET_FAVORITE_RECIPE_FAILURE,
+      payload: favoriteServerError.message
+    }];
+    const store = mockStore({});
+    await store.dispatch(getFavoriteRecipes(6, 0))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
 });

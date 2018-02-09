@@ -14,7 +14,6 @@ import PopularContent from './PopularContent';
 import AllContent from './AllContent';
 import PreLoader from '../common/PreLoader';
 import '../../assets/style.scss';
-import '../../assets/init';
 
 /** Landing page for when the app is visited
  *
@@ -59,6 +58,16 @@ class Homepage extends Component {
       .then(() => {
         this.setState({ isLoading: false });
       });
+  }
+
+  /** jquery initialisation after component is mounted
+   *
+   * @memberof Home
+   *
+   * @return {void}
+   */
+  componentDidMount() {
+    $('.button-collapse').sideNav();
   }
 
   /** html component to render

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for routes run all the routes 1`] = `
+<BrowserRouter>
+  <div
+    id="wrap"
+  >
+    <Connect(NavigationBar) />
+    <Switch>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={[Function]}
+        path="/signup"
+      />
+      <Route
+        component={[Function]}
+        path="/add-recipe"
+      />
+      <Route
+        component={[Function]}
+        path="/user/:tab"
+      />
+      <Route
+        component={[Function]}
+        path="/update-recipe/:recipeId"
+      />
+      <Route
+        component={[Function]}
+        path="/user-recipes/:recipeId"
+      />
+      <Route
+        component={[Function]}
+        path="/recipe/:recipeId"
+      />
+      <Route
+        component={[Function]}
+        path="/all-recipes"
+      />
+      <Route
+        component={[Function]}
+        path="*"
+      />
+    </Switch>
+    <Footer />
+  </div>
+</BrowserRouter>
+`;

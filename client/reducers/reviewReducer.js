@@ -2,7 +2,7 @@ import { REVIEW_RECIPE, GET_REVIEWS, DELETE_REVIEW } from '../actions/types';
 
 const initialState = { reviews: [], message: '', pagination: {} };
 
-export default (state = initialState, action = {}) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case REVIEW_RECIPE:
       return {

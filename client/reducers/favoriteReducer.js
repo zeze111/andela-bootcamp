@@ -6,7 +6,7 @@ import {
 
 const initialState = { message: '', favorites: [], pagination: {} };
 
-export default (state = initialState, action = {}) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case FAVORITE_RECIPE:
       return {

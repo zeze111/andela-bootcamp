@@ -36,6 +36,10 @@ const data = {
   votingError: {
     status: 'Unsuccessful',
     message: 'Recipe Not Found'
+  },
+
+  ratingServerError: {
+    message: 'Internal Server Error'
   }
 };
 

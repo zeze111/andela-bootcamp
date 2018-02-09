@@ -1,41 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 /**
  *
  *
- * @class App
+ * @returns {function} App
  * @extends {React.Component}
  */
 const Footer = () => (
   <footer className="page-footer nav-color">
     <div className="container">
-      <div className="row">
-        <div className="col l6 s12">
-          <h5 className="white-text">Company Bio</h5>
-          <p className="grey-text text-lighten-4">
-          Information about the company, how it started, purpose and goal
-          </p>
-        </div>
-        <div className="col l3 s12">
-          <h5 className="white-text">About Us</h5>
-          <ul>
-            <li><Link to="#" className="white-text" >Link 1</Link></li>
-            <li><Link to="#" className="white-text" >Link 2</Link></li>
-          </ul>
-        </div>
-        <div className="col l3 s12">
-          <h5 className="white-text">Privacy Settings</h5>
-          <ul>
-            <li><Link to="#" className="white-text" >Link 1</Link></li>
-            <li><Link to="#" className="white-text" >Link 2</Link></li>
-          </ul>
+      <div className="row remove-margin-bottom">
+        <div className="footer-center">
+          <i className="material-icons col s3 l1 right-align"> local_dining </i>
+          <p className="col s6 l3 left-align footer-style2 footer-style no-top"> MoreRecipes </p>
         </div>
       </div>
     </div>
-    <div className="footer-copyright">
+    <div className="footer-copyright footer-style2">
       <div className="container">
-        Made by <Link to="#" className="teal-text text-lighten-3">Osaze Edo-Osagie</Link>
+        <div className="row remove-margin-bottom">
+          <p className="col s3 m1 l1 push-s1 footer-style2"> Made by </p>
+          <p className="col s6 m3 l3 teal-text text-lighten-3 left-align">Osaze Edo-Osagie</p>
+        </div>
       </div>
     </div>
   </footer>

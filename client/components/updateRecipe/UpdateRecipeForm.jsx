@@ -229,11 +229,12 @@ class UpdateRecipeForm extends React.Component {
                 error={errors.name}
               />
               <TextFieldGroup
-                label="Recipe Time"
+                label="Preparation Time"
                 value={this.state.preparationTime}
                 onChange={this.onChange}
                 id="time"
                 type="text"
+                placeholder="e.g. 1 hour / 2hrs 30mins"
                 name="preparationTime"
                 active="active"
                 error={errors.preparationTime}
@@ -281,6 +282,7 @@ class UpdateRecipeForm extends React.Component {
                 value={this.state.instructions}
                 onChange={this.onChange}
                 id="instruct"
+                placeholder="e.g. Preheat oven at 120 celcius. boil egg."
                 name="instructions"
                 error={errors.instructions}
               />

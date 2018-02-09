@@ -82,9 +82,30 @@ describe('Favorites reducer', () => {
       favorites: []
     }
 
-    const action = {};
+    const action = {
+      type: 'NOTHING'
+    };
 
-    const newState = favoriteReducer();
+    const newState = favoriteReducer(initialState, action);
     expect(newState.favorites).toEqual([]);
+  });
+
+  it('return current state when there\'s no state', () => {
+    const { favoriteResponse, allFavoritesResponse } = mockData;
+    const initialState = {
+      favorites: [ allFavoritesResponse.favorites ]
+    }
+
+    const action = {
+      type: DELETE_FAVORITE,
+      payload: favoriteResponse.favorite.recipeId
+    };
+
+    const newState = favoriteReducer(undefined, action);
+    expect(newState.favorites).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(undefined)
+      ])
+    );
   });
 });

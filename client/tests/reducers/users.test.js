@@ -4,7 +4,8 @@ import {
   SET_CURRENT_USER,
   UPDATE_USER,
   GET_USER,
-  UPDATE_RECIPE
+  UPDATE_RECIPE,
+  CHANGE_PASSWORD
 } from '../../actions/types';
 
 describe('Users reducer', () => {
@@ -68,14 +69,56 @@ describe('Users reducer', () => {
     expect(newState.profile).toEqual(action.payload.user);
   });
 
-  it('return initial state when there\'s no action', () => {
+  it('updates user\'s password', () => {
+    const { updatePassword, passwordResponse } = mockData;
+    const initialState = {
+      profile: {},
+      message: ''
+    }
+
+    const payload = {
+      profile: passwordResponse.user,
+      message: passwordResponse.message
+    }
+
+    const action = {
+      type: CHANGE_PASSWORD,
+      payload
+    };
+
+    const newState = auth(initialState, action);
+    expect(newState.profile).toEqual(action.payload.user);
+  });
+
+  it('return initial state when there\'s no valid action', () => {
     const initialState = {
       user: {}
     }
 
-    const action = {};
+    const action = {
+      type: 'NOTHING'
+    };
 
-    const newState = auth();
+    const newState = auth(initialState, action);
     expect(newState.user).toEqual({});
+  });
+
+  it('return current state when there\'s no state', () => {
+    const { userProfileResponse } = mockData;
+    const initialState = {
+      profile: {},
+    }
+
+    const payload = {
+      profile: userProfileResponse.user
+    }
+
+    const action = {
+      type: GET_USER,
+      payload
+    };
+
+    const newState = auth(undefined, action);
+    expect(newState.profile).toEqual(undefined);
   });
 });

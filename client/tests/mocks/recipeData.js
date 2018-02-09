@@ -182,6 +182,10 @@ const data = {
     status: 'Successful',
     message: 'name has been deleted'
   },
+
+  recipeServerError: {
+    message: 'Internal Server Error'
+  }
 };
 
 export default data;

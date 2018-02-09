@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 /** Stateless component to render recipe image and actions
  *
@@ -23,7 +24,12 @@ const Recipe = props => (
         <div className="card-action card-buttons">
           <div className="row reduce-row">
             <div className="col s4 m4 l2 push-l1">
-              <button className="icon-button" onClick={props.onUpvote}>
+              <button
+                className="icon-button "
+                onClick={props.onUpvote}
+                data-tip="like"
+                data-place="bottom"
+              >
                 <i className="material-icons icon-color right-align">
                 thumb_up
                 </i>
@@ -31,7 +37,12 @@ const Recipe = props => (
               <p className="votes" > {props.upvotes} </p>
             </div>
             <div className="col s4 m4 l2 push-l2">
-              <button className="icon-button" onClick={props.onDownvote}>
+              <button
+                className="icon-button"
+                onClick={props.onDownvote}
+                data-tip="dislike"
+                data-place="bottom"
+              >
                 <i className="material-icons icon-color down right-align">
                 thumb_down
                 </i>
@@ -39,12 +50,18 @@ const Recipe = props => (
               <p className="votes down-text" > {props.downvotes} </p>
             </div>
             <div className="col s4 m4 l2 push-l4 right-align">
-              <button className="icon-button" onClick={props.onClickFave}>
-                <i className="material-icons small icon-color favorite">{
-                  props.icon}
+              <button
+                className="icon-button"
+                onClick={props.onClickFave}
+                data-tip="favorite"
+                data-place="bottom"
+              >
+                <i className="material-icons small icon-color favorite">
+                  {props.icon }
                 </i>
               </button>
             </div>
+            <ReactTooltip />
           </div>
         </div>
       </div>
@@ -62,9 +79,9 @@ const Recipe = props => (
         <div className="col s12 ">
           {props.creator &&
             <p className="title-details top-style"> Posted by
-              <a className="text-color user" href="user-recipe.html">
-                {props.creator.firstName}
-              </a>
+              <span className="user grey-text darken-3">
+                {props.creator.firstName} {props.creator.surname}
+              </span>
             </p>
           }
         </div>
@@ -72,7 +89,9 @@ const Recipe = props => (
           <i className="col s6 m3 l1 material-icons small icon-color views">
                   visibility
           </i>
-          <p className="col s6 m3 l3 votes2"> {props.recipe.views} {' views'} </p>
+          <p className="col s6 m3 l3 votes2">
+            {props.recipe.views} {' views'}
+          </p>
         </div>
         <div className="col s12">
           <p

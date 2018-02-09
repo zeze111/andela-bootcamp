@@ -36,31 +36,29 @@ import {
  *
  * @returns {object} any
  */
-export function addRecipe(recipeData, imageUrl) {
-  return (dispatch) => {
-    setAuthorizationToken(window.localStorage.jwtToken);
-    const {
-      name, preparationTime, description, type, ingredients, instructions,
-    } = recipeData;
-    const recipe = {
-      name,
-      preparationTime,
-      description,
-      type,
-      ingredients,
-      instructions,
-      image: imageUrl,
-    };
-
-    return axios.post('/api/v1/recipes', recipe)
-      .then((response) => {
-        dispatch({
-          type: CREATE_RECIPE,
-          payload: response.data,
-        });
-      });
+export const addRecipe = (recipeData, imageUrl) => (dispatch) => {
+  setAuthorizationToken(window.localStorage.jwtToken);
+  const {
+    name, preparationTime, description, type, ingredients, instructions,
+  } = recipeData;
+  const recipe = {
+    name,
+    preparationTime,
+    description,
+    type,
+    ingredients,
+    instructions,
+    image: imageUrl,
   };
-}
+
+  return axios.post('/api/v1/recipes', recipe)
+    .then((response) => {
+      dispatch({
+        type: CREATE_RECIPE,
+        payload: response.data,
+      });
+    });
+};
 
 /** uploads recipe image to cloudinary and calls addRecipe function
  *
@@ -70,20 +68,18 @@ export function addRecipe(recipeData, imageUrl) {
  *
  * @returns {object} any
  */
-export function addRecipeRequest(recipeData) {
-  return (dispatch) => {
-    const cloudUrl = 'http://res.cloudinary.com/zeze-andela/image/upload/v1513857342/noimg_mhvbu1.png';
-    if (recipeData.imageFile.name) {
-      return uploadImageToCloud(recipeData.imageFile)
-        .then((response) => {
-          const imageUrl = response.data.secure_url;
-          dispatch(addRecipe(recipeData, imageUrl));
-        })
-        .catch(error => error);
-    }
-    return dispatch(addRecipe(recipeData, cloudUrl));
-  };
-}
+export const addRecipeRequest = recipeData => (dispatch) => {
+  const cloudUrl = 'http://res.cloudinary.com/zeze-andela/image/upload/v1513857342/noimg_mhvbu1.png';
+  if (recipeData.imageFile.name) {
+    return uploadImageToCloud(recipeData.imageFile)
+      .then((response) => {
+        const imageUrl = response.data.secure_url;
+        dispatch(addRecipe(recipeData, imageUrl));
+      })
+      .catch(error => error);
+  }
+  return dispatch(addRecipe(recipeData, cloudUrl));
+};
 
 /** makes api call to get all recipes from the database
  *
@@ -91,8 +87,8 @@ export function addRecipeRequest(recipeData) {
  *
  * @returns {object} any
  */
-export function getAllRecipes() {
-  return dispatch => axios.get('/api/v1/recipes')
+export const getAllRecipes = () =>
+  dispatch => axios.get('/api/v1/recipes')
     .then((response) => {
       dispatch({
         type: GET_ALL_RECIPES,
@@ -105,7 +101,6 @@ export function getAllRecipes() {
         payload: error.response.data,
       });
     });
-}
 
 /** makes makes api call to get all recipes with pagination from the database
  *
@@ -117,8 +112,8 @@ export function getAllRecipes() {
  *
  * @returns {object} any
  */
-export function getPaginatedRecipes(limit, offset) {
-  return dispatch =>
+export const getPaginatedRecipes = (limit, offset) =>
+  dispatch =>
     axios.get(`/api/v1/recipes/?limit=${limit}&offset=${offset}`)
       .then((response) => {
         dispatch({
@@ -132,7 +127,6 @@ export function getPaginatedRecipes(limit, offset) {
           payload: error.response.data,
         });
       });
-}
 
 /** makes api call to get all recipes submitted by a user
  *
@@ -144,8 +138,8 @@ export function getPaginatedRecipes(limit, offset) {
  *
  * @returns {object} any
  */
-export function getUserRecipes(limit, offset) {
-  return dispatch =>
+export const getUserRecipes = (limit, offset) =>
+  dispatch =>
     axios.get(`/api/v1/user/recipes?limit=${limit}&offset=${offset}`)
       .then((response) => {
         dispatch({
@@ -159,7 +153,6 @@ export function getUserRecipes(limit, offset) {
           payload: error.response.data,
         });
       });
-}
 
 /** makes api call to get a single recipe
  * @export {function}
@@ -168,8 +161,8 @@ export function getUserRecipes(limit, offset) {
  *
  * @returns {object} any
  */
-export function getARecipe(recipeId) {
-  return dispatch => axios.get(`/api/v1/recipes/${recipeId}`)
+export const getARecipe = recipeId =>
+  dispatch => axios.get(`/api/v1/recipes/${recipeId}`)
     .then((response) => {
       dispatch({
         type: GET_RECIPE,
@@ -182,7 +175,6 @@ export function getARecipe(recipeId) {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to update recipe
  *
@@ -196,8 +188,8 @@ export function getARecipe(recipeId) {
  *
  * @returns {object} any
  */
-export function update(recipeId, recipeData, imageUrl) {
-  return (dispatch) => {
+export const update = (recipeId, recipeData, imageUrl) =>
+  (dispatch) => {
     setAuthorizationToken(window.localStorage.jwtToken);
     const {
       name, preparationTime, description, type, ingredients, instructions,
@@ -226,7 +218,6 @@ export function update(recipeId, recipeData, imageUrl) {
         });
       });
   };
-}
 
 
 /** makes api call to update a recipe
@@ -239,8 +230,8 @@ export function update(recipeId, recipeData, imageUrl) {
  *
  * @returns {object} any
  */
-export function updateRecipe(recipeId, recipeData) {
-  return (dispatch) => {
+export const updateRecipe = (recipeId, recipeData) =>
+  (dispatch) => {
     if (recipeData.imageFile.name) {
       return uploadImageToCloud(recipeData.imageFile)
         .then((response) => {
@@ -251,7 +242,6 @@ export function updateRecipe(recipeId, recipeData) {
     }
     return dispatch(update(recipeId, recipeData, recipeData.imageSrc));
   };
-}
 
 /** makes api call to delete a user's recipe
  *
@@ -261,8 +251,8 @@ export function updateRecipe(recipeId, recipeData) {
  *
  * @returns {object} any
  */
-export function deleteRecipe(recipeId) {
-  return dispatch => axios.delete(`/api/v1/recipes/${recipeId}`)
+export const deleteRecipe = recipeId =>
+  dispatch => axios.delete(`/api/v1/recipes/${recipeId}`)
     .then(() => {
       dispatch({
         type: DELETE_RECIPE,
@@ -275,7 +265,6 @@ export function deleteRecipe(recipeId) {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to get all recipes matching a category type
  *
@@ -289,8 +278,8 @@ export function deleteRecipe(recipeId) {
  *
  * @returns {object} any
  */
-export function getRecipeCategory(type, limit, offset) {
-  return dispatch =>
+export const getRecipeCategory = (type, limit, offset) =>
+  dispatch =>
     axios.get(`/api/v1/recipes/categories/${type}?limit=${limit}&offset=${offset}`)
       .then((response) => {
         dispatch({
@@ -304,7 +293,6 @@ export function getRecipeCategory(type, limit, offset) {
           payload: error.response.data,
         });
       });
-}
 
 /** makes api call to search for a recipe match
  *
@@ -318,8 +306,8 @@ export function getRecipeCategory(type, limit, offset) {
  *
  * @returns {object} any
  */
-export function searchRecipe(word, limit, offset) {
-  return dispatch =>
+export const searchRecipe = (word, limit, offset) =>
+  dispatch =>
     axios.get(`/api/v1/recipes/search/${word}?limit=${limit}&offset=${offset}`)
       .then((response) => {
         dispatch({
@@ -333,7 +321,6 @@ export function searchRecipe(word, limit, offset) {
           payload: error.response.data,
         });
       });
-}
 
 /** makes api call to get most upvoted recipes
  *
@@ -341,8 +328,8 @@ export function searchRecipe(word, limit, offset) {
  *
  * @returns {object} any
  */
-export function getMostUpvotedRecipe() {
-  return dispatch => axios.get('/api/v1/recipes/?sort=upvotes&order=des')
+export const getMostUpvotedRecipe = () =>
+  dispatch => axios.get('/api/v1/recipes/?sort=upvotes&order=desc')
     .then((response) => {
       dispatch({
         type: MOST_UPVOTED_RECIPES,
@@ -355,7 +342,6 @@ export function getMostUpvotedRecipe() {
         payload: error.response.data,
       });
     });
-}
 
 /** makes api call to get most popular recipes
  *
@@ -363,8 +349,8 @@ export function getMostUpvotedRecipe() {
  *
  * @returns {object} any
  */
-export function getPopularRecipes() {
-  return dispatch => axios.get('/api/v1/recipes/favorites/?sort=favorites&order=des')
+export const getPopularRecipes = () =>
+  dispatch => axios.get('/api/v1/recipes/favorites/?sort=favorites&order=desc')
     .then((response) => {
       dispatch({
         type: POPULAR_RECIPES,
@@ -377,4 +363,3 @@ export function getPopularRecipes() {
         payload: error.response.data,
       });
     });
-}

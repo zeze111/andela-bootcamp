@@ -277,9 +277,32 @@ describe('Recipes reducer', () => {
       recipes: []
     }
 
-    const action = {};
+    const action = {
+      type: 'NOTHING'
+    };
 
-    const newState = recipeReducer();
+    const newState = recipeReducer(initialState, action);
     expect(newState.recipes).toEqual([]);
+  });
+
+  it('return current state when there\'s no state', () => {
+    const { addRecipeResponse } = mockData;
+    const initialState = {
+      recipes: []
+    }
+
+    const payload = {
+      recipe: addRecipeResponse.recipe
+    }
+
+    const action = {
+      type: CREATE_RECIPE,
+      payload
+    };
+
+    const newState = recipeReducer(undefined, action);
+    expect(newState.recipes).toEqual(
+      expect.arrayContaining([action.payload.recipe])
+    );
   });
 });
