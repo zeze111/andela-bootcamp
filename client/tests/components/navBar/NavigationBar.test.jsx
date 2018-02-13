@@ -1,6 +1,6 @@
 import React from 'react';
 
-import connectedNavigationBar, {NavigationBar} from '../../../components/navbar/NavigationBar.jsx';
+import connectedNavigationBar, {NavigationBar} from '../../../components/navBar/NavigationBar';
 import store from '../../../store';
 
 const props = {
