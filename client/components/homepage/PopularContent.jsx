@@ -17,7 +17,7 @@ const PopularContent = ({
   }
 }) => {
   const like = (
-    <span className="home-text">
+    <span>
       <i className="material-icons home-icon">star</i>
       {favorites}
     </span>
@@ -28,7 +28,7 @@ const PopularContent = ({
       {views}
     </span>
   );
-  const show = `${name.substring(0, 10)}...`;
+  const show = `${name.substring(0, 8)}...`;
   return (
     <li >
       <div className="col s2 offset-1">

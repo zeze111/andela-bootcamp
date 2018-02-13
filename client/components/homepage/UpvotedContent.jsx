@@ -17,7 +17,7 @@ const UpvotedContent = ({
   }
 }) => {
   const vote = (
-    <span className="home-text">
+    <span>
       <i className="material-icons home-icon">thumb_up</i> {upvotes}
     </span>
   );
@@ -27,7 +27,7 @@ const UpvotedContent = ({
       {Recipe.views}
     </span>
   );
-  const show = `${Recipe.name.substring(0, 10)}...`;
+  const show = `${Recipe.name.substring(0, 8)}...`;
   return (
     <li >
       <div className="col s2 offset-1">

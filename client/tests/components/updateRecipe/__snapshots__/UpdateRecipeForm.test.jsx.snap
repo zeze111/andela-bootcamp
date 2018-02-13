@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Update Recipe Form should render component 1`] = `
+Object {
+  "wrapper": <div
+    className="row"
+  >
+    <div
+      className="card-content col s10 m8 l6 push-s1 push-m2 push-l3"
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <div
+          className="row add-padding"
+        >
+          <div
+            className="file-field input-field col s12 right-align get-pic-btn"
+          >
+            <div
+              className="image-placeholder"
+            >
+              <img
+                alt=""
+                className="recipe-image"
+                src="/images/noimg.png"
+              />
+            </div>
+            <div
+              className="btn-floating btn-small waves-effect waves-light blue"
+            >
+              <i
+                className="material-icons"
+              >
+                photo
+              </i>
+              <input
+                onChange={[Function]}
+                type="file"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="half-top"
+        >
+          <span
+            className="red-text error-text"
+          />
+          <TextFieldGroup
+            active="active"
+            error={Array []}
+            id="uname"
+            label="Recipe Name"
+            name="name"
+            onChange={[Function]}
+            placeholder=""
+            req=""
+            type="text"
+            value=""
+          />
+          <TextFieldGroup
+            active="active"
+            error={Array []}
+            id="utime"
+            label="Preparation Time"
+            name="preparationTime"
+            onChange={[Function]}
+            placeholder="e.g. 1 hour / 2hrs 30mins"
+            req=""
+            type="text"
+            value=""
+          />
+          <TextFieldGroup
+            active="active"
+            error={Array []}
+            id="udesc"
+            label="Description"
+            name="description"
+            onChange={[Function]}
+            placeholder=""
+            req=""
+            type="text"
+            value=""
+          />
+          <Row>
+            <Input
+              defaultValue="0"
+              id="utype"
+              label="Recipe Type"
+              name="type"
+              onChange={[Function]}
+              s={12}
+              type="select"
+            >
+              <option
+                disabled={true}
+                value="0"
+              >
+                 Choose your option 
+              </option>
+              <option
+                value="Appetizer"
+              >
+                Appetizer
+              </option>
+              <option
+                value="Main"
+              >
+                Main
+              </option>
+              <option
+                value="Dessert"
+              >
+                Dessert
+              </option>
+              <option
+                value="Drinks"
+              >
+                Drinks
+              </option>
+            </Input>
+            <span
+              className="help-block red-text error-text2"
+            />
+          </Row>
+          <TextFieldGroup2
+            error={Array []}
+            id="uingred"
+            label="Ingredients"
+            name="ingredients"
+            onChange={[Function]}
+            placeholder=""
+            req=""
+            value=""
+          />
+          <TextFieldGroup2
+            error={Array []}
+            id="uinstruct"
+            label="Instructions"
+            name="instructions"
+            onChange={[Function]}
+            placeholder="e.g. Preheat oven at 120 celcius. boil egg."
+            req=""
+            value=""
+          />
+          <div
+            className="right-align"
+          >
+            <input
+              className="btn grey"
+              disabled={false}
+              type="submit"
+              value="Submit"
+            />
+          </div>
+           
+          <br />
+        </div>
+      </form>
+    </div>
+  </div>,
+}
+`;

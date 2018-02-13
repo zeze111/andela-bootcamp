@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Review Form should render component 1`] = `
+Object {
+  "wrapper": <div>
+    <div
+      className="col m9 l8"
+    >
+      <h5
+        className="text1 text-headers"
+        id="rev"
+      >
+         Reviews 
+      </h5>
+      <div
+        className="col s12 reviews-style"
+      >
+        <p
+          className="text2"
+        >
+           Add a comment to review this recipe 
+        </p>
+      </div>
+    </div>
+    <div
+      className="row no-top"
+    >
+      <form
+        className="col l5 m7 s10 push-s1 push-m1 push-l1"
+        id="reviewForm"
+        onSubmit={[Function]}
+      >
+        <br />
+        <div>
+          <div
+            className="input-field text3"
+          >
+            <input
+              id="title"
+              name="title"
+              onChange={[Function]}
+              placeholder="Title"
+              type="text"
+            />
+          </div>
+          <div
+            className="input-field text3"
+          >
+            <textarea
+              className="materialize-textarea "
+              id="cmt"
+              name="comment"
+              onChange={[Function]}
+              placeholder="Comment"
+            />
+          </div>
+          <div
+            className="right-align"
+          >
+            <input
+              className="btn grey"
+              type="submit"
+              value="Review"
+            />
+             
+            <br />
+             
+            <br />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>,
+}
+`;

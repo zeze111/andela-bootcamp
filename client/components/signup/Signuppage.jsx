@@ -25,43 +25,36 @@ const SignupPage = props => (
           Sign In / Register
         </h4>
         <br /> <br />
-        <div className="container z-depth-3 white">
-          <div className="row">
-            <div className="col s12">
-              <Tabs className="tab-demo z-depth-1">
-                <Tab className="col s6" title="Register User" active>
-                  <SignupForm
-                    signUp={props.signUp}
-                    errors={props.errors}
-                  />
-                </Tab>
-                <Tab className="col s6" title="Sign In">
-                  <SigninForm signIn={props.signIn} />
-                </Tab>
-              </Tabs>
+        <div className=" min-auth-height">
+          <div className="container z-depth-3 white">
+            <div className="row">
+              <div className="col s12">
+                <Tabs className="tab-demo z-depth-1">
+                  <Tab className="col s6" title="Register User" active>
+                    <SignupForm
+                      signUp={props.signUp}
+                    />
+                  </Tab>
+                  <Tab className="col s6" title="Sign In">
+                    <SigninForm signIn={props.signIn} />
+                  </Tab>
+                </Tabs>
+              </div>
             </div>
-          </div>
-        </div> <br /> <br /> <br /> <br />
+          </div> <br /> <br /> <br /> <br />
+        </div>
       </div>
     </main>
   </div>
 );
 
-SignupPage.defaultProps = {
-  errors: {}
-};
-
 SignupPage.propTypes = {
   signUp: PropTypes.func.isRequired,
-  signIn: PropTypes.func.isRequired,
-  errors: PropTypes.objectOf(PropTypes.any)
+  signIn: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  errors: state.auth.errors
-});
 
 export default connect(
-  mapStateToProps,
+  null,
   { signUp, signIn }
 )(SignupPage);

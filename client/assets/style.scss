@@ -241,7 +241,7 @@ main {
 
 .home-cards{
   height: 250px;
-  width: 250px;
+  width: 240px;
   .image-style {
     height: 180px;
   }
@@ -296,15 +296,6 @@ a {
 @media (min-width: 600px) and (max-width: 940px) {
   .profile-text {
     padding-left: 2em !important;
-  }
-}
-
-@media (min-width: 1200px) {
-
-  .delete-text{
-    position: relative;
-    bottom: 2px;
-    left: 4em;
   }
 }
 
@@ -368,6 +359,13 @@ a {
     }
   }
 
+}
+
+@media (max-width: 1024px) {
+  .flex-container-homepage {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 @media (min-width: 600px) and (max-width: 1600px) {
@@ -449,7 +447,7 @@ a {
 
 .flex-container-homepage {
   display: flex;
-  flex-wrap: wrap !important;
+  flex-wrap: wrap;
 }
 
 .div-pointer {
@@ -468,7 +466,7 @@ a {
 }
 
 .nav-color {
-  background-color: rgb(211, 132, 6);
+  background-color: rgb(238, 157, 34);
 }
 
 .recipe {
@@ -498,7 +496,7 @@ a {
 }
 
 .top {
-  margin-top: 1.5em !important;
+  margin-top: 2em !important;
 }
 
 .nf-page {
@@ -604,6 +602,11 @@ a {
   .info-row {
     width: 100% !important;
   }
+
+  .delete-text{
+    position: relative;
+    top: 0px;
+  }
 }
 
 .footer-style {
@@ -622,6 +625,12 @@ a {
 @media (max-width: 600px) {
 .info-row {
   width: 90%;
+}
+
+.flex-container-homepage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .footer-center {
@@ -653,7 +662,7 @@ a {
 .delete-text{
   position: relative;
   bottom: 22px;
-  left: 3em;
+  left: 0;
 }
 
 .nf-text {
@@ -711,6 +720,13 @@ padding-left: 1em !important;
   padding-left: 4em;
 }
 
+.full-container {
+  max-width:100%;
+  margin: 0 auto;
+  min-height: 18em !important;
+  padding-left: 5em;
+}
+
 .nf-text {
   position: relative;
   top: 3em !important;
@@ -740,21 +756,10 @@ padding-left: 1em !important;
 
 .delete-text{
   position: relative;
-  bottom: 22px;
-  left: 12em;
+  top: 0px;
+  left: 0;
 }
 }
-
-@media (min-width: 1200px) {
-
-  .full-add-container {
-    width: 100%;
-    margin: 0 auto;
-    min-height: 18em !important;
-    padding-left: 5px;
-  }
-
-  }
 
 @media (min-width: 1000px) and (max-width: 1200px) {
 
@@ -779,13 +784,26 @@ padding-left: 1em !important;
   .get-pic-btn {
     padding-right: 10em !important;
   }
-}
 
-.full-container {
+  .min-auth-height {
+    min-height: 33em !important;
+  }
+
+
+.full-add-container {
   width: 100%;
   margin: 0 auto;
   min-height: 18em !important;
-  padding-left: 30px;
+  padding-left: 5px;
+}
+
+.full-container {
+  max-width:100%;
+  margin: 0 auto;
+  min-height: 18em !important;
+  padding-left: 0px;
+}
+
 }
 
 .paginate {

@@ -30,12 +30,6 @@ export const updateUser = (user) => {
         type: UPDATE_USER,
         payload: response.data,
       });
-    })
-    .catch((error) => {
-      dispatch({
-        type: UPDATE_USER_FAILURE,
-        payload: error.response.data,
-      });
     });
 };
 

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PropTypes from 'prop-types';
+import Validator from 'validatorjs';
 import { connect } from 'react-redux';
 import { Pagination } from 'react-materialize';
+import validations from '../../../Server/shared/validations';
 
 import { getUserRecipes, deleteRecipe } from '../../actions/recipeActions';
 import { updateUser, getUser, changePassword } from '../../actions/userActions';
@@ -27,7 +29,7 @@ import Information from './Information';
  *
  * @extends {Component}
  */
-class Profile extends Component {
+export class Profile extends Component {
   /**
    * @description Constructor Function
    *
@@ -48,6 +50,7 @@ class Profile extends Component {
       image: '',
       limit: 3,
       index: 0,
+      errors: {},
       isLoading: true,
       isPicLoading: false
     };
@@ -131,11 +134,17 @@ class Profile extends Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    this.props.updateUser(this.state)
-      .then(() => {
-        const toastContent = $(`<span>${this.props.userMessage}</span>`);
-        Materialize.toast(toastContent, 2000);
-      });
+    if (this.isValid()) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props.updateUser(this.state)
+        .then(() => {
+          const toastContent = $(`<span>${this.props.userMessage}</span>`);
+          Materialize.toast(toastContent, 2000);
+        })
+        .catch(error => this.setState({
+          errors: error.response.data, isLoading: false
+        }));
+    }
   }
 
   /** gets recipe on next /previous page
@@ -204,6 +213,22 @@ class Profile extends Component {
       });
   }
 
+  /** checks if form validation passes or fails
+   *
+   * @memberof Home
+   *
+   * @return {boolean} validator
+   */
+  isValid() {
+    const validator = new Validator(this.state, validations.updateUserRules);
+    if (validator.fails()) {
+      const errors = validator.errors.all();
+      this.setState({ errors });
+    }
+
+    return validator.passes();
+  }
+
   /** html component to render
    *
    * @memberof Home
@@ -221,7 +246,10 @@ class Profile extends Component {
     const recipeList = (this.props.recipes) ? (this.props.recipes) : [];
 
     const noFaves = (
-      <div className="col s11 offset-s1 two-top no-message bottom-style">
+      <div className="col s11 offset-s1
+      two-top no-message
+      bottom-style"
+      >
         You Currently Have No Favorite Recipes
       </div>
     );
@@ -274,6 +302,7 @@ class Profile extends Component {
                       surname={this.state.surname}
                       email={this.state.email}
                       bio={this.state.bio}
+                      errors={this.state.errors}
                     />
                   </TabPanel>
                   <TabPanel>
@@ -327,7 +356,7 @@ class Profile extends Component {
                   <TabPanel>
                     <div className="col s12">
                       <br />
-                      <div className="col s12 m10 l8 push-l2 push-m1">
+                      <div className="col s12 m10 l8 push-l2 push-m1 bottom-style">
                         {(faves.length === 0) ? noFaves :
                         <ul className="collection bottom-style">
                           {

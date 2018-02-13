@@ -14,26 +14,26 @@ import PreLoader from '../common/PreLoader';
  */
 const Details = (props) => {
   const creatorUser = (
-    <div className="row right-align" >
-      <div className="col s12 m6 l5 push-l4 push-m4 creator edit-text">
-        <Link
-          to={`/update-recipe/${props.recipe.id}`}
-          href={`/update-recipe/${props.recipe.id}`}
-          className="text-color"
-        >
-          Edit this recipe
-        </Link>
-        <button
-          className="creator-button
-          text-color
-          right
-          delete-text
-          text-style
-          white"
-          onClick={props.clickEvent}
-        >Delete this recipe
-        </button>
-      </div>
+
+    <div className="col s12 m12 l12 creator right-align edit-text">
+      <Link
+        to={`/update-recipe/${props.recipe.id}`}
+        href={`/update-recipe/${props.recipe.id}`}
+        className="text-color col l3 m4 push-l5 push-m3"
+      >
+        Edit this recipe
+      </Link>
+      <button
+        className="creator-button
+        text-color
+        right
+        delete-text
+        text-style
+        white left-align
+        col l3 m4"
+        onClick={props.clickEvent}
+      >Delete this recipe
+      </button>
     </div >
   );
 
@@ -49,9 +49,9 @@ const Details = (props) => {
         <div className="center-align loader-style">
           <PreLoader />
         </div>
-        }
+      }
         {(props.ingredients.length > 0) &&
-        <div>
+        <div className="row">
           <div id="time" className="col l4 m4 s12 ">
             <p
               className="recipe"
@@ -67,12 +67,12 @@ const Details = (props) => {
             <p className="recipe"> Instructions: </p>
             {props.instructions}
           </div>
-        </div>
-      }
-        {(props.id === props.recipe.userId) ? creatorUser : guestUser}
-        {props.isLoading &&
-        <div className="right-align delete">
-          <PreLoader />
+          {(props.id === props.recipe.userId) ? creatorUser : guestUser}
+          {props.isLoading &&
+            <div className="right-align delete">
+              <PreLoader />
+            </div>
+          }
         </div>
       }
       </div>

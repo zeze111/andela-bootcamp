@@ -11,7 +11,7 @@ import { updateRecipe, getARecipe } from '../../actions/recipeActions';
  *
  * @extends {React.Component}
  */
-class UpdateRecipePage extends Component {
+export class UpdateRecipePage extends Component {
   /** calls action to get recipe details when compoment has mounted
    *
    * @memberof Home

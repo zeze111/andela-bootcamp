@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Categories should render component 1`] = `
+Object {
+  "wrapper": <Dropdown
+    className="content-recipes"
+    trigger={
+      <div
+        className="div-pointer"
+      >
+        <h5
+          className="light top text-headers caps2"
+        >
+          Main
+          <i
+            className="material-icons"
+          >
+            arrow_drop_down
+          </i>
+        </h5>
+      </div>
+    }
+  >
+    <ul>
+      <li
+        className="grey-text default-droplist"
+      >
+        <div>
+          Select Category
+        </div>
+      </li>
+      <li>
+        <button
+          className="dropdown-btn left-align white waves-effect waves-grey"
+          id="all-button"
+          onClick={[Function]}
+        >
+          All Recipes
+        </button>
+      </li>
+      <li>
+        <button
+          className="dropdown-btn left-align white waves-effect waves-grey"
+          id="app-button"
+          onClick={[Function]}
+        >
+          Appetizer
+        </button>
+      </li>
+      <li>
+        <button
+          className="dropdown-btn left-align white waves-effect waves-grey"
+          id="main-button"
+          onClick={[Function]}
+        >
+          Main
+        </button>
+      </li>
+      <li>
+        <button
+          className="dropdown-btn left-align white waves-effect waves-grey"
+          id="dess-button"
+          onClick={[Function]}
+        >
+          Dessert
+        </button>
+      </li>
+      <li>
+        <button
+          className="dropdown-btn left-align white waves-effect waves-grey"
+          id="drink-button"
+          onClick={[Function]}
+        >
+          Drinks
+        </button>
+      </li>
+    </ul>
+  </Dropdown>,
+}
+`;

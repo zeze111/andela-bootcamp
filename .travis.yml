@@ -9,18 +9,19 @@ services:
 
 before_script:
   - npm install -g codeclimate-test-reporter
+  - npm install -g codecov
+  - npm install
   - psql -c 'create database recipestest;' -U postgres
   - sequelize db:migrate
 
 env:
   global:
     - export NODE_ENV=test
-    - export SECRET_KEY = 'rEc1pEs-Âp1-1nada2la1'
 
 cache:
   directories:
     - node_modules
 
 after_success:
-  - npm run coverage
+  - npm run coverage:all
   - codeclimate-test-reporter < coverage/lcov.info

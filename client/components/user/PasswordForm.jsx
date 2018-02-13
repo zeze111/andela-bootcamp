@@ -54,7 +54,7 @@ class PasswordForm extends Component {
         .catch((error) => {
           this.setState({ errors: error.response.data, isLoading: false });
         });
-      this.refs.pwdForm.reset();
+      document.getElementById('pwdForm').reset();
     }
   }
 
@@ -81,7 +81,7 @@ class PasswordForm extends Component {
   render() {
     return (
       <div id="chpwd" className="col s12 m8 l7 push-l1 push-m1 form-style">
-        <form onSubmit={this.onSubmit} className="col s10 push-s1" ref="pwdForm">
+        <form onSubmit={this.onSubmit} className="col s10 push-s1" id="pwdForm">
           <TextFieldGroup3
             label="Old Password:"
             value={this.state.oldPassword}

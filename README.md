@@ -2,6 +2,7 @@
   [![Build Status](https://travis-ci.org/zeze111/more-recipes.svg?branch=develop)](https://travis-ci.org/zeze111/more-recipes)
 [![Coverage Status](https://coveralls.io/repos/github/zeze111/more-recipes/badge.svg?branch=develop)](https://coveralls.io/github/zeze111/more-recipes?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f665ddbfed3d92bd7fd4/maintainability)](https://codeclimate.com/github/zeze111/more-recipes/maintainability)
+[![codecov](https://codecov.io/gh/zeze111/more-recipes/branch/develop/graph/badge.svg)](https://codecov.io/gh/zeze111/more-recipes)
 
 
 More Recipe Project: More Recipes is a website application that allow users submit and share their cooking recipes.

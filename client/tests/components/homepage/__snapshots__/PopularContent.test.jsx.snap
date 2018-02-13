@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Popular Content should render component 1`] = `
+<li>
+  <div
+    className="col s2 offset-1"
+  >
+    <div
+      className="card hoverable grey lighten-4 home-cards"
+    >
+      <div
+        className="card-image"
+      >
+        <img
+          alt="recipe"
+          className="responsive-img image-style"
+          src="/images/noimg.png"
+        />
+        <div
+          className="card-action"
+        >
+          <Link
+            className="home-text-style"
+            data-tip="some name"
+            href="/recipe/1"
+            replace={false}
+            to="/recipe/1"
+          >
+             
+            some nam...
+            <ReactTooltip
+              insecure={true}
+              resizeHide={true}
+              wrapper="div"
+            />
+          </Link>
+           
+          <span>
+            <i
+              className="material-icons home-icon"
+            >
+              star
+            </i>
+          </span>
+          <span
+            className="pop-text"
+          >
+            <i
+              className="material-icons home-icon2"
+            >
+              visibility
+            </i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
+`;

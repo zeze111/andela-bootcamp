@@ -6,5 +6,5 @@ describe('Test for routes', () => {
   it('run all the routes', () => {
     const wrapper = shallow(<App /> );
     expect(wrapper).toMatchSnapshot()
-  })
-})
+  });
+});

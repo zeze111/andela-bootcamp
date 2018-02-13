@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Sign up form should render component 1`] = `
+Object {
+  "wrapper": <div>
+    <form
+      className="col s10 m7 l6 push-s1 push-m2 push-l3"
+      onSubmit={[Function]}
+    >
+       
+      <br />
+      <TextFieldGroup
+        active=""
+        error={Array []}
+        id="signInEmail"
+        label="Email"
+        name="email"
+        onChange={[Function]}
+        placeholder=""
+        req=""
+        type="email"
+        value=""
+      />
+      <TextFieldGroup
+        active=""
+        error={Array []}
+        id="signInPwd"
+        label="Password"
+        name="password"
+        onChange={[Function]}
+        placeholder=""
+        req=""
+        type="password"
+        value=""
+      />
+      <div
+        className="right-align"
+      >
+        <input
+          className="btn grey white-text"
+          disabled={false}
+          type="submit"
+          value="Sign in"
+        />
+      </div>
+       
+      <br />
+      <span
+        className="red-text error-text"
+      />
+    </form>
+  </div>,
+}
+`;

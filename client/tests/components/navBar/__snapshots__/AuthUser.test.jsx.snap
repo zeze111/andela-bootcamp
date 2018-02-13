@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for AuthUser should render component 1`] = `
+<div>
+  <ul
+    className="right hide-on-med-and-down nav-style"
+  >
+    <LinkFieldGroup
+      dataTool="Add A Recipe"
+      href="/add-recipe"
+      icon="add"
+      to="/add-recipe"
+    />
+    <LinkFieldGroup
+      dataTool="Favorites"
+      href="/user/favorites"
+      icon="star_border"
+      to="/user/favorites"
+    />
+    <LinkFieldGroup
+      dataTool="My Recipes"
+      href="/user/recipes"
+      icon="format_list_bulleted"
+      to="/user/recipes"
+    />
+    <li>
+      <Dropdown
+        trigger={
+          <div
+            className="caps div-pointer2 username"
+          >
+            some
+            <i
+              className="material-icons right"
+            >
+              arrow_drop_down
+            </i>
+          </div>
+        }
+      >
+        <NavItem
+          href="/user/profile"
+          to="/user/profile"
+        >
+          <div
+            className="text-color"
+          >
+             Profile
+          </div>
+        </NavItem>
+        <NavItem
+          href="/"
+          onClick={[MockFunction]}
+          to="/"
+        >
+          <div
+            className="text-color"
+          >
+             Sign Out
+          </div>
+        </NavItem>
+      </Dropdown>
+    </li>
+  </ul>
+  <ul
+    className="side-nav"
+    id="nav-mobile"
+  >
+    <LinkFieldGroup2
+      href="/add-recipe"
+      icon="add"
+      item="Add A Recipe"
+      to="/add-recipe"
+    />
+    <LinkFieldGroup2
+      href="/user/favorites"
+      icon="star"
+      item="Favourites"
+      to="/user/favorites"
+    />
+    <LinkFieldGroup2
+      href="/user/recipes"
+      icon="format_list_bulleted"
+      item="My Recipes"
+      to="/user/recipes"
+    />
+    <LinkFieldGroup2
+      href="/user/profile"
+      icon="person"
+      item="some"
+      to="/user/profile"
+    />
+    <LinkFieldGroup2
+      href="/"
+      icon="keyboard_tab"
+      item="Sign Out"
+      onClick={[MockFunction]}
+      to="/"
+    />
+  </ul>
+</div>
+`;

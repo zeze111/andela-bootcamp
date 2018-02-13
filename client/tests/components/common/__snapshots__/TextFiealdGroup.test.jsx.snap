@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for LinkFieldGroup should render component 1`] = `
+<li>
+  <Link
+    className="btn-floating btn-medium tooltipped waves-effect waves-light grey"
+    data-position="bottom"
+    data-tooltip=""
+    href=""
+    replace={false}
+    to=""
+  >
+    <i
+      className="material-icons"
+    />
+  </Link>
+</li>
+`;
+
+exports[`Test for LinkFieldGroup2 should render component 1`] = `
+<li
+  className="nav-list"
+>
+  <i
+    className="material-icons"
+  />
+  <Link
+    className="white-text list-item caps"
+    href=""
+    replace={false}
+    to=""
+  />
+</li>
+`;
+
+exports[`Test for TextFieldGroup should render component 1`] = `
+<div
+  className="input-field"
+>
+  <label
+    className=""
+    htmlFor=""
+  >
+    <span
+      style={
+        Object {
+          "color": "red",
+        }
+      }
+    >
+       
+       
+    </span>
+  </label>
+  <input
+    className="validate"
+    id=""
+    name=""
+    onChange={[MockFunction]}
+    placeholder=""
+    type=""
+    value=""
+  />
+  <span
+    className="help-block red-text error-text-field"
+  />
+</div>
+`;
+
+exports[`Test for TextFieldGroup should render component 2`] = `
+<div
+  className="input-field"
+>
+  <label
+    className="active"
+    htmlFor=""
+  >
+    <i
+      className="material-icons left"
+    />
+  </label>
+  <input
+    className="validate"
+    disabled={false}
+    id=""
+    name=""
+    onChange={[MockFunction]}
+    type=""
+    value=""
+  />
+  <span
+    className="help-block red-text error-text-field"
+  />
+</div>
+`;
+
+exports[`Test for TextFieldGroup2 should render component 1`] = `
+<div
+  className="input-field"
+>
+  <label
+    className="active"
+    htmlFor=""
+  >
+    <span
+      style={
+        Object {
+          "color": "red",
+        }
+      }
+    >
+       
+       
+    </span>
+  </label>
+  <textarea
+    className="materialize-textarea"
+    id=""
+    name=""
+    onChange={[MockFunction]}
+    placeholder=""
+    type="text"
+    value=""
+  />
+  <span
+    className="help-block red-text error-text-field"
+  />
+</div>
+`;

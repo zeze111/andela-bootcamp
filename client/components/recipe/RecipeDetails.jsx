@@ -29,7 +29,7 @@ import Details from './Details';
  *
  * @extends {React.Component}
  */
-class RecipeDetails extends Component {
+export class RecipeDetails extends Component {
   /**
    * @description Constructor Function
    *
@@ -177,7 +177,11 @@ class RecipeDetails extends Component {
     })
       .then((willDelete) => {
         if (willDelete) {
-          this.props.deleteRecipe(this.props.recipe.id);
+          this.setState({ isLoading: true });
+          this.props.deleteRecipe(this.props.recipe.id)
+            .then(() => {
+              this.setState({ redirect: true, isLoading: false });
+            });
           swal('Poof! Your recipe has been deleted!', {
             icon: 'success',
           });
@@ -194,7 +198,7 @@ class RecipeDetails extends Component {
   render() {
     const { redirect } = this.state;
     if (redirect) {
-      return <Redirect to="/user" />;
+      return <Redirect to="/user/recipes" />;
     }
 
     const {
@@ -286,7 +290,7 @@ class RecipeDetails extends Component {
                 </ul>
                 }
                 {
-                  (this.props.pagination.page > 1) ?
+                  (this.props.pagination.pageSize > 3) ?
                     <button
                       className="creator-button
                     text-color
@@ -300,7 +304,7 @@ class RecipeDetails extends Component {
                     <div />
                 }
                 {
-                  (reviewsList.length !== 0) ?
+                  (reviewsList.length !== 0 && this.props.pagination.pageCount !== 1) ?
                     <button
                       className="creator-button
                       text-color

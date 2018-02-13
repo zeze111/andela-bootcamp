@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Sign up form should render component 1`] = `
+Object {
+  "wrapper": <div>
+    <form
+      className="col s10 m7 l6 push-s1 push-m2 push-l3"
+      onSubmit={[Function]}
+    >
+       
+      <br />
+      <span
+        className="red-text error-text"
+      />
+      <TextFieldGroup
+        active=""
+        error={Array []}
+        id="fname"
+        label="First Name"
+        name="firstName"
+        onChange={[Function]}
+        placeholder=""
+        req="*"
+        type="text"
+        value=""
+      />
+      <TextFieldGroup
+        active=""
+        error={Array []}
+        id="sname"
+        label="Surname"
+        name="surname"
+        onChange={[Function]}
+        placeholder=""
+        req="*"
+        type="text"
+        value=""
+      />
+      <TextFieldGroup
+        active=""
+        error={Array []}
+        id="email"
+        label="Email"
+        name="email"
+        onChange={[Function]}
+        placeholder=""
+        req="*"
+        type="email"
+        value=""
+      />
+      <TextFieldGroup
+        active=""
+        error={Array []}
+        id="pwd"
+        label="Password"
+        name="password"
+        onChange={[Function]}
+        placeholder=""
+        req="*"
+        type="password"
+        value=""
+      />
+      <TextFieldGroup
+        active=""
+        error={Array []}
+        id="cf-pwd"
+        label="Password Confirmation"
+        name="password_confirmation"
+        onChange={[Function]}
+        placeholder=""
+        req="*"
+        type="password"
+        value=""
+      />
+      <div
+        className="right-align"
+      >
+        <input
+          className="btn grey white-text"
+          disabled={false}
+          type="submit"
+          value="Register"
+        />
+      </div>
+       
+      <br />
+    </form>
+  </div>,
+}
+`;

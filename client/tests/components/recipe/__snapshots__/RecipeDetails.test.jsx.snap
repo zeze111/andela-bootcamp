@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Recipe Details should render component 1`] = `
+Object {
+  "wrapper": <div>
+    <main>
+      <Recipe
+        creator={Object {}}
+        downvotes={0}
+        icon="star_border"
+        onClickFave={[Function]}
+        onDownvote={[Function]}
+        onUpvote={[Function]}
+        recipe={
+          Object {
+            "User": Object {
+              "firstName": "Jane",
+              "id": 20,
+            },
+            "id": 1,
+            "name": "blah",
+          }
+        }
+        upvotes={0}
+      />
+      <Details
+        clickEvent={[Function]}
+        id={0}
+        ingredients={Array []}
+        instructions={Object {}}
+        isLoading={false}
+        recipe={
+          Object {
+            "User": Object {
+              "firstName": "Jane",
+              "id": 20,
+            },
+            "id": 1,
+            "name": "blah",
+          }
+        }
+      />
+      <br />
+      <div
+        className="row remove-margin-bottom"
+      >
+        <br />
+         
+        <br />
+        <ReviewForm
+          getReviews={
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  10,
+                  3,
+                  0,
+                ],
+                Array [
+                  10,
+                  3,
+                  0,
+                ],
+                Array [
+                  10,
+                  3,
+                  0,
+                ],
+                Array [
+                  1,
+                  6,
+                  0,
+                ],
+                Array [
+                  10,
+                  3,
+                  0,
+                ],
+                Array [
+                  1,
+                  0,
+                  0,
+                ],
+                Array [
+                  10,
+                  3,
+                  0,
+                ],
+                Array [
+                  10,
+                  3,
+                  0,
+                ],
+                Array [
+                  10,
+                  3,
+                  0,
+                ],
+                Array [
+                  10,
+                  3,
+                  0,
+                ],
+              ],
+            }
+          }
+          limit={3}
+          offset={0}
+          recipe={
+            Object {
+              "User": Object {
+                "firstName": "Jane",
+                "id": 20,
+              },
+              "id": 1,
+              "name": "blah",
+            }
+          }
+          reviewRecipe={[MockFunction]}
+        />
+        <div
+          className="row"
+        >
+          <div
+            className="col l6 m10 s12 review-section"
+          >
+            <div
+              className="col s12 bottom-style no-message"
+            >
+              No Reviews Posted Yet
+            </div>
+            <div />
+            <div />
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>,
+}
+`;

@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Slide should render component 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="row no-top one-top"
+  >
+    <Slider
+      fullscreen={false}
+      indicators={true}
+      interval={6000}
+    >
+      <Slide
+        className="responive-img"
+        placement="left"
+        src="test-file-stub"
+      >
+        <p
+          className="red-text slide-pad slide-text"
+        >
+           Sign Up For Free!
+        </p>
+      </Slide>
+      <Slide
+        className="responive-img"
+        placement="left"
+        src="test-file-stub"
+      >
+        <p
+          className="light grey-text text-lighten-3 slide-text"
+        >
+           Come indulge your taste buds
+        </p>
+      </Slide>
+      <Slide
+        className="responive-img"
+        placement="center"
+        src="test-file-stub"
+      >
+        <p
+          className="light grey-text text-lighten-3 slide-text"
+        >
+           Share your culinary talent
+        </p>
+      </Slide>
+      <Slide
+        className="responive-img"
+        placement="right"
+        src="test-file-stub"
+      >
+        <p
+          className="light grey-text text-lighten-5 slide-text"
+        >
+           Yummy treats for your meets
+        </p>
+      </Slide>
+    </Slider>
+  </div>
+</div>
+`;

@@ -80,7 +80,7 @@ export const LinkFieldGroup = ({
       tooltipped
       waves-effect
       waves-light
-      grey lighten-1"
+      grey"
       data-position="bottom"
       data-tooltip={dataTool}
     >
