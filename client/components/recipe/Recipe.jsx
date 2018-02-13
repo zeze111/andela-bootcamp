@@ -80,7 +80,7 @@ const Recipe = props => (
           {props.creator &&
             <p className="title-details top-style"> Posted by
               <span className="user grey-text darken-3">
-                {props.creator.firstName} {props.creator.surname}
+                { ` ${props.creator.firstName} ${props.creator.surname}`}
               </span>
             </p>
           }

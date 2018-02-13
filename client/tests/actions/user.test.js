@@ -75,6 +75,7 @@ describe('User actions', () => {
     }];
     const store = mockStore({});
     store.dispatch(signout());
+    window.location={ reload: () => {} }
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
@@ -169,26 +170,6 @@ describe('User actions', () => {
     ];
     const store = mockStore({});
     await store.dispatch(changePassword(updatePassword))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-    done();
-  });
-
-  it('catches an error for updating a user details', async (done) => {
-    const { userValidateError } = mockData;
-    moxios.stubRequest('/api/v1/user/', {
-      status: 422,
-      response: userValidateError
-    });
-
-    const data = {};
-    const expectedActions = [{
-      type: UPDATE_USER_FAILURE,
-      payload: userValidateError
-    }];
-    const store = mockStore({});
-    await store.dispatch(updateUser(data))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });

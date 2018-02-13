@@ -22,7 +22,7 @@ const Categories = (props) => {
       trigger={
         <div className="div-pointer">
           <h5 className="light top text-headers caps2">
-            {props.dropdown || all}
+            {props.dropdown}
             <i className="material-icons">arrow_drop_down</i>
           </h5>
         </div>
@@ -34,6 +34,7 @@ const Categories = (props) => {
         </li>
         <li>
           <button
+            id="all-button"
             className="dropdown-btn left-align white waves-effect waves-grey"
             onClick={() => props.onSelectAllRecipes(all)}
           >{all}
@@ -41,6 +42,7 @@ const Categories = (props) => {
         </li>
         <li>
           <button
+            id="app-button"
             className="dropdown-btn left-align white waves-effect waves-grey"
             onClick={() => props.onSelectCategory(appetizer)}
           >{appetizer}
@@ -48,6 +50,7 @@ const Categories = (props) => {
         </li>
         <li>
           <button
+            id="main-button"
             className="dropdown-btn left-align white waves-effect waves-grey"
             onClick={() => props.onSelectCategory(main)}
           >{main}
@@ -55,6 +58,7 @@ const Categories = (props) => {
         </li>
         <li>
           <button
+            id="dess-button"
             className="dropdown-btn left-align white waves-effect waves-grey"
             onClick={() => props.onSelectCategory(dessert)}
           >{dessert}
@@ -62,6 +66,7 @@ const Categories = (props) => {
         </li>
         <li>
           <button
+            id="drink-button"
             className="dropdown-btn left-align white waves-effect waves-grey"
             onClick={() => props.onSelectCategory(drinks)}
           >{drinks}

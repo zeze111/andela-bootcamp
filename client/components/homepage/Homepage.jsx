@@ -21,7 +21,7 @@ import '../../assets/style.scss';
  *
  * @extends {React.Component}
  */
-class Homepage extends Component {
+export class Homepage extends Component {
   /**
    * @description Constructor Function
    *
@@ -58,16 +58,6 @@ class Homepage extends Component {
       .then(() => {
         this.setState({ isLoading: false });
       });
-  }
-
-  /** jquery initialisation after component is mounted
-   *
-   * @memberof Home
-   *
-   * @return {void}
-   */
-  componentDidMount() {
-    $('.button-collapse').sideNav();
   }
 
   /** html component to render

@@ -57,7 +57,7 @@ class ReviewForm extends Component {
           comment: '',
         });
       });
-    this.refs.reviewForm.reset();
+    document.getElementById('reviewForm').reset();
   }
 
   /** html component to render
@@ -79,7 +79,7 @@ class ReviewForm extends Component {
           <form
             onSubmit={this.onSubmit}
             className="col l5 m7 s10 push-s1 push-m1 push-l1"
-            ref="reviewForm"
+            id="reviewForm"
           >
             <br />
             <div >

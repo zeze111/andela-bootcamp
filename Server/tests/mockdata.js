@@ -14,6 +14,7 @@ export const createUser2 = {
   password_confirmation: 'testpassword',
 };
 
+//invalid user
 export const createUser3 = {
   firstName: 'user',
   surname: 'user',

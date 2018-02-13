@@ -27,7 +27,7 @@ const Details = (props) => {
           label="First Name"
           value={props.firstName}
           onChange={props.onChange}
-          id="fname"
+          id="ufname"
           type="text"
           name="firstName"
           icon="account_circle"
@@ -36,7 +36,7 @@ const Details = (props) => {
           label="Surname:"
           value={props.surname}
           onChange={props.onChange}
-          id="sname"
+          id="usname"
           type="text"
           name="surname"
           icon="account_circle"
@@ -45,7 +45,7 @@ const Details = (props) => {
           label="Email:"
           value={props.email}
           onChange={props.onChange}
-          id="email"
+          id="useremail"
           type="email"
           name="email"
           icon="email"

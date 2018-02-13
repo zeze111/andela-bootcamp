@@ -56,12 +56,17 @@ class Reviews extends Component {
 
     return (
       <li className="collection-item avatar">
-        <img src={review.User.image || '/images/profilepic.png'} alt="" className="circle" />
+        <img
+          src={review.User.image || '/images/profilepic.png'}
+          alt=""
+          className="circle"
+        />
         <span className="review-title "> {review.title} </span>
         <p />
         <p id="r-cmt"> {review.comment} </p>
         <span className="user caps review-list">
-          Posted by {review.User.firstName}, {moment(new Date(`${review.createdAt}`)).fromNow()}
+          Posted by {review.User.firstName},
+          {moment(new Date(`${review.createdAt}`)).fromNow()}
         </span>
         {(review.userId === user.id) ? reviewUser : nonReviewUser}
       </li>

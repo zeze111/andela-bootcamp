@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Details should render component 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col s10 l9 m10 offset-s1 offset-l1 offset-m1"
+  >
+    <h5
+      className="center-align title text-headers"
+    >
+       Recipe 
+    </h5>
+    <div
+      className="center-align loader-style"
+    >
+      <PreLoader />
+    </div>
+  </div>
+</div>
+`;

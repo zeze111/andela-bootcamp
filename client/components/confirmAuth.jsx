@@ -15,7 +15,7 @@ import { signout } from '../actions/signinActions';
    *
    * @returns {React.Component} rendered component
    */
-export default function (ComposedComponent) {
+export default function confirmAuth(ComposedComponent) {
   /** High order component to protect routes
    *
    * @class Authorize
@@ -38,13 +38,14 @@ export default function (ComposedComponent) {
         jwt.verify(token, process.env.SECRET_KEY, (error) => {
           if (error) {
             $('.tooltipped').tooltip('remove');
-            this.context.router.history.push('/signup');
-            this.props.signout();
             swal({
               text: 'Your Session Expired, Please Sign In',
               icon: 'error',
               button: 'Got It!',
-              dangerMode: true,
+              dangerMode: true
+            }).then(() => {
+              this.props.signout();
+              this.context.router.history.push('/signup');
             });
           }
         });

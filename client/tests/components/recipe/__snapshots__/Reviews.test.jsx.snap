@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Reviews should render component 1`] = `
+Object {
+  "wrapper": <li
+    className="collection-item avatar"
+  >
+    <img
+      alt=""
+      className="circle"
+      src="/images/profilepic.png"
+    />
+    <span
+      className="review-title "
+    >
+       
+      blah
+       
+    </span>
+    <p />
+    <p
+      id="r-cmt"
+    >
+       
+       
+    </p>
+    <span
+      className="user caps review-list"
+    >
+      Posted by 
+      Jane
+      ,
+      Invalid date
+    </span>
+    <div
+      className="secondary-content div-pointer2"
+    >
+      <i
+        className="material-icons icon-color"
+        onClick={[Function]}
+        role="button"
+        tabIndex="0"
+      >
+        delete
+      </i>
+    </div>
+  </li>,
+}
+`;

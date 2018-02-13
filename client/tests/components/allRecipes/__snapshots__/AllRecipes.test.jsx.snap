@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for All Recipes should render component 1`] = `
+Object {
+  "wrapper": <main>
+    <div
+      className="container full-container"
+    >
+      <div
+        className="row paginate"
+      >
+        <div
+          className="col l5 m7 s10 push-l2"
+        >
+          <Categories
+            dropdown="All Recipes"
+            onSelectAllRecipes={[Function]}
+            onSelectCategory={[Function]}
+          />
+        </div>
+        <Search
+          onChange={[Function]}
+          search=""
+        />
+      </div>
+    </div>
+    <div
+      className="row remove-margin-bottom home-width text3"
+    >
+      <div
+        className="center-align loader-style min-preloader"
+      >
+        <PreLoader />
+      </div>
+      <ul
+        className="categories all-style flex-container-homepage"
+      >
+        <RecipeCard
+          key="1"
+          recipe={
+            Object {
+              "id": 1,
+              "name": "something",
+            }
+          }
+        />
+        <RecipeCard
+          key="2"
+          recipe={
+            Object {
+              "id": 2,
+              "name": "something",
+            }
+          }
+        />
+      </ul>
+      <div
+        className="row paginate"
+      >
+        <div
+          className="center-align"
+        >
+          <Pagination
+            activePage={1}
+            items={0}
+            onSelect={[Function]}
+          />
+        </div>
+      </div>
+    </div>
+  </main>,
+}
+`;

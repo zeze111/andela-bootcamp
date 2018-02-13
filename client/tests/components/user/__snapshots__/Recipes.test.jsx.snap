@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Recipes should render component 1`] = `
+Object {
+  "wrapper": <li
+    className="collection-item"
+  >
+    <Link
+      className="text-color break caps"
+      href="/recipe/1"
+      replace={false}
+      to="/recipe/1"
+    >
+       
+      blah
+    </Link>
+    <div
+      className="secondary-content div-pointer2"
+      data-place="bottom"
+      data-tip="delete"
+    >
+      <i
+        className="material-icons icon-color"
+        onClick={[Function]}
+        role="button"
+        tabIndex="0"
+      >
+        delete
+      </i>
+    </div>
+    <Link
+      className="secondary-content"
+      data-place="bottom"
+      data-tip="edit"
+      href="/update-recipe/1"
+      replace={false}
+      to="/update-recipe/1"
+    >
+      <i
+        className="material-icons icon-color"
+      >
+        mode_edit
+      </i>
+    </Link>
+    <ReactTooltip
+      insecure={true}
+      resizeHide={true}
+      wrapper="div"
+    />
+  </li>,
+}
+`;

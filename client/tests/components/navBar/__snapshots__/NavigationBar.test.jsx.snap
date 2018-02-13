@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Navigation Bar should render component 1`] = `
+Object {
+  "wrapper": <header>
+    <nav
+      className="nav-color"
+    >
+      <div
+        className="nav-wrapper "
+      >
+        <Link
+          className="left brand-logo logo-style"
+          href="/"
+          id="logo"
+          replace={false}
+          to="/"
+        >
+          MoreRecipes
+        </Link>
+        <Link
+          className="button-collapse left"
+          data-activates="nav-mobile"
+          href="#!"
+          replace={false}
+          to="#!"
+        >
+          <i
+            className="material-icons"
+          >
+            menu
+          </i>
+        </Link>
+        <div>
+          <ul
+            className="right hide-on-med-and-down nav-style"
+          >
+            <li>
+              <Link
+                href="/signup"
+                replace={false}
+                to="/signup"
+              >
+                Sign Up / In
+              </Link>
+            </li>
+          </ul>
+          <ul
+            className="side-nav"
+            id="nav-mobile"
+          >
+            <li
+              className="nav-list"
+            >
+              <i
+                className="material-icons"
+              >
+                 keyboard_tab 
+              </i>
+              <Link
+                className="white-text list-item2"
+                href="/signup"
+                replace={false}
+                to="/signup"
+              >
+                Sign Up / In
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>,
+}
+`;

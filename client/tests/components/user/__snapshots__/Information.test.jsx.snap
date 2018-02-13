@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Information should render component 1`] = `
+Object {
+  "wrapper": <div>
+    <div
+      className="row info-row"
+    >
+      <div
+        className="col s8 m6 l3 push-m1 push-l2"
+      >
+        <img
+          alt="Profile"
+          className="materialboxed responsive-img circle img-style"
+          src="/images/profilepic.png"
+          width="200px"
+        />
+      </div>
+      <div
+        className="col s4 m4 l4 push-l1 pull-m1 profile-text grey-text text-lighten-3"
+      >
+        <br />
+         
+        <br />
+         
+        <br />
+        <p
+          className="caps error-text"
+        >
+           
+        </p>
+        <p
+          className="error-text"
+          id="Bio"
+        >
+          Add a bio
+        </p>
+      </div>
+    </div>
+    <div
+      className="row info-row"
+    >
+      <div
+        className="col s8 m6 l4 push-l2 push-m1"
+      >
+        <div
+          className="file-field input-field"
+        >
+          <div
+            className="btn waves-effect waves-light grey"
+          >
+            <span>
+               Upload Photo
+              <i
+                className="material-icons left"
+              >
+                photo
+              </i>
+            </span>
+            <input
+              onChange={[MockFunction]}
+              type="file"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+}
+`;

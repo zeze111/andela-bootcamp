@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Recipe Card should render component 1`] = `
+<li>
+  <div
+    className="col s2 offset-1"
+  >
+    <div
+      className="card hoverable grey lighten-4 home-cards"
+    >
+      <div
+        className="card-image"
+      >
+        <img
+          alt="recipe"
+          className="responsive-img image-style"
+          src="/images/noimg.png"
+        />
+        <div
+          className="card-action"
+        >
+          <Link
+            className="home-text-style"
+            data-tip="something"
+            href="/recipe/0"
+            replace={false}
+            to="/recipe/0"
+          >
+             
+            something...
+            <ReactTooltip
+              insecure={true}
+              resizeHide={true}
+              wrapper="div"
+            />
+          </Link>
+           
+          <span
+            className="home-text2"
+          >
+            <i
+              className="material-icons home-icon2"
+            >
+              visibility
+            </i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
+`;

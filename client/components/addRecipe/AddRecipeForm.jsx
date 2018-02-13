@@ -40,16 +40,6 @@ class AddRecipeForm extends React.Component {
     };
   }
 
-  /** css initialisation for when a component is mounted
-   *
-   * @memberof Home
-   *
-   * @return {void}
-   */
-  componentDidMount() {
-    $(this.refs.selectType).material_select(this.onSelectChange.bind(this));
-  }
-
   /** sets state when form input is changed
    *
    * @param {object} event
@@ -220,6 +210,7 @@ class AddRecipeForm extends React.Component {
               <Row>
                 <Input
                   s={12}
+                  id="type"
                   type="select"
                   label="Recipe Type"
                   name="type"

@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Homepage should render component 1`] = `
+Object {
+  "wrapper": <div
+    id="homepageBody"
+  >
+    <main>
+      <Component />
+      <div
+        className="container full-container home-width"
+      >
+        <br />
+         
+        <br />
+        <h5
+          className="light black-text text-headers lighten-3"
+        >
+          TRENDING RECIPES
+        </h5>
+        <div
+          className="row"
+        >
+          <div
+            className="center-align loader-style min-preloader"
+          >
+            <PreLoader />
+          </div>
+        </div>
+      </div>
+      <div
+        className="container full-container home-width"
+      >
+        <br />
+         
+        <br />
+        <h5
+          className="light black-text text-headers lighten-3"
+        >
+          POPULAR RECIPES
+        </h5>
+        <div
+          className="row"
+        >
+          <div
+            className="center-align loader-style min-preloader"
+          >
+            <PreLoader />
+          </div>
+        </div>
+      </div>
+      <div
+        className="container full-container home-width"
+      >
+        <br />
+         
+        <br />
+        <Link
+          href="/all-recipes"
+          replace={false}
+          to="/all-recipes"
+        >
+          <h5
+            className="light text-color text-headers"
+          >
+             ALL RECIPES 
+          </h5>
+        </Link>
+        <div
+          className="row remove-margin-bottom"
+        >
+          <div
+            className="center-align loader-style min-preloader"
+          >
+            <PreLoader />
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>,
+}
+`;

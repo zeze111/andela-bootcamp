@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Search should render component 1`] = `
+<form
+  className="col s12 offset-s1 offset-m3 offset-l5 paginate"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="input-field col l6 m9 s12"
+    >
+      <i
+        className="material-icons search-icon"
+      >
+        search
+      </i>
+      <input
+        className="search-input"
+        id="search"
+        onChange={[MockFunction]}
+        placeholder="Search for recipes"
+        type="text"
+        value="some"
+      />
+    </div>
+  </div>
+</form>
+`;

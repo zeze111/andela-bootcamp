@@ -38,9 +38,7 @@ const updateRecipeRules = {
 
 const updateUserRules = {
   firstName: 'alpha|between:2,35',
-  surname: 'alpha|between:2,50',
-  email: 'email',
-  password: 'min:6|alpha_num'
+  surname: 'alpha|between:2,50'
 };
 
 export default {

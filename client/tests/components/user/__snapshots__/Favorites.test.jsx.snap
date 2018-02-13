@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Favorites should render component 1`] = `
+Object {
+  "wrapper": <div>
+    <li
+      className="collection-item list"
+    >
+      <Link
+        className="caps text-color break"
+        href="/recipe/1"
+        replace={false}
+        to="/recipe/1"
+      >
+        blah
+        <span
+          className="black-text text-space"
+        >
+          posted by 
+          Jane
+           
+        </span>
+      </Link>
+      <div
+        className="secondary-content div-pointer2 "
+      >
+        <i
+          className="material-icons icon-color"
+          onClick={[Function]}
+          role="button"
+          tabIndex="0"
+        >
+           delete
+        </i>
+      </div>
+    </li>
+  </div>,
+}
+`;

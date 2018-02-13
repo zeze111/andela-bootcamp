@@ -12,7 +12,7 @@ import { signout } from '../../actions/signinActions';
  *
  * @extends {Component}
  */
-class NavigationBar extends Component {
+export class NavigationBar extends Component {
   /**
    * @description Constructor Function
    *
@@ -65,8 +65,7 @@ class NavigationBar extends Component {
    *
    * @return {void}
    */
-  signout = (event) => {
-    event.preventDefault();
+  signout = () => {
     this.props.signout();
     $('.tooltipped').tooltip('remove');
     this.context.router.history.push('/');

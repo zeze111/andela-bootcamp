@@ -22,7 +22,7 @@ import Search from './Search';
  *
  * @extends {React.Component}
  */
-class AllRecipes extends Component {
+export class AllRecipes extends Component {
   /**
    * @description Constructor Function
    *
@@ -177,7 +177,7 @@ class AllRecipes extends Component {
       <main >
         <div className="container full-container">
           <div className="row paginate">
-            <div className="col l5 m7 s10">
+            <div className="col l5 m7 s10 push-l2">
               <Categories
                 dropdown={this.state.dropdown}
                 onSelectAllRecipes={this.onSelectAllRecipes}

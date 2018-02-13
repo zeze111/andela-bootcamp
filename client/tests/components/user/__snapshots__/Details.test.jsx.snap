@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Details should render component 1`] = `
+<div
+  className="col s12 m8 l7 push-l1 push-m1 form-style"
+  id="detail"
+>
+  <form
+    className="col s10 push-s1"
+    onSubmit={[MockFunction]}
+  >
+    <TextFieldGroup3
+      error={Array []}
+      icon="account_circle"
+      id="ufname"
+      isDisabled={false}
+      label="First Name"
+      name="firstName"
+      onChange={[MockFunction]}
+      type="text"
+      value=""
+    />
+    <TextFieldGroup3
+      error={Array []}
+      icon="account_circle"
+      id="usname"
+      isDisabled={false}
+      label="Surname:"
+      name="surname"
+      onChange={[MockFunction]}
+      type="text"
+      value=""
+    />
+    <TextFieldGroup3
+      error={Array []}
+      icon="email"
+      id="useremail"
+      isDisabled={true}
+      label="Email:"
+      name="email"
+      onChange={[MockFunction]}
+      type="email"
+      value=""
+    />
+    <TextFieldGroup3
+      error={Array []}
+      icon="mode_edit"
+      id="bio"
+      isDisabled={false}
+      label="Bio:"
+      name="bio"
+      onChange={[MockFunction]}
+      type="text"
+      value=""
+    />
+    <div
+      className="right-align"
+    >
+      <button
+        className="btn grey"
+        disabled={false}
+        type="submit"
+      >
+         Update
+      </button>
+    </div>
+  </form>
+</div>
+`;

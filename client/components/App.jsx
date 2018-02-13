@@ -10,7 +10,7 @@ import UpdateRecipePage from './updateRecipe/UpdateRecipePage';
 import RecipeDetails from './recipe/RecipeDetails';
 import Profile from './user/Profile';
 import AllRecipes from './allRecipes/AllRecipes';
-import ConfirmAuth from './confirmAuth';
+import confirmAuth from './confirmAuth';
 import PageNotFound from './PageNotFound';
 
 /**
@@ -34,19 +34,19 @@ const App = () => (
         />
         <Route
           path="/add-recipe"
-          component={ConfirmAuth(AddRecipePage)}
+          component={confirmAuth(AddRecipePage)}
         />
         <Route
           path="/user/:tab"
-          component={ConfirmAuth(Profile)}
+          component={confirmAuth(Profile)}
         />
         <Route
           path="/update-recipe/:recipeId"
-          component={ConfirmAuth(UpdateRecipePage)}
+          component={confirmAuth(UpdateRecipePage)}
         />
         <Route
           path="/user-recipes/:recipeId"
-          component={ConfirmAuth(RecipeDetails)}
+          component={confirmAuth(RecipeDetails)}
         />
         <Route
           path="/recipe/:recipeId"

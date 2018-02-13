@@ -5,8 +5,11 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { configure, shallow, render, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
+import swal from 'sweetalert';
+import sinon from 'sinon';
+import jwt from 'jsonwebtoken';
 
-import { LocalStorage } from '../mocks/localStorage';
+import { mockLocalStorage } from '../mocks/localStorage';
 
 // This file is written in ES5 since it's not transpiled by Babel.
 // This file does the following:
@@ -24,6 +27,7 @@ configure({ adapter: new Adapter() });
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
+const reader = new FileReader();
 
 require.extensions['.css'] = () => null;
 require.extensions['.png'] = () => null;
@@ -31,16 +35,24 @@ require.extensions['.jpg'] = () => null;
 
 global.expect = expect;
 global.moxios = moxios;
+global.reader = reader;
 global.mount = mount;
+global.sinon = sinon;
+global.jwt = jwt;
 global.shallow = shallow;
 global.Materialize = window;
 global.Materialize = { toast: () => {} };
 global.mockStore = mockStore;
 global.$ = $;
 global.jQuery = $;
+global.swal = swal;
 global.navigator = {
   userAgent: 'node.js'
 };
+global.document = document;
+$.prototype.sideNav = () => {};
+$.prototype.tooltip = () => {};
+$.prototype.materialbox = () => {};
 
 var documentRef = document;
 
@@ -64,9 +76,7 @@ var documentRef = document;
 
 // global.localStorage = new LocalStorage();
 // global.decode = decode;
-// global.document = document;
 // global.window = document.defaultView;
-// $.prototype.sideNav = () => {};
 // $.prototype.modal = () => {};
 // $.prototype.dropdown = () => {};
 

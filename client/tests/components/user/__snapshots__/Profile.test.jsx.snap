@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Profile should render component 1`] = `
+Object {
+  "wrapper": <div
+    id="profile-body"
+  >
+    <main>
+      <div
+        className="container full-container two-down"
+      >
+        <br />
+         
+        <br />
+        <Information
+          image=""
+          isLoading={true}
+          isPicLoading={false}
+          profile={
+            Object {
+              "email": "",
+              "firstName": "",
+              "surname": "",
+            }
+          }
+          uploadImage={[Function]}
+        />
+      </div>
+      <div
+        className="container z-depth-1 white "
+      >
+        <div
+          className="row two-down"
+        >
+          <div
+            className="col s12 m12 l12"
+          />
+           
+          <br />
+           
+          <br />
+        </div>
+      </div>
+    </main>
+  </div>,
+}
+`;

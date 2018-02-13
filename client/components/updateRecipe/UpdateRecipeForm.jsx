@@ -15,7 +15,7 @@ import { TextFieldGroup, TextFieldGroup2 } from '../common/TextFieldGroup';
  *
  * @extends {React.Component}
  */
-class UpdateRecipeForm extends React.Component {
+export class UpdateRecipeForm extends React.Component {
   /**
    * @description Constructor Function
    *
@@ -40,16 +40,6 @@ class UpdateRecipeForm extends React.Component {
       errors: {},
       isLoading: false
     };
-  }
-
-  /** function to call when component has mounted
-   *
-   * @memberof Home
-   *
-   * @return {void}
-   */
-  componentDidMount() {
-    $(this.refs.selectType).material_select(this.onSelectChange.bind(this));
   }
 
   /** props to receive when component is mounted
@@ -222,7 +212,7 @@ class UpdateRecipeForm extends React.Component {
                 label="Recipe Name"
                 value={this.state.name}
                 onChange={this.onChange}
-                id="name"
+                id="uname"
                 type="text"
                 name="name"
                 active="active"
@@ -232,7 +222,7 @@ class UpdateRecipeForm extends React.Component {
                 label="Preparation Time"
                 value={this.state.preparationTime}
                 onChange={this.onChange}
-                id="time"
+                id="utime"
                 type="text"
                 placeholder="e.g. 1 hour / 2hrs 30mins"
                 name="preparationTime"
@@ -243,7 +233,7 @@ class UpdateRecipeForm extends React.Component {
                 label="Description"
                 value={this.state.description}
                 onChange={this.onChange}
-                id="desc"
+                id="udesc"
                 type="text"
                 name="description"
                 active="active"
@@ -252,6 +242,7 @@ class UpdateRecipeForm extends React.Component {
               <Row>
                 <Input
                   s={12}
+                  id="utype"
                   type="select"
                   label="Recipe Type"
                   name="type"
@@ -273,7 +264,7 @@ class UpdateRecipeForm extends React.Component {
                 label="Ingredients"
                 value={this.state.ingredients}
                 onChange={this.onChange}
-                id="ingred"
+                id="uingred"
                 name="ingredients"
                 error={errors.ingredients}
               />
@@ -281,7 +272,7 @@ class UpdateRecipeForm extends React.Component {
                 label="Instructions"
                 value={this.state.instructions}
                 onChange={this.onChange}
-                id="instruct"
+                id="uinstruct"
                 placeholder="e.g. Preheat oven at 120 celcius. boil egg."
                 name="instructions"
                 error={errors.instructions}
