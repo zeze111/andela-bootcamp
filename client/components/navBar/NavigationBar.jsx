@@ -85,6 +85,7 @@ export class NavigationBar extends Component {
         <ul className="right hide-on-med-and-down nav-style">
           <li>
             <Link
+              id="auth"
               to="/signup"
               href="/signup"
             >Sign Up / In

@@ -101,7 +101,11 @@ class SignupForm extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="col s10 m7 l6 push-s1 push-m2 push-l3"> <br />
+        <form
+          id="signupForm"
+          onSubmit={this.onSubmit}
+          className="col s10 m7 l6 push-s1 push-m2 push-l3"
+        > <br />
           {errors &&
             <span className="red-text error-text">
               {errors.message}

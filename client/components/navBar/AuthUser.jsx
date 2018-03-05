@@ -16,18 +16,21 @@ const AuthUser = props => (
   <div>
     <ul className="right hide-on-med-and-down nav-style">
       <LinkFieldGroup
+        id="add"
         to="/add-recipe"
         href="/add-recipe"
         dataTool="Add A Recipe"
         icon="add"
       />
       <LinkFieldGroup
+        id="favorite"
         to="/user/favorites"
         href="/user/favorites"
         dataTool="Favorites"
         icon="star_border"
       />
       <LinkFieldGroup
+        id="recipes"
         to="/user/recipes"
         href="/user/recipes"
         dataTool="My Recipes"
@@ -43,11 +46,13 @@ const AuthUser = props => (
           <NavItem
             to="/user/profile"
             href="/user/profile"
+            id="profile"
           >
             <div className="text-color"> Profile
             </div>
           </NavItem>
           <NavItem
+            id="signOut"
             to="/"
             href="/"
             onClick={props.signout}

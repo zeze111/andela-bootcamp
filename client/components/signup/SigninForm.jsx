@@ -78,7 +78,11 @@ class SigninForm extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="col s10 m7 l6 push-s1 push-m2 push-l3"> <br />
+        <form
+          id="signinForm"
+          onSubmit={this.onSubmit}
+          className="col s10 m7 l6 push-s1 push-m2 push-l3"
+        > <br />
           <TextFieldGroup
             label="Email"
             value={this.state.email}
@@ -110,7 +114,7 @@ class SigninForm extends React.Component {
             />
           </div> <br />
           {errors &&
-          <span className="red-text error-text">
+          <span id="inerrors" className="red-text error-text">
             {errors.message}
           </span>}
         </form>

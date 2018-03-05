@@ -19,7 +19,7 @@ export const TextFieldGroup = ({
       name={name}
     />
     {error &&
-    <span className="help-block red-text error-text-field">{error}
+    <span id="errors" className="help-block red-text error-text-field errorss">{error}
     </span>}
   </div>
 );
@@ -69,11 +69,12 @@ export const TextFieldGroup3 = ({
 );
 
 export const LinkFieldGroup = ({
-  to, href, dataTool, icon
+  to, href, dataTool, icon, id
 }) => (
   <li>
     <Link
       to={to}
+      id={id}
       href={href}
       className="btn-floating
       btn-medium
@@ -90,12 +91,13 @@ export const LinkFieldGroup = ({
 );
 
 export const LinkFieldGroup2 = ({
-  to, href, item, icon, onClick
+  to, href, item, icon, onClick, id
 }) => (
   <li className="nav-list">
     <i className="material-icons">{icon}</i>
     <Link
       to={to}
+      id={id}
       href={href}
       className="white-text list-item caps"
       onClick={onClick}
@@ -142,6 +144,7 @@ TextFieldGroup3.propTypes = {
 
 LinkFieldGroup.propTypes = {
   to: PropTypes.string.isRequired,
+  id: PropTypes.string,
   href: PropTypes.string.isRequired,
   dataTool: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
@@ -149,6 +152,7 @@ LinkFieldGroup.propTypes = {
 
 LinkFieldGroup2.propTypes = {
   to: PropTypes.string.isRequired,
+  id: PropTypes.string,
   href: PropTypes.string.isRequired,
   item: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
@@ -171,4 +175,13 @@ TextFieldGroup2.defaultProps = {
 TextFieldGroup3.defaultProps = {
   error: [],
   isDisabled: false
+};
+
+LinkFieldGroup.defaultProps = {
+  id: ''
+};
+
+LinkFieldGroup2.defaultProps = {
+  id: '',
+  onClick: () => {}
 };

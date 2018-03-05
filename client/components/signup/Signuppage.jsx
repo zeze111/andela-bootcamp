@@ -30,12 +30,12 @@ const SignupPage = props => (
             <div className="row">
               <div className="col s12">
                 <Tabs className="tab-demo z-depth-1">
-                  <Tab className="col s6" title="Register User" active>
+                  <Tab id="register" className="col s6" title="Register User" active>
                     <SignupForm
                       signUp={props.signUp}
                     />
                   </Tab>
-                  <Tab className="col s6" title="Sign In">
+                  <Tab id="login" className="col s6 click" title="Sign In">
                     <SigninForm signIn={props.signIn} />
                   </Tab>
                 </Tabs>
