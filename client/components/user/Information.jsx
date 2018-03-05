@@ -14,7 +14,7 @@ import PreLoader from '../common/PreLoader';
 const Information = props => (
   <div>
     <div className="row info-row">
-      <div className="col s8 m6 l3 push-m1 push-l2">
+      <div className="col s8 m6 l3 push-m1 push-l1">
         {props.isLoading &&
         <div className="profile-load">
           <PreLoader />
@@ -49,7 +49,7 @@ const Information = props => (
       </div>
     </div>
     <div className="row info-row">
-      <div className="col s8 m6 l4 push-l2 push-m1">
+      <div className="col s8 m6 l4 push-l1 push-m1">
         <div className="file-field input-field">
           <div className="btn waves-effect waves-light grey">
             <span> Upload Photo

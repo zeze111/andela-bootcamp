@@ -25,7 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({}));
 app.use(express.static(path.join(__dirname, '../client/assets')));
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' ||
+  process.env.NODE_ENV === 'test') {
   app.use(webpackMiddleware(compiler, {
     hot: true,
     publicPath: webpackConfig.output.publicPath,

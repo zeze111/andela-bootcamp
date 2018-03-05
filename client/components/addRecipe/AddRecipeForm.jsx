@@ -147,7 +147,7 @@ class AddRecipeForm extends React.Component {
     return (
       <div className="row">
         <div className="card-content col s10 m8 l6 push-s1 push-m2 push-l3">
-          <form onSubmit={this.onSubmit}>
+          <form id="add-form" onSubmit={this.onSubmit}>
             <div className="row add-padding">
               <div className="file-field input-field col s12 right-align get-pic-btn" >
                 <div className="image-placeholder">
@@ -219,7 +219,7 @@ class AddRecipeForm extends React.Component {
                 >
                   <option value="0" disabled> Choose your option </option>
                   <option value="Appetizer">Appetizer</option>
-                  <option value="Main" >Main</option>
+                  <option id="main" value="Main" >Main</option>
                   <option value="Dessert" >Dessert</option>
                   <option value="Drinks" >Drinks</option>
                 </Input>

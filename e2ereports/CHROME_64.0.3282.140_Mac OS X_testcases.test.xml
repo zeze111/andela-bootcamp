@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="1"
+            tests="1">
+
+  <testsuite name="testcases.test"
+    errors="1" failures="1" hostname="" id="" package="testcases.test" skipped="0"
+    tests="1" time="13.76" timestamp="Tue, 13 Feb 2018 20:37:57 GMT">
+  
+    <testcase name="Display homepage and ensure all element are available" classname="testcases.test" time="13.76" assertions="2">
+
+      <failure message="Testing if element &lt;#signIn&gt; contains text: &#34;Sign In&#34;. Element could not be located.">    at Object.Display homepage and ensure all element are available (/Users/andeladeveloper/Desktop/more-recipes/tests/testcases.test.js:7:15)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)</failure>
+
+    
+    </testcase>
+  
+
+  
+    <system-err>
+      ERROR: Unable to locate element: &#34;#signIn&#34; using: css selector
+    at F.command (/usr/local/lib/node_modules/nightwatch/lib/api/assertions/containsText.js:46:21)
+    at F.module.exports.BaseAssertion._scheduleAssertion (/usr/local/lib/node_modules/nightwatch/lib/core/assertion.js:87:17)
+    at F.module.exports.BaseAssertion._executeCommand (/usr/local/lib/node_modules/nightwatch/lib/core/assertion.js:82:17)
+    at AssertionInstance.commandFn [as _commandFn] (/usr/local/lib/node_modules/nightwatch/lib/core/assertion.js:180:21)
+    at AsyncTree.runCommand (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:154:30)
+    at AsyncTree.runChildNode (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:114:8)
+    at AsyncTree.walkDown (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:80:10)
+    at AsyncTree.walkUp (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:97:8)
+    at AsyncTree.walkDown (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:90:12)
+    at AsyncTree.traverse (/usr/local/lib/node_modules/nightwatch/lib/core/queue.js:73:8)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

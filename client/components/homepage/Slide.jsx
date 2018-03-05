@@ -13,7 +13,7 @@ import slide4 from '../../assets/images/des.jpg';
  */
 export default () => (
   <div className="container">
-    <div className="row no-top one-top">
+    <div id="slide" className="row no-top one-top">
       <Slider>
         <Slide
           src={slide1}

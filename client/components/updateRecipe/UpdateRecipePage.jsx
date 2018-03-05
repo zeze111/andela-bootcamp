@@ -34,7 +34,7 @@ export class UpdateRecipePage extends Component {
         <main id="wrapper">
           <div className="container full-container">
             <div className="row remove-margin-bottom card-width">
-              <div className="col s12 m10 l8 push-l2 push-m1 form-padding">
+              <div className="col s12 m10 l10 push-l1 push-m1 form-padding">
                 <div className="card z-depth-2" >
                   <span
                     className="card-title
