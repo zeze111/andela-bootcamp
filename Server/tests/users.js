@@ -16,8 +16,8 @@ chai.use(chaiHttp);
 
 describe('Users', () => {
   describe('Create User', () => {
-    it('it should sign up user successfuly', async (done) => {
-      await chai.request(app)
+    it('it should sign up user successfuly', (done) => {
+      chai.request(app)
         .post('/api/v1/users/signup')
         .send(createUser1)
         .end((err, res) => {
@@ -94,10 +94,10 @@ describe('Users', () => {
   });
 
   describe('Get user details', () => {
-    it('it should return all details', async (done) => {
-      await chai.request(app)
-        .get(`/api/v1/user/${userId2}`)
-        .set('x-token', token)
+    it('it should return all details', (done) => {
+      chai.request(app)
+        .get(`/api/v1/users/${userId2}`)
+        .set('x-token', token2)
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(200);
