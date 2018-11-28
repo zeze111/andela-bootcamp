@@ -78,7 +78,8 @@ class AddRecipeForm extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    const recipe = pick(this.state, ['name', 'preparationTime', 'description', 'type',
+    const recipe = pick(this.state, ['name',
+      'preparationTime', 'description', 'type',
       'ingredients', 'instructions', 'imageFile']);
 
     if (this.isValid()) {
