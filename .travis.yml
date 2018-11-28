@@ -15,7 +15,10 @@ before_script:
   - npm install -g codecov
   - npm install
   - psql -c 'create database recipestest;' -U postgres
-  - sequelize db:migrate
+
+script:
+  - npm run pretest
+  - npm test
 
 env:
   global:
