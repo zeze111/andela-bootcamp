@@ -10,6 +10,6 @@ const props = {
 describe('Test for Add Recipe Page', () => {
   it('should render component', () => {
     const wrapper = shallow(<AddRecipePage {...props} store={store}/> );
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper).toMatchSnapshot();
   });
 });

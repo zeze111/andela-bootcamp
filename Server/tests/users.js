@@ -22,6 +22,7 @@ describe('Users', () => {
         .send(createUser1)
         .end((err, res) => {
           should.not.exist(err);
+          // eslint-disable-next-line prefer-destructuring
           token = res.body.token;
           userId = res.body.user.id;
           res.status.should.equal(201);
@@ -95,8 +96,8 @@ describe('Users', () => {
   describe('Get user details', () => {
     it('it should return all details', (done) => {
       chai.request(app)
-        .get(`/api/v1/user/${userId2}`)
-        .set('x-token', token)
+        .get(`/api/v1/users/${userId2}`)
+        .set('x-token', token2)
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(200);

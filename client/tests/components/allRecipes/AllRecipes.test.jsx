@@ -1,6 +1,6 @@
 import React from 'react';
 
-import connectedAllRecipes, {AllRecipes} from '../../../components/allRecipes/AllRecipes';
+import connectedAllRecipes, { AllRecipes } from '../../../components/allRecipes/AllRecipes';
 import store from '../../../store';
 
 const props = {
@@ -21,8 +21,8 @@ const props = {
 
 const setup = () => {
   const wrapper = shallow(<AllRecipes {...props} store={store} />);
-  return { wrapper }
-}
+  return { wrapper };
+};
 
 describe('component will mount', () => {
   it('should call get recipes function', () => {
@@ -110,12 +110,12 @@ describe('onChange', () => {
 describe('Connect All Recipes component', () => {
   it('should render component successfully', () => {
     const store = mockStore({
-        recipeReducer: {
-          recipes: [],
-          message: '',
-          pagination: {}
-        }
-    })
+      recipeReducer: {
+        recipes: [],
+        message: '',
+        pagination: {}
+      }
+    });
 
     const wrapper = shallow(<AllRecipes {...props} store={store} />);
     expect(wrapper.length).toBe(1);
@@ -125,6 +125,6 @@ describe('Connect All Recipes component', () => {
 describe('Test for All Recipes', () => {
   it('should render component', () => {
     const wrapper = setup();
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper).toMatchSnapshot();
   });
 });

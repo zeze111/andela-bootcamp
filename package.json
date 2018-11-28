@@ -10,7 +10,7 @@
     "migrate": "NODE_ENV=test sequelize db:migrate",
     "unmigrate": "NODE_ENV=test sequelize db:migrate:undo:all",
     "pretest": "NODE_ENV=test npm run unmigrate && npm run migrate",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha ./Server/tests --compilers js:babel-register",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 15000 ./Server/tests --compilers js:babel-register",
     "test:client": "jest /client/* && codecov",
     "start": "node ./dist/index.js",
     "start:test": "NODE_ENV=test nodemon --exec babel-node -- ./Server/index.js",
