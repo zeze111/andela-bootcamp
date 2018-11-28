@@ -16,12 +16,13 @@ chai.use(chaiHttp);
 
 describe('Users', () => {
   describe('Create User', () => {
-    it('it should sign up user successfuly', (done) => {
-      chai.request(app)
+    it('it should sign up user successfuly', async (done) => {
+      await chai.request(app)
         .post('/api/v1/users/signup')
         .send(createUser1)
         .end((err, res) => {
           should.not.exist(err);
+          // eslint-disable-next-line prefer-destructuring
           token = res.body.token;
           userId = res.body.user.id;
           res.status.should.equal(201);
@@ -93,8 +94,8 @@ describe('Users', () => {
   });
 
   describe('Get user details', () => {
-    it('it should return all details', (done) => {
-      chai.request(app)
+    it('it should return all details', async (done) => {
+      await chai.request(app)
         .get(`/api/v1/user/${userId2}`)
         .set('x-token', token)
         .end((err, res) => {
